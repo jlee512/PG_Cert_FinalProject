@@ -11,7 +11,8 @@ CREATE TABLE registered_users (
   nickname VARCHAR(40),
   hash BLOB NOT NULL,
   salt BLOB NOT NULL,
-  iterations INT NOT NULL
+  iterations INT NOT NULL,
+  email VARCHAR(200)
 );
 
 CREATE TABLE uploaded_articles (
