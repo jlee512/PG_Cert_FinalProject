@@ -17,9 +17,31 @@ CREATE TABLE registered_users (
 CREATE TABLE uploaded_articles (
   article_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   author_id INT NOT NULL,
-  date DATE,
+  date DATE NOT NULL,
   article_title TEXT,
-  article_body TEXT
+  article_body TEXT,
+  FOREIGN KEY (author_id) REFERENCES registered_users(user_id)
+);
+
+CREATE TABLE posted_comments (
+  comment_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  article_id INT NOT NULL,
+  author_id INT NOT NULL,
+  parent_comment_id INT,
+  date DATE NOT NULL,
+  comment_title TEXT NOT NULL,
+  comment_body TEXT NOT NULL,
+  FOREIGN KEY (article_id) REFERENCES uploaded_articles(article_id),
+  FOREIGN KEY (author_id) REFERENCES registered_users(user_id),
+  FOREIGN KEY (parent_comment_id) REFERENCES posted_comments(comment_id)
+);
+
+CREATE TABLE posted_multimedia (
+  multimedia_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  article_id INT NOT NULL,
+  file_type VARCHAR(5),
+  file_path VARCHAR(200),
+  multimedia_title TEXT
 );
 
 
