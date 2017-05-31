@@ -15,11 +15,7 @@ public class User implements Serializable {
     private int iterations;
     private String email;
 
-    public User() {
-
-    }
-
-    public User(String username, String nickname, byte[] pwHash, byte[] salt, int iterations, String email){
+    public User(String username, String nickname, byte[] pwHash, byte[] salt, int iterations, String email) {
         this.username = username;
         this.nickname = nickname;
         this.hash = pwHash;
@@ -84,7 +80,9 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public void setUserParameters(int user_id, String username, String nickname, byte[] hash, byte[] salt, int iterations, String email){
+
+
+    public void setUserParameters(int user_id, String username, String nickname, byte[] hash, byte[] salt, int iterations, String email) {
         this.user_id = user_id;
         this.username = username;
         this.nickname = nickname;
