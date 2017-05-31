@@ -14,5 +14,13 @@ CREATE TABLE registered_users (
   iterations INT NOT NULL
 );
 
+CREATE TABLE uploaded_articles (
+  article_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  author_id INT NOT NULL,
+  date DATE,
+  article_title TEXT,
+  article_body TEXT
+);
+
 
 
