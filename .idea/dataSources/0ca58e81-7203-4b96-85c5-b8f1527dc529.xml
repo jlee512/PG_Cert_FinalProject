@@ -2,11 +2,12 @@
 <dataSource name="uoawhileecoyote@mysql1.sporadic.co.nz">
   <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
     <root id="1"/>
-    <schema id="2" parent="1" name="information_schema"/>
-    <schema id="3" parent="1" name="sample_db"/>
-    <schema id="4" parent="1" name="uoawhileecoyote">
+    <schema id="2" parent="1" name="uoawhileecoyote">
       <Current>1</Current>
+      <Visible>1</Visible>
     </schema>
-    <schema id="5" parent="1" name="jlee512"/>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="jlee512"/>
+    <schema id="5" parent="1" name="sample_db"/>
   </database-model>
 </dataSource>
