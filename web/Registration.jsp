@@ -20,90 +20,95 @@
 
     <title>Welcome! Register an Account</title>
 
-    <style type="text/css">
 
-        #fieldset {
-            border: none;
-        }
+    <%--Font awesome--%>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    </style>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest html skins from mdbootstrap.com-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
+
 
 </head>
 
 
 <body>
-<h1>sign up</h1>
 
-<form action="/RegistrationAttempt" method="POST">
+<div class="container">
+    <form action="/RegistrationAttempt" method="POST">
+        <h1>sign up</h1>
+        <fieldset id="fieldset">
 
-    <fieldset id="fieldset">
+            <%--Username input--%>
+            <label for="username">username</label>
+            <br>
+            <input type="text" id="username" name="username" placeholder="username" onchange="checkForSpaces(this)"/>
 
-        <%--Username input--%>
-        <label for="username">username</label>
-        <br>
-        <input type="text" id="username" name="username" placeholder="username" onchange="checkForSpaces(this)"/>
+            <br><br>
 
-        <br><br>
+            <%--Nickname input--%>
+            <label for="nickname">username</label>
+            <br>
+            <input type="text" id="nickname" name="nickname" placeholder="nickname" onchange="checkForSpaces(this)"/>
 
-        <%--Nickname input--%>
-        <label for="nickname">username</label>
-        <br>
-        <input type="text" id="nickname" name="nickname" placeholder="nickname" onchange="checkForSpaces(this)"/>
+            <br><br>
 
-        <br><br>
+            <%--Email input--%>
+            <label for="email">username</label>
+            <br>
+            <input type="email" id="email" name="email" placeholder="email" onchange="checkForSpaces(this)"/>
 
-        <%--Email input--%>
-        <label for="email">username</label>
-        <br>
-        <input type="email" id="email" name="email" placeholder="email" onchange="checkForSpaces(this)"/>
+            <br><br>
 
-        <br><br>
+            <%--Password input--%>
+            <label for="password">password</label>
+            <br>
+            <input type="password" id="password" name="password" placeholder="password" onchange="checkForSpaces(this)"
+                   required/>
 
-        <%--Password input--%>
-        <label for="password">password</label>
-        <br>
-        <input type="password" id="password" name="password" placeholder="password" onchange="checkForSpaces(this)"
-               required/>
+            <br>
+            <br>
+            <%--PASSWORD VERIFICATION--%>
+            <input type="password" id="passwordVerify" name="passwordVerify" placeholder="verify your password"
+                   onchange="checkForSpaces(this)" required/>
 
-        <br>
-        <br>
-        <%--PASSWORD VERIFICATION--%>
-        <input type="password" id="passwordVerify" name="passwordVerify" placeholder="verify your password"
-               onchange="checkForSpaces(this)" required/>
+            <br>
+            <br>
 
-        <br>
-        <br>
+            <%--Sign Up button and link to RegistrationAttempt Servlet--%>
+            <input type="submit" id="submit" value="sign up">
+            <a href="/Login">or log in here</a>
 
-        <%--Sign Up button and link to RegistrationAttempt Servlet--%>
-        <input type="submit" id="submit" value="sign up">
-        <a href="/Login">or log in here</a>
-
-        <%--Selection of additional user feedback for different registration errors--%>
-        <c:choose>
-            <c:when test="${param.registrationStatus == 'passwordMismatch'}">
-                <br>
-                <p style="color: red">your passwords do not match, please try again</p>
-            </c:when>
-            <c:when test="${param.registrationStatus == 'exists'}">
-                <br>
-                <p style="color: red">the username: ${param.username} already exists, please try again</p>
-            </c:when>
-            <c:when test="${param.registrationStatus == 'invalid'}">
-                <br>
-                <p style="color: red">your chosen username or password is invalid, please try a different
-                    combination</p>
-            </c:when>
-            <c:when test="${param.registrationStatus == 'dbConn'}">
-                <br>
-                <p style="color: red">the system could not connect to the database right now, please try again soon</p>
-            </c:when>
-        </c:choose>
+            <%--Selection of additional user feedback for different registration errors--%>
+            <c:choose>
+                <c:when test="${param.registrationStatus == 'passwordMismatch'}">
+                    <br>
+                    <p style="color: red">your passwords do not match, please try again</p>
+                </c:when>
+                <c:when test="${param.registrationStatus == 'exists'}">
+                    <br>
+                    <p style="color: red">the username: ${param.username} already exists, please try again</p>
+                </c:when>
+                <c:when test="${param.registrationStatus == 'invalid'}">
+                    <br>
+                    <p style="color: red">your chosen username or password is invalid, please try a different
+                        combination</p>
+                </c:when>
+                <c:when test="${param.registrationStatus == 'dbConn'}">
+                    <br>
+                    <p style="color: red">the system could not connect to the database right now, please try again
+                        soon</p>
+                </c:when>
+            </c:choose>
 
 
-    </fieldset>
+        </fieldset>
 
-</form>
-
+    </form>
+</div>
 <script>
     function checkForSpaces(textFieldInput) {
         var textFieldInputTest = textFieldInput.value;
@@ -116,6 +121,20 @@
         }
     }
 </script>
+
+<%--Include jQuery--%>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+<%--Include bootstrap tooltips--%>
+
+<%--Bootstrap core JavaScript--%>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<%--MDB core JavaScript--%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
 
 </body>
 </html>
