@@ -41,7 +41,7 @@ CREATE TABLE posted_multimedia (
   multimedia_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   article_id INT NOT NULL,
   file_type VARCHAR(5),
-  file_path VARCHAR(200),
+  file_path VARCHAR(200) NOT NULL UNIQUE,
   multimedia_title TEXT
 );
 

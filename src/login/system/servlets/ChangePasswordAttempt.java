@@ -5,6 +5,7 @@ import login.system.dao.UserDAO;
 import login.system.db.MySQL;
 import login.system.passwords.Passwords;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +39,11 @@ public class ChangePasswordAttempt extends HttpServlet {
         String newPasswordStr = request.getParameter("newPassword");
         String newPasswordStrVerify = request.getParameter("newPasswordVerify");
 
+        /*Need to get user hash from the database to ensure most up-to-date password is referenced for validation purposes*/
+        User userDBLookup = UserDAO.getUser(DB, user.getUsername());
+
         /*Verify that currentPasswordStr matches the users current password*/
-        boolean currentPasswordValidity = Passwords.isExpectedPassword(currentPasswordStr.toCharArray(), user.getSalt(), user.getIterations(), user.getHash());
+        boolean currentPasswordValidity = Passwords.isExpectedPassword(currentPasswordStr.toCharArray(), userDBLookup.getSalt(), userDBLookup.getIterations(), userDBLookup.getHash());
 
         if (currentPasswordValidity) {
             /*If the current password is valid, check that the new password (entry 1 and 2) are the same*/
