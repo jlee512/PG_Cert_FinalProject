@@ -50,14 +50,14 @@
             <br><br>
 
             <%--Nickname input--%>
-            <label for="nickname">username</label>
+            <label for="nickname">nickname</label>
             <br>
             <input type="text" id="nickname" name="nickname" placeholder="nickname" onchange="checkForSpaces(this)"/>
 
             <br><br>
 
             <%--Email input--%>
-            <label for="email">username</label>
+            <label for="email">email</label>
             <br>
             <input type="email" id="email" name="email" placeholder="email" onchange="checkForSpaces(this)"/>
 
@@ -66,13 +66,13 @@
             <%--Password input--%>
             <label for="password">password</label>
             <br>
-            <input type="password" id="password" name="password" placeholder="password" onchange="checkForSpaces(this)"
+            <input type="password" id="password" name="password" minlength="5" placeholder="password" onchange="checkForSpaces(this)"
                    required/>
 
             <br>
             <br>
             <%--PASSWORD VERIFICATION--%>
-            <input type="password" id="passwordVerify" name="passwordVerify" placeholder="verify your password"
+            <input type="password" id="passwordVerify" name="passwordVerify" minlength="5" placeholder="verify your password"
                    onchange="checkForSpaces(this)" required/>
 
             <br>
