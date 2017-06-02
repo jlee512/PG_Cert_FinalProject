@@ -139,7 +139,7 @@ public class UserDAO {
                         String profile_description = r.getString("profile_description");
                         String profile_picture = r.getString("profile_picture");
 
-                        user.setUserParameters(userIdLookup, usernameLookup, nicknameLookup, hashLookup, saltLookup, iterationsLookup, email);
+                        user.setUserParameters(userIdLookup, usernameLookup, nicknameLookup, hashLookup, saltLookup, iterationsLookup, email, phone, occupation, city, profile_description, profile_picture);
 
                         System.out.println("User retrieved from database");
                     } else {

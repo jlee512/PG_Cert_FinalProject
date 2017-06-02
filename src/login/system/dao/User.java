@@ -130,7 +130,7 @@ public class User implements Serializable {
         this.profile_picture = profile_picture;
     }
 
-    public void setUserParameters(int user_id, String username, String nickname, byte[] hash, byte[] salt, int iterations, String email) {
+    public void setUserParameters(int user_id, String username, String nickname, byte[] hash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
         this.user_id = user_id;
         this.username = username;
         this.nickname = nickname;
@@ -138,5 +138,11 @@ public class User implements Serializable {
         this.salt = salt;
         this.iterations = iterations;
         this.email = email;
+        this.phone = phone;
+        this.occupation = occupation;
+        this.city = city;
+        this.profile_description = profile_description;
+        this.profile_picture = profile_picture;
+
     }
 }

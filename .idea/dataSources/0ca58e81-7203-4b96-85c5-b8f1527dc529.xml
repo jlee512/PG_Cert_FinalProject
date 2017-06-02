@@ -7,8 +7,8 @@
       <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="information_schema"/>
-    <schema id="4" parent="1" name="sample_db"/>
-    <schema id="5" parent="1" name="jlee512"/>
+    <schema id="4" parent="1" name="jlee512"/>
+    <schema id="5" parent="1" name="sample_db"/>
     <table id="6" parent="2" name="posted_comments"/>
     <table id="7" parent="2" name="posted_multimedia"/>
     <table id="8" parent="2" name="registered_users"/>
