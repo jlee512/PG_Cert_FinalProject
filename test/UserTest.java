@@ -33,14 +33,14 @@ public class UserTest {
     public void test1UserAdditionToDB(){
 
         /*Check for successful database addition code of "1"*/
-        assertEquals(1, UserDAO.addUserToDB(DB, testUser.getUsername(), testUser.getNickname(), testUser.getIterations(), testUser.getSalt(), testUser.getHash(), testUser.getEmail(), testUser.getPhone(), testUser.getOccupation(), testUser.getCity(), testUser.getProfile_description(), testUser.getProfile_picture()));
+        assertEquals(1, UserDAO.addUserToDB(DB, testUser.getUsername(), testUser.getIterations(), testUser.getSalt(), testUser.getHash(), testUser.getEmail(), testUser.getPhone(), testUser.getOccupation(), testUser.getCity(), testUser.getProfile_description(), testUser.getProfile_picture()));
 
     }
 
     @Test
     public void test2UserRejectionFromDBDuplicateUsername() {
 
-        assertEquals(2, UserDAO.addUserToDB(DB, knownExistingUser.getUsername(), knownExistingUser.getNickname(), knownExistingUser.getIterations(), knownExistingUser.getSalt(), knownExistingUser.getHash(), knownExistingUser.getEmail(), knownExistingUser.getPhone(), knownExistingUser.getOccupation(), knownExistingUser.getCity(), knownExistingUser.getProfile_description(), knownExistingUser.getProfile_picture()));
+        assertEquals(2, UserDAO.addUserToDB(DB, knownExistingUser.getUsername(), knownExistingUser.getIterations(), knownExistingUser.getSalt(), knownExistingUser.getHash(), knownExistingUser.getEmail(), knownExistingUser.getPhone(), knownExistingUser.getOccupation(), knownExistingUser.getCity(), knownExistingUser.getProfile_description(), knownExistingUser.getProfile_picture()));
 
     }
 
@@ -56,7 +56,6 @@ public class UserTest {
         assertArrayEquals(knownExistingUser.getSalt(), testUser.getSalt());
         assertEquals(knownExistingUser.getIterations(), testUser.getIterations());
         assertEquals(knownExistingUser.getEmail(), testUser.getEmail());
-        assertEquals(knownExistingUser.getNickname(), testUser.getNickname());
         assertEquals(knownExistingUser.getPhone(), testUser.getPhone());
         assertEquals(knownExistingUser.getOccupation(), testUser.getOccupation());
         assertEquals(knownExistingUser.getCity(), testUser.getCity());
@@ -103,7 +102,7 @@ public class UserTest {
     public void test8UserAdditionToDBPartialInput(){
 
         /*Check for successful database addition code of "1"*/
-        assertEquals(1, UserDAO.addUserToDB(DB, testUser2.getUsername(),"", testUser2.getIterations(), testUser2.getSalt(), testUser2.getHash(), testUser2.getEmail(), "", testUser2.getOccupation(), testUser2.getCity(), "", testUser2.getProfile_picture()));
+        assertEquals(1, UserDAO.addUserToDB(DB, testUser2.getUsername(), testUser2.getIterations(), testUser2.getSalt(), testUser2.getHash(), testUser2.getEmail(), "", testUser2.getOccupation(), testUser2.getCity(), "", testUser2.getProfile_picture()));
 
     }
 

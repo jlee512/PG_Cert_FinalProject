@@ -1,4 +1,4 @@
-package login.system.database_testing;
+package login.system.ss;
 
 import login.system.dao.User;
 import login.system.dao.UserDAO;

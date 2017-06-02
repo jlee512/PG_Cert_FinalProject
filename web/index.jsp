@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-yuri
+    <a href="/Login">Enter the while_e_coyote Test Site Deployment</a>
   </body>
 </html>

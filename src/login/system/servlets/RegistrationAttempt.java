@@ -30,14 +30,13 @@ public class RegistrationAttempt extends HttpServlet {
 
         /*If user wishes to register, form will post to this method*/
         String usernameInput = request.getParameter("username");
-        String nicknameInput = request.getParameter("nickname");
         String emailInput = request.getParameter("email");
         String passwordInput = request.getParameter("password");
         String passwordVerificationInput = request.getParameter("passwordVerify");
-        String phoneInput = request.getParameter("phone");
-        String occupationInput = request.getParameter("occupation");
-        String cityInput = request.getParameter("city");
-        String profile_descriptionInput = request.getParameter("profile_description");
+        String phoneInput = "";
+        String occupationInput = "";
+        String cityInput = "";
+        String profile_descriptionInput = "";
 
         /*Profile picture upload to be added on a separate page, take default picture (Kokako) initially*/
         String profile_pictureStandard = "/Multimedia/kokako.jpg";
@@ -53,12 +52,12 @@ public class RegistrationAttempt extends HttpServlet {
             int iterations = Passwords.getNextNumIterations();
             byte[] hash = Passwords.hash(passwordInput.toCharArray(), salt, iterations);
 
-            int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, nicknameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard);
+            int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard);
 
             switch (registrationStatus) {
                 case 1:
                     System.out.println("User added successfully");
-                    User user = new User(usernameInput, nicknameInput, hash, salt, iterations, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard);
+                    User user = new User(usernameInput, hash, salt, iterations, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard);
 
                     /*If successful user additon, automatically login in user for the given session*/
                     HttpSession session = request.getSession(true);

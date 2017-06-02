@@ -9,7 +9,6 @@ public class User implements Serializable {
 
     private int user_id;
     private String username;
-    private String nickname;
     private byte[] hash;
     private byte[] salt;
     private int iterations;
@@ -20,9 +19,8 @@ public class User implements Serializable {
     private String profile_description;
     private String profile_picture;
 
-    public User(String username, String nickname, byte[] pwHash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
+    public User(String username, byte[] pwHash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
         this.username = username;
-        this.nickname = nickname;
         this.hash = pwHash;
         this.salt = salt;
         this.iterations = iterations;
@@ -36,10 +34,6 @@ public class User implements Serializable {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getNickname() {
-        return nickname;
     }
 
     public byte[] getHash() {
@@ -90,10 +84,6 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public void setHash(byte[] hash) {
         this.hash = hash;
     }
@@ -130,10 +120,9 @@ public class User implements Serializable {
         this.profile_picture = profile_picture;
     }
 
-    public void setUserParameters(int user_id, String username, String nickname, byte[] hash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
+    public void setUserParameters(int user_id, String username, byte[] hash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
         this.user_id = user_id;
         this.username = username;
-        this.nickname = nickname;
         this.hash = hash;
         this.salt = salt;
         this.iterations = iterations;

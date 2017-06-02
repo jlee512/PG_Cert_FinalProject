@@ -19,7 +19,6 @@ public class Test_DB_Setup {
         /*--------------ADD USERS-----------------*/
         System.out.println("Adding test user Catherine");
         String username = "catherine";
-        String nickname = "lizard_party666";
         String passwordEntry = "test";
         String email = "cbla080@aucklanduni.ac.nz";
         String phoneEntry = "0270987654";
@@ -31,11 +30,10 @@ public class Test_DB_Setup {
         int iterations = Passwords.getNextNumIterations();
         byte[] salt = Passwords.getNextSalt();
         byte[] hash = Passwords.hash(passwordEntry.toCharArray(), salt, iterations);
-        UserDAO.addUserToDB(DB, username, nickname, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
+        UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
 
         System.out.println("Adding test user Yuri");
         username = "yuri";
-        nickname = "xXDunge0n_Hunter7Xx";
         passwordEntry = "test";
         email = "ycow194@aucklanduni.ac.nz";
         phoneEntry = "0211234567";
@@ -47,11 +45,10 @@ public class Test_DB_Setup {
         iterations = Passwords.getNextNumIterations();
         salt = Passwords.getNextSalt();
         hash = Passwords.hash(passwordEntry.toCharArray(), salt, iterations);
-        UserDAO.addUserToDB(DB, username, nickname, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
+        UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
 
         System.out.println("Adding test user Julian");
         username = "julian";
-        nickname = "545yos3mite_coy0te545";
         passwordEntry = "test";
         email = "jlee512@aucklanduni.ac.nz";
         phoneEntry = "0225671234";
@@ -63,7 +60,7 @@ public class Test_DB_Setup {
         iterations = Passwords.getNextNumIterations();
         salt = Passwords.getNextSalt();
         hash = Passwords.hash(passwordEntry.toCharArray(), salt, iterations);
-        UserDAO.addUserToDB(DB, username, nickname, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
+        UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
 
         /*------------ADD/ACCESS ARTICLES----------*/
 

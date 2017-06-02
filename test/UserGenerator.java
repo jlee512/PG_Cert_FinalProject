@@ -31,7 +31,7 @@ public class UserGenerator {
         String profile_description = "I am a unit test that should be added to the database and be able to login!";
         String profile_picture = "/Multimedia/kokako.jpg";
 
-        return new User(usernameInputTest, usernameInputTest, hash, salt, iterations, email, phone, occupation, city, profile_description, profile_picture);
+        return new User(usernameInputTest, hash, salt, iterations, email, phone, occupation, city, profile_description, profile_picture);
 
     }
 
