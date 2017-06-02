@@ -46,6 +46,8 @@
 
 </style>
 
+<link rel="shortcut icon" type="image/png" href="/Multimedia/favicon.png">
+
 <body>
 
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
