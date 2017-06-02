@@ -14,14 +14,24 @@ public class User implements Serializable {
     private byte[] salt;
     private int iterations;
     private String email;
+    private String phone;
+    private String occupation;
+    private String city;
+    private String profile_description;
+    private String profile_picture;
 
-    public User(String username, String nickname, byte[] pwHash, byte[] salt, int iterations, String email) {
+    public User(String username, String nickname, byte[] pwHash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
         this.username = username;
         this.nickname = nickname;
         this.hash = pwHash;
         this.salt = salt;
         this.iterations = iterations;
         this.email = email;
+        this.phone = phone;
+        this.occupation = occupation;
+        this.city = city;
+        this.profile_description = profile_description;
+        this.profile_picture = profile_picture;
     }
 
     public String getUsername() {
@@ -52,6 +62,26 @@ public class User implements Serializable {
         return user_id;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getProfile_description() {
+        return profile_description;
+    }
+
+    public String getProfile_picture() {
+        return profile_picture;
+    }
+
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
@@ -80,7 +110,25 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setProfile_description(String profile_description) {
+        this.profile_description = profile_description;
+    }
+
+    public void setProfile_picture(String profile_picture) {
+        this.profile_picture = profile_picture;
+    }
 
     public void setUserParameters(int user_id, String username, String nickname, byte[] hash, byte[] salt, int iterations, String email) {
         this.user_id = user_id;

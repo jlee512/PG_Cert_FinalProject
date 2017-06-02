@@ -12,7 +12,12 @@ CREATE TABLE registered_users (
   hash BLOB NOT NULL,
   salt BLOB NOT NULL,
   iterations INT NOT NULL,
-  email VARCHAR(200)
+  email VARCHAR(200),
+  phone VARCHAR(12),
+  occupation VARCHAR(50),
+  city VARCHAR(50),
+  profile_description TEXT,
+  profile_picture VARCHAR(200)
 );
 
 CREATE TABLE uploaded_articles (

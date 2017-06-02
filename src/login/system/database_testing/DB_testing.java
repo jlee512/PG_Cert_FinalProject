@@ -43,6 +43,7 @@ public class DB_testing {
         String email = "ycow194@aucklanduni.ac.nz";
         String passwordInput = "test123";
 
+
         /*Convert password to char array and hash*/
         char[] passwordArray = passwordInput.toCharArray();
 

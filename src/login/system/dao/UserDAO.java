@@ -12,7 +12,7 @@ import java.sql.*;
 public class UserDAO {
 
     /*Add a new user to the Database*/
-    public static int addUserToDB(MySQL DB, String userName, String nickName, int iterations, byte[] salt, byte[] hash, String email) {
+    public static int addUserToDB(MySQL DB, String userName, String nickName, int iterations, byte[] salt, byte[] hash, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
 
         /*Return method status
         * (1) Success
@@ -24,11 +24,11 @@ public class UserDAO {
     String username = userName.toLowerCase();
 
         /*Addition to database*/
-        User tempUser = new User(username, nickName, hash, salt, iterations, email);
+        User tempUser = new User(username, nickName, hash, salt, iterations, email, phone, occupation, city, profile_description, profile_picture);
 
         try (Connection c = DB.connection()) {
             /*Connect to the database and add user*/
-            try (PreparedStatement stmt = c.prepareStatement("INSERT INTO registered_users (username, nickname, hash, salt, iterations, email) VALUES (?, ?, ?, ?, ?, ?)")) {
+            try (PreparedStatement stmt = c.prepareStatement("INSERT INTO registered_users (username, nickname, hash, salt, iterations, email, phone, occupation, city, profile_description, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 
                 stmt.setString(1, tempUser.getUsername());
                 stmt.setString(2, tempUser.getNickname());
@@ -36,6 +36,11 @@ public class UserDAO {
                 stmt.setBlob(4, new SerialBlob(salt));
                 stmt.setInt(5, tempUser.getIterations());
                 stmt.setString(6, tempUser.getEmail());
+                stmt.setString(7, tempUser.getPhone());
+                stmt.setString(8, tempUser.getOccupation());
+                stmt.setString(9, tempUser.getCity());
+                stmt.setString(10, tempUser.getProfile_description());
+                stmt.setString(11, tempUser.getProfile_picture());
 
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
@@ -96,7 +101,7 @@ public class UserDAO {
         usernameToLookup = usernameToLookup.toLowerCase();
 
         /*Method development to verify user password*/
-        User user = new User(null, null, null, null, -1, null);
+        User user = new User(null, null, null, null, -1, null, null, null, null, null, null);
 
         try (Connection c = DB.connection()) {
             try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM registered_users WHERE username = ?")) {
@@ -126,6 +131,13 @@ public class UserDAO {
 
                      /*Get user email*/
                         String email = r.getString("email");
+
+                        /*Get additional user details*/
+                        String phone = r.getString("phone");
+                        String occupation = r.getString("occupation");
+                        String city = r.getString("city");
+                        String profile_description = r.getString("profile_description");
+                        String profile_picture = r.getString("profile_picture");
 
                         user.setUserParameters(userIdLookup, usernameLookup, nicknameLookup, hashLookup, saltLookup, iterationsLookup, email);
 
