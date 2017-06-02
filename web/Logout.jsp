@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="login.system.dao.User" %>
-
 <%
     /*Prevents cache access of content/changepassword/logout pages*/
     response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
@@ -21,7 +20,6 @@
         dispatcher.forward(request, response);
     }
 %>
-
 <html>
 <head>
     <title>See you next time!</title>

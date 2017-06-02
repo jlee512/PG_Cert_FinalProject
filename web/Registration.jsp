@@ -42,18 +42,18 @@
         <label for="username">username</label>
         <br>
         <input type="text" id="username" name="username" placeholder="username" onchange="checkForSpaces(this)"/>
-
+        <label for="username">required</label>
         <br><br>
 
         <%--Nickname input--%>
-        <label for="nickname">username</label>
+        <label for="nickname">nickname</label>
         <br>
         <input type="text" id="nickname" name="nickname" placeholder="nickname" onchange="checkForSpaces(this)"/>
 
         <br><br>
 
         <%--Email input--%>
-        <label for="email">username</label>
+        <label for="email">email</label>
         <br>
         <input type="email" id="email" name="email" placeholder="email" onchange="checkForSpaces(this)"/>
 
@@ -64,15 +64,19 @@
         <br>
         <input type="password" id="password" name="password" placeholder="password" onchange="checkForSpaces(this)"
                required/>
+        <label for="password">required</label>
 
         <br>
         <br>
         <%--PASSWORD VERIFICATION--%>
         <input type="password" id="passwordVerify" name="passwordVerify" placeholder="verify your password"
                onchange="checkForSpaces(this)" required/>
+        <label for="passwordVerify">required</label>
 
         <br>
         <br>
+
+
 
         <%--Sign Up button and link to RegistrationAttempt Servlet--%>
         <input type="submit" id="submit" value="sign up">
@@ -104,18 +108,21 @@
 
 </form>
 
+
+<%--JS Function for invalidating space only/empty input--%>
 <script>
     function checkForSpaces(textFieldInput) {
         var textFieldInputTest = textFieldInput.value;
         if (textFieldInputTest.replace(/\s/g, "").length == 0 && (textFieldInputTest.length != 0)) {
             console.log("false");
-            textFieldInput.setCustomValidity("Please enter a caption");
+            textFieldInput.setCustomValidity("Please enter some alpha-numeric characters in this field");
         } else {
             console.log("passed");
             textFieldInput.setCustomValidity("");
         }
     }
 </script>
+
 
 </body>
 </html>
