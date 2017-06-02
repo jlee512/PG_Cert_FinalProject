@@ -18,8 +18,7 @@ public class Comment {
         new Comment();
     }
 
-    public Comment(int commentID, int articleID, int authorID, int parentCommentID, Date date, String content){
-        this.commentID = commentID;
+    public Comment(int articleID, int authorID, int parentCommentID, Date date, String content){
         this.articleID = articleID;
         this.authorID = authorID;
         this.parentCommentID = parentCommentID;

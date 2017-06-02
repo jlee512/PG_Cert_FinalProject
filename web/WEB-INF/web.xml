@@ -48,6 +48,17 @@
         <url-pattern>/ChangePasswordAttempt</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddCommentAttempt</servlet-name>
+        <servlet-class>login.system.servlets.AddCommentAttempt</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCommentAttempt</servlet-name>
+        <url-pattern>/AddCommentAttempt</url-pattern>
+    </servlet-mapping>
+
+
 
     <!--Servlet mapping to simplify URL's of .jsp files-->
     <!--(1) login-->

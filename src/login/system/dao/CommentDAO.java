@@ -11,12 +11,9 @@ import java.sql.*;
 
 public class CommentDAO {
 
-    public CommentDAO(){
-
-    }
 
     //Returns a list of comments for a particular article.
-    public List<Comment> getCommentsByArticle(MySQL DB, int articleID) {
+    public static List<Comment> getCommentsByArticle(MySQL DB, int articleID) {
         List<Comment> comments = null;
         //Will be updated to our database details.
         try (Connection conn = DB.connection()) {
@@ -46,7 +43,7 @@ public class CommentDAO {
     }
 
     //Returns a list of all children comments of a particular comment.
-    public List<Comment> getNestedComments(MySQL DB, int parentCommentID){
+    public static List<Comment> getNestedComments(MySQL DB, int parentCommentID){
         List<Comment> comments = null;
         //Will be updated to our database details.
         try (Connection conn = DB.connection()) {
@@ -76,7 +73,7 @@ public class CommentDAO {
     }
 
     //Returns a list of all comments by a particular author.
-    public List<Comment> getCommentsByAuthor(MySQL DB, int authorID){
+    public static List<Comment> getCommentsByAuthor(MySQL DB, int authorID){
         List<Comment> comments = null;
         //Will be updated to our database details.
         try (Connection conn = DB.connection()) {
@@ -105,17 +102,16 @@ public class CommentDAO {
         return comments;
     }
 
-    public String addComment(MySQL DB, int commentID, int authorID, int articleID, int parentCommentID, Date date, String content){
+    public static String addComment(MySQL DB, int authorID, int articleID, int parentCommentID, Date date, String content){
         String status = "Could not add a comment at this time.";
-        Comment comment = new Comment(commentID, articleID, authorID, parentCommentID, date, content);
+        Comment comment = new Comment(articleID, authorID, parentCommentID, date, content);
         try (Connection conn = DB.connection()) {
-            try (PreparedStatement statement = conn.prepareStatement("INSERT INTO posted_comments (comment_id, article_id, author_id, parent_comment_id, date, comment_body) VALUES (?, ?, ?, ?, ?, ?)")){
-                statement.setInt(1, comment.getCommentID());
-                statement.setInt(2, comment.getArticleID());
-                statement.setInt(3, comment.getAuthorID());
-                statement.setInt(4, comment.getParentCommentID());
-                statement.setDate(5, comment.getDate());
-                statement.setString(6, comment.getContent());
+            try (PreparedStatement statement = conn.prepareStatement("INSERT INTO posted_comments (article_id, author_id, parent_comment_id, date, comment_body) VALUES (?, ?, ?, ?, ?)")){
+                statement.setInt(1, comment.getArticleID());
+                statement.setInt(2, comment.getAuthorID());
+                statement.setInt(3, comment.getParentCommentID());
+                statement.setDate(4, comment.getDate());
+                statement.setString(5, comment.getContent());
                 statement.executeUpdate();
                 status = "Comment added successfully.";
                 return status;
@@ -130,7 +126,7 @@ public class CommentDAO {
 
     }
 
-    public String deleteComment(MySQL DB, Comment comment) {
+    public static String deleteComment(MySQL DB, Comment comment) {
         String status = "Could not delete your comment at this time.";
         try (Connection conn = DB.connection()) {
             try (PreparedStatement statement = conn.prepareStatement("DELETE FROM posted_comments WHERE comment_id = ?")) {
@@ -148,7 +144,7 @@ public class CommentDAO {
         return status;
     }
 
-    public String editComment(MySQL DB, int commentID, String newCommentContent){
+    public static String editComment(MySQL DB, int commentID, String newCommentContent){
         String status = "Comment could not be updated at this time.";
         try (Connection conn = DB.connection()){
             try (PreparedStatement statement = conn.prepareStatement("UPDATE posted_comments SET comment_body = ? WHERE comment_id = ?")){
