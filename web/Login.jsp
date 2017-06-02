@@ -11,30 +11,22 @@
 
 <html>
 <head>
+    <%@ include file="HeadStylingLinks.jsp"%>
 
-    <%--Font awesome--%>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Latest html skins from mdbootstrap.com-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
-
+<%--place this styling in an individual css sheet? Yuri --%>
         <style>
             #submit {
                padding: 2%;
             }
         </style>
-
+<%---------------------------------------------------%>
     <title>Login</title>
 </head>
 
 <body>
 
 
-<form action="/LoginAttempt" method="POST" style="margin-top: 5%">
+<form action="/LoginAttempt" method="POST" style="margin-top: 2%">
     <div class="card container">
         <div class="card-block">
 
@@ -114,19 +106,7 @@
     </div>
 </form>
 
-<%--Include jQuery--%>
-<script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-
-<%--Include bootstrap tooltips--%>
-
-<%--Bootstrap core JavaScript--%>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<%--MDB core JavaScript--%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
+<%@include file="BodyStylingLinks.jsp"%>
 
 </body>
 </html>

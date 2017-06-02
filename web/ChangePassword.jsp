@@ -24,6 +24,7 @@
 
 <html>
 <head>
+    <%@include file="HeadStylingLinks.jsp"%>
     <title>change your password</title>
 </head>
 
@@ -113,6 +114,6 @@
     </fieldset>
 
 </form>
-
+<%@include file="BodyStylingLinks.jsp"%>
 </body>
 </html>

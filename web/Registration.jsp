@@ -10,7 +10,7 @@
 
 <html>
 <head>
-
+    <%@ include file="HeadStylingLinks.jsp" %>
     <%--If user is logged in (i.e. the login status is stored in the current session, return to the content page--%>
     <c:if test="${loginStatus == 'active'}">
 
@@ -20,68 +20,63 @@
 
     <title>Welcome! Register an Account</title>
 
-
-    <%--Font awesome--%>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Latest html skins from mdbootstrap.com-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
-
-
 </head>
 
 
 <body>
 
-<div class="container">
+<div class="card" style="margin: 2%; padding: 3%">
     <form action="/RegistrationAttempt" method="POST">
-        <h1>sign up</h1>
+        <div>
+        <h1 class="text-center">sign up</h1>
+
         <fieldset id="fieldset">
 
             <%--Username input--%>
-            <label for="username">username</label>
-            <br>
-            <input type="text" id="username" name="username" placeholder="username" onchange="checkForSpaces(this)"/>
+            <div class="md-form">
+                <input class="form-contorl" type="text" id="username" name="username"
+                       onchange="checkForSpaces(this)"/>
+                <label for="username">New username</label>
+            </div>
 
-            <br><br>
 
             <%--Nickname input--%>
-            <label for="nickname">nickname</label>
-            <br>
-            <input type="text" id="nickname" name="nickname" placeholder="nickname" onchange="checkForSpaces(this)"/>
+            <div class="md-form">
+                <input class="form-contorl" type="text" id="nickname" name="nickname"
+                       onchange="checkForSpaces(this)"/>
+                <label for="nickname">New nickname</label>
+            </div>
 
-            <br><br>
 
             <%--Email input--%>
-            <label for="email">email</label>
-            <br>
-            <input type="email" id="email" name="email" placeholder="email" onchange="checkForSpaces(this)"/>
+            <div class="md-form">
+                <input class="form-control" type="email" id="email" name="email"
+                       onchange="checkForSpaces(this)"/>
+                <label for="email">Your email</label>
+            </div>
 
-            <br><br>
 
             <%--Password input--%>
-            <label for="password">password</label>
-            <br>
-            <input type="password" id="password" name="password" minlength="5" placeholder="password" onchange="checkForSpaces(this)"
-                   required/>
+            <div class="md-form">
+                <input class="form-contorl" type="password" id="password" name="password" minlength="5"
+                       onchange="checkForSpaces(this)"
+                       required/>
+                <label for="password">Your password</label>
+            </div>
 
-            <br>
-            <br>
-            <%--PASSWORD VERIFICATION--%>
-            <input type="password" id="passwordVerify" name="passwordVerify" minlength="5" placeholder="verify your password"
-                   onchange="checkForSpaces(this)" required/>
+                <%--PASSWORD VERIFICATION--%>
+            <div class="md-form">
+                <input class="form-control" type="password" id="passwordVerify" name="passwordVerify" minlength="5"
+                       onchange="checkForSpaces(this)" required/>
+                <label for="passwordVerify">Verify password</label>
+            </div>
 
-            <br>
-            <br>
 
             <%--Sign Up button and link to RegistrationAttempt Servlet--%>
-            <input type="submit" id="submit" value="sign up">
-            <a href="/Login">or log in here</a>
-
+                <div class="text-center">
+            <input type="submit" id="submit" class="btn btn-primary" value="sign up">
+                </div>
+                <a class="text-right" href="/Login">or log in here</a>
             <%--Selection of additional user feedback for different registration errors--%>
             <c:choose>
                 <c:when test="${param.registrationStatus == 'passwordMismatch'}">
@@ -106,7 +101,7 @@
 
 
         </fieldset>
-
+        </div>
     </form>
 </div>
 <script>
@@ -122,19 +117,7 @@
     }
 </script>
 
-<%--Include jQuery--%>
-<script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-
-<%--Include bootstrap tooltips--%>
-
-<%--Bootstrap core JavaScript--%>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<%--MDB core JavaScript--%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
+<%@include file="BodyStylingLinks.jsp" %>
 
 </body>
 </html>
