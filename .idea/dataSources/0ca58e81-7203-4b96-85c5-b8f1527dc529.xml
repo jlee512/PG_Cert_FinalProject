@@ -97,93 +97,102 @@
     <column id="27" parent="7" name="file_path">
       <Position>4</Position>
       <DataType>varchar(200)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="28" parent="7" name="multimedia_title">
       <Position>5</Position>
       <DataType>text|0</DataType>
     </column>
-    <key id="29" parent="7" name="PRIMARY">
+    <index id="29" parent="7" name="file_path">
+      <ColNames>file_path</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="30" parent="7" name="PRIMARY">
       <ColNames>multimedia_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="30" parent="8" name="user_id">
+    <key id="31" parent="7" name="file_path">
+      <ColNames>file_path</ColNames>
+      <UnderlyingIndexName>file_path</UnderlyingIndexName>
+    </key>
+    <column id="32" parent="8" name="user_id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="31" parent="8" name="username">
+    <column id="33" parent="8" name="username">
       <Position>2</Position>
       <DataType>varchar(40)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="32" parent="8" name="nickname">
+    <column id="34" parent="8" name="nickname">
       <Position>3</Position>
       <DataType>varchar(40)|0</DataType>
     </column>
-    <column id="33" parent="8" name="hash">
+    <column id="35" parent="8" name="hash">
       <Position>4</Position>
       <DataType>blob|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="34" parent="8" name="salt">
+    <column id="36" parent="8" name="salt">
       <Position>5</Position>
       <DataType>blob|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="35" parent="8" name="iterations">
+    <column id="37" parent="8" name="iterations">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="36" parent="8" name="email">
+    <column id="38" parent="8" name="email">
       <Position>7</Position>
       <DataType>varchar(200)|0</DataType>
     </column>
-    <index id="37" parent="8" name="username">
+    <index id="39" parent="8" name="username">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="38" parent="8" name="PRIMARY">
+    <key id="40" parent="8" name="PRIMARY">
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="39" parent="8" name="username">
+    <key id="41" parent="8" name="username">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>username</UnderlyingIndexName>
     </key>
-    <column id="40" parent="9" name="article_id">
+    <column id="42" parent="9" name="article_id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="41" parent="9" name="author_id">
+    <column id="43" parent="9" name="author_id">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="42" parent="9" name="date">
+    <column id="44" parent="9" name="date">
       <Position>3</Position>
       <DataType>date|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="43" parent="9" name="article_title">
+    <column id="45" parent="9" name="article_title">
       <Position>4</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="44" parent="9" name="article_body">
+    <column id="46" parent="9" name="article_body">
       <Position>5</Position>
       <DataType>text|0</DataType>
     </column>
-    <index id="45" parent="9" name="author_id">
+    <index id="47" parent="9" name="author_id">
       <ColNames>author_id</ColNames>
     </index>
-    <key id="46" parent="9" name="PRIMARY">
+    <key id="48" parent="9" name="PRIMARY">
       <ColNames>article_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="47" parent="9" name="uploaded_articles_ibfk_1">
+    <foreign-key id="49" parent="9" name="uploaded_articles_ibfk_1">
       <ColNames>author_id</ColNames>
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>registered_users</RefTableName>

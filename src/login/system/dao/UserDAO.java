@@ -23,13 +23,13 @@ public class UserDAO {
     /*convert username to lowercase to avoid duplication*/
     String username = userName.toLowerCase();
 
-        /*Test addition to database*/
+        /*Addition to database*/
         User tempUser = new User(username, nickName, hash, salt, iterations, email);
 
         try (Connection c = DB.connection()) {
             /*Connect to the database and add user*/
             try (PreparedStatement stmt = c.prepareStatement("INSERT INTO registered_users (username, nickname, hash, salt, iterations, email) VALUES (?, ?, ?, ?, ?, ?)")) {
-                /*Database input, method of transferring char[] to blob to be confirmed with Andrew*/
+
                 stmt.setString(1, tempUser.getUsername());
                 stmt.setString(2, tempUser.getNickname());
                 stmt.setBlob(3, new SerialBlob(hash));

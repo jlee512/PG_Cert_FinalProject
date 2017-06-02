@@ -1,5 +1,7 @@
 package login.system.database_testing;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+import login.system.dao.MultimediaDAO;
 import login.system.dao.UserDAO;
 import login.system.db.MySQL;
 import login.system.passwords.Passwords;
@@ -55,10 +57,43 @@ public class Test_DB_Setup {
 
 
         /*------------ADD/ACCESS MULTIMEDIA--------*/
+        String genericFilePath = "/Multimedia/";
 
+        System.out.println("Adding multimedia to database: Fushimi Inari");
+        int article_id = 1;
+        String file_type = ".jpeg";
+        String userInputFilename = "fushimi_inari.jpeg";
+        String filepath = genericFilePath + userInputFilename;
+        String multimedia_title = "Fushimi Inari";
 
+        MultimediaDAO.addMultimediaToDB(DB, article_id, file_type, filepath,multimedia_title);
 
+        System.out.println("Adding multimedia to database: Anothers Arms (sound)");
+        article_id = 2;
+        file_type = ".mp3";
+        userInputFilename = "anothers_arms.mp3";
+        filepath = genericFilePath + userInputFilename;
+        multimedia_title = "Anothers Arms - Coldplay";
 
+        MultimediaDAO.addMultimediaToDB(DB, article_id, file_type, filepath,multimedia_title);
+
+        System.out.println("Adding multimedia to database: Port (video - mp4)");
+        article_id = 4;
+        file_type = ".mp4";
+        userInputFilename = "anothers_arms.mp4";
+        filepath = genericFilePath + userInputFilename;
+        multimedia_title = "Port";
+
+        MultimediaDAO.addMultimediaToDB(DB, article_id, file_type, filepath,multimedia_title);
+
+        System.out.println("Adding multimedia to database: South Island Robin");
+        article_id = 4;
+        file_type = ".png";
+        userInputFilename = "si_robin.png";
+        filepath = genericFilePath + userInputFilename;
+        multimedia_title = "South Island Robin";
+
+        MultimediaDAO.addMultimediaToDB(DB, article_id, file_type, filepath,multimedia_title);
     }
 
 }
