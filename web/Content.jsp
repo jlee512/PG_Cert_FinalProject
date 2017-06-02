@@ -55,7 +55,6 @@
     <c:when test="${loginStatus == 'active'}">
 
         <p>Welcome ${sessionScope.userDetails.username}! This is the page's content</p>
-        <p>Welcome ${sessionScope.userDetails.username}! This is the page's content</p>
         <div>
             <a href="/ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
         </div>
