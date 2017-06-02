@@ -18,3 +18,6 @@
 
 <!-- Latest html skins from mdbootstrap.com-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
+
+<%--Responsiveness for all screen sizes--%>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">

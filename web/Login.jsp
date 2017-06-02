@@ -11,24 +11,24 @@
 
 <html>
 <head>
-    <%@ include file="HeadStylingLinks.jsp"%>
+    <%@ include file="HeadStylingLinks.jsp" %>
 
-<%--place this styling in an individual css sheet? Yuri --%>
-        <style>
-            #submit {
-               padding: 2%;
-            }
-        </style>
-<%---------------------------------------------------%>
+    <%--place this styling in an individual css sheet? Yuri --%>
+    <style>
+        #submit {
+            padding: 2%;
+        }
+    </style>
+    <%---------------------------------------------------%>
     <title>Login</title>
 </head>
 
 <body>
 
+<div class="card container" >
+    <div class="card-block">
+        <form action="/LoginAttempt" method="POST" style="margin-top: 2%">
 
-<form action="/LoginAttempt" method="POST" style="margin-top: 2%">
-    <div class="card container">
-        <div class="card-block">
 
             <%--Login title--%>
             <div class="text-center">
@@ -102,11 +102,12 @@
                 %>
 
             </fieldset>
-        </div>
-    </div>
-</form>
 
-<%@include file="BodyStylingLinks.jsp"%>
+        </form>
+    </div>
+</div>
+
+<%@include file="BodyStylingLinks.jsp" %>
 
 </body>
 </html>

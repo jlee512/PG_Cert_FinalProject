@@ -34,7 +34,7 @@
 
             <%--Username input--%>
             <div class="md-form">
-                <input class="form-contorl" type="text" id="username" name="username"
+                <input class="form-control" type="text" id="username" name="username"
                        onchange="checkForSpaces(this)"/>
                 <label for="username">New username</label>
             </div>
@@ -42,7 +42,7 @@
 
             <%--Nickname input--%>
             <div class="md-form">
-                <input class="form-contorl" type="text" id="nickname" name="nickname"
+                <input class="form-control" type="text" id="nickname" name="nickname"
                        onchange="checkForSpaces(this)"/>
                 <label for="nickname">New nickname</label>
             </div>
@@ -58,7 +58,7 @@
 
             <%--Password input--%>
             <div class="md-form">
-                <input class="form-contorl" type="password" id="password" name="password" minlength="5"
+                <input class="form-control" type="password" id="password" name="password" minlength="5"
                        onchange="checkForSpaces(this)"
                        required/>
                 <label for="password">Your password</label>
