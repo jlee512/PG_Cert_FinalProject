@@ -50,14 +50,14 @@ public class LoginAttempt extends HttpServlet {
             /*Attach user details and loginStatus to the HttpSession*/
             session.setAttribute("loginStatus", "active");
             session.setAttribute("userDetails",user);
-            response.sendRedirect("/Content?username=" + user.getUsername());
+            response.sendRedirect("Content?username=" + user.getUsername());
 
         } else if (verificationStatus == 2) {
             System.out.println("Incorrect password");
-            response.sendRedirect("/Login?loginStatus=invalidPassword&username=" + usernameAttempt);
+            response.sendRedirect("Login?loginStatus=invalidPassword&username=" + usernameAttempt);
         } else {
             System.out.println("The username does not exist");
-            response.sendRedirect("/Login?loginStatus=invalidUsername");
+            response.sendRedirect("Login?loginStatus=invalidUsername");
         }
 
     }
@@ -85,11 +85,11 @@ public class LoginAttempt extends HttpServlet {
 
     public static void loginStatusRedirection(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("loginStatus") != "active"){
-            response.sendRedirect("/Login");
+            response.sendRedirect("Login");
         } else {
             HttpSession session = request.getSession(true);
             User user = (User) session.getAttribute("userDetails");
-            response.sendRedirect("/Content?username=" + user.getUsername());
+            response.sendRedirect("Content?username=" + user.getUsername());
         }
     }
 }

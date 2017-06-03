@@ -36,7 +36,7 @@ public class ViewArticle extends HttpServlet {
 
         List<Comment> commentList = CommentDAO.getCommentsByArticle(DB, articleID);
         request.setAttribute("commentList", commentList);
-        getServletContext().getRequestDispatcher("/ViewArticlePage.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("ViewArticlePage").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response){

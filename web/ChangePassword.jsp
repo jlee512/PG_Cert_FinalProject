@@ -17,7 +17,7 @@
     response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
     User user = (User) session.getAttribute("userDetails");
     if (user == null) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Login");
         dispatcher.forward(request, response);
     }
 %>
@@ -51,11 +51,11 @@
 
         <%--If the username parameter has been stored, prepopulate the username field with the login--%>
         <c:when test="${param.username != null}">
-            <c:redirect url="/Login?username=${param.username}"/>
+            <c:redirect url="Login?username=${param.username}"/>
         </c:when>
         <%--Otherwise direct to blank login page--%>
         <c:otherwise>
-            <c:redirect url="/Login"/>
+            <c:redirect url="Login"/>
         </c:otherwise>
     </c:choose>
 </c:if>
@@ -64,7 +64,7 @@
 <div class="backGroundImage">
     <div class="vertical-center">
         <div class="container setOpacity">
-            <form action="/ChangePasswordAttempt" method="POST">
+            <form action="ChangePasswordAttempt" method="POST">
                 <fieldset id="fieldset">
 
                     <%--Username--%>

@@ -76,7 +76,7 @@
                         <%--SIGN UP LINK--%>
                         <div class="modal-footer">
                             <div class="options">
-                                <p>Don't have an account? <a href="/Registration">Sign up</a></p>
+                                <p>Don't have an account? <a href="Registration">Sign up</a></p>
                             </div>
                         </div>
 

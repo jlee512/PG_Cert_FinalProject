@@ -15,7 +15,7 @@
     <%--If user is logged in (i.e. the login status is stored in the current session, return to the content page--%>
     <c:if test="${loginStatus == 'active'}">
 
-        <c:redirect url="/Content?username=${sessionScope.userDetails.username}"/>
+        <c:redirect url="Content?username=${sessionScope.userDetails.username}"/>
 
     </c:if>
     <%------------------------------------------------------------------------------------------------------------%>
@@ -27,7 +27,7 @@
 <div class="backGroundImage">
     <div class="vertical-center">
         <div class="card container setOpacity">
-            <form action="/RegistrationAttempt" method="POST">
+            <form action="RegistrationAttempt" method="POST">
                 <div>
                     <h1 class="text-center">sign up</h1>
 
@@ -67,7 +67,7 @@
                         <div class="text-center">
                             <input type="submit" id="submit" class="btn btn-primary" value="sign up">
                         </div>
-                        <a class="text-right" href="/Login">or log in here</a>
+                        <a class="text-right" href="Login">or log in here</a>
 
                         <%--Selection of additional user feedback for different registration errors--%>
                         <c:choose>

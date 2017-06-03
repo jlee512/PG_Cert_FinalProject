@@ -18,7 +18,7 @@
     response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
     User user = (User)session.getAttribute("userDetails");
     if (user == null) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Login");
         dispatcher.forward(request, response);
     }
 %>
@@ -46,7 +46,7 @@
 
 </style>
 
-<link rel="shortcut icon" type="image/png" href="/Multimedia/favicon.png">
+<link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 
 <body>
 
@@ -56,17 +56,20 @@
 
         <p>Welcome ${sessionScope.userDetails.username}! This is the page's content</p>
         <div>
-            <a href="/ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
+            <a href="ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
+        </div>
+        <div>
+            <a href="ViewArticle?article_id=4">View Article 4</a>
         </div>
         <br>
         <br>
-        <a href="/Logout?username=${sessionScope.userDetails.username}" id="logoutButton">logout</a>
+        <a href="Logout?username=${sessionScope.userDetails.username}" id="logoutButton">logout</a>
 
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
     <c:otherwise>
 
-        <c:redirect url="/Login"/>
+        <c:redirect url="Login"/>
 
     </c:otherwise>
 </c:choose>

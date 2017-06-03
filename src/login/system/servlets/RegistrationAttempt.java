@@ -39,7 +39,7 @@ public class RegistrationAttempt extends HttpServlet {
         String profile_descriptionInput = "";
 
         /*Profile picture upload to be added on a separate page, take default picture (Kokako) initially*/
-        String profile_pictureStandard = "/Multimedia/kokako.jpg";
+        String profile_pictureStandard = "Multimedia/kokako.jpg";
 
         /*With user input, check username uniqueness*/
         if (!passwordInputVerification(passwordInput, passwordVerificationInput)) {
@@ -67,22 +67,22 @@ public class RegistrationAttempt extends HttpServlet {
                     session.setAttribute("loginStatus", "active");
                     session.setAttribute("userDetails", user);
                     /*Redirect the response to the Content Serv*/
-                    response.sendRedirect("/Content?username=" + user.getUsername());
+                    response.sendRedirect("Content?username=" + user.getUsername());
 
                     break;
                 case 2:
                     /*If username already exists, return the user to the registration page and display a descriptive message*/
                     System.out.println("User already exists within the database");
-                    response.sendRedirect("/Registration?registrationStatus=exists&username=" + usernameInput);
+                    response.sendRedirect("Registration?registrationStatus=exists&username=" + usernameInput);
                     break;
                 case 3:
                     /*If an invalid username is entered, return the user to the registration page and display a descriptive message*/
                     System.out.println("User could not be added to the database");
-                    response.sendRedirect("/Registration?registrationStatus=invalid");
+                    response.sendRedirect("Registration?registrationStatus=invalid");
                     break;
                 case 4:
                     System.out.println("No connection to the database");
-                    response.sendRedirect("/Registration?registrationStatus=dbConn");
+                    response.sendRedirect("Registration?registrationStatus=dbConn");
                     break;
 
             }

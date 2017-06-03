@@ -16,7 +16,7 @@
     response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
     User user = (User)session.getAttribute("userDetails");
     if (user == null) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Login");
         dispatcher.forward(request, response);
     }
 %>
@@ -56,10 +56,10 @@
 <%--If user has already logged out, redirect to login screen with message--%>
 <c:choose>
     <c:when test="${sessionScope.loginStatus != null}">
-        <p>See you next time <span id="logoutButtonContainer"><a href="/LogoutAttempt">Logout</a></span></p>
+        <p>See you next time <span id="logoutButtonContainer"><a href="LogoutAttempt">Logout</a></span></p>
     </c:when>
     <c:otherwise>
-        <c:redirect url="/Login?loginStatus=loggedOut" />
+        <c:redirect url="Login?loginStatus=loggedOut" />
     </c:otherwise>
 </c:choose>
 

@@ -10,13 +10,13 @@
 <html>
 <head>
     <c:if test="${loginStatus != 'active'}">
-        <c:redirect url="/Login"/>
+        <c:redirect url="Login"/>
     </c:if>
     <title>Add Comment</title>
 </head>
 
 <body>
-<form action="/AddCommentAttempt" method="post">
+<form action="AddCommentAttempt" method="post">
     <label for="comment_body">Comment:</label>
     <textarea rows="4" cols="50" name="comment_body" id="comment_body"></textarea>
     <input type="hidden" name="username" value="${sessionScope.userDetails.username}">
