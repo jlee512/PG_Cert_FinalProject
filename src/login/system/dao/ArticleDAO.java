@@ -1,5 +1,6 @@
 package login.system.dao;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import login.system.db.MySQL;
 
 import java.sql.*;
@@ -14,8 +15,9 @@ public class ArticleDAO {
 
         /*Return method status
         * (1) Success
-        * (2) SQL error - missing fields
-        * (3) Database connection error*/
+        * (2) Integrity constraint violation (duplicate user)
+        * (3) SQL error
+        * (4) Database connection error*/
     /*------------------------------------------------------------*/
 
         Article tempArticle = new Article(author_id, article_title, date, article_body);
@@ -34,12 +36,14 @@ public class ArticleDAO {
                 System.out.println("Article added to the database");
                 return 1;
             }
+        }  catch (SQLIntegrityConstraintViolationException e) {
+            return 2;
         } catch (SQLException e) {
             e.printStackTrace();
-            return 2;
+            return 3;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            return 3;
+            return 4;
         }
 
     }
@@ -63,8 +67,8 @@ public class ArticleDAO {
                         int article_idLookup = r.getInt("article_id");
                         int author_idLookup = r.getInt("author_id");
                         Date dateLookup = r.getDate("date");
-                        String article_bodyLookup = r.getString("article_title");
-                        String article_titleLookup = r.getString("article_body");
+                        String article_titleLookup = r.getString("article_title");
+                        String article_bodyLookup = r.getString("article_body");
 
                         article.setArticleParameters(article_idLookup, author_idLookup, article_titleLookup, dateLookup, article_bodyLookup);
 

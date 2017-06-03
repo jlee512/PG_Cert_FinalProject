@@ -17,7 +17,7 @@ public class CommentDAO {
         List<Comment> comments = null;
         //Will be updated to our database details.
         try (Connection conn = DB.connection()) {
-            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM comments WHERE article_id = ?;")){
+            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM posted_comments WHERE article_id = ?;")){
                 statement.setInt(1,articleID);
                 try (ResultSet resultSet = statement.executeQuery()){
                     comments = new ArrayList<>();
@@ -47,7 +47,7 @@ public class CommentDAO {
         List<Comment> comments = null;
         //Will be updated to our database details.
         try (Connection conn = DB.connection()) {
-            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM comments WHERE parent_comment_id = ?;")){
+            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM posted_comments WHERE parent_comment_id = ?;")){
                 statement.setInt(1, parentCommentID);
                 try (ResultSet resultSet = statement.executeQuery()){
                     comments = new ArrayList<>();
@@ -77,7 +77,7 @@ public class CommentDAO {
         List<Comment> comments = null;
         //Will be updated to our database details.
         try (Connection conn = DB.connection()) {
-            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM comments WHERE author_id = ?;")){
+            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM posted_comments WHERE author_id = ?;")){
                 statement.setInt(1, authorID);
                 try (ResultSet resultSet = statement.executeQuery()){
                     comments = new ArrayList<>();

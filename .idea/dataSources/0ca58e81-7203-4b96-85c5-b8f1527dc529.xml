@@ -33,7 +33,7 @@
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="14" parent="6" name="date">
+    <column id="14" parent="6" name="timestamp">
       <Position>5</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
@@ -191,20 +191,32 @@
     </column>
     <column id="48" parent="9" name="article_title">
       <Position>4</Position>
-      <DataType>text|0</DataType>
+      <DataType>varchar(500)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="49" parent="9" name="article_body">
       <Position>5</Position>
       <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <index id="50" parent="9" name="author_id">
       <ColNames>author_id</ColNames>
     </index>
-    <key id="51" parent="9" name="PRIMARY">
+    <index id="51" parent="9" name="uniqueArticle">
+      <ColNames>date
+article_title</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="52" parent="9" name="PRIMARY">
       <ColNames>article_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="52" parent="9" name="uploaded_articles_ibfk_1">
+    <key id="53" parent="9" name="uniqueArticle">
+      <ColNames>date
+article_title</ColNames>
+      <UnderlyingIndexName>uniqueArticle</UnderlyingIndexName>
+    </key>
+    <foreign-key id="54" parent="9" name="uploaded_articles_ibfk_1">
       <ColNames>author_id</ColNames>
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>registered_users</RefTableName>

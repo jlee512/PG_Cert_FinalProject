@@ -16,7 +16,6 @@
     <title>${requestScope.article.article_title}</title>
 </head>
 <body>
-<p><%=request.getAttribute("username")%></p>
 <h1>${requestScope.article.article_title}</h1>
 <br>
 <h3>${requestScope.username}</h3>
