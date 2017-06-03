@@ -23,8 +23,8 @@ CREATE TABLE uploaded_articles (
   article_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   author_id INT NOT NULL,
   date DATE NOT NULL,
-  article_title TEXT,
-  article_body TEXT,
+  article_title TEXT NOT NULL,
+  article_body TEXT NOT NULL,
   FOREIGN KEY (author_id) REFERENCES registered_users(user_id)
 );
 
