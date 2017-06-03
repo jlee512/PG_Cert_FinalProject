@@ -1,11 +1,12 @@
 package login.system.dao;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Created by ycow194 on 1/06/2017.
  */
-public class Article {
+public class Article implements Serializable{
 
     private int article_id;
     private int author_id;

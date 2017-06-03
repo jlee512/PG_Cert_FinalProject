@@ -156,4 +156,64 @@ public class UserDAO {
         return user;
     }
 
+    public static User getUser(MySQL DB, int IDtoLookUp) {
+    /*----------------------------------------------------*/
+
+        /*Method development to verify user password*/
+        User user = new User(null, null, null, -1, null, null, null, null, null, null);
+
+        try (Connection c = DB.connection()) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM registered_users WHERE user_id = ?")) {
+                /**/
+                stmt.setInt(1, IDtoLookUp);
+
+                try (ResultSet r = stmt.executeQuery()) {
+                    if (r.next()) {
+                     /*If there is a next result, the user exists in the database*/
+
+                     /*Get user id, username and nickname*/
+                        int userIdLookup = r.getInt("user_id");
+                        String usernameLookup = r.getString("username");
+
+                     /*Get hash blob and convert to byte array*/
+                        SerialBlob hashLookupBlob = new SerialBlob(r.getBlob("hash"));
+
+                        byte[] hashLookup = hashLookupBlob.getBytes(1, (int) hashLookupBlob.length());
+
+                     /*Get salt blob and convert to byte array*/
+                        SerialBlob saltLookupBlob = new SerialBlob(r.getBlob("salt"));
+                        byte[] saltLookup = saltLookupBlob.getBytes(1, (int) saltLookupBlob.length());
+
+                     /*Get number of iterations*/
+                        int iterationsLookup = r.getInt("iterations");
+
+                     /*Get user email*/
+                        String email = r.getString("email");
+
+                        /*Get additional user details*/
+                        String phone = r.getString("phone");
+                        String occupation = r.getString("occupation");
+                        String city = r.getString("city");
+                        String profile_description = r.getString("profile_description");
+                        String profile_picture = r.getString("profile_picture");
+
+                        user.setUserParameters(userIdLookup, usernameLookup, hashLookup, saltLookup, iterationsLookup, email, phone, occupation, city, profile_description, profile_picture);
+
+                        System.out.println("User retrieved from database");
+                    } else {
+                    /*If the user can't be found in the database, return null user*/
+                        System.out.println("User could not be found in the database");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        /*----------------------------------------------------*/
+        return user;
+    }
+
 }

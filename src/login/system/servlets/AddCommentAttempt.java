@@ -29,6 +29,7 @@ public class AddCommentAttempt extends HttpServlet {
 
         //Depending on whether this is a top level comment or a reply to a previous comment, either a Comment object or an Article object will be passed.
 
+
         String status = CommentDAO.addComment(DB, userID, 0, 0, currentDate, content);
         System.out.println(status);
     }
