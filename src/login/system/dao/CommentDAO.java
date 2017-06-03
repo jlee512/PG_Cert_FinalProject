@@ -109,7 +109,11 @@ public class CommentDAO {
             try (PreparedStatement statement = conn.prepareStatement("INSERT INTO posted_comments (article_id, author_id, parent_comment_id, timestamp, comment_body) VALUES (?, ?, ?, ?, ?)")){
                 statement.setInt(1, comment.getArticleID());
                 statement.setInt(2, comment.getAuthorID());
-                statement.setInt(3, comment.getParentCommentID());
+                if (comment.getParentCommentID() == -1){
+                    statement.setNull(3, Types.INTEGER);
+                }else {
+                    statement.setInt(3, comment.getParentCommentID());
+                }
                 statement.setTimestamp(4, comment.getTimestamp());
                 statement.setString(5, comment.getContent());
                 statement.executeUpdate();

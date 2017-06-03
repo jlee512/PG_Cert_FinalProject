@@ -44,7 +44,7 @@ public class AddCommentAttempt extends HttpServlet {
 
     protected String addTopLevelComment(Article article, MySQL DB, int userID, Timestamp timestamp, String content){
         int articleID = article.getArticle_id();
-        String status = CommentDAO.addComment(DB, userID, articleID, 0, timestamp, content);
+        String status = CommentDAO.addComment(DB, userID, articleID, -1, timestamp, content);
         return status;
     }
 
