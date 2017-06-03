@@ -20,6 +20,7 @@ public class ViewArticle extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Pass the articleID as a parameter when clicking the link to the article.
         int articleID = Integer.parseInt(request.getParameter("article_id"));
+        System.out.println(articleID);
         MySQL DB = new MySQL();
 
         //Get Article object by ID from ArticleDAO.
@@ -35,7 +36,7 @@ public class ViewArticle extends HttpServlet {
 
         List<Comment> commentList = CommentDAO.getCommentsByArticle(DB, articleID);
         request.setAttribute("commentList", commentList);
-        request.getRequestDispatcher("ViewArticle.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/ViewArticlePage.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response){

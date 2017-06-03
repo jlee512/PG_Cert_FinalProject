@@ -51,7 +51,7 @@ public class ArticleDAO {
         Article article = new Article(-1, null, null, null);
 
         try (Connection c = DB.connection()) {
-            try (PreparedStatement stmt = c.prepareStatement("SELECT FROM uploaded_articles WHERE article_id = ?")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM uploaded_articles WHERE article_id = ?")) {
 
                 stmt.setInt(1, article_id);
 

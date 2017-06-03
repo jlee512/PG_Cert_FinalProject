@@ -28,7 +28,7 @@ public class AddCommentAttempt extends HttpServlet {
         int articleID = Integer.parseInt(request.getParameter("article_id"));
         User currentUser = UserDAO.getUser(DB, username);
         int userID = currentUser.getUser_id();
-        if (request.getParameter("parentComment_id") != null){
+        if (request.getParameter("parentComment_id").length() > 0){
             int parentCommentID = Integer.parseInt(request.getParameter("parentComment_id"));
             Comment parent = CommentDAO.getCommentByID(DB, parentCommentID);
             String status = addReplyComment(parent, DB, userID, currentTime, content);

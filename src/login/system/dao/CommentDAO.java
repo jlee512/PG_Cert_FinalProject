@@ -106,7 +106,7 @@ public class CommentDAO {
         String status = "Could not add a comment at this time.";
         Comment comment = new Comment(articleID, authorID, parentCommentID, timestamp, content);
         try (Connection conn = DB.connection()) {
-            try (PreparedStatement statement = conn.prepareStatement("INSERT INTO posted_comments (article_id, author_id, parent_comment_id, date, comment_body) VALUES (?, ?, ?, ?, ?)")){
+            try (PreparedStatement statement = conn.prepareStatement("INSERT INTO posted_comments (article_id, author_id, parent_comment_id, timestamp, comment_body) VALUES (?, ?, ?, ?, ?)")){
                 statement.setInt(1, comment.getArticleID());
                 statement.setInt(2, comment.getAuthorID());
                 statement.setInt(3, comment.getParentCommentID());

@@ -149,4 +149,14 @@
         <url-pattern>/AddComment</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ViewArticlePageJSP</servlet-name>
+        <jsp-file>/ViewArticlePage.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ViewArticlePageJSP</servlet-name>
+        <url-pattern>/ViewArticlePage</url-pattern>
+    </servlet-mapping>
+
 </web-app>

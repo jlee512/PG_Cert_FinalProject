@@ -1,4 +1,5 @@
-<%--
+<%@ page import="login.system.dao.Article" %>
+<%@ page import="login.system.servlets.ViewArticle" %><%--
   Created by IntelliJ IDEA.
   User: cbla080
   Date: 3/06/2017
@@ -12,22 +13,23 @@
     <c:if test="${loginStatus != 'active'}">
         <c:redirect url="/Login"/>
     </c:if>
-    <title>${article.article_title}</title>
+    <title>${requestScope.article.article_title}</title>
 </head>
 <body>
-<h1>${article.article_title}</h1>
+<p><%=request.getAttribute("username")%></p>
+<h1>${requestScope.article.article_title}</h1>
 <br>
-<h3>${username}</h3>
+<h3>${requestScope.username}</h3>
 <br>
-<p>${article.article_body}</p>
+<p>${requestScope.article.article_body}</p>
 <br>
-<em>${article.article_date}</em>
+<em>${requestScope.article.article_date}</em>
 <hr>
-<a href="/AddComment?article_id=${article.article_id}">Add New Comment</a>
-<c:forEach var="comment" items="${commentList}">
+<a href="/AddComment?article_id=${requestScope.article.article_id}">Add New Comment</a>
+<c:forEach var="comment" items="${requestScope.commentList}">
     <div>
         <p>${comment.content}</p>
-        <a href="/AddComment?article_id=${article.article_id}parentComment_id=${comment.comment_id}">Reply</a>
+        <a href="/AddComment?article_id=${requestScope.article.article_id}&parentComment_id=${comment.comment_id}">Reply</a>
         <c:if test="${comment.isParent}">
             <button type="button">Show Replies</button>
         </c:if>

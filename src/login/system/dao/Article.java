@@ -6,7 +6,7 @@ import java.sql.Date;
 /**
  * Created by ycow194 on 1/06/2017.
  */
-public class Article implements Serializable{
+public class Article implements Serializable {
 
     private int article_id;
     private int author_id;
