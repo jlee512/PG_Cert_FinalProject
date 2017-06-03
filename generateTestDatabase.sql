@@ -33,7 +33,7 @@ CREATE TABLE posted_comments (
   article_id INT NOT NULL,
   author_id INT NOT NULL,
   parent_comment_id INT,
-  date DATE NOT NULL,
+  date TIMESTAMP NOT NULL,
   comment_body TEXT NOT NULL,
   FOREIGN KEY (article_id) REFERENCES uploaded_articles(article_id),
   FOREIGN KEY (author_id) REFERENCES registered_users(user_id),

@@ -33,12 +33,12 @@ public class ArticleGenerator {
 
     }
 
-    public static Article getKnownArticle() {
-
-        Article knownArticle = ArticleDAO.getArticle(DB, article_id);
-
-        return knownArticle;
-
-    }
+//    public static Article getKnownArticle() {
+//
+//        Article knownArticle = ArticleDAO.getArticle(DB, article_id);
+//
+//        return knownArticle;
+//
+//    }
 
 }

@@ -1,10 +1,18 @@
 package login.system.database_testing;
 
 import com.sun.org.apache.xpath.internal.SourceTree;
+import login.system.dao.ArticleDAO;
 import login.system.dao.MultimediaDAO;
 import login.system.dao.UserDAO;
 import login.system.db.MySQL;
 import login.system.passwords.Passwords;
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by jlee512 on 1/06/2017.
@@ -13,7 +21,7 @@ public class Test_DB_Setup {
 
     private static MySQL DB = new MySQL();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
 
         /*--------------ADD USERS-----------------*/
@@ -63,7 +71,17 @@ public class Test_DB_Setup {
         UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
 
         /*------------ADD/ACCESS ARTICLES----------*/
+        System.out.println("Adding articles to the database");
+        int author_id = 1;
+        String article_title = "You're a lizard Harry!";
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        java.util.Date utilDate = dateFormat.parse("2017-05-31");
+        Date date = new Date(utilDate.getTime());
+
+        String article_body = "Curabitur vitae justo ac nunc molestie consectetur ac ut arcu. Nam efficitur fermentum congue. Pellentesque ac fringilla est, convallis condimentum neque. Pellentesque eu tortor at ligula fringilla vulputate quis ac ante.";
+
+        ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
 
         /*------------ADD/ACCESS COMMENTS----------*/
 

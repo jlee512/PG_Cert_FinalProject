@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import static org.junit.Assert.assertEquals;
 
@@ -62,7 +63,7 @@ public class ArticleTest {
     /*---------------------------------------------------------------------*/
     /*Test ArticleDAO*/
 
-    @Test
-    public void test
+//    @Test
+//    public void test
 
 }
