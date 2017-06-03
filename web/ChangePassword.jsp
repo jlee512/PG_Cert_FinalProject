@@ -24,8 +24,8 @@
 
 <html>
 <head>
-    <%@include file="HeadStylingLinks.jsp"%>
-    <title>change your password</title>
+    <%@include file="HeadStylingLinks.jsp" %>
+    <title>Password change</title>
 </head>
 
 <style type="text/css">
@@ -60,60 +60,70 @@
     </c:choose>
 </c:if>
 
-<form action="/ChangePasswordAttempt" method="POST">
+<div class="container">
+    <form action="/ChangePasswordAttempt" method="POST">
 
-    <fieldset id="fieldset">
+        <fieldset id="fieldset">
 
-        <%--Username--%>
-        <p>${param.username}, your password can be changed below:</p>
+            <%--Username--%>
+            <p>${param.username}, please select your new password</p>
 
-        <%--Current Password--%>
-        <input type="password" id="currentPassword" name="currentPassword" placeholder="currentPassword"
-               oninvalid="this.setCustomValidity('please enter your password')" oninput="this.setCustomValidity('')"
-               required>
+            <%--Current Password--%>
+            <div class="md-form">
+                <input class="form-control" type="password" id="currentPassword" name="currentPassword"
+                       oninvalid="this.setCustomValidity('please enter your password')"
+                       oninput="this.setCustomValidity('')"
+                       required>
+                <label for="currentPassword">Current password</label>
+            </div>
 
-        <br><br>
 
-        <%--New Password (1)--%>
-        <input type="password" id="newPassword" name="newPassword" placeholder="newPassword"
-               oninvalid="this.setCustomValidity('please enter your password')" oninput="this.setCustomValidity('')"
-               required>
+            <%--New Password (1)--%>
+            <div class="md-form">
+                <input class="form-control" type="password" id="newPassword" name="newPassword"
+                       oninvalid="this.setCustomValidity('please enter your password')"
+                       oninput="this.setCustomValidity('')"
+                       required>
+                <label for="newPassword">New password</label>
+            </div>
 
-        <br><br>
+            <%--New Password (2)--%>
+            <div class="md-form">
+                <input class="form-control" type="password" id="newPasswordVerify" name="newPasswordVerify"
+                       oninvalid="this.setCustomValidity('please enter your password')"
+                       oninput="this.setCustomValidity('')"
+                       required>
+                <label for="newPasswordVerify">Verify password</label>
+            </div>
+            <%--Submit button--%>
 
-        <%--New Password (2)--%>
-        <input type="password" id="newPasswordVerify" name="newPasswordVerify" placeholder="newPasswordVerify"
-               oninvalid="this.setCustomValidity('please enter your password')" oninput="this.setCustomValidity('')"
-               required>
+            <input type="submit" id="submit" value="change password">
 
-        <%--Submit button--%>
-        <br>
-        <br>
-        <input type="submit" id="submit" value="change password">
+            <%--Selection of additional user feedback for different registration errors--%>
+            <c:choose>
+                <c:when test="${param.passwordChangeStatus == 'incorrect'}">
+                    <br>
+                    <p style="color: red">your current password is not correct, please try again</p>
+                </c:when>
+                <c:when test="${param.passwordChangeStatus == 'newPasswordMismatch'}">
+                    <br>
+                    <p style="color: red">the new passwords do not match, please try again</p>
+                </c:when>
+                <c:when test="${param.passwordChangeStatus == 'invalid'}">
+                    <br>
+                    <p style="color: red">your chosen password is invalid, please try a different password</p>
+                </c:when>
+                <c:when test="${param.passwordChangeStatus == 'dbConn'}">
+                    <br>
+                    <p style="color: red">the system could not connect to the database right now, please try again
+                        soon</p>
+                </c:when>
+            </c:choose>
 
-        <%--Selection of additional user feedback for different registration errors--%>
-        <c:choose>
-            <c:when test="${param.passwordChangeStatus == 'incorrect'}">
-                <br>
-                <p style="color: red">your current password is not correct, please try again</p>
-            </c:when>
-            <c:when test="${param.passwordChangeStatus == 'newPasswordMismatch'}">
-                <br>
-                <p style="color: red">the new passwords do not match, please try again</p>
-            </c:when>
-            <c:when test="${param.passwordChangeStatus == 'invalid'}">
-                <br>
-                <p style="color: red">your chosen password is invalid, please try a different password</p>
-            </c:when>
-            <c:when test="${param.passwordChangeStatus == 'dbConn'}">
-                <br>
-                <p style="color: red">the system could not connect to the database right now, please try again soon</p>
-            </c:when>
-        </c:choose>
+        </fieldset>
 
-    </fieldset>
-
-</form>
-<%@include file="BodyStylingLinks.jsp"%>
+    </form>
+</div>
+<%@include file="BodyStylingLinks.jsp" %>
 </body>
 </html>
