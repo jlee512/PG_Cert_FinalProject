@@ -1,11 +1,12 @@
 package login.system.dao;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Created by catherinedechalain on 1/06/17.
  */
-public class Comment {
+public class Comment implements Serializable {
     private int commentID;
     private int articleID;
     private int authorID;
