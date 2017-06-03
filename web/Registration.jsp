@@ -11,18 +11,18 @@
 <html>
 <head>
     <%@ include file="HeadStylingLinks.jsp" %>
+
     <%--If user is logged in (i.e. the login status is stored in the current session, return to the content page--%>
     <c:if test="${loginStatus == 'active'}">
 
         <c:redirect url="/Content?username=${sessionScope.userDetails.username}"/>
 
     </c:if>
+    <%------------------------------------------------------------------------------------------------------------%>
 
     <title>Welcome! Register an Account</title>
 
 </head>
-
-
 <body>
 <div class="backGroundImage">
     <div class="vertical-center">
@@ -40,22 +40,12 @@
                             <label for="username">New username</label>
                         </div>
 
-
-                        <%--Nickname input--%>
-                        <%--<div class="md-form">--%>
-                            <%--<input class="form-control" type="text" id="nickname" name="nickname"--%>
-                                   <%--onchange="checkForSpaces(this)"/>--%>
-                            <%--<label for="nickname">New nickname</label>--%>
-                        <%--</div>--%>
-
-
                         <%--Email input--%>
                         <div class="md-form">
                             <input class="form-control" type="email" id="email" name="email"
                                    onchange="checkForSpaces(this)"/>
                             <label for="email">Your email</label>
                         </div>
-
 
                         <%--Password input--%>
                         <div class="md-form">
@@ -73,12 +63,12 @@
                             <label for="passwordVerify">Verify password</label>
                         </div>
 
-
                         <%--Sign Up button and link to RegistrationAttempt Servlet--%>
                         <div class="text-center">
                             <input type="submit" id="submit" class="btn btn-primary" value="sign up">
                         </div>
                         <a class="text-right" href="/Login">or log in here</a>
+
                         <%--Selection of additional user feedback for different registration errors--%>
                         <c:choose>
                             <c:when test="${param.registrationStatus == 'passwordMismatch'}">
@@ -103,7 +93,7 @@
                                     soon</p>
                             </c:when>
                         </c:choose>
-
+                        <%------------------------------------------------------------------------------%>
 
                     </fieldset>
                 </div>
@@ -123,8 +113,6 @@
         }
     }
 </script>
-
 <%@include file="BodyStylingLinks.jsp" %>
-
 </body>
 </html>
