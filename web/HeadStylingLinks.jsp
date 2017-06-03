@@ -22,21 +22,42 @@
 <%--Responsiveness for all screen sizes--%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+<%-- Random Background image--%>
+<script>
+    $(document).ready(function () {
+
+        // Represents the number of photos
+        var upperLimit = 5;
+        // Randomise background photo
+        var randomNum = Math.floor((Math.random() * upperLimit) + 1);
+
+
+        // Edits the backGroundImage class to add a random image each time the webpage is loaded
+        $(".backGroundImage").css("background-image", "url('Multimedia/BackgroundImages/" + randomNum + ".jpg')");//<--changed path
+        console.log(randomNum);
+    });
+</script>
+<%-----------------------------%>
+
 <style>
     #submit {
         padding: 2%;
     }
 
     .backGroundImage {
-        background-image: url("Multimedia/BackgroundImages/garrett-parker-247225.jpg");
+        /*background-image: url("Multimedia/BackgroundImages/2.jpg");*/
         height: 100%;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+
     }
 
     .setOpacity {
         background-color: #FFF8FE;
-        opacity: 0.95;
+        opacity: 0.88;
+
     }
 </style>
