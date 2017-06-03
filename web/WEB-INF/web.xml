@@ -4,6 +4,9 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <!--=========================================================-->
+    <!--Servlet Mapping-->
+
     <!--Login Attempt Servlet for processing a specific user login attempt-->
     <servlet>
         <servlet-name>LoginAttempt</servlet-name>
@@ -59,6 +62,8 @@
     </servlet-mapping>
 
 
+<!--=======================================================================================================-->
+    <!--JSP Mapping-->
 
     <!--Servlet mapping to simplify URL's of .jsp files-->
     <!--(1) login-->
@@ -110,6 +115,16 @@
     <servlet-mapping>
         <servlet-name>changePasswordJSP</servlet-name>
         <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
+    <!--(6) EditUserProfile-->
+    <servlet>
+        <servlet-name>editUserProfileJSP</servlet-name>
+        <jsp-file>/EditUserProfile.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>editUserProfileJSP</servlet-name>
+        <url-pattern>/EditProfile</url-pattern>
     </servlet-mapping>
 
 </web-app>

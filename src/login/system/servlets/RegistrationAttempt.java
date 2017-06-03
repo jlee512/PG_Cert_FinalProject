@@ -30,10 +30,16 @@ public class RegistrationAttempt extends HttpServlet {
 
         /*If user wishes to register, form will post to this method*/
         String usernameInput = request.getParameter("username");
-        String nicknameInput = request.getParameter("nickname");
         String emailInput = request.getParameter("email");
         String passwordInput = request.getParameter("password");
         String passwordVerificationInput = request.getParameter("passwordVerify");
+        String phoneInput = "";
+        String occupationInput = "";
+        String cityInput = "";
+        String profile_descriptionInput = "";
+
+        /*Profile picture upload to be added on a separate page, take default picture (Kokako) initially*/
+        String profile_pictureStandard = "/Multimedia/kokako.jpg";
 
         /*With user input, check username uniqueness*/
         if (!passwordInputVerification(passwordInput, passwordVerificationInput)) {
@@ -46,12 +52,12 @@ public class RegistrationAttempt extends HttpServlet {
             int iterations = Passwords.getNextNumIterations();
             byte[] hash = Passwords.hash(passwordInput.toCharArray(), salt, iterations);
 
-            int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, nicknameInput, iterations, salt, hash, emailInput);
+            int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard);
 
             switch (registrationStatus) {
                 case 1:
                     System.out.println("User added successfully");
-                    User user = new User(usernameInput, nicknameInput, hash, salt, iterations, emailInput);
+                    User user = new User(usernameInput, hash, salt, iterations, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard);
 
                     /*If successful user additon, automatically login in user for the given session*/
                     HttpSession session = request.getSession(true);

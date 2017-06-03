@@ -46,13 +46,15 @@
 
 </style>
 
+<link rel="shortcut icon" type="image/png" href="/Multimedia/favicon.png">
+
 <body>
 
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
 <c:choose>
     <c:when test="${loginStatus == 'active'}">
 
-        <p>Welcome ${sessionScope.userDetails.nickname}! This is the page's content</p>
+        <p>Welcome ${sessionScope.userDetails.username}! This is the page's content</p>
         <div>
             <a href="/ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
         </div>

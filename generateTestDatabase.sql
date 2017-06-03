@@ -8,11 +8,15 @@ DROP TABLE IF EXISTS registered_users;
 CREATE TABLE registered_users (
   user_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   username VARCHAR(40) NOT NULL UNIQUE,
-  nickname VARCHAR(40),
   hash BLOB NOT NULL,
   salt BLOB NOT NULL,
   iterations INT NOT NULL,
-  email VARCHAR(200)
+  email VARCHAR(200),
+  phone VARCHAR(12),
+  occupation VARCHAR(50),
+  city VARCHAR(50),
+  profile_description TEXT,
+  profile_picture VARCHAR(200)
 );
 
 CREATE TABLE uploaded_articles (
@@ -44,5 +48,6 @@ CREATE TABLE posted_multimedia (
   multimedia_title TEXT
 );
 
+INSERT INTO uploaded_articles (author_id, date, article_title, article_body) VALUES (1, DATE '2017-05-31', "You're a lizard Harry!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pharetra erat id pellentesque rhoncus. Ut fermentum blandit risus, at blandit velit. Etiam finibus imperdiet erat, pulvinar imperdiet felis malesuada ut. Ut vel luctus mauris. Aliquam tempor, dui a laoreet pulvinar, odio ex lacinia tellus, eget lobortis velit dui vel nisl. Vestibulum non molestie nibh, in ultricies mi. Pellentesque sed sagittis felis.");
 
 
