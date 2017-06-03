@@ -18,7 +18,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class UserTest {
 
     MySQL DB = new MySQL();
-    /*Tests have been designed to run sequentially (i.e. add a user and check their login*/
+    /*Tests have been designed to run sequentially (i.e. add a user and check their login)*/
     static User testUser = UserGenerator.generateRandomUser();
     static User testUser2 = UserGenerator.generateRandomUser();
     User knownExistingUser;

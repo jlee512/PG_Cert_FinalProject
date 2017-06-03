@@ -138,7 +138,7 @@ public class Test_DB_Setup {
         ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
 
         /*------------ADD/ACCESS COMMENTS----------*/
-        CommentDAO.addComment
+
 
         /*------------ADD/ACCESS MULTIMEDIA--------*/
         String genericFilePath = "/Multimedia/";

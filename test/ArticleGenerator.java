@@ -33,12 +33,16 @@ public class ArticleGenerator {
 
     }
 
-//    public static Article getKnownArticle() {
-//
-//        Article knownArticle = ArticleDAO.getArticle(DB, article_id);
-//
-//        return knownArticle;
-//
-//    }
+    public static Article getKnownArticle() {
+
+        Article knownArticle = ArticleDAO.getArticle(DB, 3);
+
+        return knownArticle;
+
+    }
+
+    public static void main(String[] args) {
+        ArticleGenerator.getKnownArticle();
+    }
 
 }
