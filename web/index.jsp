@@ -28,7 +28,7 @@
     <div class="panel-body">
         <ul>
             <li>
-                <a href="Login.jsp">
+                <a href="Login">
                     <button class="button">Log in</button>
                 </a>
             </li>
@@ -43,7 +43,7 @@
                 <h1>Write your journey.</h1>
                 <br>
                 <br>
-                <a href="/Registration.jsp">
+                <a href="Registration">
                     <button type="button" class="btn">Get started</button>
                 </a>
             </div>

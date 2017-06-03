@@ -20,7 +20,7 @@
     <div class="vertical-center">
         <div class="card container setOpacity">
             <div class="card-block">
-                <form action="/LoginAttempt" method="POST" style="margin-top: 2%">
+                <form action="LoginAttempt" method="POST" style="margin-top: 2%">
 
                     <%--Login title--%>
                     <div class="text-center">
@@ -31,7 +31,7 @@
 
                     <%--If user is logged in (i.e. the login status is stored in the current session, return to the content page--%>
                     <c:if test="${loginStatus == 'active'}">
-                        <c:redirect url="/Content?username=${sessionScope.userDetails.username}"/>
+                        <c:redirect url="Content?username=${sessionScope.userDetails.username}"/>
                     </c:if>
 
                     <%--jsp scriptlet to assess whether an invalid password was entered. If so, prepopulate username field with original username--%>
