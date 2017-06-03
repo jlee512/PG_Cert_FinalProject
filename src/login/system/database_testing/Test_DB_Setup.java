@@ -2,6 +2,7 @@ package login.system.database_testing;
 
 import com.sun.org.apache.xpath.internal.SourceTree;
 import login.system.dao.ArticleDAO;
+import login.system.dao.CommentDAO;
 import login.system.dao.MultimediaDAO;
 import login.system.dao.UserDAO;
 import login.system.db.MySQL;
@@ -71,7 +72,7 @@ public class Test_DB_Setup {
         UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
 
         /*------------ADD/ACCESS ARTICLES----------*/
-        System.out.println("Adding articles to the database");
+        System.out.println("Adding articles to the database: 1");
         int author_id = 1;
         String article_title = "You're a lizard Harry!";
 
@@ -81,10 +82,63 @@ public class Test_DB_Setup {
 
         String article_body = "Curabitur vitae justo ac nunc molestie consectetur ac ut arcu. Nam efficitur fermentum congue. Pellentesque ac fringilla est, convallis condimentum neque. Pellentesque eu tortor at ligula fringilla vulputate quis ac ante.";
 
+        System.out.println("Adding articles to the database: 2");
+        author_id = 2;
+        article_title = "Who is Dungeon Hunter 8?";
+
+        utilDate = dateFormat.parse("2016-11-26");
+        date = new Date(utilDate.getTime());
+
+        article_body = "Curabitur pharetra, felis at tristique posuere, nibh velit bibendum massa, ac facilisis tortor massa et ligula. Duis scelerisque ex vel dui aliquet commodo.";
+
+        ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
+
+        System.out.println("Adding articles to the database: 3");
+        author_id = 1;
+        article_title = "Calling all Lizardsssssss - Party like it's 1998";
+
+        utilDate = dateFormat.parse("1998-04-12");
+        date = new Date(utilDate.getTime());
+
+        article_body = "Medaka ocean sunfish sturgeon pomfret stonecat brook trout ray central mudminnow righteye flounder. Zebra trout bala shark candiru louvar lionfish fathead sculpin pikeperch southern smelt prickleback Celebes rainbowfish.";
+
+        ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
+
+        System.out.println("Adding articles to the database: 4");
+        author_id = 2;
+        article_title = "Hunting Dungeon's for Dummies";
+
+        utilDate = dateFormat.parse("2015-07-19");
+        date = new Date(utilDate.getTime());
+
+        article_body = "Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut pea sierra leone bologi leek soko chicory celtuce parsley.";
+
+        ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
+
+        System.out.println("Adding articles to the database: 5");
+        author_id = 1;
+        article_title = "Computer Programming: A Lizard's Perspective";
+
+        utilDate = dateFormat.parse("2002-09-01");
+        date = new Date(utilDate.getTime());
+
+        article_body = "Airedale melted cheese stilton. Airedale gouda macaroni cheese airedale cheese strings pepper jack cow macaroni cheese. Fromage babybel feta pepper jack feta everyone loves cauliflower cheese cheese on toast.";
+
+        ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
+
+        System.out.println("Adding articles to the database: 6");
+        author_id = 3;
+        article_title = "How to Paint Hyper Realistic Tunnels";
+
+        utilDate = dateFormat.parse("2016-02-17");
+        date = new Date(utilDate.getTime());
+
+        article_body = "Obi-Wan is here. The Force is with him. I find your lack of faith disturbing. Red Five standing by. A tremor in the Force. The last time I felt it was in the presence of my old master.";
+
         ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
 
         /*------------ADD/ACCESS COMMENTS----------*/
-
+        CommentDAO.addComment
 
         /*------------ADD/ACCESS MULTIMEDIA--------*/
         String genericFilePath = "/Multimedia/";
