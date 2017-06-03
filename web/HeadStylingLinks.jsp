@@ -21,3 +21,22 @@
 
 <%--Responsiveness for all screen sizes--%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    #submit {
+        padding: 2%;
+    }
+
+    .backGroundImage {
+        background-image: url("Multimedia/BackgroundImages/garrett-parker-247225.jpg");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .setOpacity {
+        background-color: #FFF8FE;
+        opacity: 0.95;
+    }
+</style>
