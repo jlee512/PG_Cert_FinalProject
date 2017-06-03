@@ -7,10 +7,49 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
+    <%@ include file="HeadStylingLinks.jsp" %>
     <title>$Title$</title>
-  </head>
-  <body>
-    <a href="/Login">Enter the while_e_coyote Test Site Deployment</a>
-  </body>
+</head>
+
+<style>
+
+    #homepageVideo {
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+</style>
+
+<body>
+<div class="panel panel-default" style="background-color: transparent">
+    <div class="panel-body">
+        <ul>
+            <li>
+                <a href="Login.jsp">
+                    <button class="button">Log in</button>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div>
+    <video id="homepageVideo" autoplay loop muted src="Multimedia/Swimming.mp4"></video>
+    <div class="vertical-center">
+       <div class="container">
+            <div class="text-center">
+                <h1>Write your journey.</h1>
+                <br>
+                <br>
+                <a href="/Registration.jsp">
+                    <button type="button" class="btn">Get started</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<%@include file="BodyStylingLinks.jsp" %>
 </html>

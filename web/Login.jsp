@@ -12,18 +12,15 @@
 <html>
 <head>
     <%@ include file="HeadStylingLinks.jsp" %>
-
     <title>Login</title>
 </head>
 <body>
-
 
 <div class="backGroundImage">
     <div class="vertical-center">
         <div class="card container setOpacity">
             <div class="card-block">
                 <form action="/LoginAttempt" method="POST" style="margin-top: 2%">
-
 
                     <%--Login title--%>
                     <div class="text-center">
@@ -36,6 +33,7 @@
                     <c:if test="${loginStatus == 'active'}">
                         <c:redirect url="/Content?username=${sessionScope.userDetails.username}"/>
                     </c:if>
+
                     <%--jsp scriptlet to assess whether an invalid password was entered. If so, prepopulate username field with original username--%>
                     <%
                         String usernameAttempt = request.getParameter("username");
@@ -59,7 +57,6 @@
                             <label for="username">Your Username</label>
                         </div>
 
-
                         <%--PASSWORD--%>
                         <div class="md-form">
                             <i class="fa fa-lock prefix"></i>
@@ -71,16 +68,18 @@
                             <label for="password">Your password</label>
                         </div>
 
+                        <%--SIGN IN SUBMIT BUTTON--%>
                         <div class="text-center">
                             <input class="btn btn-primary btn-rounded" type="submit" id="submit" value="Sign in">
                         </div>
 
-
+                        <%--SIGN UP LINK--%>
                         <div class="modal-footer">
                             <div class="options">
                                 <p>Don't have an account? <a href="/Registration">Sign up</a></p>
                             </div>
                         </div>
+
                         <%--Selection for additional user feedback for different login errors--%>
                         <% String loginStatus = request.getParameter("loginStatus");
                             if (loginStatus != null && loginStatus.equals("invalidPassword")) {%>
@@ -95,9 +94,9 @@
                         <%
                             }
                         %>
+                        <%----------------------------------------------------------------------%>
 
                     </fieldset>
-
                 </form>
             </div>
         </div>

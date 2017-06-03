@@ -53,23 +53,25 @@
         <c:when test="${param.username != null}">
             <c:redirect url="/Login?username=${param.username}"/>
         </c:when>
+        <%--Otherwise direct to blank login page--%>
         <c:otherwise>
             <c:redirect url="/Login"/>
         </c:otherwise>
-
     </c:choose>
 </c:if>
+<%---------------------------------------------------------%>
+
 <div class="backGroundImage">
     <div class="vertical-center">
         <div class="container setOpacity">
             <form action="/ChangePasswordAttempt" method="POST">
-
                 <fieldset id="fieldset">
 
                     <%--Username--%>
                     <div class="text-center">
                         <h3>${param.username}, please select your new password</h3>
                     </div>
+
                     <%--Current Password--%>
                     <div class="md-form">
                         <input class="form-control" type="password" id="currentPassword" name="currentPassword"
@@ -78,7 +80,6 @@
                                required>
                         <label for="currentPassword">Current password</label>
                     </div>
-
 
                     <%--New Password (1)--%>
                     <div class="md-form">
@@ -97,10 +98,12 @@
                                required>
                         <label for="newPasswordVerify">Verify password</label>
                     </div>
+
                     <%--Submit button--%>
                     <div class="text-center">
                         <input class="btn btn-primary btn-rounded " type="submit" id="submit" value="change password">
                     </div>
+
                     <%--Selection of additional user feedback for different registration errors--%>
                     <c:choose>
                         <c:when test="${param.passwordChangeStatus == 'incorrect'}">
@@ -122,13 +125,15 @@
                                 soon</p>
                         </c:when>
                     </c:choose>
+                    <%--------------------------------------------------------------------------%>
 
                 </fieldset>
-
             </form>
         </div>
     </div>
 </div>
+
 <%@include file="BodyStylingLinks.jsp" %>
+
 </body>
 </html>

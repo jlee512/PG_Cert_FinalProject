@@ -39,7 +39,7 @@
         console.log(randomNum);
     });
 </script>
-<%-----------------------------%>
+
 
 <style>
     #submit {
