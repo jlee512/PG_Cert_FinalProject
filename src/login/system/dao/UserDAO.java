@@ -99,12 +99,12 @@ public class UserDAO {
         /*Convert username to lookup to lowercase*/
         usernameToLookup = usernameToLookup.toLowerCase();
 
-        /*Method development to verify user password*/
+        /*Dummy user to be returned if user not found*/
         User user = new User(null, null, null, -1, null, null, null, null, null, null);
 
         try (Connection c = DB.connection()) {
             try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM registered_users WHERE username = ?")) {
-                /**/
+
                 stmt.setString(1, usernameToLookup);
 
                 try (ResultSet r = stmt.executeQuery()) {

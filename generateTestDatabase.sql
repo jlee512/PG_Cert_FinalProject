@@ -23,8 +23,8 @@ CREATE TABLE uploaded_articles (
   article_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   author_id INT NOT NULL,
   date DATE NOT NULL,
-  article_title TEXT,
-  article_body TEXT,
+  article_title TEXT NOT NULL,
+  article_body TEXT NOT NULL,
   FOREIGN KEY (author_id) REFERENCES registered_users(user_id)
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE posted_comments (
   article_id INT NOT NULL,
   author_id INT NOT NULL,
   parent_comment_id INT,
-  date DATE NOT NULL,
+  date TIMESTAMP NOT NULL,
   comment_body TEXT NOT NULL,
   FOREIGN KEY (article_id) REFERENCES uploaded_articles(article_id),
   FOREIGN KEY (author_id) REFERENCES registered_users(user_id),
