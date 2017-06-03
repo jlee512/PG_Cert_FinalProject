@@ -163,4 +163,33 @@ public class CommentDAO {
         }
         return status;
     }
+
+    public static Comment getCommentByID(MySQL DB, int commentID){
+        Comment comment = new Comment();
+        try (Connection conn = DB.connection()){
+            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM posted_comments WHERE comment_id = ?")){
+                statement.setInt(1, commentID);
+                try (ResultSet resultSet = statement.executeQuery()){
+                    if (resultSet.next()){
+                        comment.setCommentID(commentID);
+                        comment.setAuthorID(resultSet.getInt(resultSet.findColumn("author_id")));
+                        comment.setArticleID(resultSet.getInt(resultSet.findColumn("article_id")));
+                        comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
+                        comment.setContent(resultSet.getString(resultSet.findColumn("content")));
+                        comment.setParentCommentID(resultSet.getInt(resultSet.findColumn("parent_comment_id")));
+                    }
+                    else {
+                        System.out.println("Could not find specified comment.");
+                    }
+                }
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return comment;
+    }
 }

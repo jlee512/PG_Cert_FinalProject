@@ -61,8 +61,19 @@
         <url-pattern>/AddCommentAttempt</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ViewArticle</servlet-name>
+        <servlet-class>login.system.servlets.ViewArticle</servlet-class>
+    </servlet>
 
-<!--=======================================================================================================-->
+    <servlet-mapping>
+        <servlet-name>ViewArticle</servlet-name>
+        <url-pattern>/ViewArticle</url-pattern>
+    </servlet-mapping>
+
+
+
+    <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
     <!--Servlet mapping to simplify URL's of .jsp files-->
@@ -125,6 +136,17 @@
     <servlet-mapping>
         <servlet-name>editUserProfileJSP</servlet-name>
         <url-pattern>/EditProfile</url-pattern>
+    </servlet-mapping>
+
+    <!--(7) AddCommentForm-->
+    <servlet>
+        <servlet-name>AddCommentFormJSP</servlet-name>
+        <jsp-file>/AddCommentForm.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCommentFormJSP</servlet-name>
+        <url-pattern>/AddComment</url-pattern>
     </servlet-mapping>
 
 </web-app>

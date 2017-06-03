@@ -19,7 +19,9 @@
 <form action="/AddCommentAttempt" method="post">
     <label for="comment_body">Comment:</label>
     <textarea rows="4" cols="50" name="comment_body" id="comment_body"></textarea>
-    <input type="hidden" name="username" value="${param.username}">
+    <input type="hidden" name="username" value="${sessionScope.userDetails.username}">
+    <input type="hidden" name="article_id" value="${param.article_id}">
+    <input type="hidden" name="parentComment_id" value="${param.parentComment_id}">
     <input type="submit" name="submit" value="Post Comment">
 </form>
 </body>

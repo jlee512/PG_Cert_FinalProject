@@ -23,11 +23,16 @@
 <br>
 <em>${article.article_date}</em>
 <hr>
+<a href="/AddComment?article_id=${article.article_id}">Add New Comment</a>
 <c:forEach var="comment" items="${commentList}">
     <div>
         <p>${comment.content}</p>
-        <a href="AddCommentForm.jsp">Reply</a>
+        <a href="/AddComment?article_id=${article.article_id}parentComment_id=${comment.comment_id}">Reply</a>
+        <c:if test="${comment.isParent}">
+            <button type="button">Show Replies</button>
+        </c:if>
     </div>
 </c:forEach>
 </body>
 </html>
+<%--Need to set up a function to retrieve replies if Show Replies button is clicked--%>

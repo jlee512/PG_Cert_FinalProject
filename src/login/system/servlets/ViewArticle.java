@@ -23,15 +23,15 @@ public class ViewArticle extends HttpServlet {
         MySQL DB = new MySQL();
 
         //Get Article object by ID from ArticleDAO.
-        Article article;
+        Article article = ArticleDAO.getArticle(DB, articleID);
         //Set it as an attribute to pass to the JSP.
-        //request.setAttribute("article", article);
+        request.setAttribute("article", article);
 
         //Get the author's username to display on Article page.
-        //int authorID = article.getAuthor_id();
-        //User user = UserDAO.getUser(DB, authorID);
-        //String username = user.getUsername();
-        //request.setAttribute("username", username);
+        int authorID = article.getAuthor_id();
+        User user = UserDAO.getUser(DB, authorID);
+        String username = user.getUsername();
+        request.setAttribute("username", username);
 
         List<Comment> commentList = CommentDAO.getCommentsByArticle(DB, articleID);
         request.setAttribute("commentList", commentList);
