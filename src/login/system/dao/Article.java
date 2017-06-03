@@ -15,8 +15,7 @@ public class Article implements Serializable{
     private String article_body;
 
 
-    public Article(int article_id, int author_id, String article_title, Date article_date, String article_body) {
-        this.article_id = article_id;
+    public Article(int author_id, String article_title, Date article_date, String article_body) {
         this.author_id = author_id;
         this.article_title = article_title;
         this.article_date = article_date;
