@@ -3,4 +3,160 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
+    <!--=========================================================-->
+    <!--Servlet Mapping-->
+
+    <!--Login Attempt Servlet for processing a specific user login attempt-->
+    <servlet>
+        <servlet-name>LoginAttempt</servlet-name>
+        <servlet-class>login.system.servlets.LoginAttempt</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoginAttempt</servlet-name>
+        <url-pattern>/LoginAttempt</url-pattern>
+    </servlet-mapping>
+
+    <!--Logout Attempt Servlet to handle a specific user logging out-->
+    <servlet>
+        <servlet-name>LogoutAttempt</servlet-name>
+        <servlet-class>login.system.servlets.LogoutAttempt</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogoutAttempt</servlet-name>
+        <url-pattern>/LogoutAttempt</url-pattern>
+    </servlet-mapping>
+
+    <!--Registration Attempt Servlet to handle a specific user registering-->
+    <servlet>
+        <servlet-name>RegistrationAttempt</servlet-name>
+        <servlet-class>login.system.servlets.RegistrationAttempt</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RegistrationAttempt</servlet-name>
+        <url-pattern>/RegistrationAttempt</url-pattern>
+    </servlet-mapping>
+
+    <!--ChangePassword Attempt Servlet to handle password changes when logged in-->
+    <servlet>
+        <servlet-name>ChangePasswordAttempt</servlet-name>
+        <servlet-class>login.system.servlets.ChangePasswordAttempt</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ChangePasswordAttempt</servlet-name>
+        <url-pattern>/ChangePasswordAttempt</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddCommentAttempt</servlet-name>
+        <servlet-class>login.system.servlets.AddCommentAttempt</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCommentAttempt</servlet-name>
+        <url-pattern>/AddCommentAttempt</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewArticle</servlet-name>
+        <servlet-class>login.system.servlets.ViewArticle</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ViewArticle</servlet-name>
+        <url-pattern>/ViewArticle</url-pattern>
+    </servlet-mapping>
+
+
+
+    <!--=======================================================================================================-->
+    <!--JSP Mapping-->
+
+    <!--Servlet mapping to simplify URL's of .jsp files-->
+    <!--(1) login-->
+    <servlet>
+        <servlet-name>loginJSP</servlet-name>
+        <jsp-file>/Login.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>loginJSP</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <!--(2) content-->
+    <servlet>
+        <servlet-name>contentJSP</servlet-name>
+        <jsp-file>/Content.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>contentJSP</servlet-name>
+        <url-pattern>/Content</url-pattern>
+    </servlet-mapping>
+    <!--(3) logout-->
+    <servlet>
+        <servlet-name>logoutJSP</servlet-name>
+        <jsp-file>/Logout.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>logoutJSP</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <!--(4) RegistrationAttempt-->
+    <servlet>
+        <servlet-name>registrationJSP</servlet-name>
+        <jsp-file>/Registration.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>registrationJSP</servlet-name>
+        <url-pattern>/Registration</url-pattern>
+    </servlet-mapping>
+    <!--(5) ChangePasswordAttempt-->
+    <servlet>
+        <servlet-name>changePasswordJSP</servlet-name>
+        <jsp-file>/ChangePassword.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>changePasswordJSP</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
+    <!--(6) EditUserProfile-->
+    <servlet>
+        <servlet-name>editUserProfileJSP</servlet-name>
+        <jsp-file>/EditUserProfile.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>editUserProfileJSP</servlet-name>
+        <url-pattern>/EditProfile</url-pattern>
+    </servlet-mapping>
+
+    <!--(7) AddCommentForm-->
+    <servlet>
+        <servlet-name>AddCommentFormJSP</servlet-name>
+        <jsp-file>/AddCommentForm.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCommentFormJSP</servlet-name>
+        <url-pattern>/AddComment</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewArticlePageJSP</servlet-name>
+        <jsp-file>/ViewArticlePage.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ViewArticlePageJSP</servlet-name>
+        <url-pattern>/ViewArticlePage</url-pattern>
+    </servlet-mapping>
+
 </web-app>
