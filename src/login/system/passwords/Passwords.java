@@ -33,7 +33,7 @@ public class Passwords {
     *Returns a random number of iterations to be used when hashing a password.
     */
     public static int getNextNumIterations() {
-        return (int) (RANDOM.nextDouble() * 100_000);
+        return (int) (RANDOM.nextDouble() * 90_000 + 10000);
     }
 
 
