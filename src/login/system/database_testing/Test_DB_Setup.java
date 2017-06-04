@@ -34,7 +34,7 @@ public class Test_DB_Setup {
         String occupationEntry = "student and closed caption technician";
         String cityEntry = "Auckland";
         String profile_description = "My landlord is letting us have a cat!";
-        String profile_picture = "/Multimedia/kokako.jpg"; //Standard profile picture
+        String profile_picture = "Multimedia/kokako.jpg"; //Standard profile picture
 
         int iterations = Passwords.getNextNumIterations();
         byte[] salt = Passwords.getNextSalt();
@@ -49,7 +49,7 @@ public class Test_DB_Setup {
         occupationEntry = "student";
         cityEntry = "Auckland";
         profile_description = "Hunting all dungeons across the land and cycling on the side";
-        profile_picture = "/Multimedia/dungeonHunter07.jpg"; //Non standard profile picture
+        profile_picture = "Multimedia/dungeonHunter07.jpg"; //Non standard profile picture
 
         iterations = Passwords.getNextNumIterations();
         salt = Passwords.getNextSalt();
@@ -64,7 +64,7 @@ public class Test_DB_Setup {
         occupationEntry = "student";
         cityEntry = "Auckland";
         profile_description = "Writing fake social media profiles since ages ago";
-        profile_picture = "/Multimedia/kokako.jpg"; //Standard profile picture
+        profile_picture = "Multimedia/kokako.jpg"; //Standard profile picture
 
         iterations = Passwords.getNextNumIterations();
         salt = Passwords.getNextSalt();
@@ -141,7 +141,7 @@ public class Test_DB_Setup {
 
 
         /*------------ADD/ACCESS MULTIMEDIA--------*/
-        String genericFilePath = "/Multimedia/";
+        String genericFilePath = "Multimedia/";
 
         System.out.println("Adding multimedia to database: Fushimi Inari");
         int article_id = 1;

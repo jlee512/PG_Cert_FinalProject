@@ -15,7 +15,7 @@
 <style>
 
     #homepageVideo {
-        height: 100%;
+        min-height: 100%;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -36,7 +36,7 @@
     </div>
 </div>
 <div>
-    <video id="homepageVideo" autoplay loop muted src="/Multimedia/Swimming.mp4"></video>
+    <video id="homepageVideo" autoplay loop muted src="Multimedia/port.mp4"></video>
     <div class="vertical-center">
        <div class="container">
             <div class="text-center">

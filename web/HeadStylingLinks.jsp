@@ -29,7 +29,7 @@
     $(document).ready(function () {
 
         // Represents the number of photos
-        var upperLimit = 5;
+        var upperLimit = 7;
         // Randomise background photo
         var randomNum = Math.floor((Math.random() * upperLimit) + 1);
 
