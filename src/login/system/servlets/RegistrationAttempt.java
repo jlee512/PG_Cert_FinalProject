@@ -37,6 +37,8 @@ public class RegistrationAttempt extends HttpServlet {
         String occupationInput = "";
         String cityInput = "";
         String profile_descriptionInput = "";
+        String firstname = "";
+        String lastname = "";
 
         /*Profile picture upload to be added on a separate page, take default picture (Kokako) initially*/
         String profile_pictureStandard = "Multimedia/kokako.jpg";
@@ -52,12 +54,12 @@ public class RegistrationAttempt extends HttpServlet {
             int iterations = Passwords.getNextNumIterations();
             byte[] hash = Passwords.hash(passwordInput.toCharArray(), salt, iterations);
 
-            int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard);
+            int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
 
             switch (registrationStatus) {
                 case 1:
                     System.out.println("User added successfully");
-                    User user = new User(usernameInput, hash, salt, iterations, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard);
+                    User user = new User(usernameInput, hash, salt, iterations, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
 
                     /*If successful user additon, automatically login in user for the given session*/
                     HttpSession session = request.getSession(true);

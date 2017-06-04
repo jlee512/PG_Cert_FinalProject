@@ -16,7 +16,9 @@ CREATE TABLE registered_users (
   occupation          VARCHAR(50),
   city                VARCHAR(50),
   profile_description TEXT,
-  profile_picture     VARCHAR(200)
+  profile_picture     VARCHAR(200),
+  firstname           VARCHAR(60),
+  lastname            VARCHAR(60)
 );
 
 CREATE TABLE uploaded_articles (

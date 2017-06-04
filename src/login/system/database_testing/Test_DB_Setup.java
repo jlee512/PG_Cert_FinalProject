@@ -35,11 +35,13 @@ public class Test_DB_Setup {
         String cityEntry = "Auckland";
         String profile_description = "My landlord is letting us have a cat!";
         String profile_picture = "Multimedia/kokako.jpg"; //Standard profile picture
+        String firstname = "Catherine";
+        String lastname = "de Chalain";
 
         int iterations = Passwords.getNextNumIterations();
         byte[] salt = Passwords.getNextSalt();
         byte[] hash = Passwords.hash(passwordEntry.toCharArray(), salt, iterations);
-        UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
+        UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture, firstname, lastname);
 
         System.out.println("Adding test user Yuri");
         username = "yuri";
@@ -50,11 +52,13 @@ public class Test_DB_Setup {
         cityEntry = "Auckland";
         profile_description = "Hunting all dungeons across the land and cycling on the side";
         profile_picture = "Multimedia/dungeonHunter07.jpg"; //Non standard profile picture
+        firstname = "Yuri";
+        lastname =  "Cowan";
 
         iterations = Passwords.getNextNumIterations();
         salt = Passwords.getNextSalt();
         hash = Passwords.hash(passwordEntry.toCharArray(), salt, iterations);
-        UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
+        UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture, firstname, lastname);
 
         System.out.println("Adding test user Julian");
         username = "julian";
@@ -65,11 +69,13 @@ public class Test_DB_Setup {
         cityEntry = "Auckland";
         profile_description = "Writing fake social media profiles since ages ago";
         profile_picture = "Multimedia/kokako.jpg"; //Standard profile picture
+        firstname = "Julian";
+        lastname = "Lees";
 
         iterations = Passwords.getNextNumIterations();
         salt = Passwords.getNextSalt();
         hash = Passwords.hash(passwordEntry.toCharArray(), salt, iterations);
-        UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture);
+        UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture, firstname, lastname);
 
         /*------------ADD/ACCESS ARTICLES----------*/
         System.out.println("Adding articles to the database: 1");

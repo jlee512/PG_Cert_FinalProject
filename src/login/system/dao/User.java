@@ -18,8 +18,10 @@ public class User implements Serializable {
     private String city;
     private String profile_description;
     private String profile_picture;
+    private String firstname;
+    private String lastname;
 
-    public User(String username, byte[] pwHash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
+    public User(String username, byte[] pwHash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture, String firstname, String lastname) {
         this.username = username;
         this.hash = pwHash;
         this.salt = salt;
@@ -30,6 +32,8 @@ public class User implements Serializable {
         this.city = city;
         this.profile_description = profile_description;
         this.profile_picture = profile_picture;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     public String getUsername() {
@@ -76,6 +80,14 @@ public class User implements Serializable {
         return profile_picture;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
@@ -120,7 +132,15 @@ public class User implements Serializable {
         this.profile_picture = profile_picture;
     }
 
-    public void setUserParameters(int user_id, String username, byte[] hash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setUserParameters(int user_id, String username, byte[] hash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture, String firstname, String lastname) {
         this.user_id = user_id;
         this.username = username;
         this.hash = hash;
@@ -132,6 +152,8 @@ public class User implements Serializable {
         this.city = city;
         this.profile_description = profile_description;
         this.profile_picture = profile_picture;
+        this.firstname = firstname;
+        this.lastname = lastname;
 
     }
 }
