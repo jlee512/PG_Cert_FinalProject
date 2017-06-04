@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="uoawhileecoyote@mysql1.sporadic.co.nz">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
     <root id="1"/>
     <schema id="2" parent="1" name="uoawhileecoyote">
       <Current>1</Current>
@@ -54,6 +54,7 @@
       <ColNames>parent_comment_id</ColNames>
     </index>
     <key id="19" parent="6" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>comment_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -104,6 +105,7 @@
       <Unique>1</Unique>
     </index>
     <key id="29" parent="7" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>multimedia_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -174,6 +176,7 @@
       <Unique>1</Unique>
     </index>
     <key id="45" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -216,6 +219,7 @@ article_title</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="54" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>article_id</ColNames>
       <Primary>1</Primary>
     </key>

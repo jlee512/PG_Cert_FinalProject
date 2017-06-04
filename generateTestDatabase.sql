@@ -54,4 +54,7 @@ CREATE TABLE posted_multimedia (
   multimedia_title TEXT
 );
 
+SELECT * FROM uploaded_articles
+ORDER BY date
+LIMIT 3;
 

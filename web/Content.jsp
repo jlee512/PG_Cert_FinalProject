@@ -22,11 +22,11 @@
     /*Initial page setup*/
 
     /*Prevents cache access of content/changepassword/logout pages*/
-    response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
-    response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
+    response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+    response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
     response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
-    response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
-    User user = (User)session.getAttribute("userDetails");
+    response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
+    User user = (User) session.getAttribute("userDetails");
     if (user == null) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Login");
         dispatcher.forward(request, response);
@@ -43,7 +43,7 @@
     System.out.println(randomQuote);
 
     File quotes_file = new File(quotes_file_path);
-    try (BufferedReader br = new BufferedReader(new FileReader(quotes_file))){
+    try (BufferedReader br = new BufferedReader(new FileReader(quotes_file))) {
 
         for (int i = 0; i < numQuotes; i++) {
             if (i == (randomQuote)) {
@@ -99,8 +99,10 @@
 <c:choose>
     <c:when test="${loginStatus == 'active'}">
 
-        <p>Welcome ${sessionScope.userDetails.username}! The INSERT QUOTE FROM FILEREADER HERE</p>
+        <p>Welcome ${sessionScope.userDetails.username}!</p>
 
+        <p>"<%=quote%>"</p>
+        <p><%=author%></p>
 
         <div>
             <a href="ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
@@ -112,7 +114,7 @@
         </div>
 
         <div>
-        <a href="Logout?username=${sessionScope.userDetails.username}" id="logoutButton">logout</a>
+            <a href="Logout?username=${sessionScope.userDetails.username}" id="logoutButton">logout</a>
         </div>
 
     </c:when>

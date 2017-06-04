@@ -12,9 +12,14 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ArticleTest {
     private Article myArticle;
@@ -104,6 +109,47 @@ public class ArticleTest {
         
     }
 
+    @Test
+    public void test3AccessNArticleByDate() throws ParseException {
 
+        /*Pull the newest 'N' (N = 3 for this test) articles from the database*/
+        List<Article> articles = ArticleDAO.getfirstNArticlesByDate(DB, 3);
+
+        for (Article article : articles) {
+            System.out.println(article.getArticle_title());
+        }
+
+        int[] knownAuthorIds = {1, 1, 2};
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date utilDate = dateFormat.parse("1998-01-12");
+        Date date1 = new Date(utilDate.getTime());
+        utilDate = dateFormat.parse("2002-01-01");
+        Date date2 = new Date(utilDate.getTime());
+        utilDate = dateFormat.parse("2015-01-19");
+        Date date3 = new Date(utilDate.getTime());
+        Date[] knownArticleDates = {date1, date2, date3};
+
+        String[] knownArticleTitles = {"Calling all Lizardsssssss - Party like it's 1998","Computer Programming: A Lizard's Perspective","Hunting Dungeon's for Dummies"};
+
+        String[] knownArticleBody = {"Medaka ocean sunfish sturgeon pomfret stonecat brook trout ray central mudminnow righteye flounder. Zebra trout bala shark candiru louvar lionfish fathead sculpin pikeperch southern smelt prickleback Celebes rainbowfish.", "Airedale melted cheese stilton. Airedale gouda macaroni cheese airedale cheese strings pepper jack cow macaroni cheese. Fromage babybel feta pepper jack feta everyone loves cauliflower cheese cheese on toast.", "Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut pea sierra leone bologi leek soko chicory celtuce parsley."};
+
+
+        for (int i = 0; i < 3; i++) {
+
+            assertTrue(articles.get(i).getArticle_title().equals(knownArticleTitles[i]));
+            System.out.println(articles.get(i).getArticle_date());
+            System.out.println(knownArticleDates[i]);
+            System.out.println(articles.get(i).getArticle_date().compareTo(knownArticleDates[i]));
+
+            assertTrue(articles.get(i).getArticle_date().equals(knownArticleDates[i]));
+            assertTrue(articles.get(i).getArticle_title().equals(knownArticleTitles[i]));
+            assertTrue(articles.get(i).getArticle_body().equals(knownArticleBody[i]));
+
+        }
+
+
+
+    }
 
 }
