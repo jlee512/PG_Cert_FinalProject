@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="uoawhileecoyote@mysql1.sporadic.co.nz">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
     <root id="1"/>
     <schema id="2" parent="1" name="uoawhileecoyote">
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="information_schema"/>
-    <schema id="4" parent="1" name="sample_db"/>
-    <schema id="5" parent="1" name="jlee512"/>
+    <schema id="4" parent="1" name="jlee512"/>
+    <schema id="5" parent="1" name="sample_db"/>
     <table id="6" parent="2" name="posted_comments"/>
     <table id="7" parent="2" name="posted_multimedia"/>
     <table id="8" parent="2" name="registered_users"/>
@@ -54,7 +54,6 @@
       <ColNames>parent_comment_id</ColNames>
     </index>
     <key id="19" parent="6" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
       <ColNames>comment_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -105,7 +104,6 @@
       <Unique>1</Unique>
     </index>
     <key id="29" parent="7" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
       <ColNames>multimedia_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -176,7 +174,6 @@
       <Unique>1</Unique>
     </index>
     <key id="45" parent="8" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -219,7 +216,6 @@ article_title</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="54" parent="9" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
       <ColNames>article_id</ColNames>
       <Primary>1</Primary>
     </key>
