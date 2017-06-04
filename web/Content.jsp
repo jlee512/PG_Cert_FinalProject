@@ -69,7 +69,7 @@
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
     <c:otherwise>
 
-        <c:redirect url="Login"/>
+        <c:redirect url="/Login"/>
 
     </c:otherwise>
 </c:choose>

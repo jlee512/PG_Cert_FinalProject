@@ -9,7 +9,7 @@
 <html>
 <head>
     <%@ include file="HeadStylingLinks.jsp" %>
-    <title>$Title$</title>
+    <title>Welcome to Team While E Coyote's Website!</title>
 </head>
 
 <style>
@@ -36,7 +36,7 @@
     </div>
 </div>
 <div>
-    <video id="homepageVideo" autoplay loop muted src="Multimedia/Swimming.mp4"></video>
+    <video id="homepageVideo" autoplay loop muted src="/Multimedia/Swimming.mp4"></video>
     <div class="vertical-center">
        <div class="container">
             <div class="text-center">
