@@ -14,6 +14,7 @@
         <c:redirect url="Login"/>
     </c:if>
     <title>${requestScope.article.article_title}</title>
+    <script src="Javascript/show_comments.js"></script>
 </head>
 <body>
 <h1>${requestScope.article.article_title}</h1>
@@ -30,10 +31,11 @@
         <p>${comment.content}</p>
         <a href="AddComment?article_id=${requestScope.article.article_id}&parentComment_id=${comment.commentID}">Reply</a>
         <c:if test="${comment.isParent}">
-            <button type="button">Show Replies</button>
+            <button type="button" class="show_replies" value="${comment.commentID}">Show Replies</button>
         </c:if>
     </div>
 </c:forEach>
 </body>
+
 </html>
 <%--Need to set up a function to retrieve replies if Show Replies button is clicked--%>
