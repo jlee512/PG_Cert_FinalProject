@@ -48,7 +48,7 @@
 
                         <%--USERNAME--%>
                         <div class="md-form">
-                            <i class="fa fa-envelope prefix"></i>
+                            <i class="fa fa-user prefix"></i>
                             <input class="form-control" type="text" id="username" name="username"
 
                                    oninvalid="this.setCustomValidity('please enter your username')"
@@ -60,7 +60,7 @@
                         <%--PASSWORD--%>
                         <div class="md-form">
                             <i class="fa fa-lock prefix"></i>
-                            <input type="password" id="password" name="password" class="form-control"
+                            <input class="form-control" type="password" id="password" name="password"
 
                                    oninvalid="this.setCustomValidity('please enter your password')"
                                    oninput="this.setCustomValidity('')"

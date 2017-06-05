@@ -9,47 +9,42 @@
 <html>
 <head>
     <%@ include file="HeadStylingLinks.jsp" %>
-    <title>Welcome to Team While E Coyote's Website!</title>
+    <title>Escapades</title>
 </head>
 
 <style>
 
     #homepageVideo {
-        min-height: 100%;
+        height: 100%;
+        width: 100%;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
     }
 
+    html {
+        overflow-y: hidden;
+    }
+
 </style>
 
 <body>
-<div class="panel panel-default" style="background-color: transparent">
-    <div class="panel-body">
-        <ul>
-            <li>
-                <a href="Login">
-                    <button class="button">Log in</button>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div>
-    <video id="homepageVideo" autoplay loop muted src="Multimedia/port.mp4"></video>
-    <div class="vertical-center">
-       <div class="container">
-            <div class="text-center">
-                <h1>Write your journey.</h1>
+
+<div id="homepageVideo">
+    <video autoplay loop muted src="Multimedia/indexVideo.mp4"></video>
+    <div class="vertical-center " style="position: absolute; width: 100%">
+        <div class="text-center">
+            <div class=" container">
+                <h1 style="color: white;">Start your own blog,<br>because we've all got something to say.</h1>
                 <br>
                 <br>
-                <a href="Registration">
-                    <button type="button" class="btn">Get started</button>
-                </a>
+                <a href="Registration" class="btn btn-primary btn-rounded">Get started</a>
+                <a href="Login" class="btn btn-default btn-rounded">Log in</a>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 <%@include file="BodyStylingLinks.jsp" %>
 </html>
