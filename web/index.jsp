@@ -16,7 +16,7 @@
 
     #homepageVideo {
         height: 100%;
-        width: 100%;
+
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -27,7 +27,7 @@
 <body>
 
 <div>
-    <video id="homepageVideo" autoplay loop muted src="Multimedia/Dog.mp4"></video>
+    <video id="homepageVideo" autoplay loop muted src="Multimedia/indexVideo.mp4"></video>
     <div class="vertical-center text-center" style="position: absolute;">
        <div class="container">
             <div class="screen-heading" >
