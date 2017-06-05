@@ -83,6 +83,17 @@
         <servlet-name>MainContentAccess</servlet-name>
         <url-pattern>/MainContentAccess</url-pattern>
     </servlet-mapping>
+
+    <!--Show Nested Comments servlet (to use AJAX)-->
+    <servlet>
+        <servlet-name>ShowNestedComments</servlet-name>
+        <servlet-class>login.system.servlets.ShowNestedComments</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ShowNestedComments</servlet-name>
+        <url-pattern>/ShowNestedComments</url-pattern>
+    </servlet-mapping>
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
