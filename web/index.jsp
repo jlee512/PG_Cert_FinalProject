@@ -16,7 +16,7 @@
 
     #homepageVideo {
         height: 100%;
-        width: 100%;
+
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -27,14 +27,14 @@
 <body>
 
 <div>
-    <video id="homepageVideo" autoplay loop muted src="Multimedia/Dog.mp4"></video>
+    <video id="homepageVideo" autoplay loop muted src="Multimedia/indexVideo.mp4"></video>
     <div class="vertical-center text-center" style="position: absolute;">
        <div class="container">
             <div class="screen-heading" >
                 <h1 style="color: white;" >Start your own blog,<br>because we've all got something to say.</h1>
                 <br>
                 <br>
-                <a href="/Registration.jsp">
+                <a href="Registration.jsp">
                     <button style="color: beige" type="button" class="btn">Get started</button>
                 </a>
             </div>
