@@ -9,43 +9,60 @@
 <html>
 <head>
     <%@ include file="HeadStylingLinks.jsp" %>
-    <title>Welcome to Team While E Coyote's Website!</title>
+    <title>$Title$</title>
 </head>
 
 <style>
 
     #homepageVideo {
-        min-height: 100%;
+<<<<<<< HEAD
+        height: 100%;
+
+=======
+
+        width: 100%;
+>>>>>>> origin/master
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
     }
 
+    html {
+        overflow-y: hidden;
+    }
+
 </style>
 
 <body>
-<div class="panel panel-default" style="background-color: transparent">
-    <div class="panel-body">
-        <ul>
-            <li>
-                <a href="Login">
-                    <button class="button">Log in</button>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
+
+<<<<<<< HEAD
 <div>
-    <video id="homepageVideo" autoplay loop muted src="Multimedia/port.mp4"></video>
-    <div class="vertical-center">
+    <video id="homepageVideo" autoplay loop muted src="Multimedia/indexVideo.mp4"></video>
+    <div class="vertical-center text-center" style="position: absolute;">
        <div class="container">
-            <div class="text-center">
-                <h1>Write your journey.</h1>
+            <div class="screen-heading" >
+                <h1 style="color: white;" >Start your own blog,<br>because we've all got something to say.</h1>
                 <br>
                 <br>
-                <a href="Registration">
-                    <button type="button" class="btn">Get started</button>
+                <a href="Registration.jsp">
+                    <button style="color: beige" type="button" class="btn">Get started</button>
                 </a>
+=======
+
+
+
+
+<div id="homepageVideo">
+    <video autoplay loop muted src="Multimedia/indexVideo.mp4"></video>
+    <div class="vertical-center " style="position: absolute; width: 100%">
+        <div class="text-center">
+            <div class=" container">
+                <h1 style="color: white;">Start your own blog,<br>because we've all got something to say.</h1>
+                <br>
+                <br>
+                <a href="Registration.jsp" class="btn btn-primary btn-rounded">Get started</a>
+                <a href="Login.jsp" class="btn btn-default btn-rounded">Log in</a>
+>>>>>>> origin/master
             </div>
         </div>
     </div>

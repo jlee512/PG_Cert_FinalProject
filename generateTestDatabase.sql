@@ -41,6 +41,7 @@ CREATE TABLE posted_comments (
   parent_comment_id INT,
   timestamp         TIMESTAMP       NOT NULL,
   comment_body      TEXT            NOT NULL,
+  is_parent         BOOLEAN,
   FOREIGN KEY (article_id) REFERENCES uploaded_articles (article_id),
   FOREIGN KEY (author_id) REFERENCES registered_users (user_id),
   FOREIGN KEY (parent_comment_id) REFERENCES posted_comments (comment_id)
@@ -54,4 +55,7 @@ CREATE TABLE posted_multimedia (
   multimedia_title TEXT
 );
 
+SELECT article_id, username, firstname, lastname, date, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
+ORDER BY date
+LIMIT 3;
 

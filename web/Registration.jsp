@@ -21,7 +21,8 @@
     <%------------------------------------------------------------------------------------------------------------%>
 
     <title>Welcome! Register an Account</title>
-
+    <%--Google recaptcha--%>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <div class="backGroundImage">
@@ -35,6 +36,7 @@
 
                         <%--Username input--%>
                         <div class="md-form">
+                            <i class="fa fa-user prefix"></i>
                             <input class="form-control" type="text" id="username" name="username"
                                    onchange="checkForSpaces(this)"/>
                             <label for="username">New username</label>
@@ -42,6 +44,7 @@
 
                         <%--Email input--%>
                         <div class="md-form">
+                            <i class="fa fa-envelope prefix"></i>
                             <input class="form-control" type="email" id="email" name="email"
                                    onchange="checkForSpaces(this)"/>
                             <label for="email">Your email</label>
@@ -49,6 +52,7 @@
 
                         <%--Password input--%>
                         <div class="md-form">
+                            <i class="fa fa-unlock-alt prefix"></i>
                             <input class="form-control" type="password" id="password" name="password" minlength="5"
                                    onchange="checkForSpaces(this)"
                                    required/>
@@ -57,10 +61,17 @@
 
                         <%--PASSWORD VERIFICATION--%>
                         <div class="md-form">
+                            <i class="fa fa-lock prefix"></i>
                             <input class="form-control" type="password" id="passwordVerify" name="passwordVerify"
                                    minlength="5"
                                    onchange="checkForSpaces(this)" required/>
                             <label for="passwordVerify">Verify password</label>
+                        </div>
+
+                        <%--GOOGLE RECAPTCHA--%>
+                        <div class="md-form" style="opacity: 1">
+                            <div class="g-recaptcha"
+                                 data-sitekey="6LdfICQUAAAAAKDVV0dEaobS0ecRWPLFvdfKTyzn"></div>
                         </div>
 
                         <%--Sign Up button and link to RegistrationAttempt Servlet--%>
