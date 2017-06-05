@@ -35,7 +35,7 @@ public class ArticleGenerator {
 
     public static Article getKnownArticle() {
 
-        Article knownArticle = ArticleDAO.getArticle(DB, 4);
+        Article knownArticle = ArticleDAO.getArticle(DB, 3);
 
         return knownArticle;
 

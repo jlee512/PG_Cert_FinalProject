@@ -8,7 +8,9 @@ import login.system.dao.ArticleDAO;
 import login.system.dao.UserDAO;
 import login.system.db.MySQL;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -21,59 +23,19 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/*Fix test order*/
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ArticleTest {
     private Article myArticle;
     MySQL DB = new MySQL();
     /*DAO tests have been designed to run sequentially (i.e. add a user and check their login)*/
     static Article testArticle = ArticleGenerator.generateRandomArticle();
-    static Article testArticle2 = ArticleGenerator.generateRandomArticle();
     Article knownExistingArticle;
 
 
     @Before
     public void setup() {
-        myArticle = new Article(2, "Title", new Date(0), "This is an article");
         knownExistingArticle = ArticleGenerator.getKnownArticle();
-    }
-
-    @Test
-    public void testConstructor() {
-        assertEquals(2, myArticle.getAuthor_id());
-        assertEquals("Title", myArticle.getArticle_title());
-        Date now = new Date(0);
-        assertEquals(now, myArticle.getArticle_date());
-        assertEquals("This is an article", myArticle.getArticle_body());
-    }
-
-    @Test
-    public void testSetArticleID() {
-        myArticle.setArticle_id(238);
-        assertEquals(238, myArticle.getArticle_id());
-    }
-
-    @Test
-    public void testSetAuthorID() {
-        myArticle.setAuthor_id(397);
-        assertEquals(397, myArticle.getAuthor_id());
-    }
-
-    @Test
-    public void testSetArticleTitle() {
-        myArticle.setArticle_title("A New Title");
-        assertEquals("A New Title", myArticle.getArticle_title());
-    }
-
-    @Test
-    public void testSetArticleDate() {
-        Date date = new Date(30000);
-        myArticle.setArticle_date(date);
-        assertEquals(date, myArticle.getArticle_date());
-    }
-
-    @Test
-    public void testSetArticleBody() {
-        myArticle.setArticle_body("This is a new article body");
-        assertEquals("This is a new article body", myArticle.getArticle_body());
     }
 
     /*---------------------------------------------------------------------*/
@@ -102,7 +64,9 @@ public class ArticleTest {
         
         /*Lookup Article by Article ID and access the parameters returned by the MySQL */
         assertEquals(knownExistingArticle.getArticle_id(), testArticle.getArticle_id());
-        assertEquals(knownExistingArticle.getAuthor_id(), testArticle.getAuthor_id());
+        assertEquals(knownExistingArticle.getAuthor_username(), testArticle.getAuthor_username());
+        assertEquals(knownExistingArticle.getAuthor_firstname(), testArticle.getAuthor_firstname());
+        assertEquals(knownExistingArticle.getAuthor_lastname(), testArticle.getAuthor_lastname());
         assertEquals(knownExistingArticle.getArticle_date(), testArticle.getArticle_date());
         assertEquals(knownExistingArticle.getArticle_title(), testArticle.getArticle_title());
         assertEquals(knownExistingArticle.getArticle_body(), testArticle.getArticle_body());
@@ -115,11 +79,11 @@ public class ArticleTest {
         /*Pull the newest 'N' (N = 3 for this test) articles from the database*/
         List<Article> articles = ArticleDAO.getfirstNArticlesByDate(DB, 3);
 
-        for (Article article : articles) {
-            System.out.println(article.getArticle_title());
-        }
-
         int[] knownAuthorIds = {1, 1, 2};
+
+        String[] knownAuthorUsernames = {"catherine", "catherine", "yuri"};
+        String[] knownAuthorFirstnames = {"Catherine", "Catherine", "Yuri"};
+        String[] knownAuthorLastnames = {"de Chalain", "de Chalain", "Cowan"};
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilDate = dateFormat.parse("1998-01-12");
@@ -138,10 +102,9 @@ public class ArticleTest {
         for (int i = 0; i < 3; i++) {
 
             assertTrue(articles.get(i).getArticle_title().equals(knownArticleTitles[i]));
-            System.out.println(articles.get(i).getArticle_date());
-            System.out.println(knownArticleDates[i]);
-            System.out.println(articles.get(i).getArticle_date().compareTo(knownArticleDates[i]));
-
+            assertTrue(articles.get(i).getAuthor_username().equals(knownAuthorUsernames[i]));
+            assertTrue(articles.get(i).getAuthor_firstname().equals(knownAuthorFirstnames[i]));
+            assertTrue(articles.get(i).getAuthor_firstname().equals(knownAuthorFirstnames[i]));
             assertTrue(articles.get(i).getArticle_date().equals(knownArticleDates[i]));
             assertTrue(articles.get(i).getArticle_title().equals(knownArticleTitles[i]));
             assertTrue(articles.get(i).getArticle_body().equals(knownArticleBody[i]));

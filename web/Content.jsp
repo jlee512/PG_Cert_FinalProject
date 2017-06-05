@@ -46,14 +46,10 @@
                 quote = br.readLine();
                 author = br.readLine();
             } else {
-                System.out.println(br.readLine());
-                System.out.println(br.readLine());
+                br.readLine();
+                br.readLine();
             }
         }
-
-        System.out.println("-----------");
-        System.out.println(quote);
-        System.out.println(author);
 
     } catch (IOException e) {
         e.printStackTrace();

@@ -14,6 +14,7 @@ import org.junit.runners.MethodSorters;
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertArrayEquals;
 
+/*Fix test order*/
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserTest {
 

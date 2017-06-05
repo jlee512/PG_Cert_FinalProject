@@ -84,10 +84,10 @@ public class LoginAttempt extends HttpServlet {
     }
 
     public static void loginStatusRedirection(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (request.getParameter("loginStatus") != "active"){
+        HttpSession session = request.getSession(true);
+        if (session.getAttribute("loginStatus") != "active"){
             response.sendRedirect("Login");
         } else {
-            HttpSession session = request.getSession(true);
             User user = (User) session.getAttribute("userDetails");
             response.sendRedirect("Content?username=" + user.getUsername());
         }

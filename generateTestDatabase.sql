@@ -54,7 +54,7 @@ CREATE TABLE posted_multimedia (
   multimedia_title TEXT
 );
 
-SELECT * FROM uploaded_articles
+SELECT article_id, username, firstname, lastname, date, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
 ORDER BY date
 LIMIT 3;
 
