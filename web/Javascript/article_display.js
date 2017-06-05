@@ -4,40 +4,54 @@
 
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
-    "<div class='panel panel-default pgcertArticle'>" +
-    "<div class='panel-heading'></div>" +
-    "<div class='panel-body'>" +
-    "<p><strong class='author-name'></strong></p>" +
-    "<p class='main-content'></p>" +
-    "<div class='text-center bg-info'>Show full content</div>" +
-    "</div>" +
+    "<div class='container text-center' id='mainContent'>" +
+        "<div class='row'>" +
+            "<div class='col-md-1'></div>" +
+                "<div class='panel panel-default col-sm-12 col-md-10'>" +
+                    "<div style='padding-top: 2%'>" +
+                        "<div class='panel panel-default'>" +
+                            "<div class='panel-heading'>" +
+                                "<h3 class='panel-title'></h3>" +
+                            "</div>" +
+                            "<div class='panel-body'>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+            "<div class='col-md-1'></div>" +
+        "</div>" +
     "</div>";
 
+$("document").ready(function () {
 
-
-// A template which will be used for inserting new Users HTML.
-var userTemplate =
-    "<div class='panel panel-default pgcertUser'>" +
-    "<div class='panel-heading'>User name</div>" +
-    "<div class='panel-body'>" +
-    "<p><strong>First Name:</strong> <span>the name</span></p>" +
-    "<p><strong>Last Name:</strong> <span>the name</span></p>" +
-    "<p><strong>Occupation:</strong> <span>the occupation</span></p>" +
-    "<ul class='likesList'>" +
-    "</ul>" +
-    "</div>" +
-    "</div>";
-
-
-$("document").ready(function() {
+    var container = $(".news_feed");
 
     $.ajax({
 
         url: '/MainContentAccess',
         type: 'GET',
-        success: onLoadArticlesSuccess,
-        error: onLoadArticlesFailure
+        success: function (msg) {
 
+            for (var i = 0; i < msg.length; i++) {
+
+                var article = msg[i];
+
+                var articleDiv = $(articleTemplate);
+                articleDiv.find(".panel-title").text(article.article_title);
+                var date = new Date(article.article_date);
+                articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + date.toDateString() + "</p><p>" + article.article_body + "</p>");
+                articleDiv.find(".panel-body").css("text-align","left");
+                console.log(articleDiv);
+                container.append(articleDiv);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+            console.log(jqXHR.status);
+            console.log(textStatus);
+            console.log(errorThrown);
+
+        }
     });
 
 });
@@ -46,46 +60,4 @@ function onLoadArticlesFailure(msg) {
 
     console.log("failed to load articles");
 
-}
-
-function onLoadArticlesSuccess(msg) {
-
-    console.log("Test");
-
-    var container = $(".articleContainer");
-
-    console.log(msg.length);
-
-    for (var i = 0; i < msg.length; i++) {
-
-        console.log("test " + i);
-
-        var article = msg[i];
-
-        console.log(article);
-
-        var articleDiv = $(articleTemplate);
-        articleDiv.find(".panel-heading").text(article.article_title);
-        var contentDiv = articleDiv.find(".main-content");
-        contentDiv.text(article.article_body);
-        var authorField = articleDiv.find(".author-name");
-
-        console.log(article.author_firstname);
-        console.log(article.author_lastname);
-        console.log(article.author_username);
-
-        // articleDiv.find(".bg-info").click(showFullContentButtonClick(article.id, contentDiv));
-        // container.append(articleDiv);
-
-        // }
-
-        // If there's no more articles...
-        // if (msg.length < count) {
-        //
-        //     // Disable the button by removing its event handler, and set its color to red.
-        //     var button = $("#loadArticleButton");
-        //     button.css("background-color", "red");
-        //     button.unbind("click");
-        // }
-    }
 }

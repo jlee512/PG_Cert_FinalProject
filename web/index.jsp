@@ -9,13 +9,13 @@
 <html>
 <head>
     <%@ include file="HeadStylingLinks.jsp" %>
-    <title>$Title$</title>
+    <title>Escapades</title>
 </head>
 
 <style>
 
     #homepageVideo {
-
+        height: 100%;
         width: 100%;
         background-position: center;
         background-repeat: no-repeat;
@@ -30,10 +30,6 @@
 
 <body>
 
-
-
-
-
 <div id="homepageVideo">
     <video autoplay loop muted src="Multimedia/indexVideo.mp4"></video>
     <div class="vertical-center " style="position: absolute; width: 100%">
@@ -42,12 +38,13 @@
                 <h1 style="color: white;">Start your own blog,<br>because we've all got something to say.</h1>
                 <br>
                 <br>
-                <a href="Registration.jsp" class="btn btn-primary btn-rounded">Get started</a>
-                <a href="Login.jsp" class="btn btn-default btn-rounded">Log in</a>
+                <a href="Registration" class="btn btn-primary btn-rounded">Get started</a>
+                <a href="Login" class="btn btn-default btn-rounded">Log in</a>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 <%@include file="BodyStylingLinks.jsp" %>
 </html>
