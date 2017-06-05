@@ -31,20 +31,26 @@ var userTemplate =
 
 $("document").ready(function() {
 
-    console.log("test2");
-
     $.ajax({
 
         url: '/MainContentAccess',
         type: 'GET',
-        success: onLoadArticlesSuccess
+        success: onLoadArticlesSuccess,
+        error: onLoadArticlesFailure
 
     });
 
 });
 
+function onLoadArticlesFailure(msg) {
+
+    console.log("failed to load articles");
+
+}
+
 function onLoadArticlesSuccess(msg) {
 
+    console.log("Test");
 
     var container = $(".articleContainer");
 
