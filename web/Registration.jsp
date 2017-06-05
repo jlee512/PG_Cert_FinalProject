@@ -65,7 +65,7 @@
                         </div>
 
                         <%--GOOGLE RECAPTCHA--%>
-                        <div class="md-form">
+                        <div class="md-form" style="opacity: 0.9">
                             <div class="g-recaptcha"
                                  data-sitekey="6LdfICQUAAAAAKDVV0dEaobS0ecRWPLFvdfKTyzn"></div>
                         </div>
