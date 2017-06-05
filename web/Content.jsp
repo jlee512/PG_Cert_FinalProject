@@ -20,7 +20,6 @@
 
     response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
     User user = (User) session.getAttribute("userDetails");
-<<<<<<< HEAD
 
     /*Read in adventure quotes.txt file and extract a random quote*/
     String quotes_file_path = request.getServletContext().getRealPath("Text_Files/adventure_quotes.txt");
@@ -52,25 +51,20 @@
 //            dispatcher.forward(request, response);
 //        }
 //    }
-=======
     if (user == null) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
         dispatcher.forward(request, response);
     }
->>>>>>> origin/master
 %>
 
 <html>
 <head>
 
     <title>Your Account</title>
-<<<<<<< HEAD
 
     <%@ include file="HeadStylingLinks.jsp" %>
 
-=======
     <%@ include file="HeadStylingLinks.jsp" %>
->>>>>>> origin/master
 </head>
 
 <style type="text/css">
@@ -103,37 +97,11 @@
 <link rel="shortcut icon" type="image/png" href="/Multimedia/favicon.png">
 
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="Content.jsp">Homepage</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="ProfilePage.jsp" style="font-size: 18px">My profile</a></li>
-                <li><a href="Logout?username=${sessionScope.userDetails.username}" style="font-size: 18px">Logout</a>
-
-                </li>
-            </ul>
-        </div><!-- /.nav-collapse -->
-    </div><!-- /.container -->
-</nav>
-<!-- /.navbar -->
 
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
 <c:choose>
     <c:when test="${loginStatus == 'active'}">
-<<<<<<< HEAD
-=======
         <%@include file="Navbar.jsp" %>
->>>>>>> origin/master
 
         <p class="text-center">Welcome ${sessionScope.userDetails.username}! Good to see you</p>
 
@@ -150,15 +118,14 @@
         </div>
 
 
-<<<<<<< HEAD
-=======
+
+
             <div class="footer">
                 <hr>
                 <a href="ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
             </div>
 
 
->>>>>>> origin/master
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
     <c:otherwise>
