@@ -62,6 +62,7 @@
 
 <html>
 <head>
+
     <title>Your Account</title>
 
     <%@ include file="HeadStylingLinks.jsp" %>
@@ -90,6 +91,8 @@
 
 <body>
 
+
+
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
 <c:choose>
     <c:when test="${loginStatus == 'active'}">
@@ -99,22 +102,37 @@
         <p>"<%=quote%>"</p>
         <p><%=author%></p>
 
+
+
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="Content.jsp">Home</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/ProfilePage.jsp">My profile</a></li>
+                        <li><a href="/Logout?username=${sessionScope.userDetails.username}">Logout</a>
+                        </li>
+                    </ul>
+                </div><!-- /.nav-collapse -->
+            </div><!-- /.container -->
+        </nav><!-- /.navbar -->
+
+        <p>Welcome ${sessionScope.userDetails.username}! This is the page's content</p>
         <div>
             <a href="ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
         </div>
-
-
-        <div>
-            <a href="ViewArticle?article_id=4">View Article 4</a>
-        </div>
-
-        <div>
-            <a href="Logout?username=${sessionScope.userDetails.username}" id="logoutButton">logout</a>
-        </div>
-
-        <div class="articleContainer">
-
-        </div>
+        <br>
+        <br>
+        <a href="/Logout?username=${sessionScope.userDetails.username}" id="logoutButton">logout</a>
 
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
