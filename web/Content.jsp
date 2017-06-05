@@ -45,16 +45,7 @@
 //
 //    } catch (IOException e) {
 //        e.printStackTrace();
-//
-//        if (user == null) {
-//            RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
-//            dispatcher.forward(request, response);
-//        }
 //    }
-    if (user == null) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
-        dispatcher.forward(request, response);
-    }
 %>
 
 <html>
@@ -103,28 +94,11 @@
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
 
-        <p class="text-center">Welcome ${sessionScope.userDetails.username}! Good to see you</p>
+        <p class="text-center">Welcome <strong>${sessionScope.userDetails.username}</strong>! Good to see you</p>
 
-        <p class="text-center">"<%=quote%>"</p>
-        <p class="text-center"><%=author%></p>
-
-        <div class="news_feed" style="margin-top: 5%;">
+        <div class="news_feed">
             <%--Articles should be dropped into here from AJAX calls--%>
         </div>
-
-        <div class="footer">
-            <hr>
-            <a href="ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
-        </div>
-
-
-
-
-            <div class="footer">
-                <hr>
-                <a href="ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
-            </div>
-
 
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
@@ -134,6 +108,10 @@
 
     </c:otherwise>
 </c:choose>
+
+<script src="Javascript/article_display.js"></script>
+
+<%@ include file="BodyStylingLinks.jsp" %>
 
 </body>
 </html>
