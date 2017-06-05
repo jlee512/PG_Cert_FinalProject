@@ -4,66 +4,48 @@
 
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
-    "<div class='panel panel-default pgcertArticle'>" +
-    "<div class='panel-heading'></div>" +
-    "<div class='panel-body'>" +
-    "<p><strong class='author-name'></strong></p>" +
-    "<p class='main-content'></p>" +
-    "<div class='text-center bg-info'>Show full content</div>" +
-    "</div>" +
+    "<div class='container text-center vertical-center' id='mainContent'>" +
+        "<div class='panel panel-default col-sm-12'>" +
+            "<div style='padding-top: 2%'>" +
+                "<div class='panel panel-default'>" +
+                    "<div class='panel-heading'>" +
+                        "<h3 class='panel-title'></h3>" +
+                    "</div>" +
+                    "<div class='panel-body'>" +
+                    "</div>" +
+                "</div>" +
+            "</div>" +
+        "</div>" +
     "</div>";
-
-
-// A template which will be used for inserting new Users HTML.
-var userTemplate =
-    "<div class='panel panel-default pgcertUser'>" +
-    "<div class='panel-heading'>User name</div>" +
-    "<div class='panel-body'>" +
-    "<p><strong>First Name:</strong> <span>the name</span></p>" +
-    "<p><strong>Last Name:</strong> <span>the name</span></p>" +
-    "<p><strong>Occupation:</strong> <span>the occupation</span></p>" +
-    "<ul class='likesList'>" +
-    "</ul>" +
-    "</div>" +
-    "</div>";
-
 
 $("document").ready(function () {
+
+    var container = $(".news_feed");
 
     $.ajax({
 
         url: '/MainContentAccess',
-        dataType: 'json',
         type: 'GET',
-        dataType: 'text',
         success: function (msg) {
 
-            console.log("Test");
-            console.log(msg);
+            for (var i = 0; i < msg.length; i++) {
 
-            // var container = $(".articleContainer");
-            //
-            // console.log(msg.length);
-            //
-            // for (var i = 0; i < msg.length; i++) {
-            //
-            //     console.log("test " + i);
-            //
-            //     var article = msg[i];
-            //
-            //     console.log(article);
-            //
-            //     var articleDiv = $(articleTemplate);
-            //     articleDiv.find(".panel-heading").text(article.article_title);
-            //     var contentDiv = articleDiv.find(".main-content");
-            //     contentDiv.text(article.article_body);
-            //     var authorField = articleDiv.find(".author-name");
-            //
-            //     console.log(article.author_firstname);
-            //     console.log(article.author_lastname);
-            //     console.log(article.author_username);
+                var article = msg[i];
 
+                var articleDiv = $(articleTemplate);
+                articleDiv.find(".panel-title").text(article.article_title);
+                articleDiv.find(".panel-body").text(article.author_username + "\n" + article.article_date + "\n" + article.article_body);
+                console.log(articleDiv);
+                container.append(articleDiv);
+            }
         },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+            console.log(jqXHR.status);
+            console.log(textStatus);
+            console.log(errorThrown);
+
+        }
     });
 
 });
