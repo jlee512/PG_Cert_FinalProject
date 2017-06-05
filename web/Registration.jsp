@@ -21,7 +21,8 @@
     <%------------------------------------------------------------------------------------------------------------%>
 
     <title>Welcome! Register an Account</title>
-
+    <%--Google recaptcha--%>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <div class="backGroundImage">
@@ -61,6 +62,12 @@
                                    minlength="5"
                                    onchange="checkForSpaces(this)" required/>
                             <label for="passwordVerify">Verify password</label>
+                        </div>
+
+                        <%--GOOGLE RECAPTCHA--%>
+                        <div class="md-form" style="opacity: 0.9">
+                            <div class="g-recaptcha"
+                                 data-sitekey="6LdfICQUAAAAAKDVV0dEaobS0ecRWPLFvdfKTyzn"></div>
                         </div>
 
                         <%--Sign Up button and link to RegistrationAttempt Servlet--%>
