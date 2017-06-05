@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="while_e_coyote_remote_deployment">
+    <serverData>
+      <paths name="while_e_coyote_remote_deployment">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$/out/artifacts/while_e_coyote_remote_deployment" web="/while_e_coyote_remote_deployment" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

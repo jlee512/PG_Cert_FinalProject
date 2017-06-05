@@ -4,6 +4,8 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import login.system.db.MySQL;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ycow194 on 1/06/2017.
@@ -55,7 +57,7 @@ public class ArticleDAO {
         Article article = new Article(-1, null, null, null);
 
         try (Connection c = DB.connection()) {
-            try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM uploaded_articles WHERE article_id = ?")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, date, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE article_id = ?")) {
 
                 stmt.setInt(1, article_id);
 
@@ -65,12 +67,14 @@ public class ArticleDAO {
                         /*If there is a next result, the article exists in the database*/
                         /*Get article_id, author_id, date, article_title and article_body*/
                         int article_idLookup = r.getInt("article_id");
-                        int author_idLookup = r.getInt("author_id");
+                        String author_username = r.getString("username");
+                        String author_firstname = r.getString("firstname");
+                        String author_lastname = r.getString("lastname");
                         Date dateLookup = r.getDate("date");
                         String article_titleLookup = r.getString("article_title");
                         String article_bodyLookup = r.getString("article_body");
 
-                        article.setArticleParameters(article_idLookup, author_idLookup, article_titleLookup, dateLookup, article_bodyLookup);
+                        article.setArticleParameters(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, dateLookup, article_bodyLookup);
 
                         System.out.println("Article retrieved from the database");
                     } else {
@@ -87,6 +91,53 @@ public class ArticleDAO {
 
         /*----------------------------------------------------------*/
         return article;
+    }
+
+    public static List<Article> getfirstNArticlesByDate(MySQL DB, int numArticles) {
+
+        /*Dummy article to be returned if article not found*/
+        List<Article> articles = new ArrayList<Article>();
+
+        try (Connection c = DB.connection()) {
+
+            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, date, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id ORDER BY DATE LIMIT ?;")) {
+
+                stmt.setInt(1, numArticles);
+
+                try (ResultSet r = stmt.executeQuery()) {
+
+                    while (r.next()) {
+                        /*If there is a next result, the article exists in the database*/
+                        /*Get article_id, author_id, date, article_title and article_body and add to the list of articles retrieved*/
+                        int article_idLookup = r.getInt("article_id");
+                        String author_username = r.getString("username");
+                        String author_firstname = r.getString("firstname");
+                        String author_lastname = r.getString("lastname");
+                        Date dateLookup = r.getDate("date");
+                        String article_titleLookup = r.getString("article_title");
+                        String article_bodyLookup = r.getString("article_body");
+
+                        Article article = new Article(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, dateLookup, article_bodyLookup);
+                        article.setArticle_id(article_idLookup);
+                        articles.add(article);
+                    }
+
+                    if (articles.size() > 0){
+                        System.out.println("Article retrieved from the database");
+                    } else {
+                        System.out.println("Test");
+                        /*If the article can't be found in the database, return null article*/
+                        System.out.println("Article could not be found in the database");
+                    }
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return articles;
     }
 
 }

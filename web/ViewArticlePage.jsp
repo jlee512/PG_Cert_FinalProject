@@ -24,11 +24,11 @@
 <br>
 <em>${requestScope.article.article_date}</em>
 <hr>
-<a href="/AddComment?article_id=${requestScope.article.article_id}">Add New Comment</a>
+<a href="AddComment?article_id=${requestScope.article.article_id}">Add New Comment</a>
 <c:forEach var="comment" items="${requestScope.commentList}">
     <div>
         <p>${comment.content}</p>
-        <a href="/AddComment?article_id=${requestScope.article.article_id}&parentComment_id=${comment.commentID}">Reply</a>
+        <a href="AddComment?article_id=${requestScope.article.article_id}&parentComment_id=${comment.commentID}">Reply</a>
         <c:if test="${comment.isParent}">
             <button type="button">Show Replies</button>
         </c:if>

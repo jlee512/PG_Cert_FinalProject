@@ -61,23 +61,23 @@ public class ChangePasswordAttempt extends HttpServlet {
                         session.setAttribute("userDetails", user);
 
                     /*Redirect the response to the Content Serv*/
-                        response.sendRedirect("/Content?username=" + user.getUsername());
+                        response.sendRedirect("Content?username=" + user.getUsername());
                         break;
                     case 2:
                     /*Unexpected exception but if there is a database error, send redirect to the Password change page to clarify the issue*/
                         System.out.println("User password update was invalid");
-                        response.sendRedirect("/ChangePassword?passwordChangeStatus=invalid&username=" + user.getUsername());
+                        response.sendRedirect("ChangePassword?passwordChangeStatus=invalid&username=" + user.getUsername());
                         break;
                     case 3:
                         /*If no connection the database can be established print out a descriptive error message and redirect to the password change page*/
                         System.out.println("No connection to the database");
-                        response.sendRedirect("/ChangePassword?passwordChangeStatus=dbConn&username=" + user.getUsername());
+                        response.sendRedirect("ChangePassword?passwordChangeStatus=dbConn&username=" + user.getUsername());
                         break;
                 }
 
             }
         } else {
-            response.sendRedirect("/ChangePassword?passwordChangeStatus=incorrect&username=" + user.getUsername());
+            response.sendRedirect("ChangePassword?passwordChangeStatus=incorrect&username=" + user.getUsername());
         }
 
 

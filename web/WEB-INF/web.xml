@@ -51,6 +51,7 @@
         <url-pattern>/ChangePasswordAttempt</url-pattern>
     </servlet-mapping>
 
+    <!--AddComment Attempt Servlet to handle comment posting-->
     <servlet>
         <servlet-name>AddCommentAttempt</servlet-name>
         <servlet-class>login.system.servlets.AddCommentAttempt</servlet-class>
@@ -61,6 +62,7 @@
         <url-pattern>/AddCommentAttempt</url-pattern>
     </servlet-mapping>
 
+    <!--View Article Servlet to handle individual article viewing-->
     <servlet>
         <servlet-name>ViewArticle</servlet-name>
         <servlet-class>login.system.servlets.ViewArticle</servlet-class>
@@ -71,8 +73,16 @@
         <url-pattern>/ViewArticle</url-pattern>
     </servlet-mapping>
 
+    <!--Main Content Generation Servlet (to incorporate AJAX at a later stage)-->
+    <servlet>
+        <servlet-name>MainContentAccess</servlet-name>
+        <servlet-class>login.system.servlets.MainContentAccess</servlet-class>
+    </servlet>
 
-
+    <servlet-mapping>
+        <servlet-name>MainContentAccess</servlet-name>
+        <url-pattern>/MainContentAccess</url-pattern>
+    </servlet-mapping>
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
@@ -149,6 +159,7 @@
         <url-pattern>/AddComment</url-pattern>
     </servlet-mapping>
 
+    <!--(8) ViewArticlePage-->
     <servlet>
         <servlet-name>ViewArticlePageJSP</servlet-name>
         <jsp-file>/ViewArticlePage.jsp</jsp-file>
@@ -159,4 +170,14 @@
         <url-pattern>/ViewArticlePage</url-pattern>
     </servlet-mapping>
 
+    <!--(9) Homepage-->
+    <servlet>
+        <servlet-name>HomepageJSP</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>HomepageJSP</servlet-name>
+        <url-pattern>/While_E_Coyote</url-pattern>
+    </servlet-mapping>
 </web-app>

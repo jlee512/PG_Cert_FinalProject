@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="while_e_coyote_remote_deployment">
+    <output-path>$PROJECT_DIR$/out/artifacts/while_e_coyote_remote_deployment</output-path>
+    <root id="archive" name="while_e_coyote_remote_deployment.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="project_initial_databaseDevelopment" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="lib" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="project_initial_databaseDevelopment/web/Web" />
+    </root>
+  </artifact>
+</component>

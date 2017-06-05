@@ -21,11 +21,11 @@ public class LogoutAttempt extends HttpServlet {
             session.removeAttribute("userDetails");
         /*Invalidate session and redirect to login page*/
             session.invalidate();
-            response.sendRedirect("/Login");
+            response.sendRedirect("Login");
         } else {
         /*Else redirect to login page and print message saying that the user is no longer logged in*/
             session.invalidate();
-            response.sendRedirect("/Login?loginStatus=loggedOut");
+            response.sendRedirect("Login?loginStatus=loggedOut");
         }
     }
 

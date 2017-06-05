@@ -29,17 +29,16 @@
     $(document).ready(function () {
 
         // Represents the number of photos
-        var upperLimit = 5;
+        var upperLimit = 7;
         // Randomise background photo
         var randomNum = Math.floor((Math.random() * upperLimit) + 1);
 
-
         // Edits the backGroundImage class to add a random image each time the webpage is loaded
         $(".backGroundImage").css("background-image", "url('Multimedia/BackgroundImages/" + randomNum + ".jpg')");//<--changed path
-        console.log(randomNum);
+
     });
 </script>
-<%-----------------------------%>
+
 
 <style>
     #submit {
@@ -52,7 +51,7 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-
+        background-color: #def4f7;
     }
 
     .setOpacity {
@@ -60,4 +59,12 @@
         opacity: 0.88;
 
     }
+
+    .btn-primary {
+
+        font-size: 1.2em;
+        font-style: normal;
+
+    }
+
 </style>
