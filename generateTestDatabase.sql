@@ -16,7 +16,9 @@ CREATE TABLE registered_users (
   occupation          VARCHAR(50),
   city                VARCHAR(50),
   profile_description TEXT,
-  profile_picture     VARCHAR(200)
+  profile_picture     VARCHAR(200),
+  firstname           VARCHAR(60),
+  lastname            VARCHAR(60)
 );
 
 CREATE TABLE uploaded_articles (
@@ -55,4 +57,7 @@ CREATE TABLE posted_multimedia (
   multimedia_title TEXT
 );
 
+SELECT article_id, username, firstname, lastname, date, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
+ORDER BY date
+LIMIT 3;
 

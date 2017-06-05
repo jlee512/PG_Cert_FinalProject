@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2b17ff87-fcbb-44d1-ac90-4dec116b68ac" name="while_e_coyote_remote_deployment" url="http://tomcat1.sporadic.co.nz">
+        <fileTransfer host="tomcat1.sporadic.co.nz" port="22" rootFolder="/opt/tomcat/webapps" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
