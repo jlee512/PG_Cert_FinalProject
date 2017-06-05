@@ -35,7 +35,6 @@
 
         // Edits the backGroundImage class to add a random image each time the webpage is loaded
         $(".backGroundImage").css("background-image", "url('Multimedia/BackgroundImages/" + randomNum + ".jpg')");//<--changed path
-        console.log(randomNum);
 
     });
 </script>

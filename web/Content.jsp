@@ -63,6 +63,9 @@
 <html>
 <head>
     <title>Your Account</title>
+
+    <%@ include file="HeadStylingLinks.jsp" %>
+
 </head>
 
 <style type="text/css">
@@ -109,6 +112,10 @@
             <a href="Logout?username=${sessionScope.userDetails.username}" id="logoutButton">logout</a>
         </div>
 
+        <div class="articleContainer">
+
+        </div>
+
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
     <c:otherwise>
@@ -117,6 +124,10 @@
 
     </c:otherwise>
 </c:choose>
+
+<script src="Javascript/article_display.js"></script>
+
+<%@include file="BodyStylingLinks.jsp" %>
 
 </body>
 </html>
