@@ -34,7 +34,7 @@
                 <h1 style="color: white;" >Start your own blog,<br>because we've all got something to say.</h1>
                 <br>
                 <br>
-                <a href="/Registration.jsp">
+                <a href="Registration.jsp">
                     <button style="color: beige" type="button" class="btn">Get started</button>
                 </a>
             </div>

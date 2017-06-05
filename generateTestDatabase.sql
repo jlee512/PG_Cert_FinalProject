@@ -34,8 +34,6 @@ CREATE TABLE uploaded_articles (
   )
 );
 
-DROP TABLE posted_comments;
-
 CREATE TABLE posted_comments (
   comment_id        INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   article_id        INT             NOT NULL,

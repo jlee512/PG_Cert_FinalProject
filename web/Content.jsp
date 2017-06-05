@@ -118,8 +118,8 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/ProfilePage.jsp">My profile</a></li>
-                        <li><a href="/Logout?username=${sessionScope.userDetails.username}">Logout</a>
+                        <li><a href="ProfilePage.jsp">My profile</a></li>
+                        <li><a href="Logout?username=${sessionScope.userDetails.username}">Logout</a>
                         </li>
                     </ul>
                 </div><!-- /.nav-collapse -->
@@ -130,15 +130,12 @@
         <div>
             <a href="ChangePassword?username=${sessionScope.userDetails.username}">change your password</a>
         </div>
-        <br>
-        <br>
-        <a href="/Logout?username=${sessionScope.userDetails.username}" id="logoutButton">logout</a>
 
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
     <c:otherwise>
 
-        <c:redirect url="/Login"/>
+        <c:redirect url="Login"/>
 
     </c:otherwise>
 </c:choose>

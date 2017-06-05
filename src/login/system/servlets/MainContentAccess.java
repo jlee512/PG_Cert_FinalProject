@@ -33,7 +33,6 @@ public class MainContentAccess extends HttpServlet {
 
         /*Return a JSON object with the article information included*/
         response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
         JSONArray articleDetails = new JSONArray();
 
         for (int i = 0; i < 3; i++) {
@@ -51,7 +50,7 @@ public class MainContentAccess extends HttpServlet {
 
         articleDetails.toJSONString();
 
-        out.println(articleDetails);
+        response.getWriter().write(articleDetails.toString());
 
     }
 
