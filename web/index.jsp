@@ -16,6 +16,7 @@
 
     #homepageVideo {
         height: 100%;
+        width: 100%;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -24,27 +25,17 @@
 </style>
 
 <body>
-<div class="panel panel-default" style="background-color: transparent">
-    <div class="panel-body">
-        <ul>
-            <li>
-                <a href="Login.jsp">
-                    <button class="button">Log in</button>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
+
 <div>
-    <video id="homepageVideo" autoplay loop muted src="Multimedia/Swimming.mp4"></video>
-    <div class="vertical-center">
+    <video id="homepageVideo" autoplay loop muted src="Multimedia/Dog.mp4"></video>
+    <div class="vertical-center text-center" style="position: absolute;">
        <div class="container">
-            <div class="text-center">
-                <h1>Write your journey.</h1>
+            <div class="screen-heading" >
+                <h1 style="color: white;" >Start your own blog,<br>because we've all got something to say.</h1>
                 <br>
                 <br>
                 <a href="/Registration.jsp">
-                    <button type="button" class="btn">Get started</button>
+                    <button style="color: beige" type="button" class="btn">Get started</button>
                 </a>
             </div>
         </div>
