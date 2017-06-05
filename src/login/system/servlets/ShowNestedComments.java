@@ -33,7 +33,7 @@ public class ShowNestedComments extends HttpServlet {
             jsonComment.put("author_id", comment.getAuthorID());
             jsonComment.put("article_id", comment.getArticleID());
             jsonComment.put("parent_comment_id", comment.getParentCommentID());
-            jsonComment.put("timestamp", comment.getTimestamp());
+            jsonComment.put("timestamp", comment.getTimestamp().getTime());
             jsonComment.put("content", comment.getContent());
             jsonComment.put("is_parent", comment.getIsParent());
             commentDetails.add(jsonComment);

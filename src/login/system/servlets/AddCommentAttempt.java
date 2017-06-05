@@ -43,7 +43,7 @@ public class AddCommentAttempt extends HttpServlet {
             System.out.println(status);
         }
         if (status.equals("Comment added successfully.")){
-            response.sendRedirect("/ViewArticlePage?article_id=" + articleID);
+            response.sendRedirect("/ViewArticle?article_id=" + articleID);
         }
         else {
             out.println("<p>" + status + " Click <a href=\"ViewArticle?article_id=" + articleID + "\">here</a> to return to the article.");

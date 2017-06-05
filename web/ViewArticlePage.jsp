@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="HeadStylingLinks.jsp"%>
 <html>
 <head>
     <c:if test="${loginStatus != 'active'}">
@@ -35,7 +36,7 @@
         </c:if>
     </div>
 </c:forEach>
+<%@include file="BodyStylingLinks.jsp"%>
 </body>
-
 </html>
 <%--Need to set up a function to retrieve replies if Show Replies button is clicked--%>
