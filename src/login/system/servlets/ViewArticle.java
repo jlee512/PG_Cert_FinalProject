@@ -35,6 +35,11 @@ public class ViewArticle extends HttpServlet {
         request.setAttribute("username", username);
 
         List<Comment> commentList = CommentDAO.getCommentsByArticle(DB, articleID);
+        for (Comment comment : commentList){
+            if (comment.getParentCommentID() > 0){
+                commentList.remove(comment);
+            }
+        }
         request.setAttribute("commentList", commentList);
         getServletContext().getRequestDispatcher("/ViewArticlePage").forward(request, response);
     }
