@@ -5,7 +5,7 @@
       <paths name="while_e_coyote_remote_deployment">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$/out/artifacts/while_e_coyote_remote_deployment" web="/while_e_coyote_remote_deployment" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
