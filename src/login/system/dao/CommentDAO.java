@@ -28,7 +28,8 @@ public class CommentDAO {
                         comment.setCommentID(resultSet.getInt(resultSet.findColumn("comment_id")));
                         comment.setParentCommentID(resultSet.getInt(resultSet.findColumn("parent_comment_id")));
                         comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
-                        comment.setContent(resultSet.getString(resultSet.findColumn("content")));
+                        comment.setContent(resultSet.getString(resultSet.findColumn("comment_body")));
+                        comment.setIsParent(resultSet.getBoolean(resultSet.findColumn("is_parent")));
                         comments.add(comment);
                     }
                 }
@@ -58,7 +59,8 @@ public class CommentDAO {
                         comment.setCommentID(resultSet.getInt(resultSet.findColumn("comment_id")));
                         comment.setAuthorID(resultSet.getInt(resultSet.findColumn("author_id")));
                         comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
-                        comment.setContent(resultSet.getString(resultSet.findColumn("content")));
+                        comment.setContent(resultSet.getString(resultSet.findColumn("comment_body")));
+                        comment.setIsParent(resultSet.getBoolean(resultSet.findColumn("is_parent")));
                         comments.add(comment);
                     }
                 }
@@ -87,8 +89,9 @@ public class CommentDAO {
                         comment.setArticleID(resultSet.getInt(resultSet.findColumn("article_id")));
                         comment.setCommentID(resultSet.getInt(resultSet.findColumn("comment_id")));
                         comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
-                        comment.setContent(resultSet.getString(resultSet.findColumn("content")));
+                        comment.setContent(resultSet.getString(resultSet.findColumn("comment_body")));
                         comment.setParentCommentID(resultSet.getInt(resultSet.findColumn("parent_comment_id")));
+                        comment.setIsParent(resultSet.getBoolean("is_parent"));
                         comments.add(comment);
                     }
                 }
@@ -106,12 +109,18 @@ public class CommentDAO {
         String status = "Could not add a comment at this time.";
         Comment comment = new Comment(articleID, authorID, parentCommentID, timestamp, content);
         try (Connection conn = DB.connection()) {
-            try (PreparedStatement statement = conn.prepareStatement("INSERT INTO posted_comments (article_id, author_id, parent_comment_id, timestamp, comment_body) VALUES (?, ?, ?, ?, ?)")){
+            try (PreparedStatement statement = conn.prepareStatement("INSERT INTO posted_comments (article_id, author_id, parent_comment_id, timestamp, comment_body, is_parent) VALUES (?, ?, ?, ?, ?, ?)")){
                 statement.setInt(1, comment.getArticleID());
                 statement.setInt(2, comment.getAuthorID());
-                statement.setInt(3, comment.getParentCommentID());
+                if (comment.getParentCommentID() == -1){
+                    statement.setNull(3, Types.INTEGER);
+                }else {
+                    statement.setInt(3, comment.getParentCommentID());
+                    setCommentAsParent(DB, comment.getParentCommentID());
+                }
                 statement.setTimestamp(4, comment.getTimestamp());
                 statement.setString(5, comment.getContent());
+                statement.setBoolean(6, false);
                 statement.executeUpdate();
                 status = "Comment added successfully.";
                 return status;
@@ -175,8 +184,9 @@ public class CommentDAO {
                         comment.setAuthorID(resultSet.getInt(resultSet.findColumn("author_id")));
                         comment.setArticleID(resultSet.getInt(resultSet.findColumn("article_id")));
                         comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
-                        comment.setContent(resultSet.getString(resultSet.findColumn("content")));
+                        comment.setContent(resultSet.getString(resultSet.findColumn("comment_body")));
                         comment.setParentCommentID(resultSet.getInt(resultSet.findColumn("parent_comment_id")));
+                        comment.setIsParent(resultSet.getBoolean(resultSet.findColumn("is_parent")));
                     }
                     else {
                         System.out.println("Could not find specified comment.");
@@ -191,5 +201,21 @@ public class CommentDAO {
             e.printStackTrace();
         }
         return comment;
+    }
+
+    public static void setCommentAsParent(MySQL DB, int parentCommentID){
+        try (Connection conn = DB.connection()){
+            try (PreparedStatement statement = conn.prepareStatement("UPDATE posted_comments SET is_parent = ? WHERE comment_id = ?")){
+                statement.setBoolean(1, true);
+                statement.setInt(2, parentCommentID);
+                statement.executeUpdate();
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

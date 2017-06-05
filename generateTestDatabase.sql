@@ -34,6 +34,8 @@ CREATE TABLE uploaded_articles (
   )
 );
 
+DROP TABLE posted_comments;
+
 CREATE TABLE posted_comments (
   comment_id        INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   article_id        INT             NOT NULL,
@@ -41,6 +43,7 @@ CREATE TABLE posted_comments (
   parent_comment_id INT,
   timestamp         TIMESTAMP       NOT NULL,
   comment_body      TEXT            NOT NULL,
+  is_parent         BOOLEAN,
   FOREIGN KEY (article_id) REFERENCES uploaded_articles (article_id),
   FOREIGN KEY (author_id) REFERENCES registered_users (user_id),
   FOREIGN KEY (parent_comment_id) REFERENCES posted_comments (comment_id)
