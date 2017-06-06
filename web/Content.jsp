@@ -97,22 +97,6 @@
                 <%--Articles should be dropped into here from AJAX calls--%>
         </div>
 
-
-
-            <%--<div class="preloader-wrapper small active">--%>
-                <%--<div class="spinner-layer spinner-blue-only">--%>
-                    <%--<div class="circle-clipper left">--%>
-                        <%--<div class="circle"></div>--%>
-                    <%--</div>--%>
-                    <%--<div class="gap-patch">--%>
-                        <%--<div class="circle"></div>--%>
-                    <%--</div>--%>
-                    <%--<div class="circle-clipper right">--%>
-                        <%--<div class="circle"></div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
     <c:otherwise>

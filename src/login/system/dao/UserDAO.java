@@ -21,7 +21,7 @@ public class UserDAO {
         * (4) Database connection error*/
     /*------------------------------------------------------------*/
     /*convert username to lowercase to avoid duplication*/
-    String username = userName.toLowerCase();
+        String username = userName.toLowerCase();
 
         /*Addition to database*/
         User tempUser = new User(username, hash, salt, iterations, email, phone, occupation, city, profile_description, profile_picture, firstname, lastname);
@@ -49,7 +49,7 @@ public class UserDAO {
                 return 1;
 
             }
-        } catch (SQLIntegrityConstraintViolationException e){
+        } catch (SQLIntegrityConstraintViolationException e) {
             return 2;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class UserDAO {
         /*------------------------------------------------------------*/
     }
 
-    public static int updateUserPassword(MySQL DB, User user, String passwordChange){
+    public static int updateUserPassword(MySQL DB, User user, String passwordChange) {
         /*Convert username to lookup to lowercase*/
         String usernameToLookup = user.getUsername().toLowerCase();
 
@@ -73,7 +73,7 @@ public class UserDAO {
         byte[] hash = Passwords.hash(passwordChange.toCharArray(), salt, iterations);
 
         try (Connection conn = DB.connection()) {
-            try (PreparedStatement stmt = conn.prepareStatement("UPDATE registered_users SET hash = ?, salt = ?, iterations = ? WHERE username = ?")){
+            try (PreparedStatement stmt = conn.prepareStatement("UPDATE registered_users SET hash = ?, salt = ?, iterations = ? WHERE username = ?")) {
                 /**/
                 stmt.setBlob(1, new SerialBlob(hash));
                 stmt.setBlob(2, new SerialBlob(salt));
@@ -187,4 +187,73 @@ public class UserDAO {
         }
     }
 
+    /*Updates the users details*/
+    public static int updateUserDetails(MySQL DB, String userName, String email, String phone, String occupation, String city, String profile_description, String profile_picture, String firstname, String lastname) {
+
+        /*Return method status
+        * (1) Success
+        * (2) Integrity constraint violation (duplicate user)
+        * (3) SQL error
+        * (4) Database connection error*/
+    /*------------------------------------------------------------*/
+    /*convert username to lowercase to avoid duplication*/
+        String username = userName.toLowerCase();
+
+        /*Addition to database*/
+        User tempUser = new User(username, email, phone, occupation, city, profile_description, profile_picture, firstname, lastname);
+
+        try (Connection c = DB.connection()) {
+            /*Connect to the database and add user*/
+            try (PreparedStatement stmt = c.prepareStatement("UPDATE registered_users SET (username = ?, email = ?, phone = ?, occupation = ?, city = ?, profile_description = ?, profile_picture = ?, firstname = ?, lastname = ?) WHERE username = ?")) {
+
+                stmt.setString(1, tempUser.getUsername());
+                stmt.setString(2, tempUser.getEmail());
+                stmt.setString(3, tempUser.getPhone());
+                stmt.setString(4, tempUser.getOccupation());
+                stmt.setString(5, tempUser.getCity());
+                stmt.setString(6, tempUser.getProfile_description());
+                stmt.setString(7, tempUser.getProfile_picture());
+                stmt.setString(8, tempUser.getFirstname());
+                stmt.setString(9, tempUser.getLastname());
+
+                /*Execute the prepared statement*/
+                stmt.executeUpdate();
+                System.out.println("User details successfully updated");
+                return 1;
+
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            return 2;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 3;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 4;
+        }
+        /*------------------------------------------------------------*/
+    }
+
+    public static int deleteUserAccount(MySQL DB) {
+
+        try (Connection c = DB.connection()) {
+            /*Connect to the database and add user*/
+            try (PreparedStatement stmt = c.prepareStatement("DROP registered_users WHERE username = ?")) {
+
+
+                /*Execute the prepared statement*/
+                stmt.executeUpdate();
+                System.out.println("User successfully deleted");
+                return 1;
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            return 2;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 3;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 4;
+        }
+    }
 }
