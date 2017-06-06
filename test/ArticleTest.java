@@ -5,7 +5,6 @@
 import junit.framework.TestCase;
 import login.system.dao.Article;
 import login.system.dao.ArticleDAO;
-import login.system.dao.UserDAO;
 import login.system.db.MySQL;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -77,7 +75,7 @@ public class ArticleTest {
     public void test3AccessNArticleByDate() throws ParseException {
 
         /*Pull the newest 'N' (N = 3 for this test) articles from the database*/
-        List<Article> articles = ArticleDAO.getfirstNArticlesByDate(DB, 3);
+        List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByDate(DB, 0, 3);
 
         int[] knownAuthorIds = {1, 1, 2};
 

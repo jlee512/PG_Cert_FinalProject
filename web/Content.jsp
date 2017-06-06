@@ -52,9 +52,6 @@
 <head>
 
     <title>Your Account</title>
-
-    <%@ include file="HeadStylingLinks.jsp" %>
-
     <%@ include file="HeadStylingLinks.jsp" %>
 </head>
 
@@ -97,8 +94,24 @@
         <p class="text-center">Welcome <strong>${sessionScope.userDetails.username}</strong>! Good to see you</p>
 
         <div class="news_feed">
-            <%--Articles should be dropped into here from AJAX calls--%>
+                <%--Articles should be dropped into here from AJAX calls--%>
         </div>
+
+
+
+            <%--<div class="preloader-wrapper small active">--%>
+                <%--<div class="spinner-layer spinner-blue-only">--%>
+                    <%--<div class="circle-clipper left">--%>
+                        <%--<div class="circle"></div>--%>
+                    <%--</div>--%>
+                    <%--<div class="gap-patch">--%>
+                        <%--<div class="circle"></div>--%>
+                    <%--</div>--%>
+                    <%--<div class="circle-clipper right">--%>
+                        <%--<div class="circle"></div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
 
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
