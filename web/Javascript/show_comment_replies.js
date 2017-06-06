@@ -22,6 +22,7 @@ $(document).on("click", ".show_replies", function () {
             url: "/ShowNestedComments?parentCommentID=" + parentID,
             type: "GET",
             success: function loadNestedComments(msg){
+                $('.loader-wrapper').show();
                 console.log(msg);
                 for (i = 0; i < msg.length; i++) {
                     var comment = msg[i];
@@ -40,7 +41,9 @@ $(document).on("click", ".show_replies", function () {
                     }
                     top_level_comment_div.append(commentContainer);
                     }
-                    loaderWrapper.hide();
+                $('.loaded-wrapper').hide();
+                $('.loader-wrapper').remove();
+                button.remove();
                 },
             error: loadNestedCommentsFail
         });
