@@ -104,6 +104,14 @@
                         <input class="btn btn-primary btn-rounded " type="submit" id="submit" value="change password">
                     </div>
 
+                    <%--Return home button--%>
+                    <div class="modal-footer">
+                        <div class="options">
+                            <a class="vertical-center" href="Content.jsp"><p>return home</p></a>
+                        </div>
+                    </div>
+
+
                     <%--Selection of additional user feedback for different registration errors--%>
                     <c:choose>
                         <c:when test="${param.passwordChangeStatus == 'incorrect'}">

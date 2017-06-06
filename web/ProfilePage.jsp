@@ -15,6 +15,24 @@
 <body>
 <%@include file="Navbar.jsp" %>
 
+<div class="col-sm-3 panel panel-default" id="profileContent">
+
+    <img src="images/remarkables8145706.jpg" class="img-circle img-responsive center-block" id="mountainImage">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Profile</h3>
+        </div>
+
+        <div class="panel-body">
+            <p><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Full name</p>
+            <p><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Location</p>
+        </div>
+    </div>
+
+</div>
+
+
+
 
 </body>
 <%@include file="BodyStylingLinks.jsp" %>
