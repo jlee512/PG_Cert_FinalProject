@@ -6,6 +6,7 @@ import login.system.db.MySQL;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -20,8 +21,10 @@ public class AddCommentAttempt extends HttpServlet {
         //redirect
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response){
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MySQL DB = new MySQL();
+        String status = "";
+        PrintWriter out = response.getWriter();
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         String content = request.getParameter("comment_body");
         String username = request.getParameter("username");
@@ -31,15 +34,20 @@ public class AddCommentAttempt extends HttpServlet {
         if (request.getParameter("parentComment_id").length() > 0){
             int parentCommentID = Integer.parseInt(request.getParameter("parentComment_id"));
             Comment parent = CommentDAO.getCommentByID(DB, parentCommentID);
-            String status = addReplyComment(parent, DB, userID, currentTime, content);
+            status = addReplyComment(parent, DB, userID, currentTime, content);
             System.out.println(status);
         }
         else {
             Article article = ArticleDAO.getArticle(DB, articleID);
-            String status = addTopLevelComment(article, DB, userID, currentTime, content);
+            status = addTopLevelComment(article, DB, userID, currentTime, content);
             System.out.println(status);
         }
-
+        if (status.equals("Comment added successfully.")){
+            response.sendRedirect("/ViewArticle?article_id=" + articleID);
+        }
+        else {
+            out.println("<p>" + status + " Click <a href=\"ViewArticle?article_id=" + articleID + "\">here</a> to return to the article.");
+        }
     }
 
     protected String addTopLevelComment(Article article, MySQL DB, int userID, Timestamp timestamp, String content){

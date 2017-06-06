@@ -30,7 +30,9 @@ public class CommentDAO {
                         comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
                         comment.setContent(resultSet.getString(resultSet.findColumn("comment_body")));
                         comment.setIsParent(resultSet.getBoolean(resultSet.findColumn("is_parent")));
+                        if (comment.getParentCommentID() == 0){
                         comments.add(comment);
+                    }
                     }
                 }
             }
@@ -91,7 +93,7 @@ public class CommentDAO {
                         comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
                         comment.setContent(resultSet.getString(resultSet.findColumn("comment_body")));
                         comment.setParentCommentID(resultSet.getInt(resultSet.findColumn("parent_comment_id")));
-                        comment.setIsParent(resultSet.getBoolean("is_parent"));
+                        comment.setIsParent(resultSet.getBoolean(resultSet.findColumn("is_parent")));
                         comments.add(comment);
                     }
                 }

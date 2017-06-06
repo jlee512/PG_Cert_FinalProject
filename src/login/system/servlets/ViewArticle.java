@@ -35,6 +35,15 @@ public class ViewArticle extends HttpServlet {
         request.setAttribute("username", username);
 
         List<Comment> commentList = CommentDAO.getCommentsByArticle(DB, articleID);
+        for (Comment comment : commentList){
+            int commentAuthorID = comment.getAuthorID();
+            System.out.println(comment.getAuthorID());
+            User commentUser = UserDAO.getUser(DB, commentAuthorID);
+            String commentUsername = commentUser.getUsername();
+            System.out.println(commentUser.getUsername());
+            comment.setAuthorUsername(commentUsername);
+            System.out.println(comment.getAuthorUsername());
+        }
         request.setAttribute("commentList", commentList);
         getServletContext().getRequestDispatcher("/ViewArticlePage").forward(request, response);
     }
