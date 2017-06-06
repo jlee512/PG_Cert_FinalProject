@@ -55,7 +55,6 @@
 
     <%@ include file="HeadStylingLinks.jsp" %>
 
-    <%@ include file="HeadStylingLinks.jsp" %>
 </head>
 
 <style type="text/css">
