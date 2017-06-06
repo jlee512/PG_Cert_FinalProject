@@ -26,11 +26,11 @@ $("document").ready(function () {
                     console.log(comment.content);
                     var commentContainer = $(commentPara);
                     var date = new Date(comment.timestamp);
-                    var heading = commentContainer.find(".panel-heading")
+                    var heading = commentContainer.find(".panel-heading");
                     console.log(heading.text());
                     heading.html("<p>" + comment.author_id + date.toDateString() + "</p>");
                     var body = commentContainer.find(".panel-body");
-                    console.log(body.text())
+                    console.log(body.text());
                     body.html("<p>" + comment.content + "</p>");
                     div.append(commentContainer);
                 }
