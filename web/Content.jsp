@@ -79,6 +79,53 @@
         text-align: right;
     }
 
+    .loader {
+        border: 7px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 7px solid #00acc1;
+        border-right: 7px solid #b2ebf2 ;
+        border-bottom: 7px solid #ffd54f ;
+        border-left: 7px solid #f9a825 ;
+        width: 50px;
+        height: 50px;
+        -webkit-animation: spin 2s linear infinite;
+        -moz-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    #loaded1 {
+        background-color: #00acc1;
+        height: 1%;
+        width: 10%;
+    }
+
+    #loaded2 {
+        background-color: #b2ebf2;
+        height: 1%;
+        width: 10%;
+    }
+
+    #loaded3 {
+        background-color: #ffd54f;
+        height: 1%;
+        width: 10%;
+    }
+
+    #loaded4 {
+        background-color: #f9a825;
+        height: 1%;
+        width: 10%;
+    }
+
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
 </style>
 
@@ -93,25 +140,20 @@
 
         <p class="text-center">Welcome <strong>${sessionScope.userDetails.username}</strong>! Good to see you</p>
 
+
         <div class="news_feed">
                 <%--Articles should be dropped into here from AJAX calls--%>
         </div>
 
-
-
-            <%--<div class="preloader-wrapper small active">--%>
-                <%--<div class="spinner-layer spinner-blue-only">--%>
-                    <%--<div class="circle-clipper left">--%>
-                        <%--<div class="circle"></div>--%>
-                    <%--</div>--%>
-                    <%--<div class="gap-patch">--%>
-                        <%--<div class="circle"></div>--%>
-                    <%--</div>--%>
-                    <%--<div class="circle-clipper right">--%>
-                        <%--<div class="circle"></div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
+        <div class="loader-wrapper" style="text-align: center;">
+            <div class="loader" style="display: inline-block;"></div>
+        </div>
+        <div class="loaded-wrapper" style="text-align: center;">
+            <div id="loaded1" style="display: inline-block;"></div>
+            <div id="loaded2" style="display: inline-block;"></div>
+            <div id="loaded3" style="display: inline-block;"></div>
+            <div id="loaded4" style="display: inline-block;"></div>
+        </div>
 
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>

@@ -2,6 +2,7 @@ package login.system.dao;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by ycow194 on 1/06/2017.
@@ -16,6 +17,7 @@ public class Article implements Serializable {
     private String article_title;
     private Date article_date;
     private String article_body;
+    private List<Comment> top_level_comments = null;
 
 
     public Article(int author_id, String article_title, Date article_date, String article_body) {
@@ -71,6 +73,10 @@ public class Article implements Serializable {
         return author_lastname;
     }
 
+    public List<Comment> getTop_level_comments() {
+        return top_level_comments;
+    }
+
     public void setAuthor_id(int author_id) {
         this.author_id = author_id;
     }
@@ -109,6 +115,10 @@ public class Article implements Serializable {
 
     public void setAuthor_lastname(String author_lastname) {
         this.author_lastname = author_lastname;
+    }
+
+    public void setTop_level_comments(List<Comment> top_level_comments) {
+        this.top_level_comments = top_level_comments;
     }
 
     /* End of Getters and Setters */

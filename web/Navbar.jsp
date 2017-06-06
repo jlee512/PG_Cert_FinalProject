@@ -22,7 +22,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="ProfilePage?username=${sessionScope.userDetails.username}" style="font-size: 18px">My Profile</a></li>
                 <li><a href="ChangePassword?username=${sessionScope.userDetails.username}" style="font-size: 18px">Change your Password</a></li>
-                <li><a href="Logout?username=${sessionScope.userDetails.username}" style="font-size: 18px">Logout</a></li>
+                <li><a href="LogoutAttempt?username=${sessionScope.userDetails.username}" style="font-size: 18px">Logout</a></li>
             </ul>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->

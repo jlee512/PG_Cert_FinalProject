@@ -18,33 +18,17 @@ import java.util.List;
 public class ViewArticle extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*Setup the database*/
+        MySQL DB = new MySQL();
+
         //Pass the articleID as a parameter when clicking the link to the article.
         int articleID = Integer.parseInt(request.getParameter("article_id"));
-        System.out.println(articleID);
-        MySQL DB = new MySQL();
 
         //Get Article object by ID from ArticleDAO.
         Article article = ArticleDAO.getArticle(DB, articleID);
         //Set it as an attribute to pass to the JSP.
         request.setAttribute("article", article);
 
-        //Get the author's username to display on Article page.
-        int authorID = article.getAuthor_id();
-        User user = UserDAO.getUser(DB, authorID);
-        String username = user.getUsername();
-        request.setAttribute("username", username);
-
-        List<Comment> commentList = CommentDAO.getCommentsByArticle(DB, articleID);
-        for (Comment comment : commentList){
-            int commentAuthorID = comment.getAuthorID();
-            System.out.println(comment.getAuthorID());
-            User commentUser = UserDAO.getUser(DB, commentAuthorID);
-            String commentUsername = commentUser.getUsername();
-            System.out.println(commentUser.getUsername());
-            comment.setAuthorUsername(commentUsername);
-            System.out.println(comment.getAuthorUsername());
-        }
-        request.setAttribute("commentList", commentList);
         getServletContext().getRequestDispatcher("/ViewArticlePage").forward(request, response);
     }
 

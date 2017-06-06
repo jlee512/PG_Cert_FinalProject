@@ -94,6 +94,17 @@
         <servlet-name>ShowNestedComments</servlet-name>
         <url-pattern>/ShowNestedComments</url-pattern>
     </servlet-mapping>
+
+    <!--Get Top Level Comments Servlet for an individual article-->
+    <servlet>
+        <servlet-name>GetComments_IndividualArticle</servlet-name>
+        <servlet-class>login.system.servlets.GetComments_IndividualArticle</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetComments_IndividualArticle</servlet-name>
+        <url-pattern>/GetComments_IndividualArticle</url-pattern>
+    </servlet-mapping>
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
