@@ -59,3 +59,4 @@ SELECT article_id, username, firstname, lastname, date, article_title, article_b
 ORDER BY date
 LIMIT 3;
 
+UPDATE registered_users SET username = ?, email = ?, phone = ?, occupation = ?, city = ?, profile_description = ?, firstname = ?, lastname = ? WHERE username = ?;

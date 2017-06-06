@@ -83,6 +83,18 @@
         <servlet-name>MainContentAccess</servlet-name>
         <url-pattern>/MainContentAccess</url-pattern>
     </servlet-mapping>
+
+    <!--Profile Page servlet for editing their details-->
+    <servlet>
+        <servlet-name>ProfilePage</servlet-name>
+        <servlet-class>login.system.servlets.ProfilePageContent</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ProfilePage</servlet-name>
+        <url-pattern>/EditUserDetails</url-pattern>
+    </servlet-mapping>
+
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
