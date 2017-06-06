@@ -1,29 +1,30 @@
 package login.system.dao;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by catherinedechalain on 1/06/17.
  */
-public class Comment {
+public class Comment implements Serializable {
     private int commentID;
     private int articleID;
     private int authorID;
     private int parentCommentID;
-    private Date date;
+    private Timestamp timestamp;
     private String content;
     private boolean isParent;
+    private String authorUsername;
 
     public Comment(){
-        new Comment();
     }
 
-    public Comment(int commentID, int articleID, int authorID, int parentCommentID, Date date, String content){
-        this.commentID = commentID;
+    public Comment(int articleID, int authorID, int parentCommentID, Timestamp timestamp, String content){
         this.articleID = articleID;
         this.authorID = authorID;
         this.parentCommentID = parentCommentID;
-        this.date = date;
+        this.timestamp = timestamp;
         this.content = content;
         this.isParent = false;
     }
@@ -60,12 +61,10 @@ public class Comment {
         this.parentCommentID = parentCommentID;
     }
 
-    public Date getDate(){
-        return date;
-    }
+    public Timestamp getTimestamp(){return timestamp;}
 
-    public void setDate(Date date){
-        this.date = date;
+    public void setTimestamp(Timestamp timestamp){
+        this.timestamp = timestamp;
     }
 
     public String getContent(){
@@ -76,7 +75,19 @@ public class Comment {
         this.content = content;
     }
 
-    public boolean isParent(){
+    public boolean getIsParent(){
         return isParent;
+    }
+
+    public void setIsParent(boolean isParent){
+        this.isParent = isParent;
+    }
+
+    public String getAuthorUsername(){
+        return authorUsername;
+    }
+
+    public void setAuthorUsername(String username){
+        this.authorUsername = username;
     }
 }

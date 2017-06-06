@@ -50,7 +50,62 @@
         <servlet-name>ChangePasswordAttempt</servlet-name>
         <url-pattern>/ChangePasswordAttempt</url-pattern>
     </servlet-mapping>
-<!--=======================================================================================================-->
+
+    <!--AddComment Attempt Servlet to handle comment posting-->
+    <servlet>
+        <servlet-name>AddCommentAttempt</servlet-name>
+        <servlet-class>login.system.servlets.AddCommentAttempt</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCommentAttempt</servlet-name>
+        <url-pattern>/AddCommentAttempt</url-pattern>
+    </servlet-mapping>
+
+    <!--View Article Servlet to handle individual article viewing-->
+    <servlet>
+        <servlet-name>ViewArticle</servlet-name>
+        <servlet-class>login.system.servlets.ViewArticle</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ViewArticle</servlet-name>
+        <url-pattern>/ViewArticle</url-pattern>
+    </servlet-mapping>
+
+    <!--Main Content Generation Servlet (to incorporate AJAX at a later stage)-->
+    <servlet>
+        <servlet-name>MainContentAccess</servlet-name>
+        <servlet-class>login.system.servlets.MainContentAccess</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MainContentAccess</servlet-name>
+        <url-pattern>/MainContentAccess</url-pattern>
+    </servlet-mapping>
+
+    <!--Show Nested Comments servlet (to use AJAX)-->
+    <servlet>
+        <servlet-name>ShowNestedComments</servlet-name>
+        <servlet-class>login.system.servlets.ShowNestedComments</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ShowNestedComments</servlet-name>
+        <url-pattern>/ShowNestedComments</url-pattern>
+    </servlet-mapping>
+
+    <!--Get Top Level Comments Servlet for an individual article-->
+    <servlet>
+        <servlet-name>GetComments_IndividualArticle</servlet-name>
+        <servlet-class>login.system.servlets.GetComments_IndividualArticle</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetComments_IndividualArticle</servlet-name>
+        <url-pattern>/GetComments_IndividualArticle</url-pattern>
+    </servlet-mapping>
+    <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
     <!--Servlet mapping to simplify URL's of .jsp files-->
@@ -113,6 +168,50 @@
     <servlet-mapping>
         <servlet-name>editUserProfileJSP</servlet-name>
         <url-pattern>/EditProfile</url-pattern>
+    </servlet-mapping>
+
+    <!--(7) AddCommentForm-->
+    <servlet>
+        <servlet-name>AddCommentFormJSP</servlet-name>
+        <jsp-file>/AddCommentForm.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCommentFormJSP</servlet-name>
+        <url-pattern>/AddComment</url-pattern>
+    </servlet-mapping>
+
+    <!--(8) ViewArticlePage-->
+    <servlet>
+        <servlet-name>ViewArticlePageJSP</servlet-name>
+        <jsp-file>/ViewArticlePage.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ViewArticlePageJSP</servlet-name>
+        <url-pattern>/ViewArticlePage</url-pattern>
+    </servlet-mapping>
+
+    <!--(9) Homepage-->
+    <servlet>
+        <servlet-name>HomepageJSP</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>HomepageJSP</servlet-name>
+        <url-pattern>/While_E_Coyote</url-pattern>
+    </servlet-mapping>
+
+    <!--(10) Profile Page-->
+    <servlet>
+        <servlet-name>ProfilePageJSP</servlet-name>
+        <jsp-file>/ProfilePage.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProfilePageJSP</servlet-name>
+        <url-pattern>/ProfilePage</url-pattern>
     </servlet-mapping>
 
 </web-app>

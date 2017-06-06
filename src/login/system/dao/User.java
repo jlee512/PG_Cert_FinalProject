@@ -9,7 +9,6 @@ public class User implements Serializable {
 
     private int user_id;
     private String username;
-    private String nickname;
     private byte[] hash;
     private byte[] salt;
     private int iterations;
@@ -19,10 +18,11 @@ public class User implements Serializable {
     private String city;
     private String profile_description;
     private String profile_picture;
+    private String firstname;
+    private String lastname;
 
-    public User(String username, String nickname, byte[] pwHash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
+    public User(String username, byte[] pwHash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture, String firstname, String lastname) {
         this.username = username;
-        this.nickname = nickname;
         this.hash = pwHash;
         this.salt = salt;
         this.iterations = iterations;
@@ -32,14 +32,12 @@ public class User implements Serializable {
         this.city = city;
         this.profile_description = profile_description;
         this.profile_picture = profile_picture;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     public String getUsername() {
         return username;
-    }
-
-    public String getNickname() {
-        return nickname;
     }
 
     public byte[] getHash() {
@@ -82,16 +80,20 @@ public class User implements Serializable {
         return profile_picture;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public void setHash(byte[] hash) {
@@ -130,10 +132,17 @@ public class User implements Serializable {
         this.profile_picture = profile_picture;
     }
 
-    public void setUserParameters(int user_id, String username, String nickname, byte[] hash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture) {
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setUserParameters(int user_id, String username, byte[] hash, byte[] salt, int iterations, String email, String phone, String occupation, String city, String profile_description, String profile_picture, String firstname, String lastname) {
         this.user_id = user_id;
         this.username = username;
-        this.nickname = nickname;
         this.hash = hash;
         this.salt = salt;
         this.iterations = iterations;
@@ -143,6 +152,8 @@ public class User implements Serializable {
         this.city = city;
         this.profile_description = profile_description;
         this.profile_picture = profile_picture;
+        this.firstname = firstname;
+        this.lastname = lastname;
 
     }
 }
