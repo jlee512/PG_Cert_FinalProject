@@ -38,8 +38,9 @@ public class ShowNestedComments extends HttpServlet {
             jsonComment.put("timestamp", comment.getTimestamp().getTime());
             jsonComment.put("content", comment.getContent());
             jsonComment.put("is_parent", comment.getIsParent());
-            User commentAuthor = UserDAO.getUser(DB, comment.getAuthorID());
-            jsonComment.put("author_username", commentAuthor.getUsername());
+            jsonComment.put("author_username", comment.getAuthor_username());
+            jsonComment.put("author_firstname", comment.getAuthor_firstname());
+            jsonComment.put("author_lastname", comment.getAuthor_lastname());
             commentDetails.add(jsonComment);
         }
 
