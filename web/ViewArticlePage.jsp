@@ -32,7 +32,7 @@
     <div class="panel panel-info">
         <div class="panel-heading">${comment.authorUsername}</div>
         <div class="panel-body">${comment.content}</div>
-        <a href="AddComment?article_id=${requestScope.article.article_id}&parentComment_id=${comment.commentID}" class="btn btn-default">Reply</a>
+        <a href="AddComment?article_id=${requestScope.article.article_id}&parentComment_id=${comment.commentID}" class="reply btn btn-default">Reply</a>
         <c:if test="${comment.isParent}">
             <button type="button" class="show_replies btn btn-default" value="${comment.commentID}">Show Replies</button>
         </c:if>
