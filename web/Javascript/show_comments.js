@@ -1,9 +1,6 @@
 /**
  * Created by cbla080 on 5/06/2017.
  */
-var commentPara = '<div class="panel-heading">Blah blah blah</div>'+
-                    '<div class="panel-body">This is a div</div>';
-
 $("document").ready(function () {
     $(".show_replies").click(function() {
         //Show replies
@@ -24,14 +21,18 @@ $("document").ready(function () {
                 for (i = 0; i < msg.length; i++) {
                     var comment = msg[i];
                     console.log(comment.content);
-                    var commentContainer = $(commentPara);
+                    var commentContainer = paragraph.clone(true);
                     var date = new Date(comment.timestamp);
                     var heading = commentContainer.find(".panel-heading");
                     console.log(heading.text());
-                    heading.html("<p>" + comment.author_id + date.toDateString() + "</p>");
+                    heading.html("<p>" + comment.author_username + " " + date.toDateString() + "</p>");
                     var body = commentContainer.find(".panel-body");
                     console.log(body.text());
                     body.html("<p>" + comment.content + "</p>");
+                    if (comment.is_parent == false){
+                        var button = commentContainer.find(".show_replies");
+                        button.remove();
+                    }
                     div.append(commentContainer);
                 }
             },

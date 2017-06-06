@@ -28,6 +28,7 @@
 <hr>
 <a href="AddComment?article_id=${requestScope.article.article_id}" class="btn btn-default">Add New Comment</a>
 <c:forEach var="comment" items="${requestScope.commentList}">
+    <div class="panel-group">
     <div class="panel panel-info">
         <div class="panel-heading">${comment.authorUsername}</div>
         <div class="panel-body">${comment.content}</div>
@@ -35,6 +36,7 @@
         <c:if test="${comment.isParent}">
             <button type="button" class="show_replies btn btn-default" value="${comment.commentID}">Show Replies</button>
         </c:if>
+    </div>
     </div>
 </c:forEach>
 <%@include file="BodyStylingLinks.jsp"%>
