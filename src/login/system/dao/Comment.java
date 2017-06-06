@@ -15,7 +15,10 @@ public class Comment implements Serializable {
     private Timestamp timestamp;
     private String content;
     private boolean isParent;
-    private String authorUsername;
+    private String author_username;
+    private String author_firstname;
+    private String author_lastname;
+
 
     public Comment(){
     }
@@ -83,11 +86,35 @@ public class Comment implements Serializable {
         this.isParent = isParent;
     }
 
-    public String getAuthorUsername(){
-        return authorUsername;
+    public boolean isParent() {
+        return isParent;
     }
 
-    public void setAuthorUsername(String username){
-        this.authorUsername = username;
+    public String getAuthor_username() {
+        return author_username;
+    }
+
+    public String getAuthor_firstname() {
+        return author_firstname;
+    }
+
+    public String getAuthor_lastname() {
+        return author_lastname;
+    }
+
+    public void setParent(boolean parent) {
+        isParent = parent;
+    }
+
+    public void setAuthor_username(String author_username) {
+        this.author_username = author_username;
+    }
+
+    public void setAuthor_firstname(String author_firstname) {
+        this.author_firstname = author_firstname;
+    }
+
+    public void setAuthor_lastname(String author_lastname) {
+        this.author_lastname = author_lastname;
     }
 }

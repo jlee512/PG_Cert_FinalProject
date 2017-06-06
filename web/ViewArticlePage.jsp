@@ -16,8 +16,11 @@
     </c:if>
     <title>${requestScope.article.article_title}</title>
     <script src="Javascript/show_comments.js"></script>
+    <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 </head>
 <body>
+
+<%----------------------------------------Article--------------------------------------------------%>
 <h1>${requestScope.article.article_title}</h1>
 <br>
 <h3>${requestScope.username}</h3>
@@ -26,17 +29,28 @@
 <br>
 <em>${requestScope.article.article_date}</em>
 <hr>
+
+<%---------------------------------------Comments-------------------------------------------------%>
 <a href="AddComment?article_id=${requestScope.article.article_id}" class="btn btn-default">Add New Comment</a>
-<c:forEach var="comment" items="${requestScope.commentList}">
-    <div class="panel panel-info">
-        <div class="panel-heading">${comment.authorUsername}</div>
-        <div class="panel-body">${comment.content}</div>
-        <a href="AddComment?article_id=${requestScope.article.article_id}&parentComment_id=${comment.commentID}" class="btn btn-default">Reply</a>
-        <c:if test="${comment.isParent}">
-            <button type="button" class="show_replies btn btn-default" value="${comment.commentID}">Show Replies</button>
-        </c:if>
-    </div>
-</c:forEach>
+
+<div class="top_level_comment_feed">
+       <%--Top level comments are dropped into here from AJAX calls--%>
+</div>
+
+<%--Loader animation and bottom of comments symbol--%>
+<div class="loader-wrapper" style="margin-left: 3%;">
+    <div class="loader" style="display: inline-block;"></div>
+</div>
+
+<div class="loaded-wrapper">
+    <div id="loaded1" style="display: inline-block;"></div>
+    <div id="loaded2" style="display: inline-block;"></div>
+    <div id="loaded3" style="display: inline-block;"></div>
+    <div id="loaded4" style="display: inline-block;"></div>
+</div>
+
+
+<script src="Javascript/show_top_level_comments.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
 </body>
 </html>

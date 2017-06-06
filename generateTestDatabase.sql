@@ -55,6 +55,8 @@ CREATE TABLE posted_multimedia (
   multimedia_title TEXT
 );
 
+/*---------------------------------------------------TEST QUERIES---------------------------------------------------*/
+
 SELECT article_id, username, firstname, lastname, date, article_title, Substring(article_body, 1, 10) FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
 ORDER BY date
 LIMIT 3 OFFSET 1;
@@ -72,3 +74,4 @@ LEFT JOIN posted_comments AS c ON a.article_id = c.article_id
 WHERE a.article_id = 4 AND parent_comment_id IS NULL
 ORDER BY date;
 
+SELECT comment_id parent_comment_id, timestamp, comment_body, is_parent, username, firstname, lastname FROM posted_comments LEFT JOIN registered_users ON posted_comments.author_id = registered_users.user_id WHERE article_id = 4 AND parent_comment_id IS NULL ORDER BY TIMESTAMP LIMIT 5 OFFSET 0;
