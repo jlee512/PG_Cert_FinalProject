@@ -15,20 +15,20 @@ $("document").ready(function () {
             type: "GET",
             success: function loadNestedComments(msg){
                 console.log(msg);
-                console.log(paragraph.text());
                 var div = paragraph.parent();
 
                 for (i = 0; i < msg.length; i++) {
                     var comment = msg[i];
-                    console.log(comment.content);
                     var commentContainer = paragraph.clone(true);
                     var date = new Date(comment.timestamp);
                     var heading = commentContainer.find(".panel-heading");
-                    console.log(heading.text());
                     heading.html("<p>" + comment.author_username + " " + date.toDateString() + "</p>");
                     var body = commentContainer.find(".panel-body");
-                    console.log(body.text());
                     body.html("<p>" + comment.content + "</p>");
+                    var replybutton = commentContainer.find(".reply");
+                    var link = replybutton.get(0).href;
+                    var linkSubstring = link.substring(0, (link.lastIndexOf("=")+1));
+                    replybutton.attr("href", linkSubstring + comment.comment_id);
                     if (comment.is_parent == false){
                         var button = commentContainer.find(".show_replies");
                         button.remove();
