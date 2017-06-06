@@ -37,64 +37,66 @@
 
         <div class="col-sm-9 panel panel-default" id="profileContent">
 
-                <%--Profile Picture--%>
+                <%------Profile Picture------%>
             <img src="${sessionScope.userDetails.profile_picture}" class="img-circle img-responsive center-block">
 
-                <%--Beginning of profile panel--%>
+                <%------Beginning of profile panel------%>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">${sessionScope.userDetails.username}'s Profile</h3>
+                   <a>edit</a>
                 </div>
 
-                    <%--User information--%>
+                    <%------User information------%>
                 <div class="panel-body">
                     <ul>
                         <li>
-                            User Details:
+
+                                <%------User Details------%>
+                            <h4><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i> User
+                                Details:</h4>
                             <ul>
-                                <li><p><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    Username: ${sessionScope.userDetails.username}</p>
+                                <li><p>Username: ${sessionScope.userDetails.username}</p>
                                 </li>
                                 <li>
-                                    <p><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Name: first
-                                        and last name here</p>
+                                    <p>
+                                        Name: ${sessionScope.userDetails.firstname} ${sessionScope.userDetails.lastname}</p>
                                 </li>
                                 <li>
-                                    <p><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Occupation
-                                    </p>
+                                    <p>Occupation: ${sessionScope.userDetails.occupation}</p>
                                 </li>
                                 <li>
-                                    <p><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Location</p>
+                                    <p>Location: ${sessionScope.userDetails.city}</p>
                                 </li>
                             </ul>
-                            Contact:
+
+                                <%------Contact------%>
+                            <h4><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact:</h4>
                             <ul>
                                 <li>
-                                    <p><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                        Email: ${sessionScope.userDetails.email}</p>
+                                    <p>Email: ${sessionScope.userDetails.email}</p>
                                 </li>
                                 <li>
-                                    <p><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Phone:
-                                        021-564-3452</p>
+                                    <p> Phone: ${sessionScope.userDetails.phone}</p>
                                 </li>
                             </ul>
-                            Profile settings:
+
+                                <%--Profile Settings--%>
+                            <h4><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h4>
                             <ul>
                                 <li>
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span><a
-                                        href="ChangePassword?username=${sessionScope.userDetails.username}"> Change your
-                                    Password</a>
+                                    <a href="ChangePassword?username=${sessionScope.userDetails.username}"> Change your
+                                        Password</a>
                                 </li>
                                 <li>
-                                    <p><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Delete
-                                        account</p>
+                                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Delete account</a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                     <p>About me: I like fish</p>
                 </div>
-                    <%--End of user information--%>
+                    <%------End of user information------%>
 
             </div>
         </div>
