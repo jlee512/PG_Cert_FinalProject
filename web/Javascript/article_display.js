@@ -101,7 +101,7 @@ $(document).ready(function () {
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 
-    /*Add in load more articles button*/
+    /*Add in infinite scrolling to load more articles*/
     $(window).scroll(function() {
 
         /*Function to facilitate infinite scrolling of articles*/

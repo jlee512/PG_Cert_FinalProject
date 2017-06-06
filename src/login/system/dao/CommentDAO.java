@@ -45,6 +45,42 @@ public class CommentDAO {
         return comments;
     }
 
+    public static List<Comment> getTopLevelCommentsByArticle(MySQL DB, int articleID, int fromComments, int numComments) {
+        List<Comment> comments = null;
+        System.out.println(numComments);
+        //Will be updated to our database details.
+        try (Connection conn = DB.connection()) {
+            try (PreparedStatement statement = conn.prepareStatement("SELECT comment_id, parent_comment_id, timestamp, comment_body, is_parent, username, firstname, lastname FROM posted_comments LEFT JOIN registered_users ON author_id = user_id WHERE article_id = ? AND parent_comment_id IS NULL ORDER BY TIMESTAMP LIMIT ? OFFSET ?;")){
+                statement.setInt(1,articleID);
+                statement.setInt(2, numComments);
+                statement.setInt(3, fromComments);
+
+                try (ResultSet resultSet = statement.executeQuery()){
+                    comments = new ArrayList<>();
+                    while (resultSet.next()){
+                        Comment comment = new Comment();
+                        comment.setArticleID(articleID);
+                        comment.setCommentID(resultSet.getInt(resultSet.findColumn("comment_id")));
+                        comment.setParentCommentID(resultSet.getInt(resultSet.findColumn("parent_comment_id")));
+                        comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
+                        comment.setContent(resultSet.getString(resultSet.findColumn("comment_body")));
+                        comment.setIsParent(resultSet.getBoolean(resultSet.findColumn("is_parent")));
+                        comment.setAuthor_username(resultSet.getString("username"));
+                        comment.setAuthor_firstname(resultSet.getString("firstname"));
+                        comment.setAuthor_lastname(resultSet.getString("lastname"));
+                        comments.add(comment);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        return comments;
+    }
+
     //Returns a list of all children comments of a particular comment.
     public static List<Comment> getNestedComments(MySQL DB, int parentCommentID){
         List<Comment> comments = null;

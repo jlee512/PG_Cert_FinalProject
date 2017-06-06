@@ -27,8 +27,10 @@ public class GetComments_IndividualArticle extends HttpServlet {
         MySQL DB = new MySQL();
 
         int articleID = Integer.parseInt(request.getParameter("article_id"));
+        int firstComment = Integer.parseInt(request.getParameter("from"));
+        int commentCount = Integer.parseInt(request.getParameter("count"));
 
-        List<Comment> commentList = CommentDAO.getCommentsByArticle(DB, articleID);
+        List<Comment> commentList = CommentDAO.getTopLevelCommentsByArticle(DB, articleID, firstComment, commentCount);
 
         response.setContentType("application/json");
         JSONArray top_level_comments = new JSONArray();
@@ -37,9 +39,16 @@ public class GetComments_IndividualArticle extends HttpServlet {
             JSONObject singleComment = new JSONObject();
             singleComment.put("commentID", commentList.get(i).getCommentID());
             singleComment.put("authorID", commentList.get(i).getAuthorID());
-            singleComment.put("timestamp", commentList.get(i).getTimestamp());
+            singleComment.put("timestamp", commentList.get(i).getTimestamp().getTime());
             singleComment.put("content", commentList.get(i).getContent());
+            singleComment.put("username", commentList.get(i).getAuthor_username());
+            singleComment.put("firstname", commentList.get(i).getAuthor_firstname());
+            singleComment.put("lastname", commentList.get(i).getAuthor_lastname());
+            singleComment.put("isParent", commentList.get(i).getIsParent());
+            top_level_comments.add(i, singleComment);
         }
+
+        response.getWriter().write(top_level_comments.toJSONString());
 
     }
 
