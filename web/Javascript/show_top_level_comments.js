@@ -34,11 +34,13 @@ function successfulCommentsLoad(msg) {
             } else {
                 isParent = false;
             }
+            var replyButton = '<a href="AddComment?article_id='+ getArticleID() + '&parentComment_id=' + comment.commentID + '" class="btn btn-default">Reply</a>';
 
             /*Add header to comment template*/
             commentDiv.find(".panel-heading").html("<p>" + comment.username + ", " + date.toDateString() + "</p>");
             /*Add body to comment template*/
             commentDiv.find(".panel-body").html("<p>" + comment.content + "</p>");
+            commentDiv.append(replyButton);
 
             /*If the comment is a parent, add the show replies button*/
             if (comment.isParent) {
