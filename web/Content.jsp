@@ -52,9 +52,6 @@
 <head>
 
     <title>Your Account</title>
-
-    <%@ include file="HeadStylingLinks.jsp" %>
-
     <%@ include file="HeadStylingLinks.jsp" %>
 </head>
 
@@ -97,7 +94,7 @@
         <p class="text-center">Welcome <strong>${sessionScope.userDetails.username}</strong>! Good to see you</p>
 
         <div class="news_feed">
-            <%--Articles should be dropped into here from AJAX calls--%>
+                <%--Articles should be dropped into here from AJAX calls--%>
         </div>
 
     </c:when>

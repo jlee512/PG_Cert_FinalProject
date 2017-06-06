@@ -93,16 +93,17 @@ public class ArticleDAO {
         return article;
     }
 
-    public static List<Article> getfirstNArticlesByDate(MySQL DB, int numArticles) {
+    public static List<Article> getfirstNArticlePreviewsByDate(MySQL DB, int fromArticle, int numArticles) {
 
         /*Dummy article to be returned if article not found*/
         List<Article> articles = new ArrayList<Article>();
 
         try (Connection c = DB.connection()) {
 
-            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, date, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id ORDER BY DATE LIMIT ?;")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, date, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id ORDER BY DATE DESC LIMIT ? OFFSET ?;")) {
 
                 stmt.setInt(1, numArticles);
+                stmt.setInt(2, fromArticle);
 
                 try (ResultSet r = stmt.executeQuery()) {
 
@@ -115,7 +116,7 @@ public class ArticleDAO {
                         String author_lastname = r.getString("lastname");
                         Date dateLookup = r.getDate("date");
                         String article_titleLookup = r.getString("article_title");
-                        String article_bodyLookup = r.getString("article_body");
+                        String article_bodyLookup = r.getString("article_preview") + "...";
 
                         Article article = new Article(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, dateLookup, article_bodyLookup);
                         article.setArticle_id(article_idLookup);
@@ -125,7 +126,6 @@ public class ArticleDAO {
                     if (articles.size() > 0){
                         System.out.println("Article retrieved from the database");
                     } else {
-                        System.out.println("Test");
                         /*If the article can't be found in the database, return null article*/
                         System.out.println("Article could not be found in the database");
                     }

@@ -55,7 +55,11 @@ CREATE TABLE posted_multimedia (
   multimedia_title TEXT
 );
 
-SELECT article_id, username, firstname, lastname, date, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
+SELECT article_id, username, firstname, lastname, date, article_title, Substring(article_body, 1, 10) FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
 ORDER BY date
-LIMIT 3;
+LIMIT 3 OFFSET 1;
+
+SELECT article_id, username, firstname, lastname, date, article_title, SubString(article_body, 1, 10) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
+ORDER BY date
+LIMIT 3 OFFSET 1;
 
