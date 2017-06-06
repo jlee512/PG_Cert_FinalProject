@@ -79,6 +79,7 @@
         text-align: right;
     }
 
+
 </style>
 
 <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
