@@ -48,11 +48,22 @@ public class ProfilePageContent extends HttpServlet {
         String phone = request.getParameter("phone");
         String aboutme = request.getParameter("aboutme");
 
-//        System.out.println(location);
-        UserDAO.updateUserDetails(DB, username, email,phone,occupation,location,aboutme,fullname,fullname);
+
+        UserDAO.updateUserDetails(DB, username, email, phone, occupation, location, aboutme, fullname, fullname);
+
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setOccupation(occupation);
+        user.setCity(location);
+        user.setProfile_description(aboutme);
+        user.setFirstname(fullname);
+        user.setLastname(fullname);
 
         session.setMaxInactiveInterval(60 * 5);
-        session.setAttribute("userDetails",user);
+
+
+        session.setAttribute("userDetails", user);
 
         response.sendRedirect("ProfilePage?username=" + user.getUsername());
 

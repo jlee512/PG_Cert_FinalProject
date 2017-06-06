@@ -105,11 +105,13 @@
                     <h4><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h4>
                     <ul>
                         <li>
-                            <a href="ChangePassword?username=${sessionScope.userDetails.username}"> Change your
-                                Password</a>
+                            <%--<a href="ChangePassword?username=${sessionScope.userDetails.username}"> Change your--%>
+                                <%--Password</a>--%>
+                            <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">Change password</button>
                         </li>
                         <li>
-                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Delete account</a>
+                            <%--<a  href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Delete account</a>--%>
+                            <button id="deleteaccount">Delete account</button>
                         </li>
                     </ul>
 
@@ -153,5 +155,11 @@
         saveChanges.attr('hidden', 'hidden');
     });
 
+    $("#deleteaccount").click(function () {
+      var result =  confirm("Are you sure you want to delete your account?");
+        if (result) {
+            location.href = "https://giphy.com/gifs/crying-2WxWfiavndgcM"
+        }
+    })
 </script>
 </html>
