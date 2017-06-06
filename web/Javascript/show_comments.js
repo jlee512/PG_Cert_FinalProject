@@ -5,7 +5,7 @@ $("document").ready(function () {
     $(".show_replies").click(function() {
         //Show replies
         //URL will be https://tomcat1.sporadic.co.nz/while_e_coyote_remote_deploy
-        var button = $(".show_replies");
+        var button = $(this);
         var parentID = button.val();
         console.log(parentID);
         var paragraph = button.parent();
@@ -29,11 +29,14 @@ $("document").ready(function () {
                     var link = replybutton.get(0).href;
                     var linkSubstring = link.substring(0, (link.lastIndexOf("=")+1));
                     replybutton.attr("href", linkSubstring + comment.comment_id);
+                    var button = commentContainer.find(".show_replies");
                     if (comment.is_parent == false){
-                        var button = commentContainer.find(".show_replies");
                         button.remove();
                     }
-                    div.append(commentContainer);
+                    else {
+                        button.val(comment.comment_id);
+                    }
+                    commentContainer.insertAfter(paragraph);
                 }
             },
             error: loadNestedCommentsFail
