@@ -27,38 +27,44 @@ var articleTemplate =
 /* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
 var from = 0;
 var count = 4;
+var moreArticles = true;
 
 
 function successfulArticleLoad(msg) {
 
     var articleContainer = $(".news_feed");
 
-    for (var i = 0; i < msg.length; i++) {
+    if (msg.length == 0){
+        /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
+        $('.loader-wrapper').hide();
+        $('#loaded1, #loaded2, #loaded3, #loaded4').show();
+        moreArticles = false;
 
-        var article = msg[i];
+    } else {
+        for (var i = 0; i < msg.length; i++) {
 
-        var articleDiv = $(articleTemplate);
+            var article = msg[i];
 
-        /*Make each article container a link to the full article*/
-        var href = "ViewArticle?article_id=" + article.article_id;
-        articleDiv.attr("href",href);
+            var articleDiv = $(articleTemplate);
 
-        articleDiv.find(".panel-title").text(article.article_title);
+            /*Make each article container a link to the full article*/
+            var href = "ViewArticle?article_id=" + article.article_id;
+            articleDiv.attr("href", href);
 
-        var date = new Date(article.article_date);
+            articleDiv.find(".panel-title").text(article.article_title);
+
+            var date = new Date(article.article_date);
 
 
-        articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + date.toDateString() + "</p><p>" + article.article_body + "</p>");
-        articleDiv.find(".panel-body").css("text-align", "left");
-        articleContainer.append(articleDiv);
+            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + date.toDateString() + "</p><p>" + article.article_body + "</p>");
+            articleDiv.find(".panel-body").css("text-align", "left");
 
-    }
+            /*Remove the loading icon*/
+            $('.loader-wrapper').hide();
 
-    /*Check if less than the requested number of articles has been returned, disable the load more articles button*/
-    if (msg.length < count) {
+            articleContainer.append(articleDiv);
 
-        $("#loadArticleButtonContainer").html("");
-
+        }
     }
 }
 
@@ -72,7 +78,8 @@ function failedArticleLoad(jqXHR, textStatus, errorThrown) {
 
 function loadArticlesIncrement() {
 
-
+    /*Show the articles loader*/
+    $('.loader-wrapper').show();
 
     /*Start an AJAX call to load more articles*/
     $.ajax({
@@ -80,7 +87,9 @@ function loadArticlesIncrement() {
         url: '/MainContentAccess',
         type: 'GET',
         data: {from: from, count: count},
-        success: successfulArticleLoad,
+        success: function (msg) {
+            successfulArticleLoad(msg);
+        },
         error: failedArticleLoad
     });
 
@@ -90,11 +99,13 @@ function loadArticlesIncrement() {
 
 $(document).ready(function () {
 
-    /*Add in load more articles button*/
+    $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
+
+    /*Add in infinite scrolling to load more articles*/
     $(window).scroll(function() {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight == $(window).scrollTop()) {
+        if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreArticles) {
             loadArticlesIncrement();
         }
     });

@@ -79,8 +79,9 @@
         text-align: right;
     }
 
-
 </style>
+
+<link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 
 <link rel="shortcut icon" type="image/png" href="/Multimedia/favicon.png">
 
@@ -93,25 +94,20 @@
 
         <p class="text-center">Welcome <strong>${sessionScope.userDetails.username}</strong>! Good to see you</p>
 
+
         <div class="news_feed">
                 <%--Articles should be dropped into here from AJAX calls--%>
         </div>
 
-
-
-            <%--<div class="preloader-wrapper small active">--%>
-                <%--<div class="spinner-layer spinner-blue-only">--%>
-                    <%--<div class="circle-clipper left">--%>
-                        <%--<div class="circle"></div>--%>
-                    <%--</div>--%>
-                    <%--<div class="gap-patch">--%>
-                        <%--<div class="circle"></div>--%>
-                    <%--</div>--%>
-                    <%--<div class="circle-clipper right">--%>
-                        <%--<div class="circle"></div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
+        <div class="loader-wrapper" style="text-align: center;">
+            <div class="loader" style="display: inline-block;"></div>
+        </div>
+        <div class="loaded-wrapper" style="text-align: center;">
+            <div id="loaded1" style="display: inline-block;"></div>
+            <div id="loaded2" style="display: inline-block;"></div>
+            <div id="loaded3" style="display: inline-block;"></div>
+            <div id="loaded4" style="display: inline-block;"></div>
+        </div>
 
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
