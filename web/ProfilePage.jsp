@@ -21,7 +21,7 @@
     User user = (User) session.getAttribute("userDetails");
 
 //    Read only needs to be implemented ***************
-    String readonly = "readonly";
+
 %>
 
 
@@ -47,33 +47,34 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">${sessionScope.userDetails.username}'s Profile</h3>
-                    <a>edit</a>
+                    <button name="editButton" id="editButton">edit</button>
                 </div>
 
                     <%------User information------%>
                 <div class="panel-body">
 
 
-                    <form>
+                    <form method="POST" action="/EditUserDetails">
                         <div>
 
                                 <%------User details------%>
                             <h4><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i> User
                                 Details:</h4>
                             <label for="username">Username: </label>
-                            <input type="text" id="username" name="username" <%=readonly%>
+                            <input type="text" id="username" name="username"
                                    value="${sessionScope.userDetails.username}">
 
                             <label for="fullname">Name: </label>
-                            <input type="text" id="fullname" name="fullname" <%=readonly%>
+                            <input type="text" id="fullname" name="fullname"
                                    value="${sessionScope.userDetails.firstname} ${sessionScope.userDetails.lastname}">
 
                             <label for="occupation">Occupation: </label>
-                            <input type="text" id="occupation" name="occupation" <%=readonly%>
+                            <input type="text" id="occupation" name="occupation"
                                    value="${sessionScope.userDetails.occupation}">
 
                             <label for="location">Location: </label>
-                            <input type="text" id="location" name="location" <%=readonly%> value="${sessionScope.userDetails.city}">
+                            <input type="text" id="location" name="location"
+                                   value="${sessionScope.userDetails.city}">
                         </div>
 
                             <%------Contact details------%>
@@ -81,10 +82,11 @@
                             <h4><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact:</h4>
 
                             <label for="email">Email: </label>
-                            <input type="text" id="email" name="email" <%=readonly%> value="${sessionScope.userDetails.email}">
+                            <input type="text" id="email" name="email"
+                                   value="${sessionScope.userDetails.email}">
 
                             <label for="phone">Phone: </label>
-                            <input type="text" id="phone" name="phone" <%=readonly%>
+                            <input type="text" id="phone" name="phone"
                                    value="${sessionScope.userDetails.phone}">
 
                         </div>
@@ -92,20 +94,24 @@
                             <%------About me------%>
                         <div>
                             <h4>About me: </h4>
-                            <input type="text" name="aboutme" <%=readonly%>
+                            <input type="text" id="aboutme" name="aboutme"
                                    value="${sessionScope.userDetails.profile_description}">
                         </div>
+
+                        <input type="submit" id="saveChanges" name="savechanges" value="save changes">
                     </form>
 
-                    <%------Profile settings------%>
+                        <%------Profile settings------%>
                     <h4><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h4>
                     <ul>
                         <li>
-                            <a href="ChangePassword?username=${sessionScope.userDetails.username}"> Change your
-                                Password</a>
+                            <%--<a href="ChangePassword?username=${sessionScope.userDetails.username}"> Change your--%>
+                                <%--Password</a>--%>
+                            <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">Change password</button>
                         </li>
                         <li>
-                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Delete account</a>
+                            <%--<a  href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Delete account</a>--%>
+                            <button id="deleteaccount">Delete account</button>
                         </li>
                     </ul>
 
@@ -127,4 +133,33 @@
 
 </body>
 <%@include file="BodyStylingLinks.jsp" %>
+<script>
+
+    <%--Make variable names for all input fields and the submit button--%>
+    var inputfields = $("form").find(':input');
+    var saveChanges = $("form").find($("#saveChanges"));
+
+    <%---Set variables to readonly and hide submit button--%>
+    inputfields.attr('readonly', 'readonly');
+    saveChanges.attr('hidden', 'hidden');
+
+    <%--Edit button makes the form editable and the save changes button appears--%>
+    $("#editButton").click(function () {
+        inputfields.removeAttr('readonly', 'readonly');
+        saveChanges.removeAttr('hidden', 'hidden');
+    });
+
+    <%--Save changes returns the form to readonly and the button becomes hidden--%>
+    saveChanges.click(function () {
+        inputfields.attr('readonly', 'readonly');
+        saveChanges.attr('hidden', 'hidden');
+    });
+
+    $("#deleteaccount").click(function () {
+      var result =  confirm("Are you sure you want to delete your account?");
+        if (result) {
+            location.href = "https://giphy.com/gifs/crying-2WxWfiavndgcM"
+        }
+    })
+</script>
 </html>

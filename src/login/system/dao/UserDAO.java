@@ -188,7 +188,7 @@ public class UserDAO {
     }
 
     /*Updates the users details*/
-    public static int updateUserDetails(MySQL DB, String userName, String email, String phone, String occupation, String city, String profile_description, String profile_picture, String firstname, String lastname) {
+    public static int updateUserDetails(MySQL DB, String userName, String email, String phone, String occupation, String city, String profile_description, String firstname, String lastname) {
 
         /*Return method status
         * (1) Success
@@ -200,11 +200,11 @@ public class UserDAO {
         String username = userName.toLowerCase();
 
         /*Addition to database*/
-        User tempUser = new User(username, email, phone, occupation, city, profile_description, profile_picture, firstname, lastname);
+        User tempUser = new User(username, email, phone, occupation, city, profile_description, firstname, lastname);
 
         try (Connection c = DB.connection()) {
             /*Connect to the database and add user*/
-            try (PreparedStatement stmt = c.prepareStatement("UPDATE registered_users SET (username = ?, email = ?, phone = ?, occupation = ?, city = ?, profile_description = ?, profile_picture = ?, firstname = ?, lastname = ?) WHERE username = ?")) {
+            try (PreparedStatement stmt = c.prepareStatement("UPDATE registered_users SET username = ?, email = ?, phone = ?, occupation = ?, city = ?, profile_description = ?, firstname = ?, lastname = ? WHERE username = ?")) {
 
                 stmt.setString(1, tempUser.getUsername());
                 stmt.setString(2, tempUser.getEmail());
@@ -212,9 +212,9 @@ public class UserDAO {
                 stmt.setString(4, tempUser.getOccupation());
                 stmt.setString(5, tempUser.getCity());
                 stmt.setString(6, tempUser.getProfile_description());
-                stmt.setString(7, tempUser.getProfile_picture());
-                stmt.setString(8, tempUser.getFirstname());
-                stmt.setString(9, tempUser.getLastname());
+                stmt.setString(7, tempUser.getFirstname());
+                stmt.setString(8, tempUser.getLastname());
+                stmt.setString(9, tempUser.getUsername());
 
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
