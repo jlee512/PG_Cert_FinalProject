@@ -4,6 +4,10 @@
 var commentPara = '<div class="panel-heading">INSERT COMMENT HEADING</div>'+
     '<div class="panel-body">INSERT COMMENT BODY</div>';
 
+var loaderWrapper = '<div class="loader-wrapper" style="margin-left: 3%;">' +
+    '<div class="loader" style="display: inline-block;"></div>' +
+    '</div>';
+
 $(document).on("click", ".show_replies", function () {
         //Show replies
         //URL will be https://tomcat1.sporadic.co.nz/while_e_coyote_remote_deploy
@@ -12,6 +16,7 @@ $(document).on("click", ".show_replies", function () {
         console.log(parentID);
         var top_level_comment_div = button.parent();
         console.log(top_level_comment_div.text());
+        top_level_comment_div.append(loaderWrapper);
 
         $.ajax({
             url: "/ShowNestedComments?parentCommentID=" + parentID,
@@ -34,7 +39,8 @@ $(document).on("click", ".show_replies", function () {
                         commentContainer.append(viewRepliesButton);
                     }
                     top_level_comment_div.append(commentContainer);
-                }
+                    }
+                    loaderWrapper.hide();
                 },
             error: loadNestedCommentsFail
         });
