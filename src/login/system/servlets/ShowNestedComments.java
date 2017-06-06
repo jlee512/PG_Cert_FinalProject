@@ -2,6 +2,8 @@ package login.system.servlets;
 
 import login.system.dao.Comment;
 import login.system.dao.CommentDAO;
+import login.system.dao.User;
+import login.system.dao.UserDAO;
 import login.system.db.MySQL;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -36,6 +38,8 @@ public class ShowNestedComments extends HttpServlet {
             jsonComment.put("timestamp", comment.getTimestamp().getTime());
             jsonComment.put("content", comment.getContent());
             jsonComment.put("is_parent", comment.getIsParent());
+            User commentAuthor = UserDAO.getUser(DB, comment.getAuthorID());
+            jsonComment.put("author_username", commentAuthor.getUsername());
             commentDetails.add(jsonComment);
         }
 

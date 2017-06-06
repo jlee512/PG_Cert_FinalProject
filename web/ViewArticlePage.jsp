@@ -26,13 +26,14 @@
 <br>
 <em>${requestScope.article.article_date}</em>
 <hr>
-<a href="AddComment?article_id=${requestScope.article.article_id}">Add New Comment</a>
+<a href="AddComment?article_id=${requestScope.article.article_id}" class="btn btn-default">Add New Comment</a>
 <c:forEach var="comment" items="${requestScope.commentList}">
-    <div>
-        <p>${comment.content}</p>
-        <a href="AddComment?article_id=${requestScope.article.article_id}&parentComment_id=${comment.commentID}">Reply</a>
+    <div class="panel panel-info">
+        <div class="panel-heading">${comment.authorUsername}</div>
+        <div class="panel-body">${comment.content}</div>
+        <a href="AddComment?article_id=${requestScope.article.article_id}&parentComment_id=${comment.commentID}" class="btn btn-default">Reply</a>
         <c:if test="${comment.isParent}">
-            <button type="button" class="show_replies" value="${comment.commentID}">Show Replies</button>
+            <button type="button" class="show_replies btn btn-default" value="${comment.commentID}">Show Replies</button>
         </c:if>
     </div>
 </c:forEach>

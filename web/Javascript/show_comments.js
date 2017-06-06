@@ -1,7 +1,8 @@
 /**
  * Created by cbla080 on 5/06/2017.
  */
-var commentPara = "<p class='nestedComment'></p>";
+var commentPara = '<div class="panel-heading">Blah blah blah</div>'+
+                    '<div class="panel-body">This is a div</div>';
 
 $("document").ready(function () {
     $(".show_replies").click(function() {
@@ -24,7 +25,13 @@ $("document").ready(function () {
                     var comment = msg[i];
                     console.log(comment.content);
                     var commentContainer = $(commentPara);
-                    commentContainer.text(comment.content);
+                    var date = new Date(comment.timestamp);
+                    var heading = commentContainer.find(".panel-heading")
+                    console.log(heading.text());
+                    heading.html("<p>" + comment.author_id + date.toDateString() + "</p>");
+                    var body = commentContainer.find(".panel-body");
+                    console.log(body.text())
+                    body.html("<p>" + comment.content + "</p>");
                     div.append(commentContainer);
                 }
             },
