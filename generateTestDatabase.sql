@@ -59,7 +59,16 @@ SELECT article_id, username, firstname, lastname, date, article_title, Substring
 ORDER BY date
 LIMIT 3 OFFSET 1;
 
+/*Test query of articles*/
 SELECT article_id, username, firstname, lastname, date, article_title, SubString(article_body, 1, 10) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
 ORDER BY date
 LIMIT 3 OFFSET 1;
+
+/*Test query of articles joined to users and comments*/
+SELECT a.article_id, u.username, u.firstname, u.lastname, a.date, a.article_title, a.article_body, c.comment_id, c.comment_body AS individual_article
+FROM uploaded_articles AS a
+LEFT JOIN registered_users AS u ON a.author_id = u.user_id
+LEFT JOIN posted_comments AS c ON a.article_id = c.article_id
+WHERE a.article_id = 4 AND parent_comment_id IS NULL
+ORDER BY date;
 
