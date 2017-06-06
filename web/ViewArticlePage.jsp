@@ -15,7 +15,6 @@
         <c:redirect url="Login"/>
     </c:if>
     <title>${requestScope.article.article_title}</title>
-    <script src="Javascript/show_comments.js"></script>
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 </head>
 <body>
@@ -49,7 +48,7 @@
     <div id="loaded4" style="display: inline-block;"></div>
 </div>
 
-
+<script src="Javascript/show_comment_replies.js"></script>
 <script src="Javascript/show_top_level_comments.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
 </body>

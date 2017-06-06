@@ -86,7 +86,7 @@ public class CommentDAO {
         List<Comment> comments = null;
         //Will be updated to our database details.
         try (Connection conn = DB.connection()) {
-            try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM posted_comments WHERE parent_comment_id = ?;")){
+            try (PreparedStatement statement = conn.prepareStatement("SELECT article_id, comment_id, author_id, timestamp, comment_body, is_parent, username, firstname, lastname FROM posted_comments LEFT JOIN registered_users ON author_id = user_id WHERE parent_comment_id = ?;")){
                 statement.setInt(1, parentCommentID);
                 try (ResultSet resultSet = statement.executeQuery()){
                     comments = new ArrayList<>();
@@ -99,6 +99,9 @@ public class CommentDAO {
                         comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
                         comment.setContent(resultSet.getString(resultSet.findColumn("comment_body")));
                         comment.setIsParent(resultSet.getBoolean(resultSet.findColumn("is_parent")));
+                        comment.setAuthor_username(resultSet.getString(resultSet.findColumn("username")));
+                        comment.setAuthor_firstname(resultSet.getString(resultSet.findColumn("firstname")));
+                        comment.setAuthor_lastname(resultSet.getString(resultSet.findColumn("lastname")));
                         comments.add(comment);
                     }
                 }
