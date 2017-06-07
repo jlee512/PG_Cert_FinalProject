@@ -22,7 +22,7 @@
 <%----------------------------------------Article--------------------------------------------------%>
 <h1>${requestScope.article.article_title}</h1>
 <br>
-<h3>${requestScope.username}</h3>
+<h3 id="author">${requestScope.article.author_username}</h3>
 <br>
 <p>${requestScope.article.article_body}</p>
 <br>
@@ -35,7 +35,6 @@
 <div class="top_level_comment_feed">
        <%--Top level comments are dropped into here from AJAX calls--%>
 </div>
-
 <%--Loader animation and bottom of comments symbol--%>
 <div class="loader-wrapper" style="margin-left: 3%;">
     <div class="loader" style="display: inline-block;"></div>
@@ -47,7 +46,7 @@
     <div id="loaded3" style="display: inline-block;"></div>
     <div id="loaded4" style="display: inline-block;"></div>
 </div>
-
+<div id="userdetails" style="display: none">${sessionScope.userDetails.username}</div>
 <script src="Javascript/show_comment_replies.js"></script>
 <script src="Javascript/show_top_level_comments.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>

@@ -11,6 +11,8 @@ var loaderWrapper = '<div class="loader-wrapper" style="margin-left: 3%;">' +
 $(document).on("click", ".show_replies", function () {
         //Show replies
         //URL will be https://tomcat1.sporadic.co.nz/while_e_coyote_remote_deploy
+        var username = $("#userdetails").text();
+        var authorUsername = $("#author").text();
         var button = $(this);
         var parentID = button.val();
         console.log(parentID);
@@ -31,6 +33,9 @@ $(document).on("click", ".show_replies", function () {
                     if (comment.is_parent) {
                         var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.comment_id + '">Show Replies</button>';
                     }
+                    if (username == comment.author_username || username == authorUsername){
+                        var deleteButton = '<a href="DeleteComment?commentID=' + comment.comment_id + '&articleID=' + getArticleID() + '" class="btn btn-default">Delete</a>'
+                    }
                     var replyButton = '<a href="AddComment?article_id=' + getArticleID() + '&parentComment_id=' + comment.comment_id + '" class="btn btn-default">Reply</a>';
                     var heading = commentContainer.find(".panel-heading");
                     commentContainer.find(".panel-heading").html("<p>" + comment.author_username + ", " + date.toDateString() + "</p>");
@@ -38,6 +43,9 @@ $(document).on("click", ".show_replies", function () {
                     commentContainer.append(replyButton);
                     if (comment.is_parent) {
                         commentContainer.append(viewRepliesButton);
+                    }
+                    if (username == comment.author_username || username == authorUsername){
+                        commentContainer.append(deleteButton);
                     }
                     top_level_comment_div.append(commentContainer);
                     }

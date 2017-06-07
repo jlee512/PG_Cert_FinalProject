@@ -16,6 +16,10 @@ function successfulCommentsLoad(msg) {
 
     var commentContainer = $(".top_level_comment_feed");
 
+    /*Get username of current user*/
+    var username = $("#userdetails").text();
+    var authorUsername = $("#author").text();
+    console.log(authorUsername);
     if (msg.length < count){
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
         $('.loader-wrapper').hide();
@@ -36,6 +40,10 @@ function successfulCommentsLoad(msg) {
             }
             var replyButton = '<a href="AddComment?article_id='+ getArticleID() + '&parentComment_id=' + comment.commentID + '" class="btn btn-default">Reply</a>';
 
+            if (username == comment.username || username == authorUsername){
+                var deleteButton = '<a href="DeleteComment?commentID=' + comment.commentID + '&articleID=' + getArticleID() + '" class="btn btn-default">Delete</a>'
+            }
+
             /*Add header to comment template*/
             commentDiv.find(".panel-heading").html("<p>" + comment.username + ", " + date.toDateString() + "</p>");
             /*Add body to comment template*/
@@ -45,6 +53,10 @@ function successfulCommentsLoad(msg) {
             /*If the comment is a parent, add the show replies button*/
             if (comment.isParent) {
                 commentDiv.append(viewRepliesButton);
+            }
+
+            if (username == comment.username || username == authorUsername){
+                commentDiv.append(deleteButton);
             }
 
             /*Remove the loading icon*/
