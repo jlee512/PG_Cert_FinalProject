@@ -28,7 +28,7 @@ $(document).on("click", ".show_replies", function () {
                     var comment = msg[i];
                     var commentContainer = $(commentPara);
                     var date = new Date(comment.timestamp);
-                    if (comment.isParent) {
+                    if (comment.is_parent) {
                         var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.comment_id + '">Show Replies</button>';
                     }
                     var replyButton = '<a href="AddComment?article_id=' + getArticleID() + '&parentComment_id=' + comment.comment_id + '" class="btn btn-default">Reply</a>';
@@ -36,7 +36,7 @@ $(document).on("click", ".show_replies", function () {
                     commentContainer.find(".panel-heading").html("<p>" + comment.author_username + ", " + date.toDateString() + "</p>");
                     commentContainer.find(".panel-body").html("<p>" + comment.content + "</p>");
                     commentContainer.append(replyButton);
-                    if (comment.isParent) {
+                    if (comment.is_parent) {
                         commentContainer.append(viewRepliesButton);
                     }
                     top_level_comment_div.append(commentContainer);
