@@ -16,13 +16,13 @@ function successfulCommentsLoad(msg) {
 
     var commentContainer = $(".top_level_comment_feed");
 
-    if (msg.length == 0){
+    if (msg.length < count){
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
         $('.loader-wrapper').hide();
         $('#loaded1, #loaded2, #loaded3, #loaded4').show();
         moreComments = false;
 
-    } else {
+    }
         for (var i = 0; i < msg.length; i++) {
 
             var comment = msg[i];
@@ -53,7 +53,6 @@ function successfulCommentsLoad(msg) {
             /*Append the comment to the container in the ViewArticlePage JSP*/
             commentContainer.append(commentDiv);
 
-        }
     }
 }
 
