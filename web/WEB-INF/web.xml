@@ -105,6 +105,18 @@
         <servlet-name>GetComments_IndividualArticle</servlet-name>
         <url-pattern>/GetComments_IndividualArticle</url-pattern>
     </servlet-mapping>
+
+    <!--Profile Page servlet for editing their details-->
+    <servlet>
+        <servlet-name>ProfilePage</servlet-name>
+        <servlet-class>login.system.servlets.ProfilePageContent</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProfilePage</servlet-name>
+        <url-pattern>/EditUserDetails</url-pattern>
+    </servlet-mapping>
+
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
