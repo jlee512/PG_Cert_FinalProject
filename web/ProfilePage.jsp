@@ -130,9 +130,12 @@
                             <div class="panel-heading">
                                 <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
                             </div>
-                            <div class="panel-body">
-                                <p>testtesttest article body</p>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> Add an Article</p>
                             </div>
+                            <div class="panel-body">testtesttest</div>
                         </div>
                     </div>
                 </div>
