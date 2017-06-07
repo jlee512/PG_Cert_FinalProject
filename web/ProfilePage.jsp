@@ -54,14 +54,14 @@
                 <div class="panel-body">
 
 
-                    <form method="POST" action="/EditUserDetails">
+                    <form method="POST" action="EditUserDetails">
                         <div>
 
                                 <%------User details------%>
                             <h4><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i> User
                                 Details:</h4>
                             <label for="username">Username: </label>
-                            <input type="text" id="username" name="username"
+                            <input type="text" class="form-control" id="username" name="username"
                                    value="${sessionScope.userDetails.username}">
 
                             <label for="fullname">Name: </label>
@@ -105,13 +105,17 @@
                     <h4><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h4>
                     <ul>
                         <li>
-                            <%--<a href="ChangePassword?username=${sessionScope.userDetails.username}"> Change your--%>
-                                <%--Password</a>--%>
-                            <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">Change password</button>
+                            <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
+                                Change password
+                            </button>
                         </li>
                         <li>
-                            <%--<a  href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Delete account</a>--%>
-                            <button id="deleteaccount">Delete account</button>
+
+                            <button type="submit" id="deleteaccount">Delete
+                                account
+                            </button>
+
+
                         </li>
                     </ul>
 
@@ -156,9 +160,9 @@
     });
 
     $("#deleteaccount").click(function () {
-      var result =  confirm("Are you sure you want to delete your account?");
+        var result = confirm("Are you sure you want to delete your account?");
         if (result) {
-            location.href = "https://giphy.com/gifs/crying-2WxWfiavndgcM"
+            location.href = "DeleteUser"
         }
     })
 </script>

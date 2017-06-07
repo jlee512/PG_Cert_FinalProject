@@ -37,7 +37,7 @@
                         <%--Username input--%>
                         <div class="md-form">
                             <i class="fa fa-user prefix"></i>
-                            <input class="form-control" type="text" id="username" name="username"
+                            <input class="form-control" type="text" id="username" name="username" required minlength="3"
                                    onchange="checkForSpaces(this)"/>
                             <label for="username">New username</label>
                         </div>
@@ -46,6 +46,7 @@
                         <div class="md-form">
                             <i class="fa fa-envelope prefix"></i>
                             <input class="form-control" type="email" id="email" name="email"
+                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                    onchange="checkForSpaces(this)"/>
                             <label for="email">Your email</label>
                         </div>
@@ -76,7 +77,7 @@
 
                         <%--Sign Up button and link to RegistrationAttempt Servlet--%>
                         <div class="text-center">
-                            <input type="submit" id="submit" class="btn btn-primary" value="sign up">
+                            <button type="submit" id="submit" class="btn btn-primary">sign up</button>
                         </div>
                         <a class="text-right" href="Login">or log in here</a>
 

@@ -38,8 +38,8 @@
                 <h1 style="color: white;">Start your own blog,<br>because we've all got something to say.</h1>
                 <br>
                 <br>
-                <a href="Registration" class="btn btn-primary btn-rounded">Get started</a>
-                <a href="Login" class="btn btn-default btn-rounded">Log in</a>
+                <button onclick="location.href = 'Registration'"  class="btn btn-primary btn-rounded">Get started</button>
+                <button onclick="location.href = 'Login'" class="btn btn-default btn-rounded">Log in</button>
             </div>
         </div>
     </div>
