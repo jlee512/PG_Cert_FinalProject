@@ -56,7 +56,6 @@
 
                     <form method="POST" action="EditUserDetails">
                         <div>
-
                                 <%------User details------%>
                             <h4><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i> User
                                 Details:</h4>
@@ -88,7 +87,6 @@
                             <label for="phone">Phone: </label>
                             <input type="text" id="phone" name="phone"
                                    value="${sessionScope.userDetails.phone}">
-
                         </div>
 
                             <%------About me------%>
@@ -102,29 +100,31 @@
                     </form>
 
                         <%------Profile settings------%>
-                    <h4><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h4>
-                    <ul>
-                        <li>
-                            <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
-                                Change password
-                            </button>
-                        </li>
-                        <li>
+                    <div>
+                        <h4><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h4>
 
-                            <button type="submit" id="deleteaccount">Delete
-                                account
-                            </button>
+                        <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
+                            Change password
+                        </button>
 
-
-                        </li>
-                    </ul>
-
-
+                        <button type="submit" id="deleteaccount">Delete
+                            account
+                        </button>
+                    </div>
                 </div>
-                    <%------End of user information------%>
-
             </div>
         </div>
+        <%------End of user information------%>
+
+
+        <div>This is for Julian</div>
+
+
+
+
+        <%--Space to type code--%>
+
+
 
     </c:when>
     <%--When user is not logged in, if content page is accessed, redirect to the login page--%>
