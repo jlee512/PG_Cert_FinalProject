@@ -95,6 +95,16 @@
         <url-pattern>/ShowNestedComments</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DeleteComment</servlet-name>
+        <servlet-class>login.system.servlets.DeleteComment</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteComment</servlet-name>
+        <url-pattern>/DeleteComment</url-pattern>
+    </servlet-mapping>
+
     <!--Get Top Level Comments Servlet for an individual article-->
     <servlet>
         <servlet-name>GetComments_IndividualArticle</servlet-name>

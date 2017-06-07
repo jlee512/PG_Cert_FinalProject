@@ -176,11 +176,11 @@ public class CommentDAO {
 
     }
 
-    public static String deleteComment(MySQL DB, Comment comment) {
+    public static String deleteComment(MySQL DB, int commentID) {
         String status = "Could not delete your comment at this time.";
         try (Connection conn = DB.connection()) {
-            try (PreparedStatement statement = conn.prepareStatement("DELETE FROM posted_comments WHERE comment_id = ?")) {
-                statement.setInt(1, comment.getCommentID());
+            try (PreparedStatement statement = conn.prepareStatement("DELETE FROM posted_comments WHERE comment_id = ?;")) {
+                statement.setInt(1, commentID);
                 statement.executeUpdate();
                 status = "Comment deleted successfully.";
                 return status;
