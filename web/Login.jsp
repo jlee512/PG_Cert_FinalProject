@@ -70,7 +70,7 @@
 
                         <%--SIGN IN SUBMIT BUTTON--%>
                         <div class="text-center">
-                            <input class="btn btn-primary btn-rounded" type="submit" id="submit" value="Sign in">
+                            <button class="btn btn-primary btn-rounded" type="submit" id="submit">Sign in</button>
                         </div>
 
                         <%--SIGN UP LINK--%>

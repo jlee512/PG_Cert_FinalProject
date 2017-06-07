@@ -234,12 +234,13 @@ public class UserDAO {
         /*------------------------------------------------------------*/
     }
 
-    public static int deleteUserAccount(MySQL DB) {
+    public static int deleteUserAccount(MySQL DB, String username) {
 
         try (Connection c = DB.connection()) {
             /*Connect to the database and add user*/
-            try (PreparedStatement stmt = c.prepareStatement("DROP registered_users WHERE username = ?")) {
+            try (PreparedStatement stmt = c.prepareStatement("DELETE FROM registered_users WHERE username = ?")) {
 
+                stmt.setString(1, username);
 
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();

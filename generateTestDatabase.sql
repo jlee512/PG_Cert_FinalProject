@@ -44,7 +44,7 @@ CREATE TABLE posted_comments (
   is_parent         BOOLEAN,
   FOREIGN KEY (article_id) REFERENCES uploaded_articles (article_id),
   FOREIGN KEY (author_id) REFERENCES registered_users (user_id),
-  FOREIGN KEY (parent_comment_id) REFERENCES posted_comments (comment_id) ON DELETE CASCADE
+  FOREIGN KEY (parent_comment_id) REFERENCES posted_comments (comment_id)
 );
 
 CREATE TABLE posted_multimedia (
@@ -74,6 +74,6 @@ LEFT JOIN posted_comments AS c ON a.article_id = c.article_id
 WHERE a.article_id = 4 AND parent_comment_id IS NULL
 ORDER BY date;
 
-SELECT comment_id parent_comment_id, timestamp, comment_body, is_parent, username, firstname, lastname FROM posted_comments LEFT JOIN registered_users ON posted_comments.author_id = registered_users.user_id WHERE article_id = 4 AND parent_comment_id IS NULL ORDER BY TIMESTAMP LIMIT 5 OFFSET 0;
+DELETE FROM registered_users WHERE username = ?;
 
-DELETE FROM posted_comments WHERE comment_id = 1;
+SELECT comment_id parent_comment_id, timestamp, comment_body, is_parent, username, firstname, lastname FROM posted_comments LEFT JOIN registered_users ON posted_comments.author_id = registered_users.user_id WHERE article_id = 4 AND parent_comment_id IS NULL ORDER BY TIMESTAMP LIMIT 5 OFFSET 0;
