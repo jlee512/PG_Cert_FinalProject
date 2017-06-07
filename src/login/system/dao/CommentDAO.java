@@ -193,17 +193,6 @@ public class CommentDAO {
         Integer parentCommentID = -1;
         try (Connection conn = DB.connection()) {
             /*Get parent comment_id if it exists and set the parent comment_id's isParent boolean to null*/
-            try (PreparedStatement statement = conn.prepareStatement("SELECT parent_comment_id FROM posted_comments WHERE comment_id = ?")) {
-                statement.setInt(1, commentID);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    parentCommentID = resultSet.getInt("parent_comment_id");
-                }
-            }
-            if (parentCommentID != null) {
-                try (PreparedStatement statement = conn.prepareStatement("UPDATE posted_comments SET is_parent = 0; WHERE comment_id = ?")) {
-                    statement.setInt(1, Integer.valueOf(parentCommentID));
-                }
-            }
             try (PreparedStatement statement = conn.prepareStatement("DELETE FROM posted_comments WHERE comment_id = ?;")) {
                 statement.setInt(1, commentID);
                 statement.executeUpdate();
