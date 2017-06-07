@@ -30,22 +30,36 @@ $(document).on("click", ".show_replies", function () {
                     var comment = msg[i];
                     var commentContainer = $(commentPara);
                     var date = new Date(comment.timestamp);
+
+                    /*Add a button to view replies if comment has replies*/
                     if (comment.is_parent) {
                         var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.comment_id + '">Show Replies</button>';
                     }
+
+                    /*Add a button to delete the comment if current user is comment author or article author*/
                     if (username == comment.author_username || username == authorUsername){
                         var deleteButton = '<a href="DeleteComment?commentID=' + comment.comment_id + '&articleID=' + getArticleID() + '" class="btn btn-default">Delete</a>'
                     }
+
+                    if (username == comment.author_username){
+                        var editButton = '<a href="EditCommentForm?comment_id=' + comment.comment_id + '&article_id=' + getArticleID() + '&comment_body=' + comment.content + '" class="btn btn-default">Edit</a>'
+                    }
+
+                    /*Add a button to reply to the comment*/
                     var replyButton = '<a href="AddComment?article_id=' + getArticleID() + '&parentComment_id=' + comment.comment_id + '" class="btn btn-default">Reply</a>';
-                    var heading = commentContainer.find(".panel-heading");
+
                     commentContainer.find(".panel-heading").html("<p>" + comment.author_username + ", " + date.toDateString() + "</p>");
                     commentContainer.find(".panel-body").html("<p>" + comment.content + "</p>");
                     commentContainer.append(replyButton);
+
                     if (comment.is_parent) {
                         commentContainer.append(viewRepliesButton);
                     }
                     if (username == comment.author_username || username == authorUsername){
                         commentContainer.append(deleteButton);
+                    }
+                    if (username == comment.author_username){
+                        commentContainer.append(editButton);
                     }
                     top_level_comment_div.append(commentContainer);
                     }

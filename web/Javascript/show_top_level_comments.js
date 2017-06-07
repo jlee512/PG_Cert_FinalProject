@@ -32,16 +32,26 @@ function successfulCommentsLoad(msg) {
             var comment = msg[i];
             var commentDiv = $(commentPara);
             var date = new Date(comment.timestamp);
+
+            /*Add a button to view replies if comment has replies*/
             if (comment.isParent) {
                 isParent = true;
                 var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.commentID + '">Show Replies</button>';
             } else {
                 isParent = false;
             }
+
+            /*Add a button to reply to the comment*/
             var replyButton = '<a href="AddComment?article_id='+ getArticleID() + '&parentComment_id=' + comment.commentID + '" class="btn btn-default">Reply</a>';
 
+            /*Add a button to delete the comment if current user is comment author or article author*/
             if (username == comment.username || username == authorUsername){
                 var deleteButton = '<a href="DeleteComment?commentID=' + comment.commentID + '&articleID=' + getArticleID() + '" class="btn btn-default">Delete</a>'
+            }
+
+            /*Add a button to edit the comment if current user is comment author*/
+            if (username == comment.username){
+                var editButton = '<a href="EditCommentForm?comment_id=' + comment.commentID + '&article_id=' + getArticleID() + '&comment_body=' + comment.content + '" class="btn btn-default">Edit</a>'
             }
 
             /*Add header to comment template*/
@@ -57,6 +67,10 @@ function successfulCommentsLoad(msg) {
 
             if (username == comment.username || username == authorUsername){
                 commentDiv.append(deleteButton);
+            }
+
+            if (username == comment.username){
+                commentDiv.append(editButton);
             }
 
             /*Remove the loading icon*/

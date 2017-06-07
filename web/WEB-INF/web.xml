@@ -138,7 +138,16 @@
         <url-pattern>/DeleteUser</url-pattern>
     </servlet-mapping>
 
+    <!--Edit Comment servlet-->
+    <servlet>
+        <servlet-name>EditComment</servlet-name>
+        <servlet-class>login.system.servlets.EditComment</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>EditComment</servlet-name>
+        <url-pattern>/EditComment</url-pattern>
+    </servlet-mapping>
 
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
@@ -247,6 +256,17 @@
     <servlet-mapping>
         <servlet-name>ProfilePageJSP</servlet-name>
         <url-pattern>/ProfilePage</url-pattern>
+    </servlet-mapping>
+
+    <!--(11) Edit Comment-->
+    <servlet>
+        <servlet-name>EditCommentFormJSP</servlet-name>
+        <jsp-file>/EditCommentForm.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditCommentFormJSP</servlet-name>
+        <url-pattern>/EditCommentForm</url-pattern>
     </servlet-mapping>
 
 </web-app>
