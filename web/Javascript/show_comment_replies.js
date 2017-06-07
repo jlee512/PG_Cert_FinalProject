@@ -22,15 +22,16 @@ $(document).on("click", ".show_replies", function () {
             url: "/ShowNestedComments?parentCommentID=" + parentID,
             type: "GET",
             success: function loadNestedComments(msg){
+                $('.loader-wrapper').show();
                 console.log(msg);
                 for (i = 0; i < msg.length; i++) {
                     var comment = msg[i];
                     var commentContainer = $(commentPara);
                     var date = new Date(comment.timestamp);
                     if (comment.isParent) {
-                        var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.commentID + '">Show Replies</button>';
+                        var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.comment_id + '">Show Replies</button>';
                     }
-                    var replyButton = '<a href="AddComment?article_id=' + getArticleID() + '&parentComment_id=' + comment.commentID + '" class="btn btn-default">Reply</a>';
+                    var replyButton = '<a href="AddComment?article_id=' + getArticleID() + '&parentComment_id=' + comment.comment_id + '" class="btn btn-default">Reply</a>';
                     var heading = commentContainer.find(".panel-heading");
                     commentContainer.find(".panel-heading").html("<p>" + comment.author_username + ", " + date.toDateString() + "</p>");
                     commentContainer.find(".panel-body").html("<p>" + comment.content + "</p>");
@@ -40,7 +41,9 @@ $(document).on("click", ".show_replies", function () {
                     }
                     top_level_comment_div.append(commentContainer);
                     }
-                    loaderWrapper.hide();
+                $('.loaded-wrapper').hide();
+                $('.loader-wrapper').remove();
+                button.remove();
                 },
             error: loadNestedCommentsFail
         });
