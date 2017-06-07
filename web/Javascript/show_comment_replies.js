@@ -22,7 +22,7 @@ $(document).on("click", ".show_replies", function () {
             url: "/ShowNestedComments?parentCommentID=" + parentID,
             type: "GET",
             success: function loadNestedComments(msg){
-                $('.loader-wrapper').show();
+                top_level_comment_div.find(".loader-wrapper").show();
                 console.log(msg);
                 for (i = 0; i < msg.length; i++) {
                     var comment = msg[i];
@@ -41,8 +41,8 @@ $(document).on("click", ".show_replies", function () {
                     }
                     top_level_comment_div.append(commentContainer);
                     }
-                $('.loaded-wrapper').hide();
-                $('.loader-wrapper').remove();
+                top_level_comment_div.find(".loader-wrapper").hide();
+                top_level_comment_div.find(".loader-wrapper").remove();
                 button.remove();
                 },
             error: loadNestedCommentsFail
