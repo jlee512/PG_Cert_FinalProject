@@ -20,13 +20,14 @@
 <body>
 <%@include file="Navbar.jsp" %>
 <%----------------------------------------Article--------------------------------------------------%>
-<h1>${requestScope.article.article_title}</h1>
+<h1 class="display-4">${requestScope.article.article_title}</h1>
 <br>
-<h3 id="author">${requestScope.article.author_username}</h3>
+<h3 id="author">Published by: ${requestScope.article.author_username}</h3>
 <br>
-<p>${requestScope.article.article_body}</p>
+
+<p style="white-space: pre-wrap;">${requestScope.article.article_body}</p>
 <br>
-<em>${requestScope.article.article_date}</em>
+<em>Published: ${requestScope.article.article_date}</em>
 <hr>
 
 <%---------------------------------------Comments-------------------------------------------------%>
