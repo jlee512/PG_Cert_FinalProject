@@ -18,6 +18,7 @@ public class DeleteComment extends HttpServlet {
         int commentID = Integer.parseInt(request.getParameter("commentID"));
         int articleID = Integer.parseInt(request.getParameter("articleID"));
         CommentDAO.deleteComment(DB, commentID);
+        System.out.println(commentID);
         response.sendRedirect("/ViewArticle?article_id=" + articleID);
     }
 }

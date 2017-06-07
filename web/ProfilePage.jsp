@@ -38,78 +38,81 @@
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
 
-        <div class="col-sm-9 panel panel-default" id="profileContent">
+        <div class="col-sm-4" id="profileContent">
+            <div class="panel panel-default" style="padding-right: 15px; padding-left: 15px;">
 
-                <%------Profile Picture------%>
-            <img src="${sessionScope.userDetails.profile_picture}" class="img-circle img-responsive center-block">
+                    <%------Profile Picture------%>
+                <img src="${sessionScope.userDetails.profile_picture}" class="img-responsive center-block"
+                     style="padding-top: 15px; padding-bottom: 15px;">
 
-                <%------Beginning of profile panel------%>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">${sessionScope.userDetails.username}'s Profile</h3>
-                    <button name="editButton" id="editButton">edit</button>
-                </div>
+                    <%------Beginning of profile panel------%>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">${sessionScope.userDetails.username}'s Profile</h3>
+                        <button name="editButton" id="editButton">edit</button>
+                    </div>
 
-                    <%------User information------%>
-                <div class="panel-body">
+                        <%------User information------%>
+                    <div class="panel-body">
 
 
-                    <form method="POST" action="EditUserDetails">
+                        <form method="POST" action="EditUserDetails">
+                            <div>
+                                    <%------User details------%>
+                                <h4><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i> User
+                                    Details:</h4>
+                                <label for="username">Username: </label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                       value="${sessionScope.userDetails.username}">
+
+                                <label for="fullname">Name: </label>
+                                <input type="text" id="fullname" name="fullname"
+                                       value="${sessionScope.userDetails.firstname} ${sessionScope.userDetails.lastname}">
+
+                                <label for="occupation">Occupation: </label>
+                                <input type="text" id="occupation" name="occupation"
+                                       value="${sessionScope.userDetails.occupation}">
+
+                                <label for="location">Location: </label>
+                                <input type="text" id="location" name="location"
+                                       value="${sessionScope.userDetails.city}">
+                            </div>
+
+                                <%------Contact details------%>
+                            <div>
+                                <h4><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact:</h4>
+
+                                <label for="email">Email: </label>
+                                <input type="text" id="email" name="email"
+                                       value="${sessionScope.userDetails.email}">
+
+                                <label for="phone">Phone: </label>
+                                <input type="text" id="phone" name="phone"
+                                       value="${sessionScope.userDetails.phone}">
+                            </div>
+
+                                <%------About me------%>
+                            <div>
+                                <h4>About me: </h4>
+                                <input type="text" id="aboutme" name="aboutme"
+                                       value="${sessionScope.userDetails.profile_description}">
+                            </div>
+
+                            <input type="submit" id="saveChanges" name="savechanges" value="save changes">
+                        </form>
+
+                            <%------Profile settings------%>
                         <div>
-                                <%------User details------%>
-                            <h4><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i> User
-                                Details:</h4>
-                            <label for="username">Username: </label>
-                            <input type="text" class="form-control" id="username" name="username"
-                                   value="${sessionScope.userDetails.username}">
+                            <h4><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h4>
 
-                            <label for="fullname">Name: </label>
-                            <input type="text" id="fullname" name="fullname"
-                                   value="${sessionScope.userDetails.firstname} ${sessionScope.userDetails.lastname}">
+                            <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
+                                Change password
+                            </button>
 
-                            <label for="occupation">Occupation: </label>
-                            <input type="text" id="occupation" name="occupation"
-                                   value="${sessionScope.userDetails.occupation}">
-
-                            <label for="location">Location: </label>
-                            <input type="text" id="location" name="location"
-                                   value="${sessionScope.userDetails.city}">
+                            <button type="submit" id="deleteaccount">Delete
+                                account
+                            </button>
                         </div>
-
-                            <%------Contact details------%>
-                        <div>
-                            <h4><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact:</h4>
-
-                            <label for="email">Email: </label>
-                            <input type="text" id="email" name="email"
-                                   value="${sessionScope.userDetails.email}">
-
-                            <label for="phone">Phone: </label>
-                            <input type="text" id="phone" name="phone"
-                                   value="${sessionScope.userDetails.phone}">
-                        </div>
-
-                            <%------About me------%>
-                        <div>
-                            <h4>About me: </h4>
-                            <input type="text" id="aboutme" name="aboutme"
-                                   value="${sessionScope.userDetails.profile_description}">
-                        </div>
-
-                        <input type="submit" id="saveChanges" name="savechanges" value="save changes">
-                    </form>
-
-                        <%------Profile settings------%>
-                    <div>
-                        <h4><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h4>
-
-                        <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
-                            Change password
-                        </button>
-
-                        <button type="submit" id="deleteaccount">Delete
-                            account
-                        </button>
                     </div>
                 </div>
             </div>
@@ -117,13 +120,25 @@
         <%------End of user information------%>
 
 
-        <div>This is for Julian</div>
-
-
-
+        <div class="col-sm-8" id="userArticles">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">${sessionScope.userDetails.username}'s Article Archive</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
+                            </div>
+                            <div class="panel-body">
+                                <p>testtesttest article body</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
 
         <%--Space to type code--%>
-
 
 
     </c:when>
