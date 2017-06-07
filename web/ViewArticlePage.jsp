@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 </head>
 <body>
-
+<%@include file="Navbar.jsp" %>
 <%----------------------------------------Article--------------------------------------------------%>
 <h1>${requestScope.article.article_title}</h1>
 <br>
