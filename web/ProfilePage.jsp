@@ -176,8 +176,6 @@
                                 <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
                             </div>
                         </div>
-                        <div class='panel-body add_article_panel_body'>
-                        </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> ARTICLE TITLE INSERT HERE</p>
@@ -211,7 +209,6 @@
 
 <%--Bootstrap core JavaScript--%>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <script>
 
     <%--Hide the upload image--%>
@@ -250,7 +247,7 @@
     $("#deleteaccount").click(function () {
         var result = confirm("Are you sure you want to delete your account?");
         if (result) {
-            location.href = "DeleteUser"
+            location.href = "DeleteUser";
         }
     });
 
@@ -262,4 +259,5 @@
 
 
 </script>
+
 </html>
