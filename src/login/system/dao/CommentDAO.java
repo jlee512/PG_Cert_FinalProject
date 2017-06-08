@@ -259,4 +259,20 @@ public class CommentDAO {
             e.printStackTrace();
         }
     }
+
+    public static void setCommentNotParent(MySQL DB, int parentCommentID){
+        try (Connection conn = DB.connection()){
+            try (PreparedStatement statement = conn.prepareStatement("UPDATE posted_comments SET is_parent = ? WHERE comment_id = ?")){
+                statement.setBoolean(1, false);
+                statement.setInt(2, parentCommentID);
+                statement.executeUpdate();
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

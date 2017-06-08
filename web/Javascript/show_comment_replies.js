@@ -38,7 +38,7 @@ $(document).on("click", ".show_replies", function () {
 
                     /*Add a button to delete the comment if current user is comment author or article author*/
                     if (username == comment.author_username || username == authorUsername){
-                        var deleteButton = '<a href="DeleteComment?commentID=' + comment.comment_id + '&articleID=' + getArticleID() + '" class="btn btn-default">Delete</a>'
+                        var deleteButton = '<a href="DeleteComment?commentID=' + comment.comment_id + '&articleID=' + getArticleID() + '&parentCommentID=' + comment.parent_comment_id + '" class="btn btn-default">Delete</a>'
                     }
 
                     if (username == comment.author_username){
