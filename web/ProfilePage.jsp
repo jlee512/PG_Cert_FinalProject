@@ -27,32 +27,15 @@
 <html>
 <head>
     <title>${sessionScope.userDetails.username}'s profile</title>
-
-
-    <%--&lt;%&ndash;Font awesome&ndash;%&gt;--%>
-    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">--%>
-
-    <%--<!-- Latest compiled and minified CSS -->--%>
-    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--%>
-    <%--integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
-
-    <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">--%>
-
-    <%--&lt;%&ndash;Responsiveness for all screen sizes&ndash;%&gt;--%>
-    <%--<meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
-
-    <%--<script src="//code.jquery.com/jquery-1.10.2.js"></script>--%>
-
     <%@include file="HeadStylingLinks.jsp" %>
+
     <style>
-
-
+        <%--Disable mdbBootstrap form "readony" styling--%>
         input[type=date]:disabled, input[type=date][readonly=readonly], input[type=datetime-local]:disabled, input[type=datetime-local][readonly=readonly], input[type=email]:disabled, input[type=email][readonly=readonly], input[type=number]:disabled, input[type=number][readonly=readonly], input[type=password]:disabled, input[type=password][readonly=readonly], input[type=search-md]:disabled, input[type=search-md][readonly=readonly], input[type=search]:disabled, input[type=search][readonly=readonly], input[type=tel]:disabled, input[type=tel][readonly=readonly], input[type=text]:disabled, input[type=text][readonly=readonly], input[type=time]:disabled, input[type=time][readonly=readonly], input[type=url]:disabled, input[type=url][readonly=readonly], textarea.md-textarea:disabled, textarea.md-textarea[readonly=readonly] {
             color: black !important;
             border-bottom: none !important;
             background-color: transparent;
         }
-
 
     </style>
 
@@ -67,18 +50,20 @@
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
 
+        <%--Main  panel--%>
         <div class="col-sm-4" id="profileContent">
             <div class="panel panel-default" style="padding-right: 15px; padding-left: 15px;">
 
-                    <%------Profile Picture------%>
 
-                <input id="profile-image-upload" type="file" onsubmit="" formmethod="POST" formaction="UploadProfilePicture">
+                    <%------Profile Picture------%>
+                <input id="profile-image-upload" type="file" onsubmit="" formmethod="POST"
+                       formaction="UploadProfilePicture">
                 <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
                      class="img-responsive center-block"
                      style="padding-top: 15px; padding-bottom: 15px;">
             </div>
 
-                <%------Beginning of profile panel------%>
+                <%------Beginning of nested profile panel------%>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -88,10 +73,9 @@
 
                     <%------User information------%>
                 <div class="panel-body">
-
-
                     <form method="POST" action="EditUserDetails">
                         <div>
+
                                 <%------User details------%>
                             <div>
                                 <h3><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i>
@@ -102,21 +86,17 @@
                                 <input type="text" id="username" name="username"
                                        value="${sessionScope.userDetails.username}">
 
-
                                 <h4>Name </h4>
-
                                 <input style="width: 20%" class="form-group" type="text" name="firstname"
                                        value="${sessionScope.userDetails.firstname} ">
 
                                 <input style="width: 70%" class="form-group" type="text" name="lastname"
                                        value="${sessionScope.userDetails.lastname}">
 
-
                                 <h4 style="display: inline-block;">Occupation: </h4>
                                 <input style=" display: inline-block" type="text" id="occupation"
                                        name="occupation"
                                        value="${sessionScope.userDetails.occupation}">
-
 
                                 <h4>Location </h4>
                                 <input type="text" id="location" name="location"
@@ -126,8 +106,7 @@
 
                                 <%------Contact details------%>
                             <div>
-                                <h3><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact:
-                                </h3>
+                                <h3><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact: </h3>
 
                                 <h4>Email </h4>
                                 <input type="text" id="email" name="email"
@@ -143,13 +122,10 @@
                                 <h4>About me </h4>
                                 <textarea style="resize: none;" maxlength="200" id="aboutme"
                                           name="aboutme">${sessionScope.userDetails.profile_description}</textarea>
-                                <br>
                             </div>
 
-                                <%--Submit button--%>
-                            <div id="submit">
-
-                            </div>
+                                <%--Submit button (added using javascript for security)--%>
+                            <div id="submit"></div>
                         </div>
                     </form>
 
@@ -157,21 +133,23 @@
                     <div>
                         <h3><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h3>
 
+                            <%--Change password--%>
                         <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
                             Change password
                         </button>
 
+                            <%--Delete account--%>
                         <button type="submit" id="deleteaccount">Delete
                             account
                         </button>
 
+                            <%--Edit profile--%>
                         <button style="display: inline-block;" name="editButton"
                                 id="editButton">edit profile
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <%------End of user information------%>
 
@@ -222,8 +200,8 @@
 
 <script>
 
+    <%--Hide the upload image--%>
     $("#profile-image-upload").hide();
-
 
     <%--resizing the textarea--%>
     $("textarea").height($("textarea")[0].scrollHeight);
@@ -232,7 +210,6 @@
         $("textarea").height($("textarea")[0].scrollHeight);
     };
 
-
     <%--Make variable names for all input fields and the submit button--%>
     var inputfields = $("form").find(':input');
     var saveChanges = $("form").find($("#saveChanges"));
@@ -240,7 +217,6 @@
     <%---Set variables to readonly and hide submit button--%>
     inputfields.attr('readonly', 'readonly');
     saveChanges.hide();
-
 
     <%--Edit button makes the form editable and the save changes button appears--%>
     $("#editButton").click(function () {
