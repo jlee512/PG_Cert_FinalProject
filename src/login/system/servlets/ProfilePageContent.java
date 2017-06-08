@@ -41,7 +41,8 @@ public class ProfilePageContent extends HttpServlet {
         User user = (User) session.getAttribute("userDetails");
 
         String username = request.getParameter("username");
-        String fullname = request.getParameter("fullname");
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
         String occupation = request.getParameter("occupation");
         String location = request.getParameter("location");
         String email = request.getParameter("email");
@@ -49,7 +50,7 @@ public class ProfilePageContent extends HttpServlet {
         String aboutme = request.getParameter("aboutme");
 
 
-        UserDAO.updateUserDetails(DB, username, email, phone, occupation, location, aboutme, fullname, fullname);
+        UserDAO.updateUserDetails(DB, username, email, phone, occupation, location, aboutme, firstname, lastname);
 
         user.setUsername(username);
         user.setEmail(email);
@@ -57,8 +58,8 @@ public class ProfilePageContent extends HttpServlet {
         user.setOccupation(occupation);
         user.setCity(location);
         user.setProfile_description(aboutme);
-        user.setFirstname(fullname);
-        user.setLastname(fullname);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
 
         session.setMaxInactiveInterval(60 * 5);
 

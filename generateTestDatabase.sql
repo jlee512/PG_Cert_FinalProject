@@ -79,3 +79,4 @@ DELETE FROM registered_users WHERE username = ?;
 SELECT comment_id parent_comment_id, timestamp, comment_body, is_parent, username, firstname, lastname FROM posted_comments LEFT JOIN registered_users ON posted_comments.author_id = registered_users.user_id WHERE article_id = 4 AND parent_comment_id IS NULL ORDER BY TIMESTAMP LIMIT 5 OFFSET 0;
 
 SELECT parent_comment_id FROM posted_comments WHERE comment_id = 10;
+

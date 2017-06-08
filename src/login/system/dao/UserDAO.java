@@ -257,4 +257,29 @@ public class UserDAO {
             return 4;
         }
     }
+
+    public static int updateProfilePicture(MySQL DB, String profile_picture, String username) {
+
+        try (Connection c = DB.connection()) {
+            /*Connect to the database and add user*/
+            try (PreparedStatement stmt = c.prepareStatement("UPDATE registered_users SET profile_pictre WHERE  username = ?")) {
+
+                stmt.setString(2, profile_picture);
+                stmt.setString(1, username);
+
+                /*Execute the prepared statement*/
+                stmt.executeUpdate();
+                System.out.println("User picture successfully updated");
+                return 1;
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            return 2;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 3;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 4;
+        }
+    }
 }
