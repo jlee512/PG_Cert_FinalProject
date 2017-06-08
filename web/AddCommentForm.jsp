@@ -14,9 +14,8 @@
     </c:if>
     <title>Add Comment</title>
 </head>
-
 <body>
-<form action="AddCommentAttempt" method="post">
+<form id="add-comment" action="AddCommentAttempt" method="post">
     <label for="comment_body">Comment:</label>
     <textarea rows="4" cols="50" name="comment_body" id="comment_body"></textarea>
     <input type="hidden" name="username" value="${sessionScope.userDetails.username}">
