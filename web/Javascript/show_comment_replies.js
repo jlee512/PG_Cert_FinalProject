@@ -10,7 +10,6 @@ var loaderWrapper = '<div class="loader-wrapper" style="margin-left: 3%;">' +
 
 $(document).on("click", ".show_replies", function () {
     //Show replies
-    //URL will be https://tomcat1.sporadic.co.nz/while_e_coyote_remote_deploy
     var username = $("#userdetails").text();
     var authorUsername = $("#author").text();
     var button = $(this);
@@ -46,7 +45,7 @@ $(document).on("click", ".show_replies", function () {
                     }
 
                     /*Add a button to reply to the comment*/
-                    var replyButton = '<a href="AddComment?article_id=' + getArticleID() + '&parentComment_id=' + comment.comment_id + '" class="btn btn-default">Reply</a>';
+                    var replyButton = '<button type="button" class="add_reply btn btn-default" value="' + comment.comment_id + '">Reply</button>';
 
                     commentContainer.find(".panel-heading").html("<p>" + comment.author_username + ", " + date.toDateString() + "</p>");
                     commentContainer.find(".panel-body").html("<p>" + comment.content + "</p>");

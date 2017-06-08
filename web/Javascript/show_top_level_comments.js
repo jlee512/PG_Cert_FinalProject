@@ -42,7 +42,7 @@ function successfulCommentsLoad(msg) {
             }
 
             /*Add a button to reply to the comment*/
-            var replyButton = '<a href="AddComment?article_id='+ getArticleID() + '&parentComment_id=' + comment.commentID + '" class="btn btn-default">Reply</a>';
+            var replyButton = '<button type="button" class="add_reply btn btn-default" value="' + comment.commentID + '">Reply</button>';
 
             /*Add a button to delete the comment if current user is comment author or article author*/
             if (username == comment.username || username == authorUsername){
