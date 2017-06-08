@@ -232,8 +232,9 @@
     <%--Edit button makes the form editable and the save changes button appears--%>
     $("#editButton").click(function () {
         inputfields.removeAttr('readonly', 'readonly');
-        $("#submit").append("<input type='submit' id='saveChanges' name='savechange' value='save changes'>")
-
+        if (!$('#saveChanges')[0]) {
+            $("#submit").append("<input type='submit' id='saveChanges' name='savechange' value='save changes'>")
+        }
     });
 
     <%--Save changes returns the form to readonly and the button becomes hidden--%>
