@@ -149,6 +149,17 @@
         <url-pattern>/EditComment</url-pattern>
     </servlet-mapping>
 
+    <!--Uploading profile picture-->
+    <servlet>
+        <servlet-name>UploadProfilePicture</servlet-name>
+        <servlet-class>login.system.servlets.ProfilePicture</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UploadProfilePicture</servlet-name>
+        <url-pattern>/UploadProfilePicture</url-pattern>
+    </servlet-mapping>
+
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 

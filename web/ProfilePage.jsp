@@ -29,21 +29,21 @@
     <title>${sessionScope.userDetails.username}'s profile</title>
 
 
-    <%--Font awesome--%>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%--&lt;%&ndash;Font awesome&ndash;%&gt;--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">--%>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <%--<!-- Latest compiled and minified CSS -->--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--%>
+    <%--integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
+    <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">--%>
 
-    <%--Responsiveness for all screen sizes--%>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%--&lt;%&ndash;Responsiveness for all screen sizes&ndash;%&gt;--%>
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
 
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <%--<script src="//code.jquery.com/jquery-1.10.2.js"></script>--%>
 
-
+    <%@include file="HeadStylingLinks.jsp" %>
     <style>
 
 
@@ -52,6 +52,7 @@
             border-bottom: none !important;
             background-color: transparent;
         }
+
 
     </style>
 
@@ -70,74 +71,86 @@
             <div class="panel panel-default" style="padding-right: 15px; padding-left: 15px;">
 
                     <%------Profile Picture------%>
-                <img src="${sessionScope.userDetails.profile_picture}" class="img-responsive center-block"
+
+                <input id="profile-image-upload" type="file" onsubmit="" formmethod="POST" formaction="UploadProfilePicture">
+                <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
+                     class="img-responsive center-block"
                      style="padding-top: 15px; padding-bottom: 15px;">
+            </div>
 
                 <%------Beginning of profile panel------%>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 style="display: inline-block;" class="panel-title"><strong>${sessionScope.userDetails.username}'s</strong>
+                    <h3 class="panel-title">
+                        <strong>${sessionScope.userDetails.username}'s</strong>
                         Profile</h3>
-                    <button class="btn btn-default btn-sm" style="display: inline-block;" name="editButton"
-                            id="editButton">edit
-                    </button>
                 </div>
 
                     <%------User information------%>
                 <div class="panel-body">
 
 
-                    <form method="POST" action="EditUserDetails" style="color: black">
+                    <form method="POST" action="EditUserDetails">
                         <div>
                                 <%------User details------%>
-                            <h3><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i> User
-                                Details:</h3>
+                            <div>
+                                <h3><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i>
+                                    User
+                                    Details:</h3>
 
-                            <h4>Username</h4>
-                            <input type="text" id="username" name="username"
-                                   value="${sessionScope.userDetails.username}">
-
-
-                            <h4>Name </h4>
-                            <input type="text" id="fullname" name="fullname"
-                                   value="${sessionScope.userDetails.firstname} ${sessionScope.userDetails.lastname}">
+                                <h4>Username</h4>
+                                <input type="text" id="username" name="username"
+                                       value="${sessionScope.userDetails.username}">
 
 
-                            <h4>Occupation </h4>
-                            <input type="text" id="occupation" name="occupation"
-                                   value="${sessionScope.userDetails.occupation}">
+                                <h4>Name </h4>
+
+                                <input style="width: 20%" class="form-group" type="text" name="firstname"
+                                       value="${sessionScope.userDetails.firstname} ">
+
+                                <input style="width: 70%" class="form-group" type="text" name="lastname"
+                                       value="${sessionScope.userDetails.lastname}">
 
 
-                            <h4>Location </h4>
-                            <input type="text" id="location" name="location"
-                                   value="${sessionScope.userDetails.city}">
+                                <h4 style="display: inline-block;">Occupation: </h4>
+                                <input style=" display: inline-block" type="text" id="occupation"
+                                       name="occupation"
+                                       value="${sessionScope.userDetails.occupation}">
 
+
+                                <h4>Location </h4>
+                                <input type="text" id="location" name="location"
+                                       value="${sessionScope.userDetails.city}">
+
+                            </div>
+
+                                <%------Contact details------%>
+                            <div>
+                                <h3><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact:
+                                </h3>
+
+                                <h4>Email </h4>
+                                <input type="text" id="email" name="email"
+                                       value="${sessionScope.userDetails.email}">
+
+                                <h4 style="display: inline-block">Phone </h4>
+                                <input style="display: inline" type="text" id="phone" name="phone"
+                                       value="${sessionScope.userDetails.phone}">
+                            </div>
+
+                                <%------About me------%>
+                            <div>
+                                <h4>About me </h4>
+                                <textarea style="resize: none;" maxlength="200" id="aboutme"
+                                          name="aboutme">${sessionScope.userDetails.profile_description}</textarea>
+                                <br>
+                            </div>
+
+                                <%--Submit button--%>
+                            <div id="submit">
+
+                            </div>
                         </div>
-
-                            <%------Contact details------%>
-                        <div>
-                            <h3><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact:</h3>
-
-                            <h4>Email </h4>
-                            <input type="text" id="email" name="email"
-                                   value="${sessionScope.userDetails.email}">
-
-                            <h4 style="display: inline-block">Phone </h4>
-                            <input style="display: inline" type="text" id="phone" name="phone"
-                                   value="${sessionScope.userDetails.phone}">
-                        </div>
-
-                            <%------About me------%>
-                        <div>
-                            <h4>About me </h4>
-                            <textarea maxlength="200" id="aboutme"
-                                      name="aboutme">${sessionScope.userDetails.profile_description}</textarea>
-                            <br>
-                        </div>
-
-                            <%--Submit button--%>
-                        <div>
-                            <input type="submit" id="saveChanges" name="savechanges" value="save changes"></div>
                     </form>
 
                         <%------Profile settings------%>
@@ -153,34 +166,35 @@
                         </button>
 
                         <button style="display: inline-block;" name="editButton"
-                                id="editButton">edit details
+                                id="editButton">edit profile
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
         <%------End of user information------%>
 
 
         <div class="col-sm-8" id="userArticles">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">${sessionScope.userDetails.username}'s Article Archive</h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">${sessionScope.userDetails.username}'s Article Archive</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
-                            </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> Add an Article</p>
                         </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> Add an Article</p>
-                            </div>
-                            <div class="panel-body">testtesttest</div>
-                        </div>
+                        <div class="panel-body">testtesttest</div>
                     </div>
                 </div>
+            </div>
         </div>
 
         <%--Space to type code--%>
@@ -208,6 +222,9 @@
 
 <script>
 
+    $("#profile-image-upload").hide();
+
+
     <%--resizing the textarea--%>
     $("textarea").height($("textarea")[0].scrollHeight);
 
@@ -222,20 +239,20 @@
 
     <%---Set variables to readonly and hide submit button--%>
     inputfields.attr('readonly', 'readonly');
-    saveChanges.attr('hidden', 'hidden');
+    saveChanges.hide();
 
 
     <%--Edit button makes the form editable and the save changes button appears--%>
     $("#editButton").click(function () {
         inputfields.removeAttr('readonly', 'readonly');
-        saveChanges.removeAttr('hidden', 'hidden');
+        $("#submit").append("<input type='submit' id='saveChanges' name='savechange' value='save changes'>")
 
     });
 
     <%--Save changes returns the form to readonly and the button becomes hidden--%>
     saveChanges.click(function () {
         inputfields.attr('readonly', 'readonly');
-        saveChanges.attr('hidden', 'hidden');
+        $("#saveChanges").remove();
 
     });
 
@@ -246,6 +263,13 @@
             location.href = "DeleteUser"
         }
     });
+
+    $(function () {
+        $('#profile-image').on('click', function () {
+            $('#profile-image-upload').click();
+        });
+    });
+
 
 </script>
 </html>
