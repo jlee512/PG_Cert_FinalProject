@@ -6,6 +6,7 @@ import login.system.db.MySQL;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
@@ -22,14 +23,22 @@ public class AddCommentAttempt extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        /*Access the database*/
         MySQL DB = new MySQL();
+
         String status = "";
+
+        /*Get printwriter to write to JSON*/
         PrintWriter out = response.getWriter();
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         String content = request.getParameter("comment_body");
         String username = request.getParameter("username");
         int articleID = Integer.parseInt(request.getParameter("article_id"));
-        User currentUser = UserDAO.getUser(DB, username);
+
+        /*Access user details from the session*/
+        HttpSession session = request.getSession(true);
+        User currentUser = (User) session.getAttribute("userDetails");
+
         int userID = currentUser.getUser_id();
         if (request.getParameter("parentComment_id").length() > 0){
             int parentCommentID = Integer.parseInt(request.getParameter("parentComment_id"));

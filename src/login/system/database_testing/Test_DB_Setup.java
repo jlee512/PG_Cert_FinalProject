@@ -86,7 +86,9 @@ public class Test_DB_Setup {
         java.util.Date utilDate = dateFormat.parse("2017-05-31");
         Date date = new Date(utilDate.getTime());
 
-        String article_body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus volutpat nisl sit amet malesuada. Duis dapibus, magna non ullamcorper scelerisque, velit nisl tincidunt ante, at laoreet erat libero a mauris. Vestibulum vitae risus non massa accumsan condimentum. Phasellus lacus elit, faucibus a leo eu, mollis fringilla eros. Etiam tincidunt volutpat aliquam. Vestibulum quis erat at purus fermentum pharetra. Nunc venenatis dolor nunc, non sagittis lectus suscipit sed. Nullam mollis eget leo id posuere. Sed ac sapien quam. Ut a pharetra neque. Morbi ut efficitur tortor. In hac habitasse platea dictumst. Suspendisse nec odio sed dui tempus euismod. Curabitur cursus, diam sit amet porta malesuada, lacus odio ornare nunc, et lacinia sapien dolor nec nibh. In hac habitasse platea dictumst. Morbi tempor arcu nisl, in suscipit sem blandit sit amet.";
+        String article_body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rhoncus volutpat nisl sit amet malesuada. Duis dapibus, magna non ullamcorper scelerisque, velit nisl tincidunt ante, at laoreet erat libero a mauris. Vestibulum vitae risus non massa accumsan condimentum. Phasellus lacus elit, faucibus a leo eu, mollis fringilla eros.\n" +
+                "Etiam tincidunt volutpat aliquam. Vestibulum quis erat at purus fermentum pharetra. Nunc venenatis dolor nunc, non sagittis lectus suscipit sed. Nullam mollis eget leo id posuere. Sed ac sapien quam. Ut a pharetra neque. Morbi ut efficitur tortor.\n" +
+                "In hac habitasse platea dictumst. Suspendisse nec odio sed dui tempus euismod. Curabitur cursus, diam sit amet porta malesuada, lacus odio ornare nunc, et lacinia sapien dolor nec nibh. In hac habitasse platea dictumst. Morbi tempor arcu nisl, in suscipit sem blandit sit amet.";
 
         ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
 
@@ -97,7 +99,8 @@ public class Test_DB_Setup {
         utilDate = dateFormat.parse("2016-11-26");
         date = new Date(utilDate.getTime());
 
-        article_body = "Proin finibus, nisl ut tempus malesuada, eros urna tincidunt leo, vel faucibus lectus tellus a massa. Vivamus tincidunt enim erat, ut tincidunt nibh convallis vitae. Phasellus tincidunt, eros non gravida volutpat, lacus turpis mattis quam, et facilisis tellus est ut massa. Integer quis justo a orci venenatis ultricies. Fusce accumsan ut ex nec aliquet. Maecenas diam dolor, ullamcorper at eros non, sagittis ornare ex. Cras placerat pharetra dui a interdum. Vestibulum vehicula convallis lacus, et dictum elit vehicula a. Sed et justo eu orci mattis mollis eget ac turpis. Quisque vel dignissim turpis. In viverra ligula at ornare lobortis.";
+        article_body = "Proin finibus, nisl ut tempus malesuada, eros urna tincidunt leo, vel faucibus lectus tellus a massa. Vivamus tincidunt enim erat, ut tincidunt nibh convallis vitae. Phasellus tincidunt, eros non gravida volutpat, lacus turpis mattis quam, et facilisis tellus est ut massa. Integer quis justo a orci venenatis ultricies.\n" +
+                "Fusce accumsan ut ex nec aliquet. Maecenas diam dolor, ullamcorper at eros non, sagittis ornare ex. Cras placerat pharetra dui a interdum. Vestibulum vehicula convallis lacus, et dictum elit vehicula a. Sed et justo eu orci mattis mollis eget ac turpis. Quisque vel dignissim turpis. In viverra ligula at ornare lobortis.";
 
         ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
 
@@ -108,7 +111,9 @@ public class Test_DB_Setup {
         utilDate = dateFormat.parse("1998-04-12");
         date = new Date(utilDate.getTime());
 
-        article_body = "Emperor angelfish sockeye salmon cuskfish rockweed gunnel knifefish orangestriped triggerfish darter Kafue pike snipefish bango Blind shark. Cow shark cutthroat trout, mudfish gudgeon platy slender snipe eel Ratfish Mexican golden trout! Pricklefish thornyhead bonytongue ladyfish, roundhead sand knifefish; cookie-cutter shark cobia squeaker kokopu snakehead. Bull trout saber-toothed blenny, pikeblenny gombessa, harelip sucker arowana trout cod, pipefish, leaffish sandburrower redtooth triggerfish northern clingfish trumpeter temperate ocean-bass. Basslet false moray mako shark stream catfish wahoo. Yellowbelly tail catfish lumpsucker southern sandfish blue triggerfish tripod fish. Molly Miller. Spookfish bluegill; rockling: remora New Zealand smelt lyretail, snoek dogfish Bitterling carpetshark porcupinefish, \"blue triggerfish basslet.\" Discus ocean perch skipjack tuna tilefish Black tetra roundhead, silver carp channel bass yellowmargin triggerfish dwarf loach.";
+        article_body = "Emperor angelfish sockeye salmon cuskfish rockweed gunnel knifefish orangestriped triggerfish darter Kafue pike snipefish bango Blind shark. Cow shark cutthroat trout, mudfish gudgeon platy slender snipe eel Ratfish Mexican golden trout!\n" +
+                "Pricklefish thornyhead bonytongue ladyfish, roundhead sand knifefish; cookie-cutter shark cobia squeaker kokopu snakehead. Bull trout saber-toothed blenny, pikeblenny gombessa, harelip sucker arowana trout cod, pipefish, leaffish sandburrower redtooth triggerfish northern clingfish trumpeter temperate ocean-bass.\n" +
+                "Basslet false moray mako shark stream catfish wahoo. Yellowbelly tail catfish lumpsucker southern sandfish blue triggerfish tripod fish. Molly Miller. Spookfish bluegill; rockling: remora New Zealand smelt lyretail, snoek dogfish Bitterling carpetshark porcupinefish, \"blue triggerfish basslet.\" Discus ocean perch skipjack tuna tilefish Black tetra roundhead, silver carp channel bass yellowmargin triggerfish dwarf loach.";
 
         ArticleDAO.addArticleToDB(DB, author_id, article_title, date, article_body);
 

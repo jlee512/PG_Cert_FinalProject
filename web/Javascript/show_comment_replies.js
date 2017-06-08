@@ -9,16 +9,16 @@ var loaderWrapper = '<div class="loader-wrapper" style="margin-left: 3%;">' +
     '</div>';
 
 $(document).on("click", ".show_replies", function () {
-        //Show replies
-        //URL will be https://tomcat1.sporadic.co.nz/while_e_coyote_remote_deploy
-        var username = $("#userdetails").text();
-        var authorUsername = $("#author").text();
-        var button = $(this);
-        var parentID = button.val();
-        console.log(parentID);
-        var top_level_comment_div = button.parent();
-        console.log(top_level_comment_div.text());
-        top_level_comment_div.append(loaderWrapper);
+    //Show replies
+    //URL will be https://tomcat1.sporadic.co.nz/while_e_coyote_remote_deploy
+    var username = $("#userdetails").text();
+    var authorUsername = $("#author").text();
+    var button = $(this);
+    var parentID = button.val();
+    console.log(parentID);
+    var top_level_comment_div = button.parent();
+    console.log(top_level_comment_div.text());
+    top_level_comment_div.append(loaderWrapper);
 
         $.ajax({
             url: "/ShowNestedComments?parentCommentID=" + parentID,
