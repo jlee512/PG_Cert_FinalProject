@@ -31,7 +31,7 @@
 <hr>
 
 <%---------------------------------------Comments-------------------------------------------------%>
-<a href="AddComment?article_id=${requestScope.article.article_id}" class="btn btn-default">Add New Comment</a>
+<button class="btn btn-default add-comment-button">Add New Comment</button>
 
 <div class="top_level_comment_feed">
        <%--Top level comments are dropped into here from AJAX calls--%>
@@ -48,8 +48,10 @@
     <div id="loaded4" style="display: inline-block;"></div>
 </div>
 <div id="userdetails" style="display: none">${sessionScope.userDetails.username}</div>
+<div id="articleid" style="display: none">${requestScope.article.article_id}</div>
 <script src="Javascript/show_comment_replies.js"></script>
 <script src="Javascript/show_top_level_comments.js"></script>
+<script src="Javascript/add_comment_form.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
 </body>
 </html>
