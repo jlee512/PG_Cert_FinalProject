@@ -95,6 +95,7 @@
         <url-pattern>/ShowNestedComments</url-pattern>
     </servlet-mapping>
 
+    <!--Delete Comments servlet-->
     <servlet>
         <servlet-name>DeleteComment</servlet-name>
         <servlet-class>login.system.servlets.DeleteComment</servlet-class>
@@ -149,6 +150,16 @@
         <url-pattern>/EditComment</url-pattern>
     </servlet-mapping>
 
+    <!--AddAnArticleAttempt servlet-->
+    <servlet>
+        <servlet-name>AddAnArticleAttempt</servlet-name>
+        <servlet-class>login.system.servlets.AddAnArticleAttempt</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddAnArticleAttempt</servlet-name>
+        <url-pattern>/AddAnArticleAttempt</url-pattern>
+    </servlet-mapping>
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 

@@ -31,6 +31,21 @@
     <%@ include file="HeadStylingLinks.jsp" %>
 </head>
 <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
+<style type="text/css">
+
+    .add-article-button {
+
+        background-color: #b2ebf2 !important;
+        -webkit-transition: background-color 1s;
+        transition: background-color 1s;
+
+    }
+
+    .add-article-button:hover {
+        background-color: #ffd54f !important;
+    }
+
+</style>
 <body>
 
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
@@ -127,15 +142,17 @@
                     </div>
                     <div class="panel-body">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
+                            <div class="panel-heading add-article-button">
                                 <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
                             </div>
                         </div>
+                        <div class='panel-body add_article_panel_body'>
+                        </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> Add an Article</p>
+                                <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> ARTICLE TITLE INSERT HERE</p>
                             </div>
-                            <div class="panel-body">testtesttest</div>
+                            <div class="panel-body">ARTICLE BODY INSERT HERE</div>
                         </div>
                     </div>
                 </div>
@@ -155,6 +172,7 @@
 
 </body>
 <%@include file="BodyStylingLinks.jsp" %>
+<script type="application/javascript" src="Javascript/add_an_article_form.js"></script>
 <script>
 
     <%--Make variable names for all input fields and the submit button--%>
