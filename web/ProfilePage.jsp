@@ -88,9 +88,6 @@
                 <div class="panel-heading">
                     <h3 style="display: inline-block;" class="panel-title"><strong>${sessionScope.userDetails.username}'s</strong>
                         Profile</h3>
-                    <button class="btn btn-default btn-sm" style="display: inline-block;" name="editButton"
-                            id="editButton">edit
-                    </button>
                 </div>
 
                     <%------User information------%>
@@ -163,11 +160,11 @@
                         </button>
 
                         <button style="display: inline-block;" name="editButton"
-                                id="editButton">edit details
-                        </button>
+                                id="editButton">Edit Profile</button>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <%------End of user information------%>
 
@@ -182,8 +179,6 @@
                             <div class="panel-heading add-article-button">
                                 <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
                             </div>
-                        </div>
-                        <div class='panel-body add_article_panel_body'>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -218,8 +213,6 @@
 
 <%--Bootstrap core JavaScript--%>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script type="application/javascript" src="Javascript/add_an_article_form.js"></script>
 <script>
 
     <%--resizing the textarea--%>
@@ -257,9 +250,10 @@
     $("#deleteaccount").click(function () {
         var result = confirm("Are you sure you want to delete your account?");
         if (result) {
-            location.href = "DeleteUser"
+            location.href = "DeleteUser";
         }
     });
 
 </script>
+
 </html>
