@@ -31,7 +31,7 @@
 <hr>
 
 <%---------------------------------------Comments-------------------------------------------------%>
-<a href="AddComment?article_id=${requestScope.article.article_id}" class="btn btn-default" id="clicky">Add New Comment</a>
+<a href="AddComment?article_id=${requestScope.article.article_id}" class="btn btn-default">Add New Comment</a>
 
 <div class="top_level_comment_feed">
        <%--Top level comments are dropped into here from AJAX calls--%>
