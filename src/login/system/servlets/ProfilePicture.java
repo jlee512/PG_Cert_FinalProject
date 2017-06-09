@@ -53,17 +53,17 @@ public class ProfilePicture extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("userDetails");
 
-        String userProfilePicFilePath = user.getProfile_picture();
 
-        System.out.println(userProfilePicFilePath);
+
+
 
 
         /*Obtain current user profile picture filepath*/
-        System.out.println(filePath);
+
         /*Extract profile picture filepath number*/
 
         /*Increment profile picture filepath number by 1 and create save file string*/
-        System.out.println(filePath);
+
 
         isMultipart = ServletFileUpload.isMultipartContent(request);
 
@@ -86,14 +86,13 @@ public class ProfilePicture extends HttpServlet {
         upload.setSizeMax(maxUploadSize);
 
         try {
-            System.out.println("before");
+
 //         Parse the request to get file items.
             List fileItems = upload.parseRequest(request);
-            System.out.println(fileItems.size());
-            System.out.println("after");
+
             // Process the uploaded file items
             Iterator i = fileItems.iterator();
-            System.out.println(fileItems.size());
+
 
             while (i.hasNext()) {
                 FileItem fi = (FileItem) i.next();
@@ -109,16 +108,15 @@ public class ProfilePicture extends HttpServlet {
                     long sizeInBytes = fi.getSize();
 
 
+                    /*~~~~~ Write the file and make sure the file name is unique ~~~~~*/
 
-                    // Write the file
                     if (fileName.lastIndexOf("\\") >= 0) {
                         file = new File(filePath +
                                 fileName.substring(fileName.lastIndexOf("\\")));
-//                        generateUniquePhotoName(file, fileName, filePath);
 
                         int counter = 0;
                         while (file.exists()) {
-                            System.out.println("we in boi");
+
                             String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
@@ -126,55 +124,38 @@ public class ProfilePicture extends HttpServlet {
                             file = new File(filePath +
                                     fileName.substring(fileName.lastIndexOf("\\")));
                         }
-
-
-
                     } else {
                         file = new File(filePath +
                                 fileName.substring(fileName.lastIndexOf("\\") + 1));
-//                        file = generateUniquePhotoName(file, fileName, filePath);
+
                         int counter = 0;
                         while (file.exists()) {
-                            System.out.println("we in bois");
+
                             String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
-                            fileName = fileName.substring(0, (fileName.length() )) + counter + "." + extension;
+                            fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
                             counter++;
                             file = new File(filePath +
                                     fileName.substring(fileName.lastIndexOf("\\") + 1));
                         }
-
                     }
+                    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-
+                    /* Write the file */
                     fi.write(file);
-
+                    /* Update the database and session */
+                    UserDAO.updateProfilePicture(DB, "Multimedia/" + fileName, user.getUsername());
+                    user.setProfile_picture("Multimedia/" + fileName);
 
                 }
             }
-
-//            WHERE WE LEFT OFF
-//            update session and call dao method
-//            UserDAO.updateProfilePicture(DB)
-
-//            redirect back to profile page need to add in profile name
+            /* Send the user back to their profile */
             response.sendRedirect("ProfilePage");
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-
-//    private File generateUniquePhotoName(File file, String fileName, String filePath) {
-//        int counter = 0;
-//        while (file.exists()) {
-//            String extension = FilenameUtils.getExtension(fileName);
-//            fileName = FilenameUtils.removeExtension(fileName);
-//            fileName = fileName + counter + extension;
-//            counter++;
-//        }
-//        return new File(fileName);
-//    }
 }
 
 

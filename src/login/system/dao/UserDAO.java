@@ -262,10 +262,10 @@ public class UserDAO {
 
         try (Connection c = DB.connection()) {
             /*Connect to the database and add user*/
-            try (PreparedStatement stmt = c.prepareStatement("UPDATE registered_users SET profile_pictre WHERE  username = ?")) {
+            try (PreparedStatement stmt = c.prepareStatement("UPDATE registered_users SET profile_picture = ? WHERE  username = ?")) {
 
-                stmt.setString(2, profile_picture);
-                stmt.setString(1, username);
+                stmt.setString(1, profile_picture);
+                stmt.setString(2, username);
 
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
