@@ -11,7 +11,7 @@ var articleTemplate =
                     "<div class='panel panel-default col-sm-12 col-md-10'>" +
                         "<div style='padding-top: 2%'>" +
                             "<div class='panel panel-default'>" +
-                                "<div class='panel-heading'>" +
+                                "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
                                     "<h3 class='panel-title'></h3>" +
                                 "</div>" +
                                 "<div class='panel-body'>" +
@@ -23,6 +23,30 @@ var articleTemplate =
             "</div>" +
         "</div>" +
     "</a>";
+
+/*jQuery function to animate each article header on hover*/
+
+function hoverBackgroundColor() {
+
+    $(this).find('.article-heading').stop().animate({
+        backgroundColor: "#ffd54f",
+        color: "black"
+    }, 'slow');
+
+}
+
+function normalBackgroundColor() {
+
+    $(this).find('.article-heading').stop().animate({
+        backgroundColor: "#00acc1",
+        color: "white"
+    }, 'slow');
+
+}
+
+$('.news_feed').on('mouseenter', '.individualArticleLink', hoverBackgroundColor);
+
+$('.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundColor);
 
 /* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
 var from = 0;

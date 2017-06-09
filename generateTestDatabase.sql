@@ -80,3 +80,4 @@ SELECT comment_id parent_comment_id, timestamp, comment_body, is_parent, usernam
 
 SELECT parent_comment_id FROM posted_comments WHERE comment_id = 10;
 
+SELECT article_id, username, firstname, lastname, date, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = 1 ORDER BY DATE DESC LIMIT 3 OFFSET 0;

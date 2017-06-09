@@ -35,18 +35,7 @@ public class MainContentAccess extends HttpServlet {
         response.setContentType("application/json");
         JSONArray articleDetails = new JSONArray();
 
-        for (int i = 0; i < articles.size(); i++) {
-            JSONObject singleArticle = new JSONObject();
-            singleArticle.put("article_id", articles.get(i).getArticle_id());
-            singleArticle.put("article_title", articles.get(i).getArticle_title());
-            singleArticle.put("article_date", articles.get(i).getArticle_date().getTime());
-            singleArticle.put("author_username", articles.get(i).getAuthor_username());
-
-            singleArticle.put("author_firstname", articles.get(i).getAuthor_firstname());
-            singleArticle.put("author_lastname", articles.get(i).getAuthor_lastname());
-            singleArticle.put("article_body", articles.get(i).getArticle_body());
-            articleDetails.add(i, singleArticle);
-        }
+        IndividualAuthorArticles.constructArticlePreviewJSON(articles, articleDetails);
 
         articleDetails.toJSONString();
 
