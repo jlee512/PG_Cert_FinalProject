@@ -121,7 +121,7 @@ public class ProfilePicture extends HttpServlet {
                             System.out.println("we in boi");
                             String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
-                            fileName = fileName.substring(0, (fileName.length() - 1)) + counter + "." + extension;
+                            fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
                             counter++;
                             file = new File(filePath +
                                     fileName.substring(fileName.lastIndexOf("\\")));
@@ -138,7 +138,7 @@ public class ProfilePicture extends HttpServlet {
                             System.out.println("we in bois");
                             String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
-                            fileName = fileName.substring(0, (fileName.length() - 1)) + counter + "." + extension;
+                            fileName = fileName.substring(0, (fileName.length() )) + counter + "." + extension;
                             counter++;
                             file = new File(filePath +
                                     fileName.substring(fileName.lastIndexOf("\\") + 1));
