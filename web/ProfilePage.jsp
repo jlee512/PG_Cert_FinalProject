@@ -36,6 +36,7 @@
             border-bottom: none !important;
             background-color: transparent;
         }
+
         .add-article-button {
 
             background-color: #b2ebf2 !important;
@@ -66,11 +67,11 @@
 
 
                     <%------Profile Picture------%>
-                <input id="profile-image-upload" type="file" onsubmit="" formmethod="POST"
-                       formaction="UploadProfilePicture">
-                <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
-                     class="img-responsive center-block"
-                     style="padding-top: 15px; padding-bottom: 15px;">
+                <div id="profilePicture">
+                    <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
+                         class="img-responsive center-block"
+                         style="padding-top: 15px; padding-bottom: 15px;">
+                </div>
             </div>
 
                 <%------Beginning of nested profile panel------%>
@@ -157,7 +158,7 @@
                             <%--Edit profile--%>
                         <button style="display: inline-block;" name="editButton"
                                 id="editButton">edit profile
-                        </button>
+
                     </div>
                 </div>
             </div>
@@ -166,24 +167,24 @@
 
 
         <div class="col-sm-8" id="userArticles">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">${sessionScope.userDetails.username}'s Article Archive</h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">${sessionScope.userDetails.username}'s Article Archive</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading add-article-button">
+                            <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="panel panel-default">
-                            <div class="panel-heading add-article-button">
-                                <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
-                            </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> ARTICLE TITLE INSERT HERE</p>
                         </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> ARTICLE TITLE INSERT HERE</p>
-                            </div>
-                            <div class="panel-body">ARTICLE BODY INSERT HERE</div>
-                        </div>
+                        <div class="panel-body">ARTICLE BODY INSERT HERE</div>
                     </div>
                 </div>
+            </div>
         </div>
 
         <%--Space to type code--%>
@@ -252,12 +253,15 @@
         }
     });
 
-    $(function () {
-        $('#profile-image').on('click', function () {
-            $('#profile-image-upload').click();
-        });
-    });
+    $("#profilePicture").click(function () {
 
+        if (!$("#pictureForm")[0]) {
+            $("#profilePicture").append("<form id='pictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture'>" +
+                "<input id='profile-image-upload' name='file' type='file'>" +
+                "<input type='submit' id='updatePicture' value='Upload Photo'>" +
+                "</form>")
+        }
+    })
 
 </script>
 
