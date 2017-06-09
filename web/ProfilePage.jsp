@@ -73,6 +73,7 @@
                     <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
                          class="img-responsive center-block"
                          style="padding-top: 15px; padding-bottom: 15px;">
+                    <div id="defaultPicture"></div>
                 </div>
             </div>
 
@@ -267,9 +268,11 @@
 
         if (!$("#pictureForm")[0]) {
             $("#profilePicture").append("<form id='pictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture'>" +
-                "<input id='profile-image-upload' name='file' type='file'>" +
+                "<input id='profile-image-upload' name='file' required type='file'>" +
+//                    insert choose default here
                 "<input type='submit' id='updatePicture' value='Upload Photo'>" +
                 "</form>")
+
         }
     })
 
