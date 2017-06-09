@@ -20,13 +20,13 @@ function successfulCommentsLoad(msg) {
     var username = $("#userdetails").text();
     var authorUsername = $("#author").text();
     console.log(authorUsername);
-    if (msg.length < count){
+    if (msg.length == 0){
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
         $('.loader-wrapper').hide();
         $('#loaded1, #loaded2, #loaded3, #loaded4').show();
         moreComments = false;
 
-    }
+    } else {
         for (var i = 0; i < msg.length; i++) {
 
             var comment = msg[i];
@@ -45,12 +45,12 @@ function successfulCommentsLoad(msg) {
             var replyButton = '<button type="button" class="add_reply btn btn-default" value="' + comment.commentID + '">Reply</button>';
 
             /*Add a button to delete the comment if current user is comment author or article author*/
-            if (username == comment.username || username == authorUsername){
+            if (username == comment.username || username == authorUsername) {
                 var deleteButton = '<a href="DeleteComment?commentID=' + comment.commentID + '&articleID=' + getArticleID() + '" class="btn btn-default">Delete</a>'
             }
 
             /*Add a button to edit the comment if current user is comment author*/
-            if (username == comment.username){
+            if (username == comment.username) {
                 var editButton = '<a href="EditCommentForm?comment_id=' + comment.commentID + '&article_id=' + getArticleID() + '&comment_body=' + comment.content + '" class="btn btn-default">Edit</a>'
             }
 
@@ -65,11 +65,11 @@ function successfulCommentsLoad(msg) {
                 commentDiv.append(viewRepliesButton);
             }
 
-            if (username == comment.username || username == authorUsername){
+            if (username == comment.username || username == authorUsername) {
                 commentDiv.append(deleteButton);
             }
 
-            if (username == comment.username){
+            if (username == comment.username) {
                 commentDiv.append(editButton);
             }
 
@@ -79,6 +79,12 @@ function successfulCommentsLoad(msg) {
             /*Append the comment to the container in the ViewArticlePage JSP*/
             commentContainer.append(commentDiv);
 
+            if (msg.length < count) {
+                $('.loader-wrapper').hide();
+                $('#loaded1, #loaded2, #loaded3, #loaded4').show();
+                moreArticles = false;
+            }
+        }
     }
 }
 
@@ -147,7 +153,6 @@ $(document).ready(function () {
     /*Add in infinite scrolling to load more comments*/
     $(window).scroll(function() {
 
-        console.log(moreComments)
         /*Function to facilitate infinite scrolling of comments*/
         if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreComments) {
             loadCommentsIncrement(article_id);

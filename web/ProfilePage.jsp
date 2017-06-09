@@ -50,10 +50,12 @@
         }
     </style>
 
+    <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 
 </head>
 
-<link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 <body>
 
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
@@ -157,7 +159,7 @@
 
                             <%--Edit profile--%>
                         <button style="display: inline-block;" name="editButton"
-                                id="editButton">edit profile
+                                id="editButton">edit profile</button>
 
                     </div>
                 </div>
@@ -177,17 +179,25 @@
                             <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> ARTICLE TITLE INSERT HERE</p>
-                        </div>
-                        <div class="panel-body">ARTICLE BODY INSERT HERE</div>
+                    <div class="news_feed">
+                        <%--Articles are inserted here via AJAX request--%>
                     </div>
                 </div>
+                <div class="loader-wrapper" style="text-align: center;">
+                    <div class="loader" style="display: inline-block;"></div>
+                </div>
+                <br class="loader-wrapper">
+                <br class="loader-wrapper">
+                <div class="loaded-wrapper" style="text-align: center;">
+                    <div id="loaded1" style="display: inline-block;"></div>
+                    <div id="loaded2" style="display: inline-block;"></div>
+                    <div id="loaded3" style="display: inline-block;"></div>
+                    <div id="loaded4" style="display: inline-block;"></div>
+                </div>
+                <br class="loaded-wrapper">
+                <br class="loaded-wrapper">
             </div>
         </div>
-
-        <%--Space to type code--%>
 
 
     </c:when>
@@ -199,18 +209,17 @@
     </c:otherwise>
 </c:choose>
 
-</body>
+<%---------------------------Script Inclusions---------------------------------%>
+
+<%--Include Bootstrap JS, jQuery and jQuery UI--%>
+<%@ include file="BodyStylingLinks.jsp" %>
+
 <script type="application/javascript" src="Javascript/add_an_article_form.js"></script>
-<%--<script type="application/javascript" stc="Javascript/individual_article_display.js"></script>--%>
+<script type="application/javascript" src="Javascript/author_article_display.js"></script>
 
-<%--Include jQuery--%>
-<script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
 
-<%--Bootstrap core JavaScript--%>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 <script>
 
     <%--Hide the upload image--%>
@@ -265,5 +274,7 @@
     })
 
 </script>
+
+</body>
 
 </html>

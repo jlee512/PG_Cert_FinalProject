@@ -36,17 +36,20 @@
 <div class="top_level_comment_feed">
        <%--Top level comments are dropped into here from AJAX calls--%>
 </div>
+
+
 <%--Loader animation and bottom of comments symbol--%>
 <div class="loader-wrapper" style="margin-left: 3%;">
     <div class="loader" style="display: inline-block;"></div>
 </div>
-
 <div class="loaded-wrapper">
     <div id="loaded1" style="display: inline-block;"></div>
     <div id="loaded2" style="display: inline-block;"></div>
     <div id="loaded3" style="display: inline-block;"></div>
     <div id="loaded4" style="display: inline-block;"></div>
 </div>
+
+
 <div id="userdetails" style="display: none">${sessionScope.userDetails.username}</div>
 <div id="articleid" style="display: none">${requestScope.article.article_id}</div>
 <script src="Javascript/show_comment_replies.js"></script>

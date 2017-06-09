@@ -7,14 +7,16 @@ $(document).ready(function () {
         var username = $("#userdetails").text();
     var articleID = $("#articleid").text();
 
-    if ($(".dialog_open")[0]){
-        $(".add-comment-button").removeClass("dialog_open");
-        $(".add-comment-button").html("Add New Comment")
-        $(".add_comment_panel_body").remove();
+    console.log($(this).hasClass("dialog_open"));
+
+    if ($(this).hasClass("dialog_open")){
+        $(this).removeClass("dialog_open");
+        $(this).html("Add New Comment");
+        $(this).next(".add_comment_panel_body").remove();
 
     } else {
-        $(".add-comment-button").addClass("dialog_open");
-        $(".add-comment-button").html("<p><i class='fa fa-pencil' aria-hidden='true'></i> Have your say</p>");
+        $(this).addClass("dialog_open");
+        $(this).html("<p><i class='fa fa-pencil' aria-hidden='true'></i> COMMENT</p>");
         var add_article_form = "<div class='panel-body add_comment_panel_body'>" + "<form action='AddCommentAttempt' method='POST'>" +
             "<div id='addComment'>" +
             "<label for='comment_body'>Comment:</label>" +

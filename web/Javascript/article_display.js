@@ -88,6 +88,11 @@ function successfulArticleLoad(msg) {
 
             articleContainer.append(articleDiv);
 
+            if (msg.length < count) {
+                $('.loader-wrapper').hide();
+                $('#loaded1, #loaded2, #loaded3, #loaded4').show();
+                moreArticles = false;
+            }
         }
     }
 }

@@ -34,13 +34,15 @@ function normalBackgroundColor() {
 
 }
 
-$('.news_feed').on('mouseenter', '.individualArticleLink', hoverBackgroundColor);
+/*jQuery function to animate headings of articles as they are hovered over*/
 
-$('.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundColor);
+$('div.news_feed').on('mouseenter', '.individualArticleLink', hoverBackgroundColor);
+
+$('div.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundColor);
 
 /* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
 var from = 0;
-var count = 4;
+var count = 6;
 var moreArticles = true;
 
 
@@ -63,6 +65,7 @@ function successfulArticleLoad(msg) {
 
             /*Make each article container a link to the full article*/
             var href = "ViewArticle?article_id=" + article.article_id;
+
             articleDiv.attr("href", href);
 
             articleDiv.find(".panel-title").text(article.article_title);
@@ -77,7 +80,12 @@ function successfulArticleLoad(msg) {
             $('.loader-wrapper').hide();
 
             articleContainer.append(articleDiv);
+        }
 
+        if (msg.length < count) {
+            $('.loader-wrapper').hide();
+            $('#loaded1, #loaded2, #loaded3, #loaded4').show();
+            moreArticles = false;
         }
     }
 }
@@ -98,7 +106,7 @@ function loadArticlesIncrement() {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: '/MainContentAccess',
+        url: '/ViewIndividualArticles',
         type: 'GET',
         data: {from: from, count: count},
         success: function (msg) {

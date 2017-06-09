@@ -20,7 +20,8 @@ public class DeleteComment extends HttpServlet {
         int commentID = Integer.parseInt(request.getParameter("commentID"));
         int articleID = Integer.parseInt(request.getParameter("articleID"));
         CommentDAO.deleteComment(DB, commentID);
-        if (request.getParameter("parentCommentID").length() > 0){
+        String parent_comment_id = request.getParameter("parentCommentID");
+        if (parent_comment_id != null && parent_comment_id.length() > 0){
             int parentID = Integer.parseInt(request.getParameter("parentCommentID"));
             Thread commentAdjust = new Thread(new Runnable() {
                 @Override
