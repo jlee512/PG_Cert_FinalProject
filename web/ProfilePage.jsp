@@ -200,6 +200,7 @@
 
 </body>
 <script type="application/javascript" src="Javascript/add_an_article_form.js"></script>
+<%--<script type="application/javascript" stc="Javascript/individual_article_display.js"></script>--%>
 
 <%--Include jQuery--%>
 <script
