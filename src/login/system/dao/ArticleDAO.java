@@ -105,31 +105,7 @@ public class ArticleDAO {
                 stmt.setInt(1, numArticles);
                 stmt.setInt(2, fromArticle);
 
-                try (ResultSet r = stmt.executeQuery()) {
-
-                    while (r.next()) {
-                        /*If there is a next result, the article exists in the database*/
-                        /*Get article_id, author_id, date, article_title and article_body and add to the list of articles retrieved*/
-                        int article_idLookup = r.getInt("article_id");
-                        String author_username = r.getString("username");
-                        String author_firstname = r.getString("firstname");
-                        String author_lastname = r.getString("lastname");
-                        Date dateLookup = r.getDate("date");
-                        String article_titleLookup = r.getString("article_title");
-                        String article_bodyLookup = r.getString("article_preview") + "...";
-
-                        Article article = new Article(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, dateLookup, article_bodyLookup);
-                        article.setArticle_id(article_idLookup);
-                        articles.add(article);
-                    }
-
-                    if (articles.size() > 0){
-                        System.out.println("Article retrieved from the database");
-                    } else {
-                        /*If the article can't be found in the database, return null article*/
-                        System.out.println("Article could not be found in the database");
-                    }
-                }
+                getListofArticles(articles, stmt);
 
             }
         } catch (SQLException e) {
@@ -138,6 +114,60 @@ public class ArticleDAO {
             e.printStackTrace();
         }
         return articles;
+    }
+
+    public static List<Article> getfirstNArticlePreviewsByAuthor(MySQL DB, int fromArticle, int numArticles , int author_id) {
+
+        /*Dummy article to be returned if article not found*/
+        List<Article> articles = new ArrayList<Article>();
+
+        try (Connection c = DB.connection()) {
+
+            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, date, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = ? ORDER BY DATE DESC LIMIT ? OFFSET ?;")) {
+
+                stmt.setInt(1, author_id);
+                stmt.setInt(2, numArticles);
+                stmt.setInt(3, fromArticle);
+
+                getListofArticles(articles, stmt);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return articles;
+    }
+
+
+    /*Extracted method during refactoring to reduce code repitition*/
+    public static void getListofArticles(List<Article> articles, PreparedStatement stmt) throws SQLException {
+        try (ResultSet r = stmt.executeQuery()) {
+
+            while (r.next()) {
+                /*If there is a next result, the user has articles in the database*/
+                /*Get article_id, author_id, date, article_title and article_body and add to the list of articles retrieved*/
+                int article_idLookup = r.getInt("article_id");
+                String author_username = r.getString("username");
+                String author_firstname = r.getString("firstname");
+                String author_lastname = r.getString("lastname");
+                Date dateLookup = r.getDate("date");
+                String article_titleLookup = r.getString("article_title");
+                String article_bodyLookup = r.getString("article_preview") + "...";
+
+                Article article = new Article(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, dateLookup, article_bodyLookup);
+                article.setArticle_id(article_idLookup);
+                articles.add(article);
+            }
+
+            if (articles.size() > 0){
+                System.out.println("Article retrieved from the database");
+            } else {
+                /*If the article can't be found in the database, return null article*/
+                System.out.println("Article could not be found in the database");
+            }
+        }
     }
 
 }
