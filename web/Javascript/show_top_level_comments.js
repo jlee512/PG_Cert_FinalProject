@@ -129,7 +129,7 @@ function loadCommentsIncrement(article_id) {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: '/GetComments_IndividualArticle',
+        url: 'GetComments_IndividualArticle',
         type: 'GET',
         data: {article_id: article_id, from: from, count: count},
         success: function (msg) {

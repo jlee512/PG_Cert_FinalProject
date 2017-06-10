@@ -54,7 +54,7 @@ public class IndividualAuthorArticles extends HttpServlet {
             JSONObject singleArticle = new JSONObject();
             singleArticle.put("article_id", articles.get(i).getArticle_id());
             singleArticle.put("article_title", articles.get(i).getArticle_title());
-            singleArticle.put("article_date", articles.get(i).getArtcle_timestamp().getTime());
+            singleArticle.put("article_timestamp", articles.get(i).getArtcle_timestamp().getTime());
             singleArticle.put("author_username", articles.get(i).getAuthor_username());
 
             singleArticle.put("author_firstname", articles.get(i).getAuthor_firstname());

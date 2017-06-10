@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -34,8 +36,12 @@ public class ViewArticle extends HttpServlet {
 
         //Get Article object by ID from ArticleDAO.
         Article article = ArticleDAO.getArticle(DB, articleID);
+        Timestamp timestamp = article.getArtcle_timestamp();
+        String date_for_output = new SimpleDateFormat("MM/dd/yyyy hh:mm a").format(timestamp);
+
         //Set it as an attribute to pass to the JSP.
         request.setAttribute("article", article);
+        request.setAttribute("date", date_for_output);
 
 
         getServletContext().getRequestDispatcher("/ViewArticlePage").forward(request, response);

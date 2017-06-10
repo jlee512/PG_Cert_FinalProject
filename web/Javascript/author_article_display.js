@@ -70,10 +70,11 @@ function successfulArticleLoad(msg) {
 
             articleDiv.find(".panel-title").text(article.article_title);
 
-            var date = new Date(article.article_date);
+            var date = new Date(article.article_timestamp);
 
+            var formattedDate = formatDate(date);
 
-            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + date.toDateString() + "</p><p>" + article.article_body + "</p>");
+            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + formattedDate + "</p><p>" + article.article_body + "</p>");
             articleDiv.find(".panel-body").css("text-align", "left");
 
             /*Remove the loading icon*/
@@ -88,6 +89,26 @@ function successfulArticleLoad(msg) {
             moreArticles = false;
         }
     }
+}
+
+function formatDate(date) {
+
+    var days = date.getDate();
+    var months = date.getMonth();
+    var year = date.getFullYear();
+
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var amPM;
+
+    if (hours >= 12) {
+        amPM = 'PM';
+    } else {
+        amPM = 'AM';
+    }
+
+    return days + "/" + months + "/" + year + " " + hours +":" + minutes + " " + amPM;
+
 }
 
 function failedArticleLoad(jqXHR, textStatus, errorThrown) {
@@ -106,7 +127,7 @@ function loadArticlesIncrement() {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: '/ViewIndividualArticles',
+        url: 'ViewIndividualArticles',
         type: 'GET',
         data: {from: from, count: count},
         success: function (msg) {
