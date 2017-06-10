@@ -105,7 +105,7 @@ $(document).ready(function () {
     $(window).scroll(function() {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreArticles) {
+        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) & moreArticles) {
             loadArticlesIncrement();
         }
     });
