@@ -50,7 +50,7 @@ $(document).on("click", ".show_replies", function () {
         {
             button.addClass("comments-displayed");
             $.ajax({
-                url: "/ShowNestedComments?parentCommentID=" + parentID,
+                url: "ShowNestedComments?parentCommentID=" + parentID,
                 type: "GET",
                 success: function loadNestedComments(msg) {
                     buttonsDiv.find(".loader-wrapper").show();

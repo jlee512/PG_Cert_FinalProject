@@ -27,7 +27,7 @@
 
 <p style="white-space: pre-wrap;">${requestScope.article.article_body}</p>
 <br>
-<em>Published: ${requestScope.article.artcle_timestamp}</em>
+<em>Published: ${requestScope.date}</em>
 <hr>
 
 <%---------------------------------------Comments-------------------------------------------------%>
@@ -57,6 +57,7 @@
 <script src="Javascript/add_comment_form.js"></script>
 <script src="Javascript/reply_to_comment_form.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
+
 </body>
 </html>
 <%--Need to set up a function to retrieve replies if Show Replies button is clicked--%>
