@@ -46,6 +46,8 @@ public class ProfilePicture extends HttpServlet {
 
         MySQL DB = new MySQL();
 
+
+
 //       Store the file save file path
         ServletContext servletContext = getServletContext();
         filePath = servletContext.getRealPath("Multimedia/");

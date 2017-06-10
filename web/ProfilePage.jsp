@@ -298,11 +298,12 @@
         <%--Check to see whether the class (which will be added to the form) already exists--%>
         if (!$(".photo-settings")[0]) {
 
+
             <%--Append the form and add 'photo-settings' class to it--%>
             $("#profilePictureButtons").append("<form id='pictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture'>" +
                 "<button type='button' class='btn btn-sm' style='background-color: #f9a825'  id='chooseDefault'>Default pictures</button>" +
-                "<button type='submit' class='btn btn-sm' style='background-color: #f9a825' id='updatePicture'>Submit</button>" +
-                "<input id='profile-image-upload' name='file' type='file'>" +
+                "<button type='submit' class='btn btn-sm' style='background-color: #f9a825' id='updatePicture'>Submit</button><div></div>" +
+                "<input class='profile-image-upload' name='file' type='file'>" +
                 "</form>");
             $("#pictureForm").addClass("photo-settings");
 
@@ -311,22 +312,23 @@
 
                 <%--Checks to see whether the class (which is added to the divv contianing the images) already exists--%>
                 if (!$(".defaultPhoto_dialog_open")[0]) {
+
                     $("#defaultPictureDiv").append("<div id='defaultPic'  >" +
-                        "<label><input type='radio' name='imgRadio'>" +
+                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kea.jpg'>" +
                         "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></label>" +
-                        "<label><input type='radio' name='imgRadio'>" +
+                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'>" +
                         "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></label>" +
-                        "<label><input type='radio' name='imgRadio'>" +
+                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kokako.jpg'>" +
                         "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></label>" +
-                        "<label><input type='radio' name='imgRadio'>" +
+                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/manakura.jpg'>" +
                         "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></div></label>");
                     $("#defaultPictureDiv").addClass("defaultPhoto_dialog_open");
-                    $("#profile-image-upload").remove();
+                    $(".profile-image-upload").remove();
                 }
 
                     <%--toggle function for showing the default images--%>
                 else {
-                    $("#pictureForm").append("<input id='profile-image-upload' name='file' type='file'>");
+                    $("#pictureForm").append("<input id='file' class='profile-image-upload' name='file' type='file'>");
                     $("#defaultPictureDiv").removeClass("defaultPhoto_dialog_open");
                     $("#defaultPic").remove();
                 }
