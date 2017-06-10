@@ -7,6 +7,8 @@ $(document).on("click", ".add_reply", function () {
     var button = $(this);
     var parentID = button.val();
     var commentDiv = button.parent();
+    console.log(commentDiv.prop('nodeName'));
+    console.log(commentDiv.attr('class'));
 
     if (button.hasClass("dialog_open")){
         button.removeClass("dialog_open");

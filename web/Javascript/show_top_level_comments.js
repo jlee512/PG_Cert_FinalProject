@@ -3,13 +3,16 @@
  */
 
 var commentPara = '<div class="panel panel-info">' +
-                        '<div class="panel-heading">INSERT COMMENT HEADING</div>'+
-                        '<div class="panel-body">INSERT COMMENT BODY</div>' +
+                        '<div class ="comment-content">' +
+                            '<div class="panel-heading">INSERT COMMENT HEADING</div>'+
+                            '<div class="panel-body">INSERT COMMENT BODY</div>' +
+                        '</div>' +
+                        '<div class="buttons"></div>' +
                     '</div>';
 
 var from = 0;
 var count = 5;
-moreComments = true;
+var moreComments = true;
 
 
 function successfulCommentsLoad(msg) {
@@ -20,6 +23,7 @@ function successfulCommentsLoad(msg) {
     var username = $("#userdetails").text();
     var authorUsername = $("#author").text();
     console.log(authorUsername);
+    console.log(msg.length);
     if (msg.length == 0){
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
         $('.loader-wrapper').hide();
@@ -31,6 +35,8 @@ function successfulCommentsLoad(msg) {
 
             var comment = msg[i];
             var commentDiv = $(commentPara);
+            var buttonsDiv = commentDiv.find('.buttons');
+
             var date = new Date(comment.timestamp);
 
             /*Add a button to view replies if comment has replies*/
@@ -58,19 +64,21 @@ function successfulCommentsLoad(msg) {
             commentDiv.find(".panel-heading").html("<p>" + comment.username + ", " + date.toDateString() + "</p>");
             /*Add body to comment template*/
             commentDiv.find(".panel-body").html("<p>" + comment.content + "</p>");
-            commentDiv.append(replyButton);
+
+            /*Add the replies button to the comment template*/
+            buttonsDiv.append(replyButton);
 
             /*If the comment is a parent, add the show replies button*/
             if (comment.isParent) {
-                commentDiv.append(viewRepliesButton);
+                buttonsDiv.append(viewRepliesButton);
             }
 
             if (username == comment.username || username == authorUsername) {
-                commentDiv.append(deleteButton);
+                buttonsDiv.append(deleteButton);
             }
 
             if (username == comment.username) {
-                commentDiv.append(editButton);
+                buttonsDiv.append(editButton);
             }
 
             /*Remove the loading icon*/
@@ -82,7 +90,7 @@ function successfulCommentsLoad(msg) {
             if (msg.length < count) {
                 $('.loader-wrapper').hide();
                 $('#loaded1, #loaded2, #loaded3, #loaded4').show();
-                moreArticles = false;
+                moreComments = false;
             }
         }
     }
