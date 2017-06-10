@@ -27,7 +27,7 @@
 
 <p style="white-space: pre-wrap;">${requestScope.article.article_body}</p>
 <br>
-<em>Published: ${requestScope.article.article_date}</em>
+<em>Published: ${requestScope.article.artcle_timestamp}</em>
 <hr>
 
 <%---------------------------------------Comments-------------------------------------------------%>

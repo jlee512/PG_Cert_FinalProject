@@ -1,6 +1,5 @@
 package login.system.dao;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import login.system.db.MySQL;
 
 import java.sql.*;
@@ -13,7 +12,7 @@ import java.util.List;
 public class ArticleDAO {
 
     /*Add a new article to the Database*/
-    public static int addArticleToDB(MySQL DB, int author_id, String article_title, Date date, String article_body) {
+    public static int addArticleToDB(MySQL DB, int author_id, String article_title, Timestamp article_timestamp, String article_body) {
 
         /*Return method status
         * (1) Success
@@ -22,14 +21,14 @@ public class ArticleDAO {
         * (4) Database connection error*/
     /*------------------------------------------------------------*/
 
-        Article tempArticle = new Article(author_id, article_title, date, article_body);
+        Article tempArticle = new Article(author_id, article_title, article_timestamp, article_body);
 
         try (Connection c = DB.connection()) {
         /*Connect to the database and add user*/
-            try (PreparedStatement stmt = c.prepareStatement("INSERT INTO uploaded_articles (author_id, date, article_title, article_body) VALUES (?, ?, ?, ?)")) {
+            try (PreparedStatement stmt = c.prepareStatement("INSERT INTO uploaded_articles (author_id, timestamp, article_title, article_body) VALUES (?, ?, ?, ?)")) {
 
                 stmt.setInt(1, tempArticle.getAuthor_id());
-                stmt.setDate(2, tempArticle.getArticle_date());
+                stmt.setTimestamp(2, tempArticle.getArtcle_timestamp());
                 stmt.setString(3, tempArticle.getArticle_title());
                 stmt.setString(4, tempArticle.getArticle_body());
 
@@ -57,7 +56,7 @@ public class ArticleDAO {
         Article article = new Article(-1, null, null, null);
 
         try (Connection c = DB.connection()) {
-            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, date, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE article_id = ?")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, timestamp, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE article_id = ?")) {
 
                 stmt.setInt(1, article_id);
 
@@ -70,11 +69,11 @@ public class ArticleDAO {
                         String author_username = r.getString("username");
                         String author_firstname = r.getString("firstname");
                         String author_lastname = r.getString("lastname");
-                        Date dateLookup = r.getDate("date");
+                        Timestamp timestampLookup = r.getTimestamp("timestamp");
                         String article_titleLookup = r.getString("article_title");
                         String article_bodyLookup = r.getString("article_body");
 
-                        article.setArticleParameters(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, dateLookup, article_bodyLookup);
+                        article.setArticleParameters(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, timestampLookup, article_bodyLookup);
 
                         System.out.println("Article retrieved from the database");
                     } else {
@@ -100,7 +99,7 @@ public class ArticleDAO {
 
         try (Connection c = DB.connection()) {
 
-            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, date, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id ORDER BY DATE DESC LIMIT ? OFFSET ?;")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, timestamp, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
 
                 stmt.setInt(1, numArticles);
                 stmt.setInt(2, fromArticle);
@@ -123,7 +122,7 @@ public class ArticleDAO {
 
         try (Connection c = DB.connection()) {
 
-            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, date, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = ? ORDER BY DATE DESC LIMIT ? OFFSET ?;")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, timestamp, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = ? ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
 
                 stmt.setInt(1, author_id);
                 stmt.setInt(2, numArticles);
@@ -152,11 +151,11 @@ public class ArticleDAO {
                 String author_username = r.getString("username");
                 String author_firstname = r.getString("firstname");
                 String author_lastname = r.getString("lastname");
-                Date dateLookup = r.getDate("date");
+                Timestamp timestampLookup = r.getTimestamp("timestamp");
                 String article_titleLookup = r.getString("article_title");
                 String article_bodyLookup = r.getString("article_preview") + "...";
 
-                Article article = new Article(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, dateLookup, article_bodyLookup);
+                Article article = new Article(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, timestampLookup, article_bodyLookup);
                 article.setArticle_id(article_idLookup);
                 articles.add(article);
             }
