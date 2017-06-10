@@ -36,17 +36,17 @@ public class User implements Serializable {
         this.lastname = lastname;
     }
 
-    public User(String username, String email, String phone, String occupation, String city, String profile_description, String profile_picture, String firstname, String lastname) {
+    public User(String username, String email, String phone, String occupation, String city, String profile_description, String firstname, String lastname) {
         this.username = username;
         this.email = email;
         this.phone = phone;
         this.occupation = occupation;
         this.city = city;
         this.profile_description = profile_description;
-        this.profile_picture = profile_picture;
         this.firstname = firstname;
         this.lastname = lastname;
     }
+
 
     public String getUsername() {
         return username;

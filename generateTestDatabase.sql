@@ -24,13 +24,13 @@ CREATE TABLE registered_users (
 CREATE TABLE uploaded_articles (
   article_id    INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   author_id     INT             NOT NULL,
-  date          DATE            NOT NULL,
+  timestamp     TIMESTAMP       NOT NULL,
   article_title VARCHAR(500)    NOT NULL,
   article_body  TEXT            NOT NULL,
   FOREIGN KEY (author_id) REFERENCES registered_users (user_id),
   CONSTRAINT uniqueArticle UNIQUE
   (
-    date, article_title
+    timestamp, article_title
   )
 );
 
@@ -55,11 +55,29 @@ CREATE TABLE posted_multimedia (
   multimedia_title TEXT
 );
 
-SELECT article_id, username, firstname, lastname, date, article_title, Substring(article_body, 1, 10) FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
-ORDER BY date
+/*---------------------------------------------------TEST QUERIES---------------------------------------------------*/
+
+SELECT article_id, username, firstname, lastname, timestamp, article_title, Substring(article_body, 1, 10) FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
+ORDER BY timestamp
 LIMIT 3 OFFSET 1;
 
-SELECT article_id, username, firstname, lastname, date, article_title, SubString(article_body, 1, 10) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
-ORDER BY date
+/*Test query of articles*/
+SELECT article_id, username, firstname, lastname, timestamp, article_title, SubString(article_body, 1, 10) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id
+ORDER BY timestamp
 LIMIT 3 OFFSET 1;
 
+/*Test query of articles joined to users and comments*/
+SELECT a.article_id, u.username, u.firstname, u.lastname, a.timestamp, a.article_title, a.article_body, c.comment_id, c.comment_body AS individual_article
+FROM uploaded_articles AS a
+LEFT JOIN registered_users AS u ON a.author_id = u.user_id
+LEFT JOIN posted_comments AS c ON a.article_id = c.article_id
+WHERE a.article_id = 4 AND parent_comment_id IS NULL
+ORDER BY timestamp;
+
+SELECT comment_id parent_comment_id, timestamp, comment_body, is_parent, username, firstname, lastname FROM posted_comments LEFT JOIN registered_users ON posted_comments.author_id = registered_users.user_id WHERE article_id = 4 AND parent_comment_id IS NULL ORDER BY TIMESTAMP LIMIT 5 OFFSET 0;
+
+SELECT parent_comment_id FROM posted_comments WHERE comment_id = 10;
+
+
+
+SELECT article_id, username, firstname, lastname, timestamp, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = 1 ORDER BY timestamp DESC LIMIT 3 OFFSET 0;

@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="while_e_coyote_remote_deployment">
-    <output-path>$PROJECT_DIR$/out/artifacts/while_e_coyote_remote_deployment</output-path>
-    <root id="archive" name="while_e_coyote_remote_deployment.war">
+  <artifact type="war" name="while_e_coyote">
+    <output-path>$PROJECT_DIR$/out/artifacts/while_e_coyote</output-path>
+    <root id="archive" name="while_e_coyote.war">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="project_initial_databaseDevelopment" />

@@ -53,7 +53,6 @@
 
     <title>Your Account</title>
     <%@ include file="HeadStylingLinks.jsp" %>
-</head>
 
 <style type="text/css">
 
@@ -79,10 +78,13 @@
         text-align: right;
     }
 
-
 </style>
 
-<link rel="shortcut icon" type="image/png" href="/Multimedia/favicon.png">
+<link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
+
+<link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
+
+</head>
 
 <body>
 
@@ -91,10 +93,21 @@
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
 
-        <p class="text-center">Welcome <strong>${sessionScope.userDetails.username}</strong>! Good to see you</p>
+        <p class="text-center">Welcome <strong><a href="ProfilePage?username=${sessionScope.userDetails.username}" style="color: #f9a825;">${sessionScope.userDetails.username}</a></strong>! Good to see you</p>
+
 
         <div class="news_feed">
                 <%--Articles should be dropped into here from AJAX calls--%>
+        </div>
+
+        <div class="loader-wrapper" style="text-align: center;">
+            <div class="loader" style="display: inline-block;"></div>
+        </div>
+        <div class="loaded-wrapper" style="text-align: center;">
+            <div id="loaded1" style="display: inline-block;"></div>
+            <div id="loaded2" style="display: inline-block;"></div>
+            <div id="loaded3" style="display: inline-block;"></div>
+            <div id="loaded4" style="display: inline-block;"></div>
         </div>
 
     </c:when>

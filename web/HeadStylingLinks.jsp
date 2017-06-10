@@ -67,4 +67,10 @@
 
     }
 
+    body {
+
+        background-color: #fbfff9;
+
+    }
+
 </style>
