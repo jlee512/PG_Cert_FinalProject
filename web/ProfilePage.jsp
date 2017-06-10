@@ -265,7 +265,7 @@
 <script type="application/javascript" src="Javascript/add_an_article_form.js"></script>
 <script type="application/javascript" src="Javascript/author_article_display.js"></script>
 <%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
-/*Moved by JUL to separate JS file*/
+<%--Moved by JUL to separate JS file--%>
 <script type="application/javascript" src="Javascript/UpdateProfilePicture.js"></script>
 <%------------------------------------------------------------------------------------------------------------------------------------%>
 
