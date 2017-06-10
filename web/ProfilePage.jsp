@@ -48,6 +48,34 @@
         .add-article-button:hover {
             background-color: #ffd54f !important;
         }
+
+        .fixedDefaultPictureSize {
+            position: relative;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            width: 120px;
+            height: 120px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /*Styling for radio check boxes for profile pictures*/
+        label > input { /* HIDE RADIO */
+            visibility: hidden; /* Makes input not-clickable */
+            position: absolute; /* Remove input from document flow */
+        }
+
+        label > input + img { /* IMAGE STYLES */
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        label > input:checked + img { /* (RADIO CHECKED) IMAGE STYLES */
+            border: 2px solid #ffd54f;
+        }
+
+        /*END OF STYLING*/
     </style>
 
     <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
@@ -69,11 +97,14 @@
 
 
                     <%------Profile Picture------%>
-                <div id="profilePicture">
+                <div>
                     <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
                          class="img-responsive center-block"
                          style="padding-top: 15px; padding-bottom: 15px;">
-                    <div id="defaultPicture"></div>
+                    <div id="picture-settings">
+                        <div id="profilePictureButtons" class="text-center"></div>
+                        <div id="defaultPictureDiv" class="text-center"></div>
+                    </div>
                 </div>
             </div>
 
@@ -145,24 +176,26 @@
                     </form>
 
                         <%------Profile settings------%>
-                    <div>
-                        <h3><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h3>
+                    <h3><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h3>
 
+                    <div class="text-center">
                             <%--Change password--%>
-                        <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
+                        <button class="btn btn-info btn-sm"
+                                onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
                             Change password
                         </button>
 
                             <%--Delete account--%>
-                        <button type="submit" id="deleteaccount">Delete
+                        <button class="btn btn-info btn-sm" type="submit" id="deleteaccount">Delete
                             account
                         </button>
 
                             <%--Edit profile--%>
-                        <button style="display: inline-block;" name="editButton"
-                                id="editButton">edit profile</button>
-
+                        <button class="btn btn-info btn-sm" style="display: inline-block;" name="editButton"
+                                id="editButton">edit profile
+                        </button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -181,7 +214,7 @@
                         </div>
                     </div>
                     <div class="news_feed">
-                        <%--Articles are inserted here via AJAX request--%>
+                            <%--Articles are inserted here via AJAX request--%>
                     </div>
                 </div>
                 <div class="loader-wrapper" style="text-align: center;">
@@ -219,29 +252,23 @@
 <script type="application/javascript" src="Javascript/author_article_display.js"></script>
 
 
-
-
 <script>
 
-    <%--Hide the upload image--%>
-    $("#profile-image-upload").hide();
 
-    <%--resizing the textarea--%>
+    <%--resizing the textarea also rezise when window is resizes--%>
+    <%--REVISIT THIS make it resize when window is reduced--%>
     $("textarea").height($("textarea")[0].scrollHeight);
 
     window.onresize = function (event) {
         $("textarea").height($("textarea")[0].scrollHeight);
     };
 
-    <%--Make variable names for all input fields and the submit button--%>
+    <%--Makes all inputs of the form readonly--%>
     var inputfields = $("form").find(':input');
-    var saveChanges = $("form").find($("#saveChanges"));
-
-    <%---Set variables to readonly and hide submit button--%>
     inputfields.attr('readonly', 'readonly');
-    saveChanges.hide();
 
-    <%--Edit button makes the form editable and the save changes button appears--%>
+
+    <%--Edit button makes the form editable and the save changes button is appended--%>
     $("#editButton").click(function () {
         inputfields.removeAttr('readonly', 'readonly');
         if (!$('#saveChanges')[0]) {
@@ -249,8 +276,8 @@
         }
     });
 
-    <%--Save changes returns the form to readonly and the button becomes hidden--%>
-    saveChanges.click(function () {
+    <%--Save changes returns the form to readonly and the button is removed--%>
+    $("#saveChanges").click(function () {
         inputfields.attr('readonly', 'readonly');
         $("#saveChanges").remove();
 
@@ -264,17 +291,59 @@
         }
     });
 
-    $("#profilePicture").click(function () {
 
-        if (!$("#pictureForm")[0]) {
-            $("#profilePicture").append("<form id='pictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture'>" +
-                "<input id='profile-image-upload' name='file' required type='file'>" +
-//                    insert choose default here
-                "<input type='submit' id='updatePicture' value='Upload Photo'>" +
-                "</form>")
+    <%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
+    $("#profile-image").click(function () {
 
+        <%--Check to see whether the class (which will be added to the form) already exists--%>
+        if (!$(".photo-settings")[0]) {
+
+            <%--Append the form and add 'photo-settings' class to it--%>
+            $("#profilePictureButtons").append("<form id='pictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture'>" +
+                "<button type='button' class='btn btn-sm' style='background-color: #f9a825'  id='chooseDefault'>Default pictures</button>" +
+                "<button type='submit' class='btn btn-sm' style='background-color: #f9a825' id='updatePicture'>Submit</button>" +
+                "<input id='profile-image-upload' name='file' type='file'>" +
+                "</form>");
+            $("#pictureForm").addClass("photo-settings");
+
+            <%--If you select choose default a drop down appears of images you can select--%>
+            $("#chooseDefault").click(function () {
+
+                <%--Checks to see whether the class (which is added to the divv contianing the images) already exists--%>
+                if (!$(".defaultPhoto_dialog_open")[0]) {
+                    $("#defaultPictureDiv").append("<div id='defaultPic'  >" +
+                        "<label><input type='radio' name='imgRadio'>" +
+                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></label>" +
+                        "<label><input type='radio' name='imgRadio'>" +
+                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></label>" +
+                        "<label><input type='radio' name='imgRadio'>" +
+                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></label>" +
+                        "<label><input type='radio' name='imgRadio'>" +
+                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></div></label>");
+                    $("#defaultPictureDiv").addClass("defaultPhoto_dialog_open");
+                    $("#profile-image-upload").remove();
+                }
+
+                    <%--toggle function for showing the default images--%>
+                else {
+                    $("#pictureForm").append("<input id='profile-image-upload' name='file' type='file'>");
+                    $("#defaultPictureDiv").removeClass("defaultPhoto_dialog_open");
+                    $("#defaultPic").remove();
+                }
+            })
         }
-    })
+
+            <%--When the image is clicked remove the form AND if the default pictures are showing then remove them too--%>
+        else {
+            $("#profilePictureButtons").removeClass("photo-settings");
+            $("#pictureForm").remove();
+            if ($("#defaultPic").length) {
+                $("#defaultPictureDiv").removeClass("defaultPhoto_dialog_open");
+                $("#defaultPic").remove();
+            }
+        }
+    });
+    <%------------------------------------------------------------------------------------------------------------------------------------%>
 
 </script>
 
