@@ -37,7 +37,7 @@
             background-color: transparent;
         }
 
-        .add-article-button {
+        .add-article-button, .change-profile-pic-button {
 
             background-color: #b2ebf2 !important;
             -webkit-transition: background-color 1s;
@@ -45,7 +45,15 @@
 
         }
 
-        .add-article-button:hover {
+        .change-profile-pic-button {
+
+            margin-top: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+
+        }
+
+        .add-article-button:hover, .change-profile-pic-button:hover {
             background-color: #ffd54f !important;
         }
 
@@ -101,9 +109,15 @@
                     <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
                          class="img-responsive center-block"
                          style="padding-top: 15px; padding-bottom: 15px;">
-                    <div id="picture-settings">
-                        <div id="profilePictureButtons" class="text-center"></div>
-                        <div id="defaultPictureDiv" class="text-center"></div>
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading change-profile-pic-button">
+                                <p><i class="fa fa-user-circle" aria-hidden="true"></i> Change Profile Picture</p>
+                            </div>
+                        </div>
+                        <div class="change_picture_options">
+                                <%--Change profile picture inserted here depending on toggle option--%>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -250,6 +264,10 @@
 
 <script type="application/javascript" src="Javascript/add_an_article_form.js"></script>
 <script type="application/javascript" src="Javascript/author_article_display.js"></script>
+<%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
+/*Moved by JUL to separate JS file*/
+<script type="application/javascript" src="Javascript/UpdateProfilePicture.js"></script>
+<%------------------------------------------------------------------------------------------------------------------------------------%>
 
 
 <script>
@@ -290,62 +308,6 @@
             location.href = "DeleteUser";
         }
     });
-
-
-    <%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
-    $("#profile-image").click(function () {
-
-        <%--Check to see whether the class (which will be added to the form) already exists--%>
-        if (!$(".photo-settings")[0]) {
-
-
-            <%--Append the form and add 'photo-settings' class to it--%>
-            $("#profilePictureButtons").append("<form id='pictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture'>" +
-                "<button type='button' class='btn btn-sm' style='background-color: #f9a825'  id='chooseDefault'>Default pictures</button>" +
-                "<button type='submit' class='btn btn-sm' style='background-color: #f9a825' id='updatePicture'>Submit</button><div></div>" +
-                "<input class='profile-image-upload' name='file' type='file'>" +
-                "</form>");
-            $("#pictureForm").addClass("photo-settings");
-
-            <%--If you select choose default a drop down appears of images you can select--%>
-            $("#chooseDefault").click(function () {
-
-                <%--Checks to see whether the class (which is added to the divv contianing the images) already exists--%>
-                if (!$(".defaultPhoto_dialog_open")[0]) {
-
-                    $("#defaultPictureDiv").append("<div id='defaultPic'  >" +
-                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kea.jpg'>" +
-                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></label>" +
-                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'>" +
-                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></label>" +
-                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kokako.jpg'>" +
-                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></label>" +
-                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/manakura.jpg'>" +
-                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></div></label>");
-                    $("#defaultPictureDiv").addClass("defaultPhoto_dialog_open");
-                    $(".profile-image-upload").remove();
-                }
-
-                    <%--toggle function for showing the default images--%>
-                else {
-                    $("#pictureForm").append("<input id='file' class='profile-image-upload' name='file' type='file'>");
-                    $("#defaultPictureDiv").removeClass("defaultPhoto_dialog_open");
-                    $("#defaultPic").remove();
-                }
-            })
-        }
-
-            <%--When the image is clicked remove the form AND if the default pictures are showing then remove them too--%>
-        else {
-            $("#profilePictureButtons").removeClass("photo-settings");
-            $("#pictureForm").remove();
-            if ($("#defaultPic").length) {
-                $("#defaultPictureDiv").removeClass("defaultPhoto_dialog_open");
-                $("#defaultPic").remove();
-            }
-        }
-    });
-    <%------------------------------------------------------------------------------------------------------------------------------------%>
 
 </script>
 
