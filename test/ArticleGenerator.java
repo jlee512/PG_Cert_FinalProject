@@ -3,6 +3,7 @@ import login.system.dao.ArticleDAO;
 import login.system.db.MySQL;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 
 /**
@@ -24,12 +25,12 @@ public class ArticleGenerator {
         String articleInputTestTitle = "unitTest" + articleRandNum;
 
         /*Prepare the article date*/
-        Date articleSubmissionDate = new Date(System.currentTimeMillis());
+        Timestamp articleSubmissionTimestamp = new Timestamp(System.currentTimeMillis());
 
         /*Prepare the article body*/
         String articleInputTestBody = "unitTest" + articleRandNum + ">>>>>>>>>" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur, tortor et facilisis tempor, lectus magna lacinia ligula, in facilisis ex turpis quis mauris. Vestibulum non neque eget nulla vulputate imperdiet at sit amet est. Pellentesque porta dolor elit, non efficitur dui lacinia at." + ">>>>>>>>>>>>>" + "unitTest" + articleRandNum;
 
-        return new Article(author_id, articleInputTestTitle, articleSubmissionDate, articleInputTestBody);
+        return new Article(author_id, articleInputTestTitle, articleSubmissionTimestamp, articleInputTestBody);
 
     }
 

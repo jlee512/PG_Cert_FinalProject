@@ -43,14 +43,14 @@ public class ArticleTest {
     public void test1ArticleAdditionToDB() {
 
         /*Check for successful database addition code of "1"*/
-        assertEquals(1, ArticleDAO.addArticleToDB(DB, testArticle.getAuthor_id(), testArticle.getArticle_title(), testArticle.getArticle_date(), testArticle.getArticle_body()));
+        assertEquals(1, ArticleDAO.addArticleToDB(DB, testArticle.getAuthor_id(), testArticle.getArticle_title(), testArticle.getArtcle_timestamp(), testArticle.getArticle_body()));
 
     }
 
     @Test
     public void test2ArticleRejectionFromDBDuplicate() {
         
-        TestCase.assertEquals(2, ArticleDAO.addArticleToDB(DB, knownExistingArticle.getAuthor_id(), knownExistingArticle.getArticle_title(), knownExistingArticle.getArticle_date(), knownExistingArticle.getArticle_body()));
+        TestCase.assertEquals(2, ArticleDAO.addArticleToDB(DB, knownExistingArticle.getAuthor_id(), knownExistingArticle.getArticle_title(), knownExistingArticle.getArtcle_timestamp(), knownExistingArticle.getArticle_body()));
                 
     }
     
@@ -65,7 +65,7 @@ public class ArticleTest {
         assertEquals(knownExistingArticle.getAuthor_username(), testArticle.getAuthor_username());
         assertEquals(knownExistingArticle.getAuthor_firstname(), testArticle.getAuthor_firstname());
         assertEquals(knownExistingArticle.getAuthor_lastname(), testArticle.getAuthor_lastname());
-        assertEquals(knownExistingArticle.getArticle_date(), testArticle.getArticle_date());
+        assertEquals(knownExistingArticle.getArtcle_timestamp(), testArticle.getArtcle_timestamp());
         assertEquals(knownExistingArticle.getArticle_title(), testArticle.getArticle_title());
         assertEquals(knownExistingArticle.getArticle_body(), testArticle.getArticle_body());
         
@@ -103,7 +103,7 @@ public class ArticleTest {
             assertTrue(articles.get(i).getAuthor_username().equals(knownAuthorUsernames[i]));
             assertTrue(articles.get(i).getAuthor_firstname().equals(knownAuthorFirstnames[i]));
             assertTrue(articles.get(i).getAuthor_firstname().equals(knownAuthorFirstnames[i]));
-            assertTrue(articles.get(i).getArticle_date().equals(knownArticleDates[i]));
+            assertTrue(articles.get(i).getArtcle_timestamp().equals(knownArticleDates[i]));
             assertTrue(articles.get(i).getArticle_title().equals(knownArticleTitles[i]));
             assertTrue(articles.get(i).getArticle_body().equals(knownArticleBody[i]));
 

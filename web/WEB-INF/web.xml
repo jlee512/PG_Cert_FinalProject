@@ -95,6 +95,17 @@
         <url-pattern>/ShowNestedComments</url-pattern>
     </servlet-mapping>
 
+    <!--Delete Comments servlet-->
+    <servlet>
+        <servlet-name>DeleteComment</servlet-name>
+        <servlet-class>login.system.servlets.DeleteComment</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteComment</servlet-name>
+        <url-pattern>/DeleteComment</url-pattern>
+    </servlet-mapping>
+
     <!--Get Top Level Comments Servlet for an individual article-->
     <servlet>
         <servlet-name>GetComments_IndividualArticle</servlet-name>
@@ -104,6 +115,71 @@
     <servlet-mapping>
         <servlet-name>GetComments_IndividualArticle</servlet-name>
         <url-pattern>/GetComments_IndividualArticle</url-pattern>
+    </servlet-mapping>
+
+    <!--Profile Page servlet for editing their details-->
+    <servlet>
+        <servlet-name>ProfilePage</servlet-name>
+        <servlet-class>login.system.servlets.ProfilePageContent</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProfilePage</servlet-name>
+        <url-pattern>/EditUserDetails</url-pattern>
+    </servlet-mapping>
+
+    <!--Delete Account servlet-->
+    <servlet>
+        <servlet-name>DeleteAccount</servlet-name>
+        <servlet-class>login.system.servlets.DeleteAccount</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteAccount</servlet-name>
+        <url-pattern>/DeleteUser</url-pattern>
+    </servlet-mapping>
+
+    <!--Edit Comment servlet-->
+    <servlet>
+        <servlet-name>EditComment</servlet-name>
+        <servlet-class>login.system.servlets.EditComment</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditComment</servlet-name>
+        <url-pattern>/EditComment</url-pattern>
+    </servlet-mapping>
+
+    <!--AddAnArticleAttempt servlet-->
+    <servlet>
+        <servlet-name>AddAnArticleAttempt</servlet-name>
+        <servlet-class>login.system.servlets.AddAnArticleAttempt</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddAnArticleAttempt</servlet-name>
+        <url-pattern>/AddAnArticleAttempt</url-pattern>
+    </servlet-mapping>
+    <!--Uploading profile picture-->
+    <servlet>
+        <servlet-name>UploadProfilePicture</servlet-name>
+        <servlet-class>login.system.servlets.ProfilePicture</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UploadProfilePicture</servlet-name>
+        <url-pattern>/UploadProfilePicture</url-pattern>
+    </servlet-mapping>
+
+    <!--Individual Article Viewer-->
+    <servlet>
+        <servlet-name>IndividualArticleViewer</servlet-name>
+        <servlet-class>login.system.servlets.IndividualAuthorArticles</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>IndividualArticleViewer</servlet-name>
+        <url-pattern>/ViewIndividualArticles</url-pattern>
     </servlet-mapping>
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
@@ -212,6 +288,17 @@
     <servlet-mapping>
         <servlet-name>ProfilePageJSP</servlet-name>
         <url-pattern>/ProfilePage</url-pattern>
+    </servlet-mapping>
+
+    <!--(11) Edit Comment-->
+    <servlet>
+        <servlet-name>EditCommentFormJSP</servlet-name>
+        <jsp-file>/EditCommentForm.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditCommentFormJSP</servlet-name>
+        <url-pattern>/EditCommentForm</url-pattern>
     </servlet-mapping>
 
 </web-app>

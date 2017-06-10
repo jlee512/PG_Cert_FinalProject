@@ -15,33 +15,33 @@
         <c:redirect url="Login"/>
     </c:if>
     <title>${requestScope.article.article_title}</title>
-    <script src="Javascript/show_comments.js"></script>
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 </head>
 <body>
-
+<%@include file="Navbar.jsp" %>
 <%----------------------------------------Article--------------------------------------------------%>
-<h1>${requestScope.article.article_title}</h1>
+<h1 class="display-4">${requestScope.article.article_title}</h1>
 <br>
-<h3>${requestScope.username}</h3>
+<h3 id="author">Published by: ${requestScope.article.author_username}</h3>
 <br>
-<p>${requestScope.article.article_body}</p>
+
+<p style="white-space: pre-wrap;">${requestScope.article.article_body}</p>
 <br>
-<em>${requestScope.article.article_date}</em>
+<em>Published: ${requestScope.date}</em>
 <hr>
 
 <%---------------------------------------Comments-------------------------------------------------%>
-<a href="AddComment?article_id=${requestScope.article.article_id}" class="btn btn-default">Add New Comment</a>
+<button class="btn btn-default add-comment-button">Add New Comment</button>
 
 <div class="top_level_comment_feed">
        <%--Top level comments are dropped into here from AJAX calls--%>
 </div>
 
+
 <%--Loader animation and bottom of comments symbol--%>
 <div class="loader-wrapper" style="margin-left: 3%;">
     <div class="loader" style="display: inline-block;"></div>
 </div>
-
 <div class="loaded-wrapper">
     <div id="loaded1" style="display: inline-block;"></div>
     <div id="loaded2" style="display: inline-block;"></div>
@@ -50,8 +50,14 @@
 </div>
 
 
+<div id="userdetails" style="display: none">${sessionScope.userDetails.username}</div>
+<div id="articleid" style="display: none">${requestScope.article.article_id}</div>
+<script src="Javascript/show_comment_replies.js"></script>
 <script src="Javascript/show_top_level_comments.js"></script>
+<script src="Javascript/add_comment_form.js"></script>
+<script src="Javascript/reply_to_comment_form.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
+
 </body>
 </html>
 <%--Need to set up a function to retrieve replies if Show Replies button is clicked--%>

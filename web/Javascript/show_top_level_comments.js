@@ -3,19 +3,27 @@
  */
 
 var commentPara = '<div class="panel panel-info">' +
-                        '<div class="panel-heading">INSERT COMMENT HEADING</div>'+
-                        '<div class="panel-body">INSERT COMMENT BODY</div>' +
+                        '<div class ="comment-content">' +
+                            '<div class="panel-heading">INSERT COMMENT HEADING</div>'+
+                            '<div class="panel-body">INSERT COMMENT BODY</div>' +
+                        '</div>' +
+                        '<div class="buttons"></div>' +
                     '</div>';
 
 var from = 0;
 var count = 5;
-moreComments = true;
+var moreComments = true;
 
 
 function successfulCommentsLoad(msg) {
 
     var commentContainer = $(".top_level_comment_feed");
 
+    /*Get username of current user*/
+    var username = $("#userdetails").text();
+    var authorUsername = $("#author").text();
+    console.log(authorUsername);
+    console.log(msg.length);
     if (msg.length == 0){
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
         $('.loader-wrapper').hide();
@@ -27,7 +35,13 @@ function successfulCommentsLoad(msg) {
 
             var comment = msg[i];
             var commentDiv = $(commentPara);
-            var date = new Date(comment.timestamp);
+            var buttonsDiv = commentDiv.find('.buttons');
+
+            var dateUnformatted = new Date(comment.timestamp);
+            var date = formatDate(dateUnformatted);
+            console.log(date);
+
+            /*Add a button to view replies if comment has replies*/
             if (comment.isParent) {
                 isParent = true;
                 var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.commentID + '">Show Replies</button>';
@@ -35,14 +49,38 @@ function successfulCommentsLoad(msg) {
                 isParent = false;
             }
 
+            /*Add a button to reply to the comment*/
+            var replyButton = '<button type="button" class="add_reply btn btn-default" value="' + comment.commentID + '">Reply</button>';
+
+            /*Add a button to delete the comment if current user is comment author or article author*/
+            if (username == comment.username || username == authorUsername) {
+                var deleteButton = '<a href="DeleteComment?commentID=' + comment.commentID + '&articleID=' + getArticleID() + '" class="btn btn-default">Delete</a>'
+            }
+
+            /*Add a button to edit the comment if current user is comment author*/
+            if (username == comment.username) {
+                var editButton = '<a href="EditCommentForm?comment_id=' + comment.commentID + '&article_id=' + getArticleID() + '&comment_body=' + comment.content + '" class="btn btn-default">Edit</a>'
+            }
+
             /*Add header to comment template*/
-            commentDiv.find(".panel-heading").html("<p>" + comment.username + ", " + date.toDateString() + "</p>");
+            commentDiv.find(".panel-heading").html("<p>" + comment.username + ", " + date + "</p>");
             /*Add body to comment template*/
             commentDiv.find(".panel-body").html("<p>" + comment.content + "</p>");
 
+            /*Add the replies button to the comment template*/
+            buttonsDiv.append(replyButton);
+
             /*If the comment is a parent, add the show replies button*/
             if (comment.isParent) {
-                commentDiv.append(viewRepliesButton);
+                buttonsDiv.append(viewRepliesButton);
+            }
+
+            if (username == comment.username || username == authorUsername) {
+                buttonsDiv.append(deleteButton);
+            }
+
+            if (username == comment.username) {
+                buttonsDiv.append(editButton);
             }
 
             /*Remove the loading icon*/
@@ -51,8 +89,40 @@ function successfulCommentsLoad(msg) {
             /*Append the comment to the container in the ViewArticlePage JSP*/
             commentContainer.append(commentDiv);
 
+            if (msg.length < count) {
+                $('.loader-wrapper').hide();
+                $('#loaded1, #loaded2, #loaded3, #loaded4').show();
+                moreComments = false;
+            }
         }
     }
+}
+
+function formatDate(date) {
+
+    var days = date.getDate();
+    var months = date.getMonth();
+    var year = date.getFullYear();
+
+    var hours = date.getHours();
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+
+    var minutes = date.getMinutes();
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    var amPM;
+
+    if (hours >= 12) {
+        amPM = 'PM';
+    } else {
+        amPM = 'AM';
+    }
+
+    return days + "/" + months + "/" + year + " " + hours +":" + minutes + " " + amPM;
+
 }
 
 function getArticleID () {
@@ -88,7 +158,7 @@ function loadCommentsIncrement(article_id) {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: '/GetComments_IndividualArticle',
+        url: 'GetComments_IndividualArticle',
         type: 'GET',
         data: {article_id: article_id, from: from, count: count},
         success: function (msg) {
@@ -120,7 +190,6 @@ $(document).ready(function () {
     /*Add in infinite scrolling to load more comments*/
     $(window).scroll(function() {
 
-        console.log(moreComments)
         /*Function to facilitate infinite scrolling of comments*/
         if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreComments) {
             loadCommentsIncrement(article_id);
