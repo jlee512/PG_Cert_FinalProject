@@ -2,6 +2,7 @@ package login.system.dao;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -15,35 +16,35 @@ public class Article implements Serializable {
     private String author_firstname;
     private String author_lastname;
     private String article_title;
-    private Date article_date;
+    private Timestamp artcle_timestamp;
     private String article_body;
     private List<Comment> top_level_comments = null;
 
 
-    public Article(int author_id, String article_title, Date article_date, String article_body) {
+    public Article(int author_id, String article_title, Timestamp article_timestamp, String article_body) {
         this.author_id = author_id;
         this.article_title = article_title;
-        this.article_date = article_date;
+        this.artcle_timestamp = article_timestamp;
         this.article_body = article_body;
     }
 
-    public Article(int article_id, String author_username, String author_firstname, String author_lastname, String article_title, Date article_date, String article_body) {
+    public Article(int article_id, String author_username, String author_firstname, String author_lastname, String article_title, Timestamp article_timestamp, String article_body) {
         this.article_id = article_id;
         this.author_username = author_username;
         this.author_firstname = author_firstname;
         this.author_lastname = author_lastname;
         this.article_title = article_title;
-        this.article_date = article_date;
+        this.artcle_timestamp = article_timestamp;
         this.article_body = article_body;
     }
 
-    public void setArticleParameters(int article_id, String author_username, String author_firstname, String author_lastname, String article_title, Date article_date, String article_body) {
+    public void setArticleParameters(int article_id, String author_username, String author_firstname, String author_lastname, String article_title, Timestamp article_timestamp, String article_body) {
         this.article_id = article_id;
         this.author_username = author_username;
         this.author_firstname = author_firstname;
         this.author_lastname = author_lastname;
         this.article_title = article_title;
-        this.article_date = article_date;
+        this.artcle_timestamp = article_timestamp;
         this.article_body = article_body;
     }
 
@@ -89,12 +90,12 @@ public class Article implements Serializable {
         this.article_title = article_title;
     }
 
-    public Date getArticle_date() {
-        return article_date;
+    public Timestamp getArtcle_timestamp() {
+        return artcle_timestamp;
     }
 
-    public void setArticle_date(Date article_date) {
-        this.article_date = article_date;
+    public void setArtcle_timestamp(Timestamp artcle_timestamp) {
+        this.artcle_timestamp = artcle_timestamp;
     }
 
     public String getArticle_body() {

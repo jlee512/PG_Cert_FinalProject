@@ -27,7 +27,7 @@
 
 <p style="white-space: pre-wrap;">${requestScope.article.article_body}</p>
 <br>
-<em>Published: ${requestScope.article.article_date}</em>
+<em>Published: ${requestScope.date}</em>
 <hr>
 
 <%---------------------------------------Comments-------------------------------------------------%>
@@ -36,17 +36,20 @@
 <div class="top_level_comment_feed">
        <%--Top level comments are dropped into here from AJAX calls--%>
 </div>
+
+
 <%--Loader animation and bottom of comments symbol--%>
 <div class="loader-wrapper" style="margin-left: 3%;">
     <div class="loader" style="display: inline-block;"></div>
 </div>
-
 <div class="loaded-wrapper">
     <div id="loaded1" style="display: inline-block;"></div>
     <div id="loaded2" style="display: inline-block;"></div>
     <div id="loaded3" style="display: inline-block;"></div>
     <div id="loaded4" style="display: inline-block;"></div>
 </div>
+
+
 <div id="userdetails" style="display: none">${sessionScope.userDetails.username}</div>
 <div id="articleid" style="display: none">${requestScope.article.article_id}</div>
 <script src="Javascript/show_comment_replies.js"></script>
@@ -54,6 +57,7 @@
 <script src="Javascript/add_comment_form.js"></script>
 <script src="Javascript/reply_to_comment_form.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
+
 </body>
 </html>
 <%--Need to set up a function to retrieve replies if Show Replies button is clicked--%>

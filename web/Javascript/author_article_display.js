@@ -5,21 +5,11 @@
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
     "<a class='individualArticleLink'>" +
-        "<div class='container text-center' id='mainContent'>" +
-            "<div class='row'>" +
-                "<div class='col-md-1'></div>" +
-                    "<div class='panel panel-default col-sm-12 col-md-10'>" +
-                        "<div style='padding-top: 2%'>" +
-                            "<div class='panel panel-default'>" +
-                                "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
-                                    "<h3 class='panel-title'></h3>" +
-                                "</div>" +
-                                "<div class='panel-body'>" +
-                                "</div>" +
-                            "</div>" +
-                        "</div>" +
-                    "</div>" +
-                "<div class='col-md-1'></div>" +
+        "<div class='panel panel-default'>" +
+            "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
+                "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
+            "</div>" +
+            "<div class='panel-body'>" +
             "</div>" +
         "</div>" +
     "</a>";
@@ -44,13 +34,15 @@ function normalBackgroundColor() {
 
 }
 
-$('.news_feed').on('mouseenter', '.individualArticleLink', hoverBackgroundColor);
+/*jQuery function to animate headings of articles as they are hovered over*/
 
-$('.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundColor);
+$('div.news_feed').on('mouseenter', '.individualArticleLink', hoverBackgroundColor);
+
+$('div.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundColor);
 
 /* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
 var from = 0;
-var count = 4;
+var count = 6;
 var moreArticles = true;
 
 
@@ -73,13 +65,14 @@ function successfulArticleLoad(msg) {
 
             /*Make each article container a link to the full article*/
             var href = "ViewArticle?article_id=" + article.article_id;
+
             articleDiv.attr("href", href);
 
             articleDiv.find(".panel-title").text(article.article_title);
 
             var date = new Date(article.article_timestamp);
-            var formattedDate = formatDate(date);
 
+            var formattedDate = formatDate(date);
 
             articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + formattedDate + "</p><p>" + article.article_body + "</p>");
             articleDiv.find(".panel-body").css("text-align", "left");
@@ -88,12 +81,12 @@ function successfulArticleLoad(msg) {
             $('.loader-wrapper').hide();
 
             articleContainer.append(articleDiv);
+        }
 
-            if (msg.length < count) {
-                $('.loader-wrapper').hide();
-                $('#loaded1, #loaded2, #loaded3, #loaded4').show();
-                moreArticles = false;
-            }
+        if (msg.length < count) {
+            $('.loader-wrapper').hide();
+            $('#loaded1, #loaded2, #loaded3, #loaded4').show();
+            moreArticles = false;
         }
     }
 }
@@ -134,7 +127,7 @@ function loadArticlesIncrement() {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: 'MainContentAccess',
+        url: 'ViewIndividualArticles',
         type: 'GET',
         data: {from: from, count: count},
         success: function (msg) {
@@ -155,7 +148,7 @@ $(document).ready(function () {
     $(window).scroll(function() {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) & moreArticles) {
+        if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreArticles) {
             loadArticlesIncrement();
         }
     });

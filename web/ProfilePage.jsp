@@ -36,7 +36,8 @@
             border-bottom: none !important;
             background-color: transparent;
         }
-        .add-article-button {
+
+        .add-article-button, .change-profile-pic-button {
 
             background-color: #b2ebf2 !important;
             -webkit-transition: background-color 1s;
@@ -44,15 +45,53 @@
 
         }
 
-        .add-article-button:hover {
+        .change-profile-pic-button {
+
+            margin-top: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+
+        }
+
+        .add-article-button:hover, .change-profile-pic-button:hover {
             background-color: #ffd54f !important;
         }
+
+        .fixedDefaultPictureSize {
+            position: relative;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            width: 120px;
+            height: 120px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /*Styling for radio check boxes for profile pictures*/
+        label > input { /* HIDE RADIO */
+            visibility: hidden; /* Makes input not-clickable */
+            position: absolute; /* Remove input from document flow */
+        }
+
+        label > input + img { /* IMAGE STYLES */
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        label > input:checked + img { /* (RADIO CHECKED) IMAGE STYLES */
+            border: 2px solid #ffd54f;
+        }
+
+        /*END OF STYLING*/
     </style>
 
+    <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 
 </head>
 
-<link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 <body>
 
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
@@ -66,11 +105,21 @@
 
 
                     <%------Profile Picture------%>
-                <input id="profile-image-upload" type="file" onsubmit="" formmethod="POST"
-                       formaction="UploadProfilePicture">
-                <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
-                     class="img-responsive center-block"
-                     style="padding-top: 15px; padding-bottom: 15px;">
+                <div>
+                    <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
+                         class="img-responsive center-block"
+                         style="padding-top: 15px; padding-bottom: 15px;">
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading change-profile-pic-button">
+                                <p><i class="fa fa-user-circle" aria-hidden="true"></i> Change Profile Picture</p>
+                            </div>
+                        </div>
+                        <div class="change_picture_options">
+                                <%--Change profile picture inserted here depending on toggle option--%>
+                        </div>
+                    </div>
+                </div>
             </div>
 
                 <%------Beginning of nested profile panel------%>
@@ -141,24 +190,26 @@
                     </form>
 
                         <%------Profile settings------%>
-                    <div>
-                        <h3><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h3>
+                    <h3><i class="fa fa-user" style="font-size: 30px"></i> Profile settings:</h3>
 
+                    <div class="text-center">
                             <%--Change password--%>
-                        <button onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
+                        <button class="btn btn-info btn-sm"
+                                onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
                             Change password
                         </button>
 
                             <%--Delete account--%>
-                        <button type="submit" id="deleteaccount">Delete
+                        <button class="btn btn-info btn-sm" type="submit" id="deleteaccount">Delete
                             account
                         </button>
 
                             <%--Edit profile--%>
-                        <button style="display: inline-block;" name="editButton"
+                        <button class="btn btn-info btn-sm" style="display: inline-block;" name="editButton"
                                 id="editButton">edit profile
                         </button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -166,27 +217,35 @@
 
 
         <div class="col-sm-8" id="userArticles">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">${sessionScope.userDetails.username}'s Article Archive</h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">${sessionScope.userDetails.username}'s Article Archive</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading add-article-button">
+                            <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="panel panel-default">
-                            <div class="panel-heading add-article-button">
-                                <p><i class="fa fa-plus" aria-hidden="true"></i> Add an Article</p>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <p><i class="fa fa-newspaper-o" aria-hidden="true"></i> ARTICLE TITLE INSERT HERE</p>
-                            </div>
-                            <div class="panel-body">ARTICLE BODY INSERT HERE</div>
-                        </div>
+                    <div class="news_feed">
+                            <%--Articles are inserted here via AJAX request--%>
                     </div>
                 </div>
+                <div class="loader-wrapper" style="text-align: center;">
+                    <div class="loader" style="display: inline-block;"></div>
+                </div>
+                <br class="loader-wrapper">
+                <br class="loader-wrapper">
+                <div class="loaded-wrapper" style="text-align: center;">
+                    <div id="loaded1" style="display: inline-block;"></div>
+                    <div id="loaded2" style="display: inline-block;"></div>
+                    <div id="loaded3" style="display: inline-block;"></div>
+                    <div id="loaded4" style="display: inline-block;"></div>
+                </div>
+                <br class="loaded-wrapper">
+                <br class="loaded-wrapper">
+            </div>
         </div>
-
-        <%--Space to type code--%>
 
 
     </c:when>
@@ -198,38 +257,36 @@
     </c:otherwise>
 </c:choose>
 
-</body>
+<%---------------------------Script Inclusions---------------------------------%>
+
+<%--Include Bootstrap JS, jQuery and jQuery UI--%>
+<%@ include file="BodyStylingLinks.jsp" %>
+
 <script type="application/javascript" src="Javascript/add_an_article_form.js"></script>
+<script type="application/javascript" src="Javascript/author_article_display.js"></script>
+<%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
+/*Moved by JUL to separate JS file*/
+<script type="application/javascript" src="Javascript/UpdateProfilePicture.js"></script>
+<%------------------------------------------------------------------------------------------------------------------------------------%>
 
-<%--Include jQuery--%>
-<script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
 
-<%--Bootstrap core JavaScript--%>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 
-    <%--Hide the upload image--%>
-    $("#profile-image-upload").hide();
 
-    <%--resizing the textarea--%>
+    <%--resizing the textarea also rezise when window is resizes--%>
+    <%--REVISIT THIS make it resize when window is reduced--%>
     $("textarea").height($("textarea")[0].scrollHeight);
 
     window.onresize = function (event) {
         $("textarea").height($("textarea")[0].scrollHeight);
     };
 
-    <%--Make variable names for all input fields and the submit button--%>
+    <%--Makes all inputs of the form readonly--%>
     var inputfields = $("form").find(':input');
-    var saveChanges = $("form").find($("#saveChanges"));
-
-    <%---Set variables to readonly and hide submit button--%>
     inputfields.attr('readonly', 'readonly');
-    saveChanges.hide();
 
-    <%--Edit button makes the form editable and the save changes button appears--%>
+
+    <%--Edit button makes the form editable and the save changes button is appended--%>
     $("#editButton").click(function () {
         inputfields.removeAttr('readonly', 'readonly');
         if (!$('#saveChanges')[0]) {
@@ -237,8 +294,8 @@
         }
     });
 
-    <%--Save changes returns the form to readonly and the button becomes hidden--%>
-    saveChanges.click(function () {
+    <%--Save changes returns the form to readonly and the button is removed--%>
+    $("#saveChanges").click(function () {
         inputfields.attr('readonly', 'readonly');
         $("#saveChanges").remove();
 
@@ -252,13 +309,8 @@
         }
     });
 
-    $(function () {
-        $('#profile-image').on('click', function () {
-            $('#profile-image-upload').click();
-        });
-    });
-
-
 </script>
+
+</body>
 
 </html>

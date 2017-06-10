@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by jlee512 on 8/06/2017.
@@ -33,12 +34,12 @@ public class AddAnArticleAttempt extends HttpServlet {
         User user = (User) session.getAttribute("userDetails");
         int author_id = user.getUser_id();
         String username = user.getUsername();
-        Date currentDate = new Date(System.currentTimeMillis());
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
         String article_title_input = request.getParameter("article_title_input");
         String article_body_input = request.getParameter("article_body_input");
 
-        int articleAdditionStatus = ArticleDAO.addArticleToDB(DB, author_id, article_title_input, currentDate, article_body_input);
+        int articleAdditionStatus = ArticleDAO.addArticleToDB(DB, author_id, article_title_input, currentTimestamp, article_body_input);
 
         switch (articleAdditionStatus) {
             case 1:

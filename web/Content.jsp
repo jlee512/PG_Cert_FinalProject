@@ -53,7 +53,6 @@
 
     <title>Your Account</title>
     <%@ include file="HeadStylingLinks.jsp" %>
-</head>
 
 <style type="text/css">
 
@@ -83,7 +82,9 @@
 
 <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 
-<link rel="shortcut icon" type="image/png" href="/Multimedia/favicon.png">
+<link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
+
+</head>
 
 <body>
 
@@ -92,7 +93,7 @@
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
 
-        <p class="text-center">Welcome <strong>${sessionScope.userDetails.username}</strong>! Good to see you</p>
+        <p class="text-center">Welcome <strong><a href="ProfilePage?username=${sessionScope.userDetails.username}" style="color: #f9a825;">${sessionScope.userDetails.username}</a></strong>! Good to see you</p>
 
 
         <div class="news_feed">

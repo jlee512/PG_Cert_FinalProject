@@ -1,14 +1,20 @@
 package login.system.servlets;
 
+import login.system.dao.User;
+import login.system.dao.UserDAO;
+import login.system.db.MySQL;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,17 +29,12 @@ public class ProfilePicture extends HttpServlet {
 
     private boolean isMultipart;
     private String filePath;
-    private int maxFileSize = 5000 * 1024;
-    private int maxUploadSize = 50000 * 1024;
+    private int maxFileSize = 10 * 1024 * 1024;
+    private int maxUploadSize = 10 * 1024 * 1024;
     private File file;
 
 
     // Gets the file location the uploaded file is stored
-    public void init() {
-
-        filePath = getServletContext().getRealPath("/Multimedia");
-        filePath += "/";
-    }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,12 +43,34 @@ public class ProfilePicture extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("POSTME");
-        // Check that we have a file upload request
+
+        MySQL DB = new MySQL();
+
+
+
+//       Store the file save file path
+        ServletContext servletContext = getServletContext();
+        filePath = servletContext.getRealPath("Multimedia/");
+
+        HttpSession session = request.getSession(true);
+        User user = (User) session.getAttribute("userDetails");
+
+
+
+
+
+
+        /*Obtain current user profile picture filepath*/
+
+        /*Extract profile picture filepath number*/
+
+        /*Increment profile picture filepath number by 1 and create save file string*/
+
+
         isMultipart = ServletFileUpload.isMultipartContent(request);
 
         if (!isMultipart) {
-            response.sendRedirect("ProfilePage");
+            response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&photoUpload=invalid");
         }
 
         DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -66,7 +89,7 @@ public class ProfilePicture extends HttpServlet {
 
         try {
 
-            // Parse the request to get file items.
+//         Parse the request to get file items.
             List fileItems = upload.parseRequest(request);
 
             // Process the uploaded file items
@@ -86,30 +109,55 @@ public class ProfilePicture extends HttpServlet {
                     boolean isInMemory = fi.isInMemory();
                     long sizeInBytes = fi.getSize();
 
-                    // Write the file
+
+                    /*~~~~~ Write the file and make sure the file name is unique ~~~~~*/
+
                     if (fileName.lastIndexOf("\\") >= 0) {
                         file = new File(filePath +
                                 fileName.substring(fileName.lastIndexOf("\\")));
+
+                        int counter = 0;
+                        while (file.exists()) {
+
+                            String extension = FilenameUtils.getExtension(fileName);
+                            fileName = FilenameUtils.removeExtension(fileName);
+                            fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
+                            counter++;
+                            file = new File(filePath +
+                                    fileName.substring(fileName.lastIndexOf("\\")));
+                        }
                     } else {
                         file = new File(filePath +
                                 fileName.substring(fileName.lastIndexOf("\\") + 1));
+
+                        int counter = 0;
+                        while (file.exists()) {
+
+                            String extension = FilenameUtils.getExtension(fileName);
+                            fileName = FilenameUtils.removeExtension(fileName);
+                            fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
+                            counter++;
+                            file = new File(filePath +
+                                    fileName.substring(fileName.lastIndexOf("\\") + 1));
+                        }
                     }
+                    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+                    /* Write the file */
                     fi.write(file);
-
-                    BufferedImage img = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
-                    img.createGraphics().drawImage(ImageIO.read(new File(filePath + file.getName())).getScaledInstance(100, 100, Image.SCALE_SMOOTH), 0, 0, null);
-                    ImageIO.write(img, "png", new File(file.getPath().replace(".jpg", "_thumbnail.png")));
+                    /* Update the database and session */
+                    UserDAO.updateProfilePicture(DB, "Multimedia/" + fileName, user.getUsername());
+                    user.setProfile_picture("Multimedia/" + fileName);
 
                 }
             }
+            /* Send the user back to their profile */
             response.sendRedirect("ProfilePage");
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-
-
 }
+
 
