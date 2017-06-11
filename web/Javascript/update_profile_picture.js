@@ -58,12 +58,12 @@ $(document).ready(function () {
 
                         $(".default-picture-choices").addClass("default_dialog_open");
                         $(".default-picture-choices").append("<div id='defaultPic'  >" +
-                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></div>" +
-                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></div>" +
-                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></div>" +
-                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></div>" +
-                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/si_robin.png'></div>" +
-                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/tui.jpg'></div>");
+                            "<div><div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></div>" +
+                            "<div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></div>" +
+                            "<div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></div></div>" +
+                            "<div><div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></div>" +
+                            "<div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/si_robin.png'></div>" +
+                            "<div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/tui.jpg'></div></div>");
 
                     }
 
