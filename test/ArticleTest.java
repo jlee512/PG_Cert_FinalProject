@@ -113,4 +113,11 @@ public class ArticleTest {
 
     }
 
+    @Test
+    public void test4DeleteAnArticleTest() {
+
+
+
+    }
+
 }

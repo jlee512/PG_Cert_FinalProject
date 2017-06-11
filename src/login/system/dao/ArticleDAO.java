@@ -37,7 +37,7 @@ public class ArticleDAO {
                 System.out.println("Article added to the database");
                 return 1;
             }
-        }  catch (SQLIntegrityConstraintViolationException e) {
+        } catch (SQLIntegrityConstraintViolationException e) {
             return 2;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,7 +115,7 @@ public class ArticleDAO {
         return articles;
     }
 
-    public static List<Article> getfirstNArticlePreviewsByAuthor(MySQL DB, int fromArticle, int numArticles , int author_id) {
+    public static List<Article> getfirstNArticlePreviewsByAuthor(MySQL DB, int fromArticle, int numArticles, int author_id) {
 
         /*Dummy article to be returned if article not found*/
         List<Article> articles = new ArrayList<Article>();
@@ -140,6 +140,39 @@ public class ArticleDAO {
     }
 
 
+    /*Method to delete and article*/
+    public static int deleteAnArticle(MySQL DB, int article_id) {
+
+        /*Establish connection to the database and delete the article (note: the corresponding servlet will need to confirm user log-in status prior to deletion*/
+
+        try (Connection c = DB.connection()) {
+
+            try (PreparedStatement stmt = c.prepareStatement("DELETE FROM uploaded_articles WHERE article_id = ?")) {
+
+                stmt.setInt(1, article_id);
+
+                /*Execute the prepared statement*/
+                stmt.executeUpdate();
+                System.out.println("Article successfully deleted");
+                return 1;
+            }
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
+            return 2;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 3;
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 4;
+
+        }
+    }
+
+
     /*Extracted method during refactoring to reduce code repitition*/
     public static void getListofArticles(List<Article> articles, PreparedStatement stmt) throws SQLException {
         try (ResultSet r = stmt.executeQuery()) {
@@ -160,7 +193,7 @@ public class ArticleDAO {
                 articles.add(article);
             }
 
-            if (articles.size() > 0){
+            if (articles.size() > 0) {
                 System.out.println("Article retrieved from the database");
             } else {
                 /*If the article can't be found in the database, return null article*/
