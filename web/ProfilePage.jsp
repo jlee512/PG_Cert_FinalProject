@@ -45,6 +45,15 @@
 
         }
 
+        .user-profile-pic-button, .default-profile-pic-button, .submit-user-pic {
+
+            background-color: #c4f4a4 !important;
+            -webkit-transition: background-color 1s;
+            transition: background-color 1s;
+            color: black;
+
+        }
+
         .change-profile-pic-button {
 
             margin-top: 0px;
@@ -53,7 +62,7 @@
 
         }
 
-        .add-article-button:hover, .change-profile-pic-button:hover {
+        .add-article-button:hover, .change-profile-pic-button:hover, .user-profile-pic-button:hover, .default-profile-pic-button:hover, .submit-user-pic:hover {
             background-color: #ffd54f !important;
         }
 
@@ -112,10 +121,10 @@
                     <div class="panel-body">
                         <div class="panel panel-default">
                             <div class="panel-heading change-profile-pic-button">
-                                <p><i class="fa fa-user-circle" aria-hidden="true"></i> Change Profile Picture</p>
+                                <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Change Profile Picture</p>
                             </div>
                         </div>
-                        <div class="change_picture_options">
+                        <div class="change-picture-options" style="text-align: center;">
                                 <%--Change profile picture inserted here depending on toggle option--%>
                         </div>
                     </div>
@@ -257,19 +266,6 @@
     </c:otherwise>
 </c:choose>
 
-<%---------------------------Script Inclusions---------------------------------%>
-
-<%--Include Bootstrap JS, jQuery and jQuery UI--%>
-<%@ include file="BodyStylingLinks.jsp" %>
-
-<script type="application/javascript" src="Javascript/add_an_article_form.js"></script>
-<script type="application/javascript" src="Javascript/author_article_display.js"></script>
-<%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
-<%--Moved by JUL to separate JS file--%>
-<script type="application/javascript" src="Javascript/UpdateProfilePicture.js"></script>
-<%------------------------------------------------------------------------------------------------------------------------------------%>
-
-
 <script>
 
 
@@ -309,7 +305,22 @@
         }
     });
 
+
+
 </script>
+
+<%---------------------------Script Inclusions---------------------------------%>
+
+<%--Include Bootstrap JS, jQuery and jQuery UI--%>
+<%@ include file="BodyStylingLinks.jsp" %>
+
+<script type="text/javascript" src="Javascript/add_an_article_form.js"></script>
+<script type="text/javascript" src="Javascript/author_article_display.js"></script>
+<%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
+<%--Moved by JUL to separate JS file--%>
+<script type="text/javascript" src="Javascript/update_profile_picture.js"></script>
+<%------------------------------------------------------------------------------------------------------------------------------------%>
+
 
 </body>
 
