@@ -37,7 +37,9 @@ function successfulCommentsLoad(msg) {
             var commentDiv = $(commentPara);
             var buttonsDiv = commentDiv.find('.buttons');
 
-            var date = new Date(comment.timestamp);
+            var dateUnformatted = new Date(comment.timestamp);
+            var date = formatDate(dateUnformatted);
+            console.log(date);
 
             /*Add a button to view replies if comment has replies*/
             if (comment.isParent) {
@@ -61,7 +63,7 @@ function successfulCommentsLoad(msg) {
             }
 
             /*Add header to comment template*/
-            commentDiv.find(".panel-heading").html("<p>" + comment.username + ", " + date.toDateString() + "</p>");
+            commentDiv.find(".panel-heading").html("<p>" + comment.username + ", " + date + "</p>");
             /*Add body to comment template*/
             commentDiv.find(".panel-body").html("<p>" + comment.content + "</p>");
 
@@ -94,6 +96,33 @@ function successfulCommentsLoad(msg) {
             }
         }
     }
+}
+
+function formatDate(date) {
+
+    var days = date.getDate();
+    var months = date.getMonth();
+    var year = date.getFullYear();
+
+    var hours = date.getHours();
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+
+    var minutes = date.getMinutes();
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    var amPM;
+
+    if (hours >= 12) {
+        amPM = 'PM';
+    } else {
+        amPM = 'AM';
+    }
+
+    return days + "/" + months + "/" + year + " " + hours +":" + minutes + " " + amPM;
+
 }
 
 function getArticleID () {

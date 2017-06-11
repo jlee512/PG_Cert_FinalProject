@@ -61,10 +61,12 @@ $(document).on("click", ".show_replies", function () {
                             var replyCommentsButtonPanel = $(commentContainerTemplate).find('.buttons');
 
                             var comment = msg[i];
-                            var date = new Date(comment.timestamp);
+                            var dateUnformatted = new Date(comment.timestamp);
+                            var date = formatDate(dateUnformatted);
+
 
                 /*--------Fillout the comment HTML template-----*/
-                            commentContainerTemplate.find(".panel-heading").html("<p>" + comment.author_username + ", " + date.toDateString() + "</p>");
+                            commentContainerTemplate.find(".panel-heading").html("<p>" + comment.author_username + ", " + date + "</p>");
                             commentContainerTemplate.find(".panel-body").html("<p>" + comment.content + "</p>");
 
                 /*--------Construct the buttons if required-----*/
@@ -115,6 +117,35 @@ $(document).on("click", ".show_replies", function () {
             });
         }
 });
+
+function formatDate(date) {
+
+    var days = date.getDate();
+    var months = date.getMonth();
+    var year = date.getFullYear();
+
+    var hours = date.getHours();
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+
+    var minutes = date.getMinutes();
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+
+
+    var amPM;
+
+    if (hours >= 12) {
+        amPM = 'PM';
+    } else {
+        amPM = 'AM';
+    }
+
+    return days + "/" + months + "/" + year + " " + hours +":" + minutes + " " + amPM;
+
+}
 
 function loadNestedCommentsFail(jqXHR, textStatus, errorThrown) {
     console.log(jqXHR.status);
