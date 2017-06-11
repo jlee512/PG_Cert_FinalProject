@@ -57,13 +57,13 @@ $(document).ready(function () {
                     } else {
 
                         $(".default-picture-choices").addClass("default_dialog_open");
-                        $(".default-picture-choices").append("<div id='defaultPic'  >" +
-                            "<div><div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></div>" +
-                            "<div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></div>" +
-                            "<div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></div></div>" +
-                            "<div><div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></div>" +
-                            "<div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/si_robin.png'></div>" +
-                            "<div style='width: 30%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/tui.jpg'></div></div>");
+                        $(".default-picture-choices").append("<div id='defaultPic'><form id='defaultPictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture' style='display: inline-block;'>" +
+                            "<div><button class='btn' type='submit' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kea.jpg' style='width: 25%; display: inline-block; padding: 0;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></button>" +
+                            "<button class='btn' type='submit' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kiwi.jpg' style='width: 25%; display: inline-block; padding: 0;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></button>" +
+                            "<button class='btn' type='submit' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kokako.jpg' style='width: 25%; display: inline-block; padding: 0;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></button></div>" +
+                            "<div><button class='btn' type='submit' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/manakura.jpg' style='width: 25%; display: inline-block; padding: 0;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></button>" +
+                            "<button class='btn' type='submit' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/si_robin.png' style='width: 25%; display: inline-block; padding: 0;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/si_robin.png'></button>" +
+                            "<button class='btn' type='submit' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/tui.jpg' style='width: 25%; display: inline-block; padding: 0;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/tui.jpg'></button></div></form>");
 
                     }
 
