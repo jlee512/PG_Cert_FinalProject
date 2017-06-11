@@ -92,6 +92,12 @@
             border: 2px solid #ffd54f;
         }
 
+        #editButton, #deleteaccount, #changePassword {
+
+            background-color: #00acc1;
+
+        }
+
         /*END OF STYLING*/
     </style>
 
@@ -203,7 +209,7 @@
 
                     <div class="text-center">
                             <%--Change password--%>
-                        <button class="btn btn-info btn-sm"
+                        <button class="btn btn-info btn-sm" id="changePassword"
                                 onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
                             Change password
                         </button>
@@ -286,7 +292,7 @@
     $("#editButton").click(function () {
         inputfields.removeAttr('readonly', 'readonly');
         if (!$('#saveChanges')[0]) {
-            $("#submit").append("<input type='submit' id='saveChanges' name='savechange' value='save changes'>")
+            $("#submit").append("<input type='submit' class='btn btn-sm' id='saveChanges' name='savechange' value='save changes' style='background-color: #00acc1;'>")
         }
     });
 

@@ -12,7 +12,7 @@ var articleTemplate =
                         "<div style='padding-top: 2%'>" +
                             "<div class='panel panel-default'>" +
                                 "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
-                                    "<h3 class='panel-title'></h3>" +
+                                    "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
                                 "</div>" +
                                 "<div class='panel-body'>" +
                                 "</div>" +
@@ -75,7 +75,7 @@ function successfulArticleLoad(msg) {
             var href = "ViewArticle?article_id=" + article.article_id;
             articleDiv.attr("href", href);
 
-            articleDiv.find(".panel-title").text(article.article_title);
+            articleDiv.find(".panel-title").append(" " + article.article_title);
 
             var date = new Date(article.article_timestamp);
             var formattedDate = formatDate(date);
