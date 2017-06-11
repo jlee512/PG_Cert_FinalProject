@@ -24,7 +24,7 @@ CREATE TABLE registered_users (
 CREATE TABLE uploaded_articles (
   article_id    INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   author_id     INT             NOT NULL,
-  timestamp     TIMESTAMP       NOT NULL,
+  timestamp     TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   article_title VARCHAR(500)    NOT NULL,
   article_body  TEXT            NOT NULL,
   FOREIGN KEY (author_id) REFERENCES registered_users (user_id),
@@ -39,12 +39,13 @@ CREATE TABLE posted_comments (
   article_id        INT             NOT NULL,
   author_id         INT             NOT NULL,
   parent_comment_id INT,
-  timestamp         TIMESTAMP       NOT NULL,
+  timestamp         TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   comment_body      TEXT            NOT NULL,
   is_parent         BOOLEAN,
   FOREIGN KEY (article_id) REFERENCES uploaded_articles (article_id),
   FOREIGN KEY (author_id) REFERENCES registered_users (user_id),
   FOREIGN KEY (parent_comment_id) REFERENCES posted_comments (comment_id)
+  ON DELETE CASCADE
 );
 
 CREATE TABLE posted_multimedia (
