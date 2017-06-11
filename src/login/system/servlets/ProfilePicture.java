@@ -38,7 +38,7 @@ public class ProfilePicture extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("GETME");
+        System.out.println("get to redirect");
 
     }
 
