@@ -20,7 +20,7 @@ $(document).on("click", ".show_replies", function () {
     var authorUsername = $("#author").text();
     var button = $(this);
     var parentID = button.val();
-    var commentContainer = $('<div></div>');
+    var commentContainer = $('<div style="margin-left: 5%"></div>');
     var buttonsDiv = button.parent();
     // console.log(replyCommentButtonsDiv.prop('nodeName'));
     // console.log(replyCommentButtonsDiv.attr('class'));
