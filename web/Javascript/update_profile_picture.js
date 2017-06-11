@@ -17,8 +17,8 @@ $(document).ready(function () {
                 $(".change-profile-pic-button").addClass("profile_pic_dialog_open");
                 $(".change-profile-pic-button").html("<p><i class='fa fa-user-circle' aria-hidden='true'></i> Choose a New Profile Picture</p>");
 
-                $(".change-picture-options").html("<form id='pictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture'>" +
-                    "<button type='button' class='user-profile-pic-button btn btn-sm' style='color: black !important; width : 45% !important;'>" +
+                $(".change-picture-options").html("<form id='pictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture' style='display: inline-block;'>" +
+                    "<button type='button' class='user-profile-pic-button btn btn-sm' style='color: black !important;'>" +
                     "<i class='fa fa-file-image-o' aria-hidden='true'></i>" +
                     " Upload Your Own" +
                     "</button> " +
@@ -26,10 +26,11 @@ $(document).ready(function () {
                     "<button type='submit' class='submit-user-pic btn btn-sm' id='userChosenPicture' style='display: none;'" +
                     "</button>" +
                     "</form>" +
-                    "<button class='default-profile-pic-button btn btn-sm' style='color: black !important; width : 45% !important;'>" +
+                    "<button type='button' class='default-profile-pic-button btn btn-sm' style='color: black !important;'>" +
                     "<i class='fa fa-archive' aria-hidden='true'></i>" +
                     " Select a Default" +
-                    "</button>");
+                    "</button>" +
+                    "<div class='default-picture-choices' style='width: 100%;'></div>");
             }
 
             $(".user-profile-pic-button").on('click', (function () {
@@ -42,6 +43,30 @@ $(document).ready(function () {
             $(".profile-image-upload").on('change', (function () {
 
                     $(".submit-user-pic").click();
+
+                })
+            );
+
+            $(".default-profile-pic-button").on('click', (function () {
+
+                    if ($(".default_dialog_open")[0]) {
+
+                        $(".default-picture-choices").removeClass("default_dialog_open");
+                        $(".default-picture-choices").empty();
+
+                    } else {
+
+                        $(".default-picture-choices").addClass("default_dialog_open");
+                        $(".default-picture-choices").append("<div id='defaultPic'  >" +
+                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></div>" +
+                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></div>" +
+                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></div>" +
+                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></div>" +
+                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/si_robin.png'></div>" +
+                            "<div style='width: 30%; height: 10%; display: inline-block;'><img class='img-responsive img-thumbnail' style='width: 100%; margin: none;' align='middle' src='Multimedia/DefaultProfilePictureOptions/tui.jpg'></div>");
+
+                    }
+
 
                 })
             );
