@@ -16,6 +16,7 @@
     </c:if>
     <title>${requestScope.article.article_title}</title>
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
+    <link rel="stylesheet" type="text/css" href="CSS/comment_styling.css">
 </head>
 <body>
 <%@include file="Navbar.jsp" %>
@@ -56,6 +57,7 @@
 <script src="Javascript/show_top_level_comments.js"></script>
 <script src="Javascript/add_comment_form.js"></script>
 <script src="Javascript/reply_to_comment_form.js"></script>
+<script src="Javascript/edit_comment_form.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
 
 </body>

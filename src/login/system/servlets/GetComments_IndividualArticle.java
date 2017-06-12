@@ -37,8 +37,8 @@ public class GetComments_IndividualArticle extends HttpServlet {
 
         for (int i = 0; i < commentList.size(); i++) {
             JSONObject singleComment = new JSONObject();
-            singleComment.put("commentID", commentList.get(i).getCommentID());
-            singleComment.put("authorID", commentList.get(i).getAuthorID());
+            singleComment.put("comment_id", commentList.get(i).getCommentID());
+            singleComment.put("author_id", commentList.get(i).getAuthorID());
             singleComment.put("timestamp", commentList.get(i).getTimestamp().getTime());
             singleComment.put("content", commentList.get(i).getContent());
             singleComment.put("username", commentList.get(i).getAuthor_username());

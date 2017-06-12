@@ -17,8 +17,8 @@ public class DeleteComment extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MySQL DB = new MySQL();
-        int commentID = Integer.parseInt(request.getParameter("commentID"));
-        int articleID = Integer.parseInt(request.getParameter("articleID"));
+        int commentID = Integer.parseInt(request.getParameter("comment_id"));
+        int articleID = Integer.parseInt(request.getParameter("article_id"));
 
         /*Setup delete comment thread and run*/
         Thread deleteComment = new Thread(new Runnable() {
@@ -31,9 +31,9 @@ public class DeleteComment extends HttpServlet {
         deleteComment.run();
 
         /*Setup parent comment adjustment and run*/
-        String parent_comment_id = request.getParameter("parentCommentID");
+        String parent_comment_id = request.getParameter("parent_comment_id");
         if (parent_comment_id != null && parent_comment_id.length() > 0){
-            int parentID = Integer.parseInt(request.getParameter("parentCommentID"));
+            int parentID = Integer.parseInt(request.getParameter("parent_comment_id"));
             Thread commentAdjust = new Thread(new Runnable() {
                 @Override
                 public void run() {

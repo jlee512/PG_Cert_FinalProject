@@ -44,22 +44,22 @@ function successfulCommentsLoad(msg) {
             /*Add a button to view replies if comment has replies*/
             if (comment.isParent) {
                 isParent = true;
-                var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.commentID + '">Show Replies</button>';
+                var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.comment_id + '">Show Replies</button>';
             } else {
                 isParent = false;
             }
 
             /*Add a button to reply to the comment*/
-            var replyButton = '<button type="button" class="add_reply btn btn-default" value="' + comment.commentID + '">Reply</button>';
+            var replyButton = '<button type="button" class="add_reply btn btn-default" value="' + comment.comment_id + '">Reply</button>';
 
             /*Add a button to delete the comment if current user is comment author or article author*/
             if (username == comment.username || username == authorUsername) {
-                var deleteButton = '<a href="DeleteComment?commentID=' + comment.commentID + '&articleID=' + getArticleID() + '" class="btn btn-default">Delete</a>'
+                var deleteButton = '<a href="DeleteComment?comment_id=' + comment.comment_id + '&article_id=' + getArticleID() + '" class="btn btn-default">Delete</a>'
             }
 
             /*Add a button to edit the comment if current user is comment author*/
             if (username == comment.username) {
-                var editButton = '<a href="EditCommentForm?comment_id=' + comment.commentID + '&article_id=' + getArticleID() + '&comment_body=' + comment.content + '" class="btn btn-default">Edit</a>'
+                var editButton = '<button type="button" class="edit_comment btn btn-default" value="' + comment.comment_id + '">Edit</button>';
             }
 
             /*Add header to comment template*/

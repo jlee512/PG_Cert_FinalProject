@@ -40,8 +40,8 @@ public class AddCommentAttempt extends HttpServlet {
         User currentUser = (User) session.getAttribute("userDetails");
 
         int userID = currentUser.getUser_id();
-        if (request.getParameter("parentComment_id").length() > 0){
-            int parentCommentID = Integer.parseInt(request.getParameter("parentComment_id"));
+        if (request.getParameter("parent_comment_id").length() > 0){
+            int parentCommentID = Integer.parseInt(request.getParameter("parent_comment_id"));
             status = addReplyComment(parentCommentID, articleID, DB, userID, currentTime, content);
             System.out.println(status);
         }
