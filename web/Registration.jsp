@@ -103,6 +103,10 @@
                                     again
                                     soon</p>
                             </c:when>
+                            <c:when test="${param.registrationStatus == 'recaptchaNull'}">
+                                <br>
+                                <p style="color: red">You did not complete the recaptcha validation</p>
+                            </c:when>
                         </c:choose>
                         <%------------------------------------------------------------------------------%>
 
