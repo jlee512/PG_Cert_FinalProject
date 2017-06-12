@@ -122,7 +122,7 @@ public class ArticleDAO {
 
         try (Connection c = DB.connection()) {
 
-            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, timestamp, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = ? ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, timestamp, article_title, article_body AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = ? ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
 
                 stmt.setInt(1, author_id);
                 stmt.setInt(2, numArticles);
