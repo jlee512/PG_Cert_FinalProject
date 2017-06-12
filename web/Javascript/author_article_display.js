@@ -14,6 +14,9 @@ var articleTemplate =
         "</div>" +
     "</a>";
 
+//Get the username of the author.
+var username = $("#username").text();
+
 /*jQuery function to animate each article header on hover*/
 
 function hoverBackgroundColor() {
@@ -137,7 +140,7 @@ function loadArticlesIncrement() {
 
         url: 'ViewIndividualArticles',
         type: 'GET',
-        data: {from: from, count: count},
+        data: {from: from, count: count, username: username},
         success: function (msg) {
             successfulArticleLoad(msg);
         },

@@ -63,7 +63,7 @@ function successfulCommentsLoad(msg) {
             }
 
             /*Add header to comment template*/
-            commentDiv.find(".panel-heading").html("<p>" + comment.username + ", " + date + "</p>");
+            commentDiv.find(".panel-heading").html('<p><strong><a href="PublicProfile?username='+ comment.username + '"style="color: #f9a825;">' + comment.username + '</a></strong>, ' + date + '</p>');
             /*Add body to comment template*/
             commentDiv.find(".panel-body").html("<p>" + comment.content + "</p>");
 
