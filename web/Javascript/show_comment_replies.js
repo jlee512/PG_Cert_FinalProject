@@ -19,6 +19,7 @@ $(document).on("click", ".show_replies", function () {
     var username = $("#userdetails").text();
     var authorUsername = $("#author").text();
     var button = $(this);
+    $(button).mouseup(function() { this.blur() });
     var parentID = button.val();
     var commentContainer = $('<div style="margin-left: 5%"></div>');
     var buttonsDiv = button.parent();

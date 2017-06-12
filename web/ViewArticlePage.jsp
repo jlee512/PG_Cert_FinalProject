@@ -16,6 +16,7 @@
     </c:if>
     <title>${requestScope.article.article_title}</title>
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
+    <link rel="stylesheet" type="text/css" href="CSS/comment_styling.css">
 </head>
 <body>
 <%@include file="Navbar.jsp" %>
