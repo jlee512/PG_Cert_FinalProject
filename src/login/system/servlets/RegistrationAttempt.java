@@ -56,10 +56,18 @@ public class RegistrationAttempt extends HttpServlet {
 
             int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
 
+            int user_id = registrationStatus;
+
+            /*reset the registrationStatus variable to be 1 if the user is successfully added*/
+            if (user_id >= 0) {
+                registrationStatus = 1;
+            }
+
             switch (registrationStatus) {
                 case 1:
                     System.out.println("User added successfully");
                     User user = new User(usernameInput, hash, salt, iterations, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
+                    user.setUser_id(user_id);
 
                     /*If successful user additon, automatically login in user for the given session*/
                     HttpSession session = request.getSession(true);

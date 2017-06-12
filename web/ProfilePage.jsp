@@ -114,34 +114,85 @@
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
 
-        <%--If the article deleted parameter exists, display a top level panel header notifying the user of the article deletion status--%>
-        <c:if test="${not empty param.articleDeleted}">
-        <c:choose>
-            <%--When the article is successfully deleted--%>
-            <c:when test="${param.articleDeleted}">
-                <div> class="comment-delete delete-true panel panel-default">
-                    <div class="panel-heading">
-                        Article successfully deleted
-                    </div>
-                </div>
 
-            </c:when>
-
-            <%--If the article is not successfully deleted--%>
-            <c:when test="${not param.articleDeleted}">
-                <div> class="comment-delete delete-false panel panel-default">
-                    <div class="panel-heading">
-                        The article has already been deleted or you are not able to delete this article
-                    </div>
-                </div>
-
-            </c:when>
-        </c:choose>
-        </c:if>
 
         <%--Main  panel--%>
         <div class="col-sm-4" id="profileContent">
             <div class="panel panel-default" style="padding-right: 15px; padding-left: 15px;">
+
+
+  <%---------------------------------ALERT MESSAGES-----------------------------%>
+                    <%--If the article deleted parameter exists, display a top level panel header notifying the user of the article deletion status--%>
+                <c:if test="${not empty param.articleDeleted}">
+                    <c:choose>
+                        <%--When the article is successfully deleted--%>
+                        <c:when test="${param.articleDeleted}">
+                            <div class="comment-delete delete-true card" style="text-align: center; background-color: #c2f5a3;">
+                                <div class="card-header">
+                                    <h3>Article successfully deleted</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                        <%--If the article is not successfully deleted--%>
+                        <c:when test="${not param.articleDeleted}">
+                            <div class="comment-delete delete-false card" style="text-align: center; background-color: #fad1d1;">
+                                <div class="card-header">
+                                    <h3>You do not have permission to delete this article</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+                    </c:choose>
+                </c:if>
+
+                    <%--If the articleadded parameter exists, display a top level panel header notifying the user of the article addition status--%>
+                <c:if test="${not empty param.articleadded}">
+                    <c:choose>
+                        <%--When the article is successfully added--%>
+                        <c:when test="${param.articleadded == 'successful'}">
+                            <div class="article-add add-true card" style="text-align: center; background-color: #c2f5a3;">
+                                <div class="card-header">
+                                    <h3>Article successfully added</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                        <%--If the article is not successfully added (duplicate)--%>
+                        <c:when test="${param.articleadded == 'duplicate'}">
+                            <div class="article-add add-duplicate card" style="text-align: center; background-color: #fff3cc;">
+                                <div class="card-header">
+                                    <h3>You have tried to add a duplicate article</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                        <%--If the article is not successfully added (invalid)--%>
+                        <c:when test="${param.articleadded == 'invalid'}">
+                            <div class="article-add add-invalid card" style="text-align: center; background-color: #fff3cc;">
+                                <div class="card-header">
+                                    <h3>The article contains invalid fields</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                        <%--If the article is not successfully added (invalid)--%>
+                        <c:when test="${param.articleadded == 'db'}">
+                            <div class="article-add add--db card" style="text-align: center; background-color: #fff3cc;">
+                                <div class="card-header">
+                                    <h3>The article could not be added to the database</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                    </c:choose>
+                </c:if>
+ <%-----------------------------ALERT MESSAGES FINISHED------------------------%>
 
 
                     <%------Profile Picture------%>
