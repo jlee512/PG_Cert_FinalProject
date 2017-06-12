@@ -401,6 +401,7 @@
 <%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
 <%--Moved by JUL to separate JS file--%>
 <script type="text/javascript" src="Javascript/update_profile_picture.js"></script>
+<script type="text/javascript" src="Javascript/edit_an_article_form.js"></script>
 
 <%------------------------------------------------------------------------------------------------------------------------------------%>
 
