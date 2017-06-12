@@ -313,7 +313,7 @@
         <url-pattern>/ProfilePage</url-pattern>
     </servlet-mapping>
 
-    <!--(11) Edit Comment-->
+    <!--(12) Edit Comment-->
     <servlet>
         <servlet-name>EditCommentFormJSP</servlet-name>
         <jsp-file>/EditCommentForm.jsp</jsp-file>
