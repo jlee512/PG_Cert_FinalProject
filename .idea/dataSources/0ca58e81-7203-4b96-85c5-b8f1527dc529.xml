@@ -78,6 +78,7 @@
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>posted_comments</RefTableName>
       <RefColNames>comment_id</RefColNames>
+      <OnDelete>delete</OnDelete>
     </foreign-key>
     <column id="24" parent="7" name="multimedia_id">
       <Position>1</Position>

@@ -12,7 +12,7 @@ var articleTemplate =
                         "<div style='padding-top: 2%'>" +
                             "<div class='panel panel-default'>" +
                                 "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
-                                    "<h3 class='panel-title'></h3>" +
+                                    "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
                                 "</div>" +
                                 "<div class='panel-body'>" +
                                 "</div>" +
@@ -75,12 +75,13 @@ function successfulArticleLoad(msg) {
             var href = "ViewArticle?article_id=" + article.article_id;
             articleDiv.attr("href", href);
 
-            articleDiv.find(".panel-title").text(article.article_title);
+            articleDiv.find(".panel-title").append(" " + article.article_title);
 
-            var date = new Date(article.article_date);
+            var date = new Date(article.article_timestamp);
+            var formattedDate = formatDate(date);
 
 
-            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + date.toDateString() + "</p><p>" + article.article_body + "</p>");
+            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + formattedDate + "</p><p>" + article.article_body + "</p>");
             articleDiv.find(".panel-body").css("text-align", "left");
 
             /*Remove the loading icon*/
@@ -95,6 +96,33 @@ function successfulArticleLoad(msg) {
             }
         }
     }
+}
+
+function formatDate(date) {
+
+    var days = date.getDate();
+    var months = date.getMonth();
+    var year = date.getFullYear();
+
+    var hours = date.getHours();
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+
+    var minutes = date.getMinutes();
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    var amPM;
+
+    if (hours >= 12) {
+        amPM = 'PM';
+    } else {
+        amPM = 'AM';
+    }
+
+    return days + "/" + months + "/" + year + " " + hours +":" + minutes + " " + amPM;
+
 }
 
 function failedArticleLoad(jqXHR, textStatus, errorThrown) {
@@ -113,7 +141,7 @@ function loadArticlesIncrement() {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: '/MainContentAccess',
+        url: 'MainContentAccess',
         type: 'GET',
         data: {from: from, count: count},
         success: function (msg) {
@@ -134,7 +162,7 @@ $(document).ready(function () {
     $(window).scroll(function() {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreArticles) {
+        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) & moreArticles) {
             loadArticlesIncrement();
         }
     });

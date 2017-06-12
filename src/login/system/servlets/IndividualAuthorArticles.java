@@ -3,6 +3,7 @@ package login.system.servlets;
 import login.system.dao.Article;
 import login.system.dao.ArticleDAO;
 import login.system.dao.User;
+import login.system.dao.UserDAO;
 import login.system.db.MySQL;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,8 +34,16 @@ public class IndividualAuthorArticles extends HttpServlet {
         /*Get the number of articles requested and the author_id*/
         int firstArticle = Integer.parseInt(request.getParameter("from"));
         int articleCount = Integer.parseInt(request.getParameter("count"));
-        int author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
+        int author_id = 0;
+        String username = request.getParameter("username");
 
+        if (((User)(session.getAttribute("userDetails"))).getUsername().equals(username)){
+            author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
+        }
+        else {
+            User user = UserDAO.getUser(DB, request.getParameter("username"));
+            author_id = user.getUser_id();
+        }
         List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByAuthor(DB, firstArticle, articleCount, author_id);
 
         /*Return a JSON object with the article information included*/
@@ -54,7 +63,7 @@ public class IndividualAuthorArticles extends HttpServlet {
             JSONObject singleArticle = new JSONObject();
             singleArticle.put("article_id", articles.get(i).getArticle_id());
             singleArticle.put("article_title", articles.get(i).getArticle_title());
-            singleArticle.put("article_date", articles.get(i).getArtcle_timestamp().getTime());
+            singleArticle.put("article_timestamp", articles.get(i).getArtcle_timestamp().getTime());
             singleArticle.put("author_username", articles.get(i).getAuthor_username());
 
             singleArticle.put("author_firstname", articles.get(i).getAuthor_firstname());

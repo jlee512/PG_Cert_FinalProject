@@ -45,20 +45,20 @@ public class AddAnArticleAttempt extends HttpServlet {
             case 1:
                 System.out.println("Article added successfully");
                 /*If successful article addition, reload the user's profile page*/
-                response.sendRedirect("ProfilePage?username=" + username);
+                response.sendRedirect("ProfilePage?username=" + username + "&articleadded=successful");
                 break;
             case 2:
-                System.out.println("User already exists within the database");
+                System.out.println("Article already exists within the database");
                 /*If the article is non-unique (this is not expected as it is based on a combination of article title and article date), return the user to the profile page and display a descriptive message*/
-                response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=exists");
+                response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=exists" + "&articleadded=duplicate");
                 break;
             case 3:
                 /*If an invalid article, return the user to the registration page and display a descriptive message*/
-                response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=invalid");
+                response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=invalid" + "&articleadded=invalid");
                 break;
             case 4:
                 System.out.println("No connection to the database");
-                response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=dbConn");
+                response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=dbConn" + "&articleadded=db");
                 break;
         }
 

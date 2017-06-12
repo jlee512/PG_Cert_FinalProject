@@ -26,7 +26,7 @@ $(document).ready(function () {
                 "<label for='article_body_input'>Article Body:</label>" +
                 "<textarea name='article_body_input' id='article_body_input' class='form-control' rows='5' style='max-width: 100%;' required></textarea>" +
                 "</div>" +
-                "<button type='addArticle' id='addArticle'>Post Article</button>" +
+                "<button class='btn btn-sm' type='addArticle' id='addArticle' style='background-color: #00acc1;'>Post Article</button>" +
                 "</fieldset>" +
                 "</form>" + "</div>";
 
@@ -36,3 +36,12 @@ $(document).ready(function () {
     });
 
 });
+
+setTimeout(fade_out, 3000);
+
+function fade_out() {
+
+    $('.comment-delete').fadeOut().empty();
+    $('.article-add').fadeOut().empty();
+
+}

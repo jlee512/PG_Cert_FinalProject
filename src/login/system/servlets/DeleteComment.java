@@ -17,21 +17,45 @@ public class DeleteComment extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MySQL DB = new MySQL();
-        int commentID = Integer.parseInt(request.getParameter("commentID"));
-        int articleID = Integer.parseInt(request.getParameter("articleID"));
-        CommentDAO.deleteComment(DB, commentID);
-        String parent_comment_id = request.getParameter("parentCommentID");
+        int commentID = Integer.parseInt(request.getParameter("comment_id"));
+        int articleID = Integer.parseInt(request.getParameter("article_id"));
+
+        /*Setup delete comment thread and run*/
+        Thread deleteComment = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("comment deletion started");
+                CommentDAO.deleteComment(DB, commentID);
+            }
+        });
+        deleteComment.run();
+
+        /*Setup parent comment adjustment and run*/
+        String parent_comment_id = request.getParameter("parent_comment_id");
         if (parent_comment_id != null && parent_comment_id.length() > 0){
-            int parentID = Integer.parseInt(request.getParameter("parentCommentID"));
+            int parentID = Integer.parseInt(request.getParameter("parent_comment_id"));
             Thread commentAdjust = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    System.out.println("parent comment adjust started");
                     adjustParentCommentStatus(DB, commentID, parentID);
                 }
             });
             commentAdjust.run();
+
+
             try {
                 commentAdjust.join();
+                System.out.println("adjust parent comment status finished");
+                deleteComment.join();
+                System.out.println("delete comment finished");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                deleteComment.join();
+                System.out.println("delete comment finished");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

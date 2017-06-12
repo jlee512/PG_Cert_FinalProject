@@ -24,8 +24,8 @@ $(document).on("click", ".add_reply", function () {
             "<textarea rows='4' cols='50' name='comment_body' id='comment_body'></textarea>" +
             "<input type='hidden' name='username' value='"+ username +"'>" +
             "<input type='hidden' name='article_id' value='"+ articleID +"'>" +
-            "<input type='hidden' name='parentComment_id' value='"+ parentID +"'>" +
-            "<input type='submit' name='submit' value='Post Comment'>" +
+            "<input type='hidden' name='parent_comment_id' value='"+ parentID +"'>" +
+            "<input class='btn btn-default btn-sm' type='submit' name='submit' value='Post Comment'>" +
             "</div>" + "</form>";
 
         $(add_article_form).insertAfter(commentDiv);

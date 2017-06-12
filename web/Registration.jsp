@@ -47,7 +47,7 @@
                             <i class="fa fa-envelope prefix"></i>
                             <input class="form-control" type="email" id="email" name="email"
                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                   onchange="checkForSpaces(this)"/>
+                                   oninvalid="setCustomValidity('Please ensure you enter a valid email address in lowercase')" onchange="checkForSpaces(this)"/>
                             <label for="email">Your email</label>
                         </div>
 

@@ -19,8 +19,9 @@ $(document).on("click", ".show_replies", function () {
     var username = $("#userdetails").text();
     var authorUsername = $("#author").text();
     var button = $(this);
+    $(button).mouseup(function() { this.blur() });
     var parentID = button.val();
-    var commentContainer = $('<div></div>');
+    var commentContainer = $('<div style="margin-left: 5%"></div>');
     var buttonsDiv = button.parent();
     // console.log(replyCommentButtonsDiv.prop('nodeName'));
     // console.log(replyCommentButtonsDiv.attr('class'));
@@ -50,7 +51,7 @@ $(document).on("click", ".show_replies", function () {
         {
             button.addClass("comments-displayed");
             $.ajax({
-                url: "/ShowNestedComments?parentCommentID=" + parentID,
+                url: "ShowNestedComments?parentCommentID=" + parentID,
                 type: "GET",
                 success: function loadNestedComments(msg) {
                     buttonsDiv.find(".loader-wrapper").show();
@@ -61,31 +62,33 @@ $(document).on("click", ".show_replies", function () {
                             var replyCommentsButtonPanel = $(commentContainerTemplate).find('.buttons');
 
                             var comment = msg[i];
-                            var date = new Date(comment.timestamp);
+                            var dateUnformatted = new Date(comment.timestamp);
+                            var date = formatDate(dateUnformatted);
+
 
                 /*--------Fillout the comment HTML template-----*/
-                            commentContainerTemplate.find(".panel-heading").html("<p>" + comment.author_username + ", " + date.toDateString() + "</p>");
+                            commentContainerTemplate.find(".panel-heading").html('<p><strong><a href="PublicProfile?username='+ comment.author_username + '" style="color: #f9a825;">' + comment.author_username + '</a></strong>, ' + date + '</p>');
                             commentContainerTemplate.find(".panel-body").html("<p>" + comment.content + "</p>");
 
                 /*--------Construct the buttons if required-----*/
 
                             /*Add a button to view replies if comment has replies*/
                             if (comment.is_parent) {
-                                var viewRepliesButton = '<button type="button" class="show_replies btn btn-default" value="' + comment.comment_id + '">Show Replies</button>';
+                                var viewRepliesButton = '<button type="button" class="show_replies btn btn-default btn-sm" value="' + comment.comment_id + '">Show Replies</button>';
                             }
 
 
                             /*Add a button to delete the comment if current user is comment author or article author*/
                             if (username == comment.author_username || username == authorUsername) {
-                                var deleteButton = '<a href="DeleteComment?commentID=' + comment.comment_id + '&articleID=' + getArticleID() + '&parentCommentID=' + comment.parent_comment_id + '" class="btn btn-default">Delete</a>'
+                                var deleteButton = '<a href="DeleteComment?comment_id=' + comment.comment_id + '&article_id=' + getArticleID() + '&parent_comment_id=' + comment.parent_comment_id + '" class="btn btn-default btn-sm">Delete</a>'
                             }
 
                             if (username == comment.author_username) {
-                                var editButton = '<a href="EditCommentForm?comment_id=' + comment.comment_id + '&article_id=' + getArticleID() + '&comment_body=' + comment.content + '" class="btn btn-default">Edit</a>'
+                                var editButton = '<button type="button" class="edit_comment btn btn-default btn-sm" value="' + comment.comment_id + '">Edit</button>';
                             }
 
                             /*Add a button to reply to the comment*/
-                            var replyButton = '<button type="button" class="add_reply btn btn-default" value="' + comment.comment_id + '">Reply</button>';
+                            var replyButton = '<button type="button" class="add_reply btn btn-default btn-sm" value="' + comment.comment_id + '">Reply</button>';
                             replyCommentsButtonPanel.append(replyButton);
 
                             if (comment.is_parent) {
@@ -115,6 +118,35 @@ $(document).on("click", ".show_replies", function () {
             });
         }
 });
+
+function formatDate(date) {
+
+    var days = date.getDate();
+    var months = date.getMonth();
+    var year = date.getFullYear();
+
+    var hours = date.getHours();
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+
+    var minutes = date.getMinutes();
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+
+
+    var amPM;
+
+    if (hours >= 12) {
+        amPM = 'PM';
+    } else {
+        amPM = 'AM';
+    }
+
+    return days + "/" + months + "/" + year + " " + hours +":" + minutes + " " + amPM;
+
+}
 
 function loadNestedCommentsFail(jqXHR, textStatus, errorThrown) {
     console.log(jqXHR.status);

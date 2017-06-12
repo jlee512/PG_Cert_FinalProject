@@ -56,10 +56,18 @@ public class RegistrationAttempt extends HttpServlet {
 
             int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
 
+            int user_id = registrationStatus;
+
+            /*reset the registrationStatus variable to be 1 if the user is successfully added*/
+            if (user_id >= 0) {
+                registrationStatus = 1;
+            }
+
             switch (registrationStatus) {
                 case 1:
                     System.out.println("User added successfully");
                     User user = new User(usernameInput, hash, salt, iterations, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
+                    user.setUser_id(user_id);
 
                     /*If successful user additon, automatically login in user for the given session*/
                     HttpSession session = request.getSession(true);
@@ -72,17 +80,17 @@ public class RegistrationAttempt extends HttpServlet {
                     response.sendRedirect("Content?username=" + user.getUsername());
 
                     break;
-                case 2:
+                case -2:
                     /*If username already exists, return the user to the registration page and display a descriptive message*/
                     System.out.println("User already exists within the database");
                     response.sendRedirect("Registration?registrationStatus=exists&username=" + usernameInput);
                     break;
-                case 3:
+                case -3:
                     /*If an invalid username is entered, return the user to the registration page and display a descriptive message*/
                     System.out.println("User could not be added to the database");
                     response.sendRedirect("Registration?registrationStatus=invalid");
                     break;
-                case 4:
+                case -4:
                     System.out.println("No connection to the database");
                     response.sendRedirect("Registration?registrationStatus=dbConn");
                     break;

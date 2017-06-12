@@ -16,6 +16,7 @@
     </c:if>
     <title>${requestScope.article.article_title}</title>
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
+    <link rel="stylesheet" type="text/css" href="CSS/comment_styling.css">
 </head>
 <body>
 <%@include file="Navbar.jsp" %>
@@ -27,7 +28,7 @@
 
 <p style="white-space: pre-wrap;">${requestScope.article.article_body}</p>
 <br>
-<em>Published: ${requestScope.article.artcle_timestamp}</em>
+<em>Published: ${requestScope.date}</em>
 <hr>
 
 <%---------------------------------------Comments-------------------------------------------------%>
@@ -56,7 +57,9 @@
 <script src="Javascript/show_top_level_comments.js"></script>
 <script src="Javascript/add_comment_form.js"></script>
 <script src="Javascript/reply_to_comment_form.js"></script>
+<script src="Javascript/edit_comment_form.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
+
 </body>
 </html>
 <%--Need to set up a function to retrieve replies if Show Replies button is clicked--%>

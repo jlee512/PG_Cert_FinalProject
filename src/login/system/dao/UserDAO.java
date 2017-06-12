@@ -15,10 +15,10 @@ public class UserDAO {
     public static int addUserToDB(MySQL DB, String userName, int iterations, byte[] salt, byte[] hash, String email, String phone, String occupation, String city, String profile_description, String profile_picture, String firstname, String lastname) {
 
         /*Return method status
-        * (1) Success
-        * (2) Integrity constraint violation (duplicate user)
-        * (3) SQL error
-        * (4) Database connection error*/
+        * (user_id) Success
+        * (-2) Integrity constraint violation (duplicate user)
+        * (-3) SQL error
+        * (-4) Database connection error*/
     /*------------------------------------------------------------*/
     /*convert username to lowercase to avoid duplication*/
         String username = userName.toLowerCase();
@@ -46,17 +46,30 @@ public class UserDAO {
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
                 System.out.println("User added to the database");
-                return 1;
 
+                /*Get the user ID for use within the session object*/
+                try(PreparedStatement stmt1 = c.prepareStatement("SELECT * FROM registered_users WHERE username = ?")) {
+
+                    stmt1.setString(1, tempUser.getUsername());
+
+                    try (ResultSet r = stmt1.executeQuery()) {
+                        if (r.next()) {
+                            int user_id = r.getInt("user_id");
+                            return user_id;
+                        } else {
+                            throw new SQLException();
+                        }
+                    }
+                }
             }
         } catch (SQLIntegrityConstraintViolationException e) {
-            return 2;
+            return -2;
         } catch (SQLException e) {
             e.printStackTrace();
-            return 3;
+            return -3;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            return 4;
+            return -4;
         }
         /*------------------------------------------------------------*/
     }

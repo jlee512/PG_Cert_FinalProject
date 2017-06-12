@@ -14,6 +14,9 @@ var articleTemplate =
         "</div>" +
     "</a>";
 
+//Get the username of the author.
+var username = $("#username").text();
+
 /*jQuery function to animate each article header on hover*/
 
 function hoverBackgroundColor() {
@@ -68,12 +71,13 @@ function successfulArticleLoad(msg) {
 
             articleDiv.attr("href", href);
 
-            articleDiv.find(".panel-title").text(article.article_title);
+            articleDiv.find(".panel-title").append(" " + article.article_title);
 
-            var date = new Date(article.article_date);
+            var date = new Date(article.article_timestamp);
 
+            var formattedDate = formatDate(date);
 
-            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + date.toDateString() + "</p><p>" + article.article_body + "</p>");
+            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + formattedDate + "</p><p>" + article.article_body + "</p><a href='DeleteAnArticle?article_id=" + article.article_id + "' style='color: white;'><div class='btn btn-sm' style='background-color: #b23434;'><i class='fa fa-trash' aria-hidden='true'></i></div></a><div class='btn btn-sm' style='background-color: #f9a825; color: white;'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></div>");
             articleDiv.find(".panel-body").css("text-align", "left");
 
             /*Remove the loading icon*/
@@ -88,6 +92,36 @@ function successfulArticleLoad(msg) {
             moreArticles = false;
         }
     }
+}
+
+
+
+function formatDate(date) {
+
+    var days = date.getDate();
+    var months = date.getMonth();
+    var year = date.getFullYear();
+
+    var hours = date.getHours();
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+
+    var minutes = date.getMinutes();
+
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    var amPM;
+
+    if (hours >= 12) {
+        amPM = 'PM';
+    } else {
+        amPM = 'AM';
+    }
+
+    return days + "/" + months + "/" + year + " " + hours +":" + minutes + " " + amPM;
+
 }
 
 function failedArticleLoad(jqXHR, textStatus, errorThrown) {
@@ -106,9 +140,9 @@ function loadArticlesIncrement() {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: '/ViewIndividualArticles',
+        url: 'ViewIndividualArticles',
         type: 'GET',
-        data: {from: from, count: count},
+        data: {from: from, count: count, username: username},
         success: function (msg) {
             successfulArticleLoad(msg);
         },

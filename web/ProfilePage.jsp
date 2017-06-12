@@ -37,7 +37,7 @@
             background-color: transparent;
         }
 
-        .add-article-button {
+        .add-article-button, .change-profile-pic-button {
 
             background-color: #b2ebf2 !important;
             -webkit-transition: background-color 1s;
@@ -45,7 +45,24 @@
 
         }
 
-        .add-article-button:hover {
+        .user-profile-pic-button, .default-profile-pic-button, .submit-user-pic {
+
+            background-color: #c4f4a4 !important;
+            -webkit-transition: background-color 1s;
+            transition: background-color 1s;
+            color: black;
+
+        }
+
+        .change-profile-pic-button {
+
+            margin-top: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+
+        }
+
+        .add-article-button:hover, .change-profile-pic-button:hover, .user-profile-pic-button:hover, .default-profile-pic-button:hover, .submit-user-pic:hover {
             background-color: #ffd54f !important;
         }
 
@@ -75,6 +92,12 @@
             border: 2px solid #ffd54f;
         }
 
+        #editButton, #deleteaccount, #changePassword {
+
+            background-color: #00acc1;
+
+        }
+
         /*END OF STYLING*/
     </style>
 
@@ -91,9 +114,85 @@
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
 
+
+
         <%--Main  panel--%>
         <div class="col-sm-4" id="profileContent">
             <div class="panel panel-default" style="padding-right: 15px; padding-left: 15px;">
+
+
+  <%---------------------------------ALERT MESSAGES-----------------------------%>
+                    <%--If the article deleted parameter exists, display a top level panel header notifying the user of the article deletion status--%>
+                <c:if test="${not empty param.articleDeleted}">
+                    <c:choose>
+                        <%--When the article is successfully deleted--%>
+                        <c:when test="${param.articleDeleted}">
+                            <div class="comment-delete delete-true card" style="text-align: center; background-color: #c2f5a3;">
+                                <div class="card-header">
+                                    <h3>Article successfully deleted</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                        <%--If the article is not successfully deleted--%>
+                        <c:when test="${not param.articleDeleted}">
+                            <div class="comment-delete delete-false card" style="text-align: center; background-color: #fad1d1;">
+                                <div class="card-header">
+                                    <h3>You do not have permission to delete this article</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+                    </c:choose>
+                </c:if>
+
+                    <%--If the articleadded parameter exists, display a top level panel header notifying the user of the article addition status--%>
+                <c:if test="${not empty param.articleadded}">
+                    <c:choose>
+                        <%--When the article is successfully added--%>
+                        <c:when test="${param.articleadded == 'successful'}">
+                            <div class="article-add add-true card" style="text-align: center; background-color: #c2f5a3;">
+                                <div class="card-header">
+                                    <h3>Article successfully added</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                        <%--If the article is not successfully added (duplicate)--%>
+                        <c:when test="${param.articleadded == 'duplicate'}">
+                            <div class="article-add add-duplicate card" style="text-align: center; background-color: #fff3cc;">
+                                <div class="card-header">
+                                    <h3>You have tried to add a duplicate article</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                        <%--If the article is not successfully added (invalid)--%>
+                        <c:when test="${param.articleadded == 'invalid'}">
+                            <div class="article-add add-invalid card" style="text-align: center; background-color: #fff3cc;">
+                                <div class="card-header">
+                                    <h3>The article contains invalid fields</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                        <%--If the article is not successfully added (invalid)--%>
+                        <c:when test="${param.articleadded == 'db'}">
+                            <div class="article-add add--db card" style="text-align: center; background-color: #fff3cc;">
+                                <div class="card-header">
+                                    <h3>The article could not be added to the database</h3>
+                                </div>
+                            </div>
+
+                        </c:when>
+
+                    </c:choose>
+                </c:if>
+ <%-----------------------------ALERT MESSAGES FINISHED------------------------%>
 
 
                     <%------Profile Picture------%>
@@ -101,9 +200,15 @@
                     <img id="profile-image" src="${sessionScope.userDetails.profile_picture}"
                          class="img-responsive center-block"
                          style="padding-top: 15px; padding-bottom: 15px;">
-                    <div id="picture-settings">
-                        <div id="profilePictureButtons" class="text-center"></div>
-                        <div id="defaultPictureDiv" class="text-center"></div>
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading change-profile-pic-button">
+                                <p><i class="fa fa-user-circle-o" aria-hidden="true"></i> Change Profile Picture</p>
+                            </div>
+                        </div>
+                        <div class="change-picture-options" style="text-align: center;">
+                                <%--Change profile picture inserted here depending on toggle option--%>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -180,7 +285,7 @@
 
                     <div class="text-center">
                             <%--Change password--%>
-                        <button class="btn btn-info btn-sm"
+                        <button class="btn btn-info btn-sm" id="changePassword"
                                 onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
                             Change password
                         </button>
@@ -243,15 +348,6 @@
     </c:otherwise>
 </c:choose>
 
-<%---------------------------Script Inclusions---------------------------------%>
-
-<%--Include Bootstrap JS, jQuery and jQuery UI--%>
-<%@ include file="BodyStylingLinks.jsp" %>
-
-<script type="application/javascript" src="Javascript/add_an_article_form.js"></script>
-<script type="application/javascript" src="Javascript/author_article_display.js"></script>
-
-
 <script>
 
 
@@ -272,7 +368,7 @@
     $("#editButton").click(function () {
         inputfields.removeAttr('readonly', 'readonly');
         if (!$('#saveChanges')[0]) {
-            $("#submit").append("<input type='submit' id='saveChanges' name='savechange' value='save changes'>")
+            $("#submit").append("<input type='submit' class='btn btn-sm' id='saveChanges' name='savechange' value='save changes' style='background-color: #00acc1;'>")
         }
     });
 
@@ -292,62 +388,22 @@
     });
 
 
-    <%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
-    $("#profile-image").click(function () {
-
-        <%--Check to see whether the class (which will be added to the form) already exists--%>
-        if (!$(".photo-settings")[0]) {
-
-
-            <%--Append the form and add 'photo-settings' class to it--%>
-            $("#profilePictureButtons").append("<form id='pictureForm' enctype='multipart/form-data' method='POST' action='UploadProfilePicture'>" +
-                "<button type='button' class='btn btn-sm' style='background-color: #f9a825'  id='chooseDefault'>Default pictures</button>" +
-                "<button type='submit' class='btn btn-sm' style='background-color: #f9a825' id='updatePicture'>Submit</button><div></div>" +
-                "<input class='profile-image-upload' name='file' type='file'>" +
-                "</form>");
-            $("#pictureForm").addClass("photo-settings");
-
-            <%--If you select choose default a drop down appears of images you can select--%>
-            $("#chooseDefault").click(function () {
-
-                <%--Checks to see whether the class (which is added to the divv contianing the images) already exists--%>
-                if (!$(".defaultPhoto_dialog_open")[0]) {
-
-                    $("#defaultPictureDiv").append("<div id='defaultPic'  >" +
-                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kea.jpg'>" +
-                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></label>" +
-                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'>" +
-                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></label>" +
-                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kokako.jpg'>" +
-                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></label>" +
-                        "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/manakura.jpg'>" +
-                        "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></div></label>");
-                    $("#defaultPictureDiv").addClass("defaultPhoto_dialog_open");
-                    $(".profile-image-upload").remove();
-                }
-
-                    <%--toggle function for showing the default images--%>
-                else {
-                    $("#pictureForm").append("<input id='file' class='profile-image-upload' name='file' type='file'>");
-                    $("#defaultPictureDiv").removeClass("defaultPhoto_dialog_open");
-                    $("#defaultPic").remove();
-                }
-            })
-        }
-
-            <%--When the image is clicked remove the form AND if the default pictures are showing then remove them too--%>
-        else {
-            $("#profilePictureButtons").removeClass("photo-settings");
-            $("#pictureForm").remove();
-            if ($("#defaultPic").length) {
-                $("#defaultPictureDiv").removeClass("defaultPhoto_dialog_open");
-                $("#defaultPic").remove();
-            }
-        }
-    });
-    <%------------------------------------------------------------------------------------------------------------------------------------%>
 
 </script>
+
+<%---------------------------Script Inclusions---------------------------------%>
+
+<%--Include Bootstrap JS, jQuery and jQuery UI--%>
+<%@ include file="BodyStylingLinks.jsp" %>
+
+<script type="text/javascript" src="Javascript/add_an_article_form.js"></script>
+<script type="text/javascript" src="Javascript/author_article_display.js"></script>
+<%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
+<%--Moved by JUL to separate JS file--%>
+<script type="text/javascript" src="Javascript/update_profile_picture.js"></script>
+
+<%------------------------------------------------------------------------------------------------------------------------------------%>
+
 
 </body>
 
