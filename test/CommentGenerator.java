@@ -20,7 +20,7 @@ public class CommentGenerator {
         Article commentArticle = ArticleGenerator.generateRandomArticle();
         ArticleDAO.addArticleToDB(DB, commentArticle.getAuthor_id(), commentArticle.getArticle_title(), commentArticle.getArtcle_timestamp(), commentArticle.getArticle_body());
 
-        /*Get article details based on timestamp and title*/
+        /*Get article details based on title*/
         try (Connection c = DB.connection()) {
             try (PreparedStatement stmt = c.prepareStatement("SELECT article_id FROM uploaded_articles WHERE article_title = ?")) {
 
@@ -47,7 +47,7 @@ public class CommentGenerator {
 
         System.out.println(commentArticle.getArticle_id());
 
-        /*Prepare the article body*/
+        /*Prepare the comment body*/
         String topLevelCommentBody = "Top level comment unitTest" + commentArticle.getArticle_title() + ">>>>>>>>>" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur, tortor et facilisis tempor, lectus magna lacinia ligula, in facilisis ex turpis quis mauris." + ">>>>>>>>>>>>>" + " Top level comment unitTest" + commentArticle.getArticle_title();
         Timestamp topLevelCommentTimestamp = new Timestamp(System.currentTimeMillis());
 

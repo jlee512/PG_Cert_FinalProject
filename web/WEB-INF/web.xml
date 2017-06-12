@@ -181,6 +181,17 @@
         <servlet-name>IndividualArticleViewer</servlet-name>
         <url-pattern>/ViewIndividualArticles</url-pattern>
     </servlet-mapping>
+
+    <!--Delete an Article Servlet-->
+    <servlet>
+        <servlet-name>DeleteAnArticle</servlet-name>
+        <servlet-class>login.system.servlets.DeleteAnArticle</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteAnArticle</servlet-name>
+        <url-pattern>/DeleteAnArticle</url-pattern>
+    </servlet-mapping>
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 

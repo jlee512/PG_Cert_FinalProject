@@ -92,6 +92,12 @@
             border: 2px solid #ffd54f;
         }
 
+        #editButton, #deleteaccount, #changePassword {
+
+            background-color: #00acc1;
+
+        }
+
         /*END OF STYLING*/
     </style>
 
@@ -107,6 +113,31 @@
 <c:choose>
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
+
+        <%--If the article deleted parameter exists, display a top level panel header notifying the user of the article deletion status--%>
+        <c:if test="${not empty param.articleDeleted}">
+        <c:choose>
+            <%--When the article is successfully deleted--%>
+            <c:when test="${param.articleDeleted}">
+                <div> class="comment-delete delete-true panel panel-default">
+                    <div class="panel-heading">
+                        Article successfully deleted
+                    </div>
+                </div>
+
+            </c:when>
+
+            <%--If the article is not successfully deleted--%>
+            <c:when test="${not param.articleDeleted}">
+                <div> class="comment-delete delete-false panel panel-default">
+                    <div class="panel-heading">
+                        The article has already been deleted or you are not able to delete this article
+                    </div>
+                </div>
+
+            </c:when>
+        </c:choose>
+        </c:if>
 
         <%--Main  panel--%>
         <div class="col-sm-4" id="profileContent">
@@ -203,7 +234,7 @@
 
                     <div class="text-center">
                             <%--Change password--%>
-                        <button class="btn btn-info btn-sm"
+                        <button class="btn btn-info btn-sm" id="changePassword"
                                 onclick="location.href = 'ChangePassword?username=${sessionScope.userDetails.username}'">
                             Change password
                         </button>
@@ -286,7 +317,7 @@
     $("#editButton").click(function () {
         inputfields.removeAttr('readonly', 'readonly');
         if (!$('#saveChanges')[0]) {
-            $("#submit").append("<input type='submit' id='saveChanges' name='savechange' value='save changes'>")
+            $("#submit").append("<input type='submit' class='btn btn-sm' id='saveChanges' name='savechange' value='save changes' style='background-color: #00acc1;'>")
         }
     });
 
@@ -319,6 +350,7 @@
 <%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
 <%--Moved by JUL to separate JS file--%>
 <script type="text/javascript" src="Javascript/update_profile_picture.js"></script>
+
 <%------------------------------------------------------------------------------------------------------------------------------------%>
 
 

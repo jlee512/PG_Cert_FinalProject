@@ -10,6 +10,12 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import sun.security.util.Password;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertArrayEquals;
@@ -33,15 +39,33 @@ public class UserTest {
     @Test
     public void test1UserAdditionToDB(){
 
+        int maxUserID = -1;
+        /*Get the current user count*/
+        try (Connection c = DB.connection()){
+            try(PreparedStatement stmt = c.prepareStatement("SELECT MAX(user_id) FROM registered_users;")){
+
+                try(ResultSet r = stmt.executeQuery()){
+                    if(r.next()) {
+                        maxUserID = r.getInt(1);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         /*Check for successful database addition code of "1"*/
-        assertEquals(1, UserDAO.addUserToDB(DB, testUser.getUsername(), testUser.getIterations(), testUser.getSalt(), testUser.getHash(), testUser.getEmail(), testUser.getPhone(), testUser.getOccupation(), testUser.getCity(), testUser.getProfile_description(), testUser.getProfile_picture(), testUser.getFirstname(), testUser.getLastname()));
+        assertEquals(maxUserID + 1, UserDAO.addUserToDB(DB, testUser.getUsername(), testUser.getIterations(), testUser.getSalt(), testUser.getHash(), testUser.getEmail(), testUser.getPhone(), testUser.getOccupation(), testUser.getCity(), testUser.getProfile_description(), testUser.getProfile_picture(), testUser.getFirstname(), testUser.getLastname()));
 
     }
 
     @Test
     public void test2UserRejectionFromDBDuplicateUsername() {
 
-        assertEquals(2, UserDAO.addUserToDB(DB, knownExistingUser.getUsername(), knownExistingUser.getIterations(), knownExistingUser.getSalt(), knownExistingUser.getHash(), knownExistingUser.getEmail(), knownExistingUser.getPhone(), knownExistingUser.getOccupation(), knownExistingUser.getCity(), knownExistingUser.getProfile_description(), knownExistingUser.getProfile_picture(), knownExistingUser.getFirstname(), knownExistingUser.getLastname()));
+        assertEquals(-2, UserDAO.addUserToDB(DB, knownExistingUser.getUsername(), knownExistingUser.getIterations(), knownExistingUser.getSalt(), knownExistingUser.getHash(), knownExistingUser.getEmail(), knownExistingUser.getPhone(), knownExistingUser.getOccupation(), knownExistingUser.getCity(), knownExistingUser.getProfile_description(), knownExistingUser.getProfile_picture(), knownExistingUser.getFirstname(), knownExistingUser.getLastname()));
 
     }
 
@@ -76,7 +100,7 @@ public class UserTest {
     
     @Test
     public void test5UserLoginAttemptFailure() {
-        
+
         assertFalse(Passwords.isExpectedPassword("test1".toCharArray(), knownExistingUser.getSalt(), knownExistingUser.getIterations(), knownExistingUser.getHash()));
         
     }
@@ -99,13 +123,33 @@ public class UserTest {
 
         assertTrue(Passwords.isExpectedPassword("test1".toCharArray(), testUser.getSalt(), testUser.getIterations(), testUser.getHash()));
 
+        UserDAO.updateUserPassword(DB, testUser, "test");
+
     }
 
     @Test
     public void test8UserAdditionToDBPartialInput(){
 
+        int maxUserID = -1;
+        /*Get the current user count*/
+        try (Connection c = DB.connection()){
+            try(PreparedStatement stmt = c.prepareStatement("SELECT MAX(user_id) FROM registered_users;")){
+
+                try(ResultSet r = stmt.executeQuery()){
+                    if(r.next()) {
+                        maxUserID = r.getInt(1);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         /*Check for successful database addition code of "1"*/
-        assertEquals(1, UserDAO.addUserToDB(DB, testUser2.getUsername(), testUser2.getIterations(), testUser2.getSalt(), testUser2.getHash(), testUser2.getEmail(), "", testUser2.getOccupation(), testUser2.getCity(), "", testUser2.getProfile_picture(), testUser2.getFirstname(), testUser2.getLastname()));
+        assertEquals(maxUserID + 2, UserDAO.addUserToDB(DB, testUser2.getUsername(), testUser2.getIterations(), testUser2.getSalt(), testUser2.getHash(), testUser2.getEmail(), "", testUser2.getOccupation(), testUser2.getCity(), "", testUser2.getProfile_picture(), testUser2.getFirstname(), testUser2.getLastname()));
 
     }
 

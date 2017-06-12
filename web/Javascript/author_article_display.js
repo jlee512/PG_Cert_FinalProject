@@ -68,13 +68,13 @@ function successfulArticleLoad(msg) {
 
             articleDiv.attr("href", href);
 
-            articleDiv.find(".panel-title").text(article.article_title);
+            articleDiv.find(".panel-title").append(" " + article.article_title);
 
             var date = new Date(article.article_timestamp);
 
             var formattedDate = formatDate(date);
 
-            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + formattedDate + "</p><p>" + article.article_body + "</p>");
+            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + formattedDate + "</p><p>" + article.article_body + "</p><a href='DeleteAnArticle?article_id=" + article.article_id + "' style='color: white;'><div class='btn btn-sm' style='background-color: #b23434;'><i class='fa fa-trash' aria-hidden='true'></i></div></a><div class='btn btn-sm' style='background-color: #f9a825; color: white;'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></div>");
             articleDiv.find(".panel-body").css("text-align", "left");
 
             /*Remove the loading icon*/
@@ -90,6 +90,8 @@ function successfulArticleLoad(msg) {
         }
     }
 }
+
+
 
 function formatDate(date) {
 

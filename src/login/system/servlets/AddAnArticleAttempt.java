@@ -48,7 +48,7 @@ public class AddAnArticleAttempt extends HttpServlet {
                 response.sendRedirect("ProfilePage?username=" + username);
                 break;
             case 2:
-                System.out.println("User already exists within the database");
+                System.out.println("Article already exists within the database");
                 /*If the article is non-unique (this is not expected as it is based on a combination of article title and article date), return the user to the profile page and display a descriptive message*/
                 response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=exists");
                 break;

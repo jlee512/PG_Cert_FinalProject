@@ -141,15 +141,27 @@ public class ArticleDAO {
 
 
     /*Method to delete and article*/
-    public static int deleteAnArticle(MySQL DB, int article_id) {
+    public static int deleteAnArticle(MySQL DB, int article_id, int author_id) {
 
         /*Establish connection to the database and delete the article (note: the corresponding servlet will need to confirm user log-in status prior to deletion*/
 
         try (Connection c = DB.connection()) {
 
-            try (PreparedStatement stmt = c.prepareStatement("DELETE FROM uploaded_articles WHERE article_id = ?")) {
+            /*Delete all comments associated with the article_id (cascading does not work with the directionality of the foreign key arrangement)*/
+            try (PreparedStatement stmt = c.prepareStatement("DELETE FROM posted_comments WHERE article_id = ? AND author_id = ?")) {
 
                 stmt.setInt(1, article_id);
+                stmt.setInt(2, author_id);
+                /*Execute the prepared statement*/
+                stmt.executeUpdate();
+                System.out.println("Article comments successfully deleted");
+            }
+
+            /*Provided the article's comments are deleted successfully, the database should now be permitted to delete the article itself*/
+            try (PreparedStatement stmt = c.prepareStatement("DELETE FROM uploaded_articles WHERE article_id = ? AND author_id = ?")) {
+
+                stmt.setInt(1, article_id);
+                stmt.setInt(2, author_id);
 
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
@@ -172,6 +184,7 @@ public class ArticleDAO {
         }
     }
 
+//    public static int editAnArticle (MySQL DB, int article_id, )
 
     /*Extracted method during refactoring to reduce code repitition*/
     public static void getListofArticles(List<Article> articles, PreparedStatement stmt) throws SQLException {
