@@ -72,17 +72,17 @@ public class RegistrationAttempt extends HttpServlet {
                     response.sendRedirect("Content?username=" + user.getUsername());
 
                     break;
-                case 2:
+                case -2:
                     /*If username already exists, return the user to the registration page and display a descriptive message*/
                     System.out.println("User already exists within the database");
                     response.sendRedirect("Registration?registrationStatus=exists&username=" + usernameInput);
                     break;
-                case 3:
+                case -3:
                     /*If an invalid username is entered, return the user to the registration page and display a descriptive message*/
                     System.out.println("User could not be added to the database");
                     response.sendRedirect("Registration?registrationStatus=invalid");
                     break;
-                case 4:
+                case -4:
                     System.out.println("No connection to the database");
                     response.sendRedirect("Registration?registrationStatus=dbConn");
                     break;

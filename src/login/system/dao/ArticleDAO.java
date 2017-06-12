@@ -184,6 +184,7 @@ public class ArticleDAO {
         }
     }
 
+//    public static int editAnArticle (MySQL DB, int article_id, )
 
     /*Extracted method during refactoring to reduce code repitition*/
     public static void getListofArticles(List<Article> articles, PreparedStatement stmt) throws SQLException {

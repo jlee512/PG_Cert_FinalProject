@@ -114,6 +114,31 @@
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
 
+        <%--If the article deleted parameter exists, display a top level panel header notifying the user of the article deletion status--%>
+        <c:if test="${not empty param.articleDeleted}">
+        <c:choose>
+            <%--When the article is successfully deleted--%>
+            <c:when test="${param.articleDeleted}">
+                <div> class="comment-delete delete-true panel panel-default">
+                    <div class="panel-heading">
+                        Article successfully deleted
+                    </div>
+                </div>
+
+            </c:when>
+
+            <%--If the article is not successfully deleted--%>
+            <c:when test="${not param.articleDeleted}">
+                <div> class="comment-delete delete-false panel panel-default">
+                    <div class="panel-heading">
+                        The article has already been deleted or you are not able to delete this article
+                    </div>
+                </div>
+
+            </c:when>
+        </c:choose>
+        </c:if>
+
         <%--Main  panel--%>
         <div class="col-sm-4" id="profileContent">
             <div class="panel panel-default" style="padding-right: 15px; padding-left: 15px;">
@@ -325,6 +350,7 @@
 <%----------When you click the profile picture a form appends and you are able to upload a new photo OR select from default photos-----------%>
 <%--Moved by JUL to separate JS file--%>
 <script type="text/javascript" src="Javascript/update_profile_picture.js"></script>
+
 <%------------------------------------------------------------------------------------------------------------------------------------%>
 
 

@@ -91,6 +91,8 @@ function successfulArticleLoad(msg) {
     }
 }
 
+
+
 function formatDate(date) {
 
     var days = date.getDate();
