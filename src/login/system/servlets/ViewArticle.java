@@ -37,7 +37,7 @@ public class ViewArticle extends HttpServlet {
         //Get Article object by ID from ArticleDAO.
         Article article = ArticleDAO.getArticle(DB, articleID);
         Timestamp timestamp = article.getArtcle_timestamp();
-        String date_for_output = new SimpleDateFormat("MM/dd/yyyy hh:mm a").format(timestamp);
+        String date_for_output = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(timestamp);
 
         //Set it as an attribute to pass to the JSP.
         request.setAttribute("article", article);
