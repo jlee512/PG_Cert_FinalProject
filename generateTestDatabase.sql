@@ -84,3 +84,5 @@ CREATE TABLE posted_multimedia (
 
 SELECT COUNT(username) FROM registered_users;
 
+UPDATE uploaded_articles SET timestamp = CURRENT_TIMESTAMP, article_title = 'TEST', article_body = 'TESTtestTEST'  WHERE article_id = 89 AND author_id = 3;
+

@@ -122,7 +122,7 @@ $(document).on("click", ".show_replies", function () {
 function formatDate(date) {
 
     var days = date.getDate();
-    var months = date.getMonth();
+    var months = date.getMonth() + 1;
     var year = date.getFullYear();
 
     var hours = date.getHours();

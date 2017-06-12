@@ -4,15 +4,13 @@
 
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
-    "<a class='individualArticleLink'>" +
         "<div class='panel panel-default'>" +
-            "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
+            "<a class='individualArticleLink'>" + "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
                 "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
-            "</div>" +
+            "</div>" + "</a>" +
             "<div class='panel-body'>" +
             "</div>" +
-        "</div>" +
-    "</a>";
+        "</div>";
 
 //Get the username of the author.
 var username = $("#username").text();
@@ -69,21 +67,51 @@ function successfulArticleLoad(msg) {
             /*Make each article container a link to the full article*/
             var href = "ViewArticle?article_id=" + article.article_id;
 
-            articleDiv.attr("href", href);
+            articleDiv.find(".individualArticleLink").attr("href", href);
 
             articleDiv.find(".panel-title").append(" " + article.article_title);
+            articleDiv.find(".panel-body").attr("id", article.article_id);
 
             var date = new Date(article.article_timestamp);
 
             var formattedDate = formatDate(date);
 
-            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + formattedDate + "</p><p>" + article.article_body + "</p><a href='DeleteAnArticle?article_id=" + article.article_id + "' style='color: white;'><div class='btn btn-sm' style='background-color: #b23434;'><i class='fa fa-trash' aria-hidden='true'></i></div></a><div class='btn btn-sm' style='background-color: #f9a825; color: white;'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></div>");
+            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p>" +
+                                                    "<p>" + formattedDate + "</p>" +
+                                                    "<p>" + article.article_body + "</p>" +
+                                                    "<a href=" + href + " style='color: white;'>" +
+                                                        "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
+                                                            "<i class='fa fa-eye' aria-hidden='true'></i>" +
+                                                        "</div>" +
+                                                    "</a>" +
+                                                    "<a href='DeleteAnArticle?article_id=" + article.article_id + "' style='color: white;'>" +
+                                                        "<div class='btn btn-sm' style='background-color: #b23434;'>" +
+                                                            "<i class='fa fa-trash' aria-hidden='true'></i>" +
+                                                        "</div>" +
+                                                    "</a>" +
+                                                    "<div type='button' class='btn btn-sm edit_article' style='background-color: #f9a825; color: white;'>" +
+                                                        "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +
+                                                    "</div>");
+
             articleDiv.find(".panel-body").css("text-align", "left");
 
             /*Remove the loading icon*/
             $('.loader-wrapper').hide();
 
             articleContainer.append(articleDiv);
+
+            /*Create a cookie which stores the full article body for reference in editing (lasts one 1/2 day)*/
+
+            var cookie_date = new Date();
+            cookie_date.setTime(cookie_date.getTime() + (24 * 60 * 60 * 1000 * 0.5));
+            var expires = "expires=" + cookie_date.toUTCString();
+
+            document.cookie = article.article_id + "_full_article_body=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+            var full_article_body = encodeURI(article.article_body_full);
+
+            document.cookie = article.article_id + "_full_article_body=" + full_article_body + ";" + expires + "; path=/";
+
         }
 
         if (msg.length < count) {
@@ -99,7 +127,7 @@ function successfulArticleLoad(msg) {
 function formatDate(date) {
 
     var days = date.getDate();
-    var months = date.getMonth();
+    var months = date.getMonth() + 1;
     var year = date.getFullYear();
 
     var hours = date.getHours();

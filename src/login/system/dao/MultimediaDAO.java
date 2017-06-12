@@ -2,6 +2,10 @@ package login.system.dao;
 
 import login.system.db.MySQL;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +51,7 @@ Add a new user to the Database
 
     private static void getListOfMultimedia(List<Multimedia> multimedia, PreparedStatement stmt) throws SQLException {
         try (ResultSet r = stmt.executeQuery()) {
-            if (r.next()) {
+            while (r.next()) {
              /*If there is a next result, the user exists in the database*/
 
 
@@ -65,10 +69,8 @@ Add a new user to the Database
 
 
                 System.out.println("Multimedia retrieved from database");
-            } else {
-            /*If the user can't be found in the database, return null user*/
-                System.out.println("Multimedia could not be found in the database");
             }
+
         }
     }
 

@@ -34,16 +34,8 @@ public class IndividualAuthorArticles extends HttpServlet {
         /*Get the number of articles requested and the author_id*/
         int firstArticle = Integer.parseInt(request.getParameter("from"));
         int articleCount = Integer.parseInt(request.getParameter("count"));
-        int author_id = 0;
-        String username = request.getParameter("username");
+        int author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
 
-        if (((User)(session.getAttribute("userDetails"))).getUsername().equals(username)){
-            author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
-        }
-        else {
-            User user = UserDAO.getUser(DB, request.getParameter("username"));
-            author_id = user.getUser_id();
-        }
         List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByAuthor(DB, firstArticle, articleCount, author_id);
 
         /*Return a JSON object with the article information included*/
@@ -60,6 +52,7 @@ public class IndividualAuthorArticles extends HttpServlet {
 
     public static void constructArticlePreviewJSON(List<Article> articles, JSONArray articleDetails) {
         for (int i = 0; i < articles.size(); i++) {
+
             JSONObject singleArticle = new JSONObject();
             singleArticle.put("article_id", articles.get(i).getArticle_id());
             singleArticle.put("article_title", articles.get(i).getArticle_title());
@@ -68,7 +61,8 @@ public class IndividualAuthorArticles extends HttpServlet {
 
             singleArticle.put("author_firstname", articles.get(i).getAuthor_firstname());
             singleArticle.put("author_lastname", articles.get(i).getAuthor_lastname());
-            singleArticle.put("article_body", articles.get(i).getArticle_body());
+            singleArticle.put("article_body", articles.get(i).getArticle_body().substring(0, Math.min(articles.get(i).getArticle_body().length(), 100)) + "...");
+            singleArticle.put("article_body_full", articles.get(i).getArticle_body());
             articleDetails.add(i, singleArticle);
         }
     }

@@ -172,7 +172,7 @@ public class Test_DB_Setup {
         System.out.println("Adding multimedia to database: Port (video - mp4)");
         article_id = 4;
         file_type = ".mp4";
-        userInputFilename = "anothers_arms.mp4";
+        userInputFilename = "port.mp4";
         filepath = genericFilePath + userInputFilename;
         multimedia_title = "Port";
 
