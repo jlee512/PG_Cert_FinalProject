@@ -6,14 +6,14 @@ $(document).on("click", ".edit_comment", function () {
     var button = $(this);
     var comment_id = button.val();
     var commentContainerDiv = button.closest(".panel-info");
-    var commentBodyDiv = commentContainerDiv.find(".panel-body");
-    var commentHeadingDiv = commentContainerDiv.find(".panel-heading");
+    var commentBodyDiv = commentContainerDiv.find(".panel-body:first");
+    var commentHeadingDiv = commentContainerDiv.find(".panel-heading:first");
     var commentContent = commentBodyDiv.text();
 
     if (button.hasClass("edit_open")){
+        $(".panel-body").show();
         button.removeClass("edit_open");
         button.html("Edit");
-        commentBodyDiv.show();
         $(".edit_comment_body").remove();
 
 

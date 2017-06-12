@@ -4,6 +4,16 @@
 
 .panel-heading {
     background-image: none;
-    background-color: #00acc1;
+    background-color: #006064;
     color: white;
+}
+
+.btn-default {
+    background: #00acc1;
+    color: white;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    background-color: #ffd54f!important;
+    color: black!important;
 }
