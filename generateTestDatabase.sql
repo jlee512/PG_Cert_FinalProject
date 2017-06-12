@@ -83,3 +83,4 @@ CREATE TABLE posted_multimedia (
 # SELECT article_id, username, firstname, lastname, timestamp, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = 1 ORDER BY timestamp DESC LIMIT 3 OFFSET 0;
 
 SELECT COUNT(username) FROM registered_users;
+

@@ -24,7 +24,10 @@ Add a new user to the Database
 
             try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM posted_multimedia")) {
 
-                getListOfMultimedia(multimedia, stmt);
+
+                        getListOfMultimedia(multimedia, stmt);
+
+
 
 
             }
@@ -37,6 +40,7 @@ Add a new user to the Database
         }
         /*------------------------------------------------------------*/
         System.out.println("All Multimedia has been selected");
+
         return multimedia;
     }
 
