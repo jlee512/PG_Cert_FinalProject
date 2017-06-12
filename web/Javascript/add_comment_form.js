@@ -25,7 +25,7 @@ $(document).ready(function () {
                 "<textarea rows='4' cols='50' name='comment_body' id='comment_body'></textarea>" +
                 "<input type='hidden' name='username' value='" + username + "'>" +
                 "<input type='hidden' name='article_id' value='" + articleID + "'>" +
-                "<input type='hidden' name='parentComment_id' value=''>" +
+                "<input type='hidden' name='parent_comment_id' value=''>" +
                 "<input type='submit' name='submit' value='Post Comment'>" +
                 "</div>" + "</form>";
 

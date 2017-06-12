@@ -56,6 +56,7 @@
 <script src="Javascript/show_top_level_comments.js"></script>
 <script src="Javascript/add_comment_form.js"></script>
 <script src="Javascript/reply_to_comment_form.js"></script>
+<script src="Javascript/edit_comment_form.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
 
 </body>

@@ -79,11 +79,11 @@ $(document).on("click", ".show_replies", function () {
 
                             /*Add a button to delete the comment if current user is comment author or article author*/
                             if (username == comment.author_username || username == authorUsername) {
-                                var deleteButton = '<a href="DeleteComment?commentID=' + comment.comment_id + '&articleID=' + getArticleID() + '&parentCommentID=' + comment.parent_comment_id + '" class="btn btn-default">Delete</a>'
+                                var deleteButton = '<a href="DeleteComment?comment_id=' + comment.comment_id + '&article_id=' + getArticleID() + '&parent_comment_id=' + comment.parent_comment_id + '" class="btn btn-default">Delete</a>'
                             }
 
                             if (username == comment.author_username) {
-                                var editButton = '<a href="EditCommentForm?comment_id=' + comment.comment_id + '&article_id=' + getArticleID() + '&comment_body=' + comment.content + '" class="btn btn-default">Edit</a>'
+                                var editButton = '<button type="button" class="edit_comment btn btn-default" value="' + comment.comment_id + '">Edit</button>';
                             }
 
                             /*Add a button to reply to the comment*/
