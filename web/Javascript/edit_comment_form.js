@@ -6,14 +6,14 @@ $(document).on("click", ".edit_comment", function () {
     var button = $(this);
     var comment_id = button.val();
     var commentContainerDiv = button.closest(".panel-info");
-    var commentBodyDiv = commentContainerDiv.find(".panel-body");
-    var commentHeadingDiv = commentContainerDiv.find(".panel-heading");
+    var commentBodyDiv = commentContainerDiv.find(".panel-body:first");
+    var commentHeadingDiv = commentContainerDiv.find(".panel-heading:first");
     var commentContent = commentBodyDiv.text();
 
     if (button.hasClass("edit_open")){
+        $(".panel-body").show();
         button.removeClass("edit_open");
         button.html("Edit");
-        commentBodyDiv.show();
         $(".edit_comment_body").remove();
 
 
@@ -27,7 +27,7 @@ $(document).on("click", ".edit_comment", function () {
             "<textarea rows='4' cols='50' name='comment_body' id='comment_body'>" + commentContent + "</textarea>" +
             "<input type='hidden' name='article_id' value='"+ articleID +"'>" +
             "<input type='hidden' name='comment_id' value='"+ comment_id +"'>" +
-            "<input type='submit' name='submit' value='Update Comment'>" +
+            "<input class='btn btn-default btn-sm' type='submit' name='submit' value='Update Comment'>" +
             "</div>" + "</form>";
 
         commentBodyDiv.hide();
