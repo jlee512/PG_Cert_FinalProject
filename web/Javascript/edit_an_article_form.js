@@ -20,6 +20,8 @@ $('.panel-body').on('click', '.edit_article', (function () {
 
     original_article_body = getCookie(article_id + "_full_article_body");
 
+    console.log(original_article_body);
+
     if ($(this).parent().parent().hasClass("article_edit_open")) {
 
         $(this).parent().children().first().remove();
