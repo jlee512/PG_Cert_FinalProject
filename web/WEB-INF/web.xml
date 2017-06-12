@@ -192,6 +192,17 @@
         <servlet-name>DeleteAnArticle</servlet-name>
         <url-pattern>/DeleteAnArticle</url-pattern>
     </servlet-mapping>
+
+    <!--Public Profile Page-->
+    <servlet>
+        <servlet-name>PublicProfilePageContent</servlet-name>
+        <servlet-class>login.system.servlets.PublicProfilePageContent</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PublicProfilePageContent</servlet-name>
+        <url-pattern>/PublicProfile</url-pattern>
+    </servlet-mapping>
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
@@ -301,15 +312,15 @@
         <url-pattern>/ProfilePage</url-pattern>
     </servlet-mapping>
 
-    <!--(11) Edit Comment-->
+    <!--(11) Public Profile Page-->
     <servlet>
-        <servlet-name>EditCommentFormJSP</servlet-name>
-        <jsp-file>/EditCommentForm.jsp</jsp-file>
+        <servlet-name>PublicProfilePageJSP</servlet-name>
+        <jsp-file>/PublicProfilePage.jsp</jsp-file>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>EditCommentFormJSP</servlet-name>
-        <url-pattern>/EditCommentForm</url-pattern>
+        <servlet-name>PublicProfilePageJSP</servlet-name>
+        <url-pattern>/PublicProfilePage</url-pattern>
     </servlet-mapping>
 
 </web-app>

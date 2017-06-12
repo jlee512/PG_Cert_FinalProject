@@ -67,7 +67,7 @@ $(document).on("click", ".show_replies", function () {
 
 
                 /*--------Fillout the comment HTML template-----*/
-                            commentContainerTemplate.find(".panel-heading").html("<p>" + comment.author_username + ", " + date + "</p>");
+                            commentContainerTemplate.find(".panel-heading").html('<p><strong><a href="PublicProfile?username='+ comment.author_username + '" style="color: #f9a825;">' + comment.author_username + '</a></strong>, ' + date + '</p>');
                             commentContainerTemplate.find(".panel-body").html("<p>" + comment.content + "</p>");
 
                 /*--------Construct the buttons if required-----*/
