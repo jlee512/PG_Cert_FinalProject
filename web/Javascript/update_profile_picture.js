@@ -47,10 +47,11 @@ $(document).ready(function () {
                 })
             );
 
+            /*Toggle the default profile picture on and off*/
             $(".default-profile-pic-button").on('click', (function () {
 
                     if ($(".default_dialog_open")[0]) {
-
+                    /*If the dialog is on, remove the buttons*/
                         $(".default-picture-choices").removeClass("default_dialog_open");
                         $(".default-picture-choices").empty();
 
@@ -75,42 +76,3 @@ $(document).ready(function () {
     );
 
 });
-
-//     //If you select choose default a drop down appears of images you can select
-//         $("#chooseDefault").click(function () {
-//
-//             //Checks to see whether the class (which is added to the divv contianing the images) already exists
-//             if (!$(".defaultPhoto_dialog_open")[0]) {
-//
-//                 $("#defaultPictureDiv").append("<div id='defaultPic'  >" +
-//                     "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kea.jpg'>" +
-//                     "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kea.jpg'></label>" +
-//                     "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'>" +
-//                     "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kiwi.jpg'></label>" +
-//                     "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/kokako.jpg'>" +
-//                     "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/kokako.jpg'></label>" +
-//                     "<label><input type='radio' name='defaultPicture' value='Multimedia/DefaultProfilePictureOptions/manakura.jpg'>" +
-//                     "<img class='fixedDefaultPictureSize' align='middle' src='Multimedia/DefaultProfilePictureOptions/manakura.jpg'></div></label>");
-//                 $("#defaultPictureDiv").addClass("defaultPhoto_dialog_open");
-//                 $(".profile-image-upload").remove();
-//             }
-//
-//             //toggle function for showing the default images
-//             else {
-//                 $("#pictureForm").append("<input id='file' class='profile-image-upload' name='file' type='file'>");
-//                 $("#defaultPictureDiv").removeClass("defaultPhoto_dialog_open");
-//                 $("#defaultPic").remove();
-//             }
-//         })
-//     }
-//
-//     //When the image is clicked remove the form AND if the default pictures are showing then remove them too
-//     else {
-//         $("#profilePictureButtons").removeClass("photo-settings");
-//         $("#pictureForm").remove();
-//         if ($("#defaultPic").length) {
-//             $("#defaultPictureDiv").removeClass("defaultPhoto_dialog_open");
-//             $("#defaultPic").remove();
-//         }
-//     }
-// });

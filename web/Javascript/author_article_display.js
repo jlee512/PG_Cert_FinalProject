@@ -8,11 +8,10 @@ var articleTemplate =
         "<div class='panel panel-default'>" +
             "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
                 "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
-            "</div>" +
+            "</div>" + "</a>" +
             "<div class='panel-body'>" +
             "</div>" +
-        "</div>" +
-    "</a>";
+        "</div>";
 
 /*jQuery function to animate each article header on hover*/
 
@@ -74,7 +73,23 @@ function successfulArticleLoad(msg) {
 
             var formattedDate = formatDate(date);
 
-            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + formattedDate + "</p><p>" + article.article_body + "</p><a href='DeleteAnArticle?article_id=" + article.article_id + "' style='color: white;'><div class='btn btn-sm' style='background-color: #b23434;'><i class='fa fa-trash' aria-hidden='true'></i></div></a><div class='btn btn-sm' style='background-color: #f9a825; color: white;'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></div>");
+            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p>" +
+                                                    "<p>" + formattedDate + "</p>" +
+                                                    "<p>" + article.article_body + "</p>" +
+                                                    "<a href=" + href + " style='color: white;'>" +
+                                                        "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
+                                                            "<i class='fa fa-eye' aria-hidden='true'></i>" +
+                                                        "</div>" +
+                                                    "</a>" +
+                                                    "<a href='DeleteAnArticle?article_id=" + article.article_id + "' style='color: white;'>" +
+                                                        "<div class='btn btn-sm' style='background-color: #b23434;'>" +
+                                                            "<i class='fa fa-trash' aria-hidden='true'></i>" +
+                                                        "</div>" +
+                                                    "</a>" +
+                                                    "<div type='button' class='btn btn-sm edit_article' style='background-color: #f9a825; color: white;'>" +
+                                                        "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +
+                                                    "</div>");
+
             articleDiv.find(".panel-body").css("text-align", "left");
 
             /*Remove the loading icon*/
