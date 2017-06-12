@@ -34,16 +34,8 @@ public class IndividualAuthorArticles extends HttpServlet {
         /*Get the number of articles requested and the author_id*/
         int firstArticle = Integer.parseInt(request.getParameter("from"));
         int articleCount = Integer.parseInt(request.getParameter("count"));
-        int author_id = 0;
-        String username = request.getParameter("username");
+        int author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
 
-        if (((User)(session.getAttribute("userDetails"))).getUsername().equals(username)){
-            author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
-        }
-        else {
-            User user = UserDAO.getUser(DB, request.getParameter("username"));
-            author_id = user.getUser_id();
-        }
         List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByAuthor(DB, firstArticle, articleCount, author_id);
 
         /*Return a JSON object with the article information included*/
