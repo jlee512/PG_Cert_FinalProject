@@ -199,7 +199,7 @@ public class ArticleDAO {
                 String author_lastname = r.getString("lastname");
                 Timestamp timestampLookup = r.getTimestamp("timestamp");
                 String article_titleLookup = r.getString("article_title");
-                String article_bodyLookup = r.getString("article_preview") + "...";
+                String article_bodyLookup = r.getString("article_preview");
 
                 Article article = new Article(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, timestampLookup, article_bodyLookup);
                 article.setArticle_id(article_idLookup);
@@ -215,4 +215,46 @@ public class ArticleDAO {
         }
     }
 
+    /*Update and article method for use with the edit article servlet doPost method*/
+    public static int updateArticle(MySQL DB, int article_id, int author_id, String article_title_update, String article_body_update, Timestamp timestamp_update) {
+
+        /*Return an integer representative of the status
+        * (1) Successful update
+        * (2) Integrity constraint
+        * (3) Other invalid update request
+        * (4) Database connectivity issues
+        * */
+
+        try (Connection c = DB.connection()) {
+
+            /*Carry out article update based on provided article_id, article_title and article_body)*/
+            try (PreparedStatement stmt = c.prepareStatement("UPDATE uploaded_articles SET timestamp = ?, article_title = ?, article_body = ?  WHERE article_id = ? AND author_id = ?;")) {
+
+                /*Set the query parameters*/
+                stmt.setTimestamp(1, timestamp_update);
+                stmt.setString(2, article_title_update);
+                stmt.setString(3, article_body_update);
+                stmt.setInt(4, article_id);
+                stmt.setInt(5, author_id);
+
+                /*Execute prepared statement*/
+                stmt.executeUpdate();
+                System.out.println("Article updated in the database");
+                return 1;
+            }
+
+        } catch (SQLIntegrityConstraintViolationException e){
+            e.printStackTrace();
+            return 2;
+    }catch (SQLException e) {
+            e.printStackTrace();
+            return 3;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 4;
+        }
+    }
+
+
+    /*-----------END OF ARTICLE DAO--------------*/
 }

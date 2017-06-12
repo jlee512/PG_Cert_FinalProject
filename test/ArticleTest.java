@@ -248,4 +248,67 @@ public class ArticleTest {
         assertEquals(1, ArticleDAO.deleteAnArticle(DB, articleToDelete.getArticle_id(), articleToDelete.getAuthor_id()));
     }
 
+    @Test
+    public void test5UpdateAnArticle() {
+
+        Article articleToUpdate = ArticleGenerator.generateRandomArticle();
+
+        ArticleDAO.addArticleToDB(DB, articleToUpdate.getAuthor_id(), articleToUpdate.getArticle_title(), articleToUpdate.getArtcle_timestamp(), articleToUpdate.getArticle_body());
+
+                /*Get article details based on title*/
+        try (Connection c = DB.connection()) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id FROM uploaded_articles WHERE article_title = ?")) {
+
+                stmt.setString(1, articleToUpdate.getArticle_title());
+
+                try (ResultSet r = stmt.executeQuery()) {
+
+                    if (r.next()) {
+
+                        int article_id = r.getInt("article_id");
+                        articleToUpdate.setArticle_id(article_id);
+
+                    } else {
+                        System.out.println("Article not found");
+                    }
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        int article_id = articleToUpdate.getArticle_id();
+        System.out.println("Article id: " + article_id);
+
+        String article_title = articleToUpdate.getArticle_title();
+        System.out.println("Article title: " + article_title);
+
+
+        String article_body = articleToUpdate.getArticle_body();
+        System.out.println("article body: " + article_body);
+
+        int author_id = articleToUpdate.getAuthor_id();
+        System.out.println("Author id: " + author_id);
+
+        Timestamp futureTimestamp = new Timestamp(System.currentTimeMillis() + 172800000);
+
+        System.out.println(futureTimestamp);
+
+        String update_title = "Test heading update";
+        String update_body = "test article body update";
+
+        ArticleDAO.updateArticle(DB, article_id, author_id, update_title, update_body, futureTimestamp);
+
+        Article forComparison = ArticleDAO.getArticle(DB, article_id);
+
+        assertEquals("Test heading update", forComparison.getArticle_title());
+        assertEquals("test article body update", forComparison.getArticle_body());
+        assertTrue(futureTimestamp.getTime() - forComparison.getArtcle_timestamp().getTime() < (1000));
+
+
+    }
+
 }
