@@ -13,6 +13,7 @@
 <head>
     <%@ include file="HeadStylingLinks.jsp" %>
     <title>Login</title>
+    <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 </head>
 <body>
 
