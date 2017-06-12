@@ -25,7 +25,7 @@ $(document).on("click", ".add_reply", function () {
             "<input type='hidden' name='username' value='"+ username +"'>" +
             "<input type='hidden' name='article_id' value='"+ articleID +"'>" +
             "<input type='hidden' name='parent_comment_id' value='"+ parentID +"'>" +
-            "<input type='submit' name='submit' value='Post Comment'>" +
+            "<input class='btn btn-default btn-sm' type='submit' name='submit' value='Post Comment'>" +
             "</div>" + "</form>";
 
         $(add_article_form).insertAfter(commentDiv);

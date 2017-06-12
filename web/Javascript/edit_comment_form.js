@@ -27,7 +27,7 @@ $(document).on("click", ".edit_comment", function () {
             "<textarea rows='4' cols='50' name='comment_body' id='comment_body'>" + commentContent + "</textarea>" +
             "<input type='hidden' name='article_id' value='"+ articleID +"'>" +
             "<input type='hidden' name='comment_id' value='"+ comment_id +"'>" +
-            "<input type='submit' name='submit' value='Update Comment'>" +
+            "<input class='btn btn-default btn-sm' type='submit' name='submit' value='Update Comment'>" +
             "</div>" + "</form>";
 
         commentBodyDiv.hide();

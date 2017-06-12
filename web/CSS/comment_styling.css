@@ -4,16 +4,25 @@
 
 .panel-heading {
     background-image: none;
-    background-color: #006064;
+    background-color: #00acc1;
     color: white;
 }
 
 .btn-default {
-    background: #00acc1;
-    color: white;
+    background: #ffd54f;
+    color: black!important;
 }
 
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
-    background-color: #ffd54f!important;
+    background-color: #f9a825!important;
     color: black!important;
+}
+
+.top_level_comment_feed {
+    margin-left: 1%;
+    margin-right: 3%;
+}
+
+.add-comment-button {
+    margin-left: 1%;
 }
