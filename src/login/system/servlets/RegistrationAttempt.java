@@ -58,6 +58,8 @@ public class RegistrationAttempt extends HttpServlet {
 
             int user_id = registrationStatus;
 
+            
+
             /*reset the registrationStatus variable to be 1 if the user is successfully added*/
             if (user_id >= 0) {
                 registrationStatus = 1;
