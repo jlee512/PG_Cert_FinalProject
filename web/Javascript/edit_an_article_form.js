@@ -3,10 +3,10 @@
  */
 
 var articleEditFormString =
-    "<div><form><label for='article_title_input'>Article Title:</label>" +
+    "<div><form action='EditArticle' method='POST'><label for='article_title_input'>Article Title:</label>" +
     "<input type='text' id='article_title_input' name='article_title_input' class='article_input_form' style='max-width: 100%;' maxlength='100' required>" +
     "<label for='article_body_input'>Article Body:</label>" +
-    "<textarea name='article_body_input' id='article_body_input' class='form-control' rows='5' style='max-width: 100%;' required></textarea>" +
+    "<textarea name='article_body_input' id='article_body_input' class='form-control' rows='5' style='max-width: 100%;' required></textarea><button class='btn btn-sm' type='editArticle' id='editArticle' style='background-color: #00acc1;'>Confirm Edit</button>" +
     "</form></div>";
 
 

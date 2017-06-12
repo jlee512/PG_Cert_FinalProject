@@ -52,6 +52,7 @@ public class IndividualAuthorArticles extends HttpServlet {
 
     public static void constructArticlePreviewJSON(List<Article> articles, JSONArray articleDetails) {
         for (int i = 0; i < articles.size(); i++) {
+
             JSONObject singleArticle = new JSONObject();
             singleArticle.put("article_id", articles.get(i).getArticle_id());
             singleArticle.put("article_title", articles.get(i).getArticle_title());
