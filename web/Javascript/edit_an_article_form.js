@@ -4,9 +4,9 @@
 
 var articleEditFormString =
     "<div><form action='EditArticle' method='POST'><label for='article_title_input'>Article Title:</label>" +
-    "<input type='text' id='article_title_input' name='article_title_input' class='article_input_form' style='max-width: 100%;' maxlength='100' required>" +
+    "<input type='text' name='article_title_input' class='article_input_form article_title_input' style='max-width: 100%;' maxlength='100' required>" +
     "<label for='article_body_input'>Article Body:</label>" +
-    "<textarea name='article_body_input' id='article_body_input' class='form-control' rows='5' style='max-width: 100%;' required></textarea><button class='btn btn-sm' type='editArticle' id='editArticle' style='background-color: #00acc1;'>Confirm Edit</button>" +
+    "<textarea name='article_body_input' class='form-control article_body_input' rows='5' style='max-width: 100%;' required></textarea><button class='btn btn-sm editArticle' type='editArticle' name='editArticle' style='background-color: #00acc1;'>Confirm Edit</button>" +
     "</form></div>";
 
 
@@ -33,9 +33,11 @@ $('.panel-body').on('click', '.edit_article', (function () {
         $(this).parent().parent().addClass("article_edit_open");
         $(this).parent().children().slice(0, 3).hide();
 
-        $('#article_title_input', articleEditForm).val(original_title);
+        $('.article_title_input', articleEditForm).val(original_title);
 
-        $('#article_body_input', articleEditForm).val(original_article_body);
+        $('.article_body_input', articleEditForm).val(original_article_body);
+
+        $('.editArticle', articleEditForm).val(article_id);
 
         $(this).parent().prepend(articleEditForm);
     }
