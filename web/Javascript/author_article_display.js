@@ -4,9 +4,8 @@
 
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
-    "<a class='individualArticleLink'>" +
         "<div class='panel panel-default'>" +
-            "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
+            "<a class='individualArticleLink'>" + "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
                 "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
             "</div>" + "</a>" +
             "<div class='panel-body'>" +
@@ -65,9 +64,10 @@ function successfulArticleLoad(msg) {
             /*Make each article container a link to the full article*/
             var href = "ViewArticle?article_id=" + article.article_id;
 
-            articleDiv.attr("href", href);
+            articleDiv.find(".individualArticleLink").attr("href", href);
 
             articleDiv.find(".panel-title").append(" " + article.article_title);
+            articleDiv.find(".panel-body").attr("id", article.article_id);
 
             var date = new Date(article.article_timestamp);
 
@@ -96,6 +96,13 @@ function successfulArticleLoad(msg) {
             $('.loader-wrapper').hide();
 
             articleContainer.append(articleDiv);
+
+            /*Create a cookie which stores the full article body for reference in editing (lasts one 1/2 day)*/
+            var cookie_date = new Date();
+            cookie_date.setTime(cookie_date.getTime() + (24 * 60 * 60 * 1000 * 0.5));
+            var expires = "expires=" + cookie_date.toUTCString();
+            document.cookie = article.article_id + "_full_article_body=" + article.article_body_full + ";" + expires + "; path=/";
+
         }
 
         if (msg.length < count) {
