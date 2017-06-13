@@ -81,7 +81,9 @@ function successfulArticleLoad(msg) {
 
             articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p>" +
                 "<p>" + formattedDate + "</p>" +
-                "<p>" + article.article_body + "</p>");
+                "<p>" + article.article_body + "</p>" +
+                "<div class='btn btn-sm' style='background-color: #ffd54f; color: white;'>"+
+                "<i class='fa fa-comment-o' aria-hidden='true'></i><span style='display: inline; margin-left: 5px; font-size: small;'>" + article.comment_count + "</span></div>");
 
             articleDiv.find(".panel-body").css("text-align", "left");
 
