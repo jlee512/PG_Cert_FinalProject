@@ -157,6 +157,32 @@ public class UserDAO {
         return user;
     }
 
+    /*Get user by email for Google sign-in*/
+
+    public static User getUserByEmail(MySQL DB, String email) {
+    /*----------------------------------------------------*/
+
+        /*Method development to verify user password*/
+        User user = new User(null, null, null, -1, null, null, null, null, null, null, null, null);
+
+        try (Connection c = DB.connection()) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM registered_users WHERE email = ?")) {
+                /**/
+                stmt.setString(1, email);
+
+                executeUserSQLSelectStatement(user, stmt);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        /*----------------------------------------------------*/
+        return user;
+    }
+
+
     private static void executeUserSQLSelectStatement(User user, PreparedStatement stmt) throws SQLException {
         try (ResultSet r = stmt.executeQuery()) {
             if (r.next()) {
@@ -201,7 +227,7 @@ public class UserDAO {
     }
 
     /*Updates the users details*/
-    public static int updateUserDetails(MySQL DB, String userName, String email, String phone, String occupation, String city, String profile_description, String firstname, String lastname) {
+    public static int updateUserDetails(MySQL DB, String userName, String email, String phone, String occupation, String city, String profile_description, String firstname, String lastname, String original_username) {
 
         /*Return method status
         * (1) Success
@@ -211,26 +237,47 @@ public class UserDAO {
     /*------------------------------------------------------------*/
     /*convert username to lowercase to avoid duplication*/
         String username = userName.toLowerCase();
+        System.out.println(username);
 
         /*Addition to database*/
         User tempUser = new User(username, email, phone, occupation, city, profile_description, firstname, lastname);
 
         try (Connection c = DB.connection()) {
-            /*Connect to the database and add user*/
-            try (PreparedStatement stmt = c.prepareStatement("UPDATE registered_users SET username = ?, email = ?, phone = ?, occupation = ?, city = ?, profile_description = ?, firstname = ?, lastname = ? WHERE username = ?")) {
+            /**/
+            try(PreparedStatement stmt = c.prepareStatement("SELECT user_id FROM registered_users WHERE username = ?")){
 
-                stmt.setString(1, tempUser.getUsername());
-                stmt.setString(2, tempUser.getEmail());
-                stmt.setString(3, tempUser.getPhone());
-                stmt.setString(4, tempUser.getOccupation());
-                stmt.setString(5, tempUser.getCity());
-                stmt.setString(6, tempUser.getProfile_description());
-                stmt.setString(7, tempUser.getFirstname());
-                stmt.setString(8, tempUser.getLastname());
-                stmt.setString(9, tempUser.getUsername());
+                 stmt.setString(1, original_username);
+
+                try (ResultSet resultSet = stmt.executeQuery()) {
+
+                    /*Get the user_id*/
+                    if(resultSet.next()) {
+                        int user_id = resultSet.getInt(1);
+                        tempUser.setUser_id(user_id);
+                        System.out.println("User");
+                    } else {
+
+                        System.out.println("User could not be located");
+                    }
+                }
+            }
+
+
+            /*Connect to the database and add user*/
+            try (PreparedStatement stmt1 = c.prepareStatement("UPDATE registered_users SET username = ?, email = ?, phone = ?, occupation = ?, city = ?, profile_description = ?, firstname = ?, lastname = ? WHERE user_id = ?")) {
+
+                stmt1.setString(1, tempUser.getUsername());
+                stmt1.setString(2, tempUser.getEmail());
+                stmt1.setString(3, tempUser.getPhone());
+                stmt1.setString(4, tempUser.getOccupation());
+                stmt1.setString(5, tempUser.getCity());
+                stmt1.setString(6, tempUser.getProfile_description());
+                stmt1.setString(7, tempUser.getFirstname());
+                stmt1.setString(8, tempUser.getLastname());
+                stmt1.setInt(9, tempUser.getUser_id());
 
                 /*Execute the prepared statement*/
-                stmt.executeUpdate();
+                stmt1.executeUpdate();
                 System.out.println("User details successfully updated");
                 return 1;
 

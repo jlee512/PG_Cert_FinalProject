@@ -81,7 +81,14 @@ function successfulArticleLoad(msg) {
 
             articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p>" +
                 "<p>" + formattedDate + "</p>" +
-                "<p>" + article.article_body + "</p>");
+                "<p>" + article.article_body + "</p>" +
+                "<a href=" + href + " style='color: white;'>" +
+                "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
+                "<i class='fa fa-eye' aria-hidden='true'></i>" +
+                "</div>" +
+                "</a>" +
+                "<div class='btn btn-sm' style='background-color: #ffd54f; color: white;'>"+
+                "<i class='fa fa-comment-o' aria-hidden='true'></i><span style='display: inline; margin-left: 5px; font-size: small;'>" + article.comment_count + "</span></div>");
 
             articleDiv.find(".panel-body").css("text-align", "left");
 
@@ -89,18 +96,6 @@ function successfulArticleLoad(msg) {
             $('.loader-wrapper').hide();
 
             articleContainer.append(articleDiv);
-
-            /*Create a cookie which stores the full article body for reference in editing (lasts one 1/2 day)*/
-
-            var cookie_date = new Date();
-            cookie_date.setTime(cookie_date.getTime() + (24 * 60 * 60 * 1000 * 0.5));
-            var expires = "expires=" + cookie_date.toUTCString();
-
-            document.cookie = article.article_id + "_full_article_body=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-            var full_article_body = encodeURI(article.article_body_full);
-
-            document.cookie = article.article_id + "_full_article_body=" + full_article_body + ";" + expires + "; path=/";
 
         }
 

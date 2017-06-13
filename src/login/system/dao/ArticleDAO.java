@@ -56,7 +56,7 @@ public class ArticleDAO {
         Article article = new Article(-1, null, null, null);
 
         try (Connection c = DB.connection()) {
-            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, timestamp, article_title, article_body FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE article_id = ?")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id INNER JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id WHERE uploaded_articles.article_id = ?")) {
 
                 stmt.setInt(1, article_id);
 
@@ -72,8 +72,9 @@ public class ArticleDAO {
                         Timestamp timestampLookup = r.getTimestamp("timestamp");
                         String article_titleLookup = r.getString("article_title");
                         String article_bodyLookup = r.getString("article_body");
+                        int comment_countLookup = r.getInt("comment_count");
 
-                        article.setArticleParameters(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, timestampLookup, article_bodyLookup);
+                        article.setArticleParameters(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, timestampLookup, article_bodyLookup, comment_countLookup);
 
                         System.out.println("Article retrieved from the database");
                     } else {
@@ -99,7 +100,7 @@ public class ArticleDAO {
 
         try (Connection c = DB.connection()) {
 
-            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, timestamp, article_title, article_body AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON uploaded_articles.article_id = posted_comments.article_id GROUP BY uploaded_articles.article_id ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
 
                 stmt.setInt(1, numArticles);
                 stmt.setInt(2, fromArticle);
@@ -122,7 +123,7 @@ public class ArticleDAO {
 
         try (Connection c = DB.connection()) {
 
-            try (PreparedStatement stmt = c.prepareStatement("SELECT article_id, username, firstname, lastname, timestamp, article_title, article_body AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = ? ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id WHERE user_id = ? GROUP BY uploaded_articles.article_id ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
 
                 stmt.setInt(1, author_id);
                 stmt.setInt(2, numArticles);
@@ -200,8 +201,9 @@ public class ArticleDAO {
                 Timestamp timestampLookup = r.getTimestamp("timestamp");
                 String article_titleLookup = r.getString("article_title");
                 String article_bodyLookup = r.getString("article_preview");
+                int comment_countLookup = r.getInt("comment_count");
 
-                Article article = new Article(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, timestampLookup, article_bodyLookup);
+                Article article = new Article(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, timestampLookup, article_bodyLookup, comment_countLookup);
                 article.setArticle_id(article_idLookup);
                 articles.add(article);
             }

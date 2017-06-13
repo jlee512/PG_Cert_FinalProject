@@ -10,15 +10,17 @@ var articleEditFormString =
     "</form></div>";
 
 
-$('.panel-body').on('click', '.edit_article', (function () {
+$('.panel-body').on('click', '.edit_article', (function (e) {
 
-    var articleEditForm = $(articleEditFormString);
+    e.stopPropagation();
 
-    var original_title = $(this).parent().parent().children().first().text();
+    articleEditForm = $(articleEditFormString);
 
-    var article_id = $(this).parent().attr("id");
+    original_title = $(this).parent().parent().children().first().text();
 
-    var original_article_body = getCookie(article_id + "_full_article_body");
+    article_id = $(this).parent().attr("id");
+
+    original_article_body = getCookie(article_id + "_full_article_body", article_id);
 
     console.log(original_article_body);
 
@@ -44,7 +46,7 @@ $('.panel-body').on('click', '.edit_article', (function () {
 
 }));
 
-function getCookie(cookie_name) {
+function getCookie(cookie_name, article_id) {
 
     var name = cookie_name + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -55,7 +57,12 @@ function getCookie(cookie_name) {
             cookie = cookie.substring(1);
         }
         if (cookie.indexOf(name) == 0) {
-            return cookie.substring(name.length, cookie.length);
+            full_article_body = cookie.substring(name.length, cookie.length);
+
+            /*Delete the cookie that was originally created*/
+            document.cookie = article_id + "_full_article_body=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+            return full_article_body;
         }
     }
     return "";

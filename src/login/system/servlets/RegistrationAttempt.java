@@ -63,10 +63,7 @@ public class RegistrationAttempt extends HttpServlet {
                 return;
             }
 
-            System.out.println(recaptcha_response);
             boolean verify = VerifyRecaptcha.verify(recaptcha_response);
-
-            System.out.println(recaptcha_response);
 
             int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
 

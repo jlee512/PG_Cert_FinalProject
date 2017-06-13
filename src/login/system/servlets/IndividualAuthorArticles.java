@@ -63,6 +63,7 @@ public class IndividualAuthorArticles extends HttpServlet {
             singleArticle.put("author_lastname", articles.get(i).getAuthor_lastname());
             singleArticle.put("article_body", articles.get(i).getArticle_body().substring(0, Math.min(articles.get(i).getArticle_body().length(), 100)) + "...");
             singleArticle.put("article_body_full", articles.get(i).getArticle_body());
+            singleArticle.put("comment_count", articles.get(i).getComment_count());
             articleDetails.add(i, singleArticle);
         }
     }
