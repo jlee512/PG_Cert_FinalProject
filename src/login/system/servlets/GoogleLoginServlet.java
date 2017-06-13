@@ -6,18 +6,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
-import java.util.Map;
 
 /**
  * Created by jlee512 on 13/06/2017.
  */
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-//import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
 
 public class GoogleLoginServlet extends HttpServlet {
 
@@ -25,18 +29,47 @@ public class GoogleLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpTransport transport = new NetHttpTransport();
-//        JacksonFactory jsonFactory = new JacksonFactory();
+        JacksonFactory jsonFactory = new JacksonFactory();
 
-//        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).setAudience(Collections.singletonList("17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com")).build();
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).setAudience(Collections.singletonList("17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com")).build();
 
         // (Receive idTokenString by HTTPS POST)
-        Map idTokenString = request.getParameterMap();
+        String idTokenString = request.getParameter("id_token");
 
-        System.out.println(idTokenString.keySet());
 
-//        if (idToken != null) {
-//            IdToken.Payload payload = idToken.getPayload();
+        GoogleIdToken idToken = null;
+        try {
+            idToken = verifier.verify(idTokenString);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
 
+        if (idToken != null) {
+            Payload payload = idToken.getPayload();
+
+            // Print user identifier
+            String userId = payload.getSubject();
+            System.out.println("User ID: " + userId);
+
+            // Get profile information from payload
+            String email = payload.getEmail();
+            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+            String name = (String) payload.get("name");
+            String pictureUrl = (String) payload.get("picture");
+            String locale = (String) payload.get("locale");
+            String familyName = (String) payload.get("family_name");
+            String givenName = (String) payload.get("given_name");
+
+            // Check user profile exists based on
+
+
+
+        } else {
+
+            System.out.println("Invalid ID token.");
+            response.sendRedirect("Login?loginStatus=invalidGoogleSignIn" );
+
+        }
 //        /*Establish connection to the database*/
 //        MySQL DB = new MySQL();
 //

@@ -17,6 +17,16 @@
           content="17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
+    <style>
+
+        .g-signin2 > div {
+
+            margin: 0 auto;
+
+        }
+
+    </style>
+
 </head>
 <body>
 
@@ -77,8 +87,12 @@
                             <button class="btn btn-primary btn-rounded" type="submit" id="submit">Sign in</button>
                         </div>
 
-                            <%--GOOGLE SIGN-IN BUTTON--%>
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                        <br>
+
+                        <%--GOOGLE SIGN-IN BUTTON--%>
+                        <div class="g-signin2" data-onsuccess="onSignIn" style="width: 100%;"></div>
+
+                        <br>
 
                         <%--SIGN UP LINK--%>
                         <div class="modal-footer">
@@ -98,6 +112,9 @@
                         <%} else if (loginStatus != null && loginStatus.equals("loggedOut")) {%>
                         <br>
                         <p style="color: darkblue">you are no longer logged in, please try again</p>
+                        <%} else if (loginStatus != null && loginStatus.equals("invalidGoogleSignIn")) {%>
+                            <br>
+                            <p style="color: red">your google sign in details were incorrect, please try again</p>
                         <%
                             }
                         %>
