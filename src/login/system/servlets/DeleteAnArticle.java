@@ -1,6 +1,8 @@
 package login.system.servlets;
 
 import login.system.dao.ArticleDAO;
+import login.system.dao.Comment;
+import login.system.dao.CommentDAO;
 import login.system.dao.User;
 import login.system.db.MySQL;
 
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
 
 /**
  * Created by jlee512 on 12/06/2017.
