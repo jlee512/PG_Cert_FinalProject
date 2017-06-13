@@ -1,16 +1,22 @@
 /**
+ * Created by catherinedechalain on 13/06/17.
+ */
+/**
  * Created by jlee512 on 5/06/2017.
  */
 
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
-        "<div class='panel panel-default'>" +
-            "<a class='individualArticleLink'>" + "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
-                "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
-            "</div>" + "</a>" +
-            "<div class='panel-body'>" +
-            "</div>" +
-        "</div>";
+    "<div class='panel panel-default'>" +
+    "<a class='individualArticleLink'>" + "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
+    "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
+    "</div>" + "</a>" +
+    "<div class='panel-body'>" +
+    "</div>" +
+    "</div>";
+
+//Get the username of the author.
+var username = $("#username").text();
 
 /*jQuery function to animate each article header on hover*/
 
@@ -74,21 +80,21 @@ function successfulArticleLoad(msg) {
             var formattedDate = formatDate(date);
 
             articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p>" +
-                                                    "<p>" + formattedDate + "</p>" +
-                                                    "<p>" + article.article_body + "</p>" +
-                                                    "<a href=" + href + " style='color: white;'>" +
-                                                        "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
-                                                            "<i class='fa fa-eye' aria-hidden='true'></i>" +
-                                                        "</div>" +
-                                                    "</a>" +
-                                                    "<a href='DeleteAnArticle?article_id=" + article.article_id + "' style='color: white;'>" +
-                                                        "<div class='btn btn-sm' style='background-color: #b23434;'>" +
-                                                            "<i class='fa fa-trash' aria-hidden='true'></i>" +
-                                                        "</div>" +
-                                                    "</a>" +
-                                                    "<div type='button' class='btn btn-sm edit_article' style='background-color: #f9a825; color: white;'>" +
-                                                        "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +
-                                                    "</div>");
+                "<p>" + formattedDate + "</p>" +
+                "<p>" + article.article_body + "</p>" +
+                "<a href=" + href + " style='color: white;'>" +
+                "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
+                "<i class='fa fa-eye' aria-hidden='true'></i>" +
+                "</div>" +
+                "</a>" +
+                "<a href='DeleteAnArticle?article_id=" + article.article_id + "' style='color: white;'>" +
+                "<div class='btn btn-sm' style='background-color: #b23434;'>" +
+                "<i class='fa fa-trash' aria-hidden='true'></i>" +
+                "</div>" +
+                "</a>" +
+                "<div type='button' class='btn btn-sm edit_article' style='background-color: #f9a825; color: white;'>" +
+                "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +
+                "</div>");
 
             articleDiv.find(".panel-body").css("text-align", "left");
 
@@ -165,9 +171,9 @@ function loadArticlesIncrement() {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: 'ViewIndividualArticles',
+        url: 'ViewPublicArticles',
         type: 'GET',
-        data: {from: from, count: count},
+        data: {from: from, count: count, username: username},
         success: function (msg) {
             successfulArticleLoad(msg);
         },

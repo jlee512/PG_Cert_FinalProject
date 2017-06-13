@@ -180,7 +180,7 @@
 <%--Include Bootstrap JS, jQuery and jQuery UI--%>
 <%@ include file="BodyStylingLinks.jsp" %>
 
-<script type="text/javascript" src="Javascript/author_article_display.js"></script>
+<script type="text/javascript" src="Javascript/public_article_display.js"></script>
 <%------------------------------------------------------------------------------------------------------------------------------------%>
 
 
