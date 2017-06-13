@@ -44,19 +44,16 @@ public class UploadMultimedia extends HttpServlet {
 
         MySQL DB = new MySQL();
 
-
-//       Store the file save file path
         ServletContext servletContext = getServletContext();
         filePath = servletContext.getRealPath("Multimedia/");
 
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("userDetails");
 
-
         isMultipart = ServletFileUpload.isMultipartContent(request);
 
         if (!isMultipart) {
-            response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&photoUpload=invalid");
+            response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&multimediaUpload=invalid");
         }
 
         DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -75,12 +72,15 @@ public class UploadMultimedia extends HttpServlet {
 
         try {
 
-//         Parse the request to get file items.
+            // Parse the request to get file items.
             List fileItems = upload.parseRequest(request);
 
             // Process the uploaded file items
             Iterator i = fileItems.iterator();
 
+            // Initialize fileName and ArticleID
+            String fileName = "";
+            int ArticleID = 0;
 
             while (i.hasNext()) {
                 FileItem fi = (FileItem) i.next();
@@ -90,9 +90,8 @@ public class UploadMultimedia extends HttpServlet {
 
                     // Get the uploaded file parameters
                     String fieldName = fi.getFieldName();
-
                     System.out.println(fieldName);
-                    String fileName = fi.getName();
+                    fileName = fi.getName();
                     String contentType = fi.getContentType();
                     boolean isInMemory = fi.isInMemory();
                     long sizeInBytes = fi.getSize();
@@ -106,7 +105,6 @@ public class UploadMultimedia extends HttpServlet {
 
                         int counter = 0;
                         while (file.exists()) {
-                            System.out.println("file exists");
                             String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
@@ -120,7 +118,6 @@ public class UploadMultimedia extends HttpServlet {
 
                         int counter = 0;
                         while (file.exists()) {
-                            System.out.println("file exists 2");
                             String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
@@ -135,22 +132,30 @@ public class UploadMultimedia extends HttpServlet {
 
                     /* Write the file */
                     fi.write(file);
-                    /* Update the database and session */
-                    MultimediaDAO.addMultimediaToDB(DB, 2, "papajohns", "Multimedia/" + fileName, "yuri made this title");
-//                   set multimedia to article using DAO
 
+                    // Deal with DAO methods and youtube links
                 } else {
-                    if (fi.getFieldName().equals("youtubeLink") && fi.getFieldName() != null) {
-                        System.out.println("youtube link params have been met");
-                    }
 
+                    /*Gettting the article ID*/
                     if (fi.getFieldName().equals("uploadArticleId")) {
-                        int ArticleID = Integer.parseInt(fi.getString());
-
+                        ArticleID = Integer.parseInt(fi.getString());
+                        System.out.println("Article ID is " + ArticleID);
                     }
-//                Update session? so media is shown when article is selected
+
+                    // Placed here so the article ID is available
+                    MultimediaDAO.addMultimediaToDB(DB, ArticleID, "papajohns", "Multimedia/" + fileName, "yuri made this title");
+
+                    /*Getting Youtube link info*/
+                    if (fi.getFieldName().equals("youtubeLink") && fi.getFieldName() != null) {
+                        System.out.println("The youtube link entered is: " + fi.getString());
+                        // DEAL WITH THE YOUTUBE IFRAME HERE CREATE NEW DAO METHOD
+                    }
                 }
             }
+
+            // Update session? DAO method which puts multimedia in articles
+
+
             /* Send the user back to their profile */
             response.sendRedirect("ProfilePage");
 
