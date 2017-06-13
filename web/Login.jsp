@@ -13,6 +13,8 @@
 <head>
     <%@ include file="HeadStylingLinks.jsp" %>
     <title>Login</title>
+    <meta name="google-signin-client_id"
+          content="17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com">
     <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 </head>
 <body>
@@ -74,6 +76,8 @@
                             <button class="btn btn-primary btn-rounded" type="submit" id="submit">Sign in</button>
                         </div>
 
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
                         <%--SIGN UP LINK--%>
                         <div class="modal-footer">
                             <div class="options">
@@ -105,6 +109,22 @@
 </div>
 
 <%@include file="BodyStylingLinks.jsp" %>
+
+<%--Script inclusions--%>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<script>
+
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+
+</script>
 
 </body>
 </html>

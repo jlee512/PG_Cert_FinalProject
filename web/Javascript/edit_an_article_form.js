@@ -10,7 +10,9 @@ var articleEditFormString =
     "</form></div>";
 
 
-$('.panel-body').on('click', '.edit_article', (function () {
+$('.panel-body').on('click', '.edit_article', (function (e) {
+
+    e.stopPropagation();
 
     articleEditForm = $(articleEditFormString);
 
