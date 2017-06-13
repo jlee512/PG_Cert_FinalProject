@@ -4,13 +4,13 @@
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
 
-    "<div class='panel panel-default' style='margin: 10px;'>" +
+    "<div class='col-sm-3'><div class='panel panel-default' style='margin: 10px;'>" +
     "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
     "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
     "</div>" +
     "<div class='panel-body'>" +
     "</div>" +
-    "</div>";
+    "</div></div>";
 
 
 /*jQuery function to animate each article header on hover*/

@@ -237,14 +237,14 @@
                                 <input type="text" id="username" name="username"
                                        value="${sessionScope.userDetails.username}">
 
-                                <h4>Name </h4>
+                                <h4>Name</h4>
                                 <input style="width: 20%" class="form-group" type="text" name="firstname"
                                        value="${sessionScope.userDetails.firstname} ">
 
                                 <input style="width: 70%" class="form-group" type="text" name="lastname"
                                        value="${sessionScope.userDetails.lastname}">
 
-                                <h4 style="display: inline-block;">Occupation: </h4>
+                                <h4 style="display: inline-block;">Occupation</h4>
                                 <input style=" display: inline-block" type="text" id="occupation"
                                        name="occupation"
                                        value="${sessionScope.userDetails.occupation}">
@@ -376,7 +376,7 @@
 
         } else {
             $("#editButton").addClass("edit_User_Details");
-            $("#submit").append("<input type='submit' class='btn btn-sm' id='saveChanges' name='savechange' value='save changes' style='background-color: #00acc1;'>")
+            $("#submit").append("<button type='submit' class='btn btn-sm btn-success' id='saveChanges' name='savechange' >save changes</button>")
         }
 
     });

@@ -7,7 +7,7 @@ var addMultimediaForm = "<div><form action='UploadMultimedia' method='post' enct
     "<input type='file' name='photoOrVideo'>" +
     "<label for='youtubeLink'>Youtube Link</label>" +
     "<input type='text' name='youtubeLink'>" +
-    "<button type='submit' name='uploadArticleId' class='btn btn-sm uploadArticleID'>Upload Media</button>" +
+    "<button type='submit' name='uploadArticleId' class='btn btn-sm uploadArticleID' style='background-color: #00acc1;' >Upload Media <i class='fa fa-check' aria-hidden='true'></i></button>" +
     "</form></div>";
 
 
