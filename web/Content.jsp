@@ -98,6 +98,11 @@
         text-align: right;
     }
 
+    .view_comments:hover {
+        /*Override default hover function*/
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12) !important;
+    }
+
 </style>
 
 <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
