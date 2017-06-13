@@ -1,5 +1,6 @@
 package login.system.servlets;
 
+import login.system.dao.Multimedia;
 import login.system.dao.MultimediaDAO;
 import login.system.dao.User;
 import login.system.dao.UserDAO;
@@ -80,7 +81,8 @@ public class UploadMultimedia extends HttpServlet {
 
             // Initialize fileName and ArticleID
             String fileName = "";
-            int ArticleID = 0;
+            int ArticleID = -1;
+            String extension = "";
 
             while (i.hasNext()) {
                 FileItem fi = (FileItem) i.next();
@@ -105,7 +107,7 @@ public class UploadMultimedia extends HttpServlet {
 
                         int counter = 0;
                         while (file.exists()) {
-                            String extension = FilenameUtils.getExtension(fileName);
+                            extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
                             counter++;
@@ -118,7 +120,7 @@ public class UploadMultimedia extends HttpServlet {
 
                         int counter = 0;
                         while (file.exists()) {
-                            String extension = FilenameUtils.getExtension(fileName);
+                            extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
                             counter++;
@@ -140,10 +142,14 @@ public class UploadMultimedia extends HttpServlet {
                     if (fi.getFieldName().equals("uploadArticleId")) {
                         ArticleID = Integer.parseInt(fi.getString());
                         System.out.println("Article ID is " + ArticleID);
+
+                        //Placed this method here otherwise it doesnt seem to pick up the updated ArticleID and defaults to = 0
                     }
 
+
+                    MultimediaDAO.addMultimediaToDB(DB, ArticleID, extension, "Multimedia/" + fileName, "multimedia_title");
                     // Placed here so the article ID is available
-                    MultimediaDAO.addMultimediaToDB(DB, ArticleID, "papajohns", "Multimedia/" + fileName, "yuri made this title");
+
 
                     /*Getting Youtube link info*/
                     if (fi.getFieldName().equals("youtubeLink") && fi.getFieldName() != null) {
@@ -151,6 +157,9 @@ public class UploadMultimedia extends HttpServlet {
                         // DEAL WITH THE YOUTUBE IFRAME HERE CREATE NEW DAO METHOD
                     }
                 }
+
+//                List
+
             }
 
             // Update session? DAO method which puts multimedia in articles
