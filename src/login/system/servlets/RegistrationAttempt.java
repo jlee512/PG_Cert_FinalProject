@@ -54,9 +54,25 @@ public class RegistrationAttempt extends HttpServlet {
             int iterations = Passwords.getNextNumIterations();
             byte[] hash = Passwords.hash(passwordInput.toCharArray(), salt, iterations);
 
+            String recaptcha_response = request.getParameter("g-recaptcha-response");
+
+            /*If no recaptcha entry, redirect to the registration page*/
+            if (recaptcha_response == null || recaptcha_response.length() == 0) {
+
+                response.sendRedirect("Registration?registrationStatus=recaptchaNull");
+                return;
+            }
+
+            System.out.println(recaptcha_response);
+            boolean verify = VerifyRecaptcha.verify(recaptcha_response);
+
+            System.out.println(recaptcha_response);
+
             int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
 
             int user_id = registrationStatus;
+
+            
 
             /*reset the registrationStatus variable to be 1 if the user is successfully added*/
             if (user_id >= 0) {
