@@ -104,12 +104,10 @@
                                 <div id="username"><p>${requestScope.user.username}</p></div>
 
                                 <h4>Name </h4>
-                                <div style="width: 20%" class="form-group"><p>${requestScope.user.firstname}</p></div>
+                                <div style="width: 20%" class="form-group"><p>${requestScope.user.firstname}</p> <p>${requestScope.user.lastname}</p></div>
 
-                                <div style="width: 70%" class="form-group"><p>${requestScope.user.lastname}</p></div>
-
-                                <h4 style="display: inline-block;">Occupation: </h4>
-                                <div style=" display: inline-block" id="occupation"><p>${requestScope.user.occupation}</p></div>
+                                <h4 style="display: inline-block;">Occupation </h4>
+                                <div id="occupation"><p>${requestScope.user.occupation}</p></div>
 
                                 <h4>Location </h4>
                                 <div id="location"><p>${requestScope.user.city}</p></div>
