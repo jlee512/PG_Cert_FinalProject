@@ -81,7 +81,7 @@ function successfulArticleLoad(msg) {
             var formattedDate = formatDate(date);
 
 
-            articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p><p>" + formattedDate + "</p><p>" + article.article_body + "</p>");
+            articleDiv.find(".panel-body").html("<p>Published by: <strong><a href='PublicProfile?username=" + article.author_username + "'style='color: #f9a825;'>" + article.author_username + "</a></strong></p><p>" + formattedDate + "</p><p>" + article.article_body + "</p>");
             articleDiv.find(".panel-body").css("text-align", "left");
 
             /*Remove the loading icon*/
