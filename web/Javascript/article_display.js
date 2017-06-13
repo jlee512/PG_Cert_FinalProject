@@ -83,6 +83,12 @@ function successfulArticleLoad(msg) {
             articleDiv.find(".panel-body").html("<p>Published by: <strong><a href='PublicProfile?username=" + article.author_username + "'style='color: #f9a825;'>" + article.author_username + "</a></strong></p><p>" + formattedDate + "</p><p>" + article.article_body + "</p>");
             articleDiv.find(".panel-body").css("text-align", "left");
 
+            /*Display number of comments*/
+            var commentCountDiv = "<div class='btn' style='background-color: #ffd54f; color: white;'>"+
+                                    "<i class='fa fa-comment-o' aria-hidden='true'></i><span style='display: inline; margin-left: 5px'>" + article.comment_count + "</span></div>";
+
+            articleDiv.find(".panel-body").append(commentCountDiv);
+
             /*Remove the loading icon*/
             $('.loader-wrapper').hide();
 
