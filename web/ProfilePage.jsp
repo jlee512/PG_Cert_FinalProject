@@ -264,7 +264,7 @@
                                        value="${sessionScope.userDetails.email}">
 
                                 <h4 style="display: inline-block">Phone </h4>
-                                <input style="display: inline" type="text" id="phone" name="phone"
+                                <input style="display: inline" type="text" id="phone" name="phone" maxlength="14"
                                        value="${sessionScope.userDetails.phone}">
                             </div>
 
@@ -367,9 +367,18 @@
     <%--Edit button makes the form editable and the save changes button is appended--%>
     $("#editButton").click(function () {
         inputfields.removeAttr('readonly', 'readonly');
-        if (!$('#saveChanges')[0]) {
+
+        if ($(".edit_User_Details")[0]) {
+
+            $("#editButton").removeClass("edit_User_Details");
+            inputfields.attr('readonly', 'readonly');
+            $("#saveChanges").remove();
+
+        } else {
+            $("#editButton").addClass("edit_User_Details");
             $("#submit").append("<input type='submit' class='btn btn-sm' id='saveChanges' name='savechange' value='save changes' style='background-color: #00acc1;'>")
         }
+
     });
 
     <%--Save changes returns the form to readonly and the button is removed--%>

@@ -83,7 +83,7 @@
 
                     <%--New Password (1)--%>
                     <div class="md-form">
-                        <input class="form-control" type="password" id="newPassword" name="newPassword"
+                        <input class="form-control" type="password" id="newPassword" name="newPassword" pattern="^(?=.*[^a-zA-Z])(?=.*[a-z])(?=.*[A-Z])\S{8,}$" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                                oninvalid="this.setCustomValidity('please enter your password')"
                                oninput="this.setCustomValidity('')"
                                required>
