@@ -4,25 +4,24 @@
 
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
-    "<a class='individualArticleLink'>" +
         "<div class='container text-center' id='mainContent'>" +
             "<div class='row'>" +
                 "<div class='col-md-1'></div>" +
                     "<div class='panel panel-default col-sm-12 col-md-10'>" +
                         "<div style='padding-top: 2%'>" +
                             "<div class='panel panel-default'>" +
-                                "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
-                                    "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
-                                "</div>" +
-                                "<div class='panel-body'>" +
-                                "</div>" +
+                                "<a class='individualArticleLink'>" +
+                                    "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
+                                        "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
+                                    "</div></a>" +
+                                    "<div class='panel-body'>" +
+                                    "</div>" +
                             "</div>" +
                         "</div>" +
                     "</div>" +
                 "<div class='col-md-1'></div>" +
             "</div>" +
-        "</div>" +
-    "</a>";
+        "</div>";
 
 /*jQuery function to animate each article header on hover*/
 
@@ -73,7 +72,7 @@ function successfulArticleLoad(msg) {
 
             /*Make each article container a link to the full article*/
             var href = "ViewArticle?article_id=" + article.article_id;
-            articleDiv.attr("href", href);
+            articleDiv.find(".individualArticleLink").attr("href", href);
 
             articleDiv.find(".panel-title").append(" " + article.article_title);
 

@@ -90,18 +90,6 @@ function successfulArticleLoad(msg) {
 
             articleContainer.append(articleDiv);
 
-            /*Create a cookie which stores the full article body for reference in editing (lasts one 1/2 day)*/
-
-            var cookie_date = new Date();
-            cookie_date.setTime(cookie_date.getTime() + (24 * 60 * 60 * 1000 * 0.5));
-            var expires = "expires=" + cookie_date.toUTCString();
-
-            document.cookie = article.article_id + "_full_article_body=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-            var full_article_body = encodeURI(article.article_body_full);
-
-            document.cookie = article.article_id + "_full_article_body=" + full_article_body + ";" + expires + "; path=/";
-
         }
 
         if (msg.length < count) {
