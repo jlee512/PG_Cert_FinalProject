@@ -63,7 +63,6 @@ public class GoogleLoginServlet extends HttpServlet {
             // Check user profile exists based on
 
 
-
         } else {
 
             System.out.println("Invalid ID token.");

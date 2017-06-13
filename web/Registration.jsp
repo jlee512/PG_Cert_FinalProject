@@ -21,8 +21,93 @@
     <%------------------------------------------------------------------------------------------------------------%>
 
     <title>Welcome! Register an Account</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <%--Google recaptcha--%>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
+        <%--Google Sign Up--%>
+        <meta name="google-signin-client_id"
+              content="17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script>
+        var googleUser = {};
+        var startApp = function() {
+            gapi.load('auth2', function(){
+                // Retrieve the singleton for the GoogleAuth library and set up the client.
+                auth2 = gapi.auth2.init({
+                    client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    // Request scopes in addition to 'profile' and 'email'
+                    //scope: 'additional_scope'
+                });
+                attachSignin(document.getElementById('customBtn'));
+            });
+        };
+
+        function attachSignin(element) {
+            console.log(element.id);
+            auth2.attachClickHandler(element, {},
+                function(googleUser) {
+                    document.getElementById('name').innerText = "Signed in: " +
+                        googleUser.getBasicProfile().getName();
+                }, function(error) {
+                    alert(JSON.stringify(error, undefined, 2));
+                });
+        }
+    </script>
+    <style type="text/css">
+        #customBtn {
+            display: inline-block;
+            background: white;
+            color: #444;
+            width: 190px;
+            border-radius: 5px;
+            border: thin solid #888;
+            box-shadow: 1px 1px 1px grey;
+            white-space: nowrap;
+        }
+        #customBtn:hover {
+            cursor: pointer;
+        }
+        span.label {
+            font-family: serif;
+            font-weight: normal;
+        }
+        span.icon {
+            background: url('/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
+            display: inline-block;
+            vertical-align: middle;
+            width: 42px;
+            height: 42px;
+        }
+        span.buttonText {
+            display: inline-block;
+            vertical-align: middle;
+            padding-left: 42px;
+            padding-right: 42px;
+            font-size: 14px;
+            font-weight: bold;
+            /* Use the Roboto font that is loaded in the <head> */
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+
+    <style>
+
+        .g-signin2 > div {
+
+            margin: 0 auto;
+
+        }
+
+    </style>
+
 </head>
 <body>
 <div class="backGroundImage">
@@ -78,6 +163,23 @@
                         <div class="text-center">
                             <button type="submit" id="submit" class="btn btn-primary">sign up</button>
                         </div>
+
+                            <br>
+
+                            <%--GOOGLE SIGN-IN BUTTON--%>
+                            <!-- In the callback, you would hide the gSignInWrapper element on a
+  successful sign in -->
+                            <div id="gSignInWrapper">
+                                <span class="label">Sign in with:</span>
+                                <div id="customBtn" class="customGPlusSignIn">
+                                    <span class="icon"></span>
+                                    <span class="buttonText">Google Sign Up</span>
+                                </div>
+                            </div>
+                            <div id="name"></div>
+
+                            <br>
+
                         <a class="text-right" href="Login">or log in here</a>
 
                         <%--Selection of additional user feedback for different registration errors--%>
@@ -116,6 +218,29 @@
         </div>
     </div>
 </div>
+
+<script>startApp();</script>
+
+<script>
+
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+        //use jquery to post data dynamically to google to verify identity
+        var form = $('<form action="RegistrationGoogleOAuth" method="post">' +
+            '<input type="text" name="id_token" value="' +
+            googleUser.getAuthResponse().id_token + '" />' +
+            '</form>');
+        $('body').append(form);
+        form.submit();
+    }
+
+</script>
+
 <script>
     function checkForSpaces(textFieldInput) {
         var textFieldInputTest = textFieldInput.value;
