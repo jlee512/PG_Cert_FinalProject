@@ -262,6 +262,15 @@
                                 <h4>Email </h4>
                                 <input type="text" id="email" name="email"
                                        value="${sessionScope.userDetails.email}">
+                                <%--If a google-sign-in, include an alert letting the user know this is what is stored as a link to their google account--%>
+                                <c:if test="${sessionScope.googleSignIn}">
+                                    <div class="card-header text-center">
+                                        <span class="badge badge-warning" style="background-color: #f9a825;">We noticed you have used Google Sign In.</span>
+                                        <span class="badge badge-warning" style="background-color: #f9a825;">Your gmail address is linked to this account</span>
+                                        <span class="badge badge-warning" style="background-color: #f9a825;">Before changing, please set your password</span>
+                                    </div>
+                                </c:if>
+
 
                                 <h4 style="display: inline-block">Phone </h4>
                                 <input style="display: inline" type="text" id="phone" name="phone"
