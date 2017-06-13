@@ -204,6 +204,17 @@
         <url-pattern>/EditArticle</url-pattern>
     </servlet-mapping>
 
+    <!--Google OAuth Login Servley-->
+    <servlet>
+        <servlet-name>GoogleOAuthLogin</servlet-name>
+        <servlet-class>login.system.servlets.GoogleLoginServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GoogleOAuthLogin</servlet-name>
+        <url-pattern>/LoginGoogleOAuth</url-pattern>
+    </servlet-mapping>
+
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 

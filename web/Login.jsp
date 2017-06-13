@@ -15,6 +15,7 @@
     <title>Login</title>
     <meta name="google-signin-client_id"
           content="17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 </head>
 <body>
@@ -76,6 +77,7 @@
                             <button class="btn btn-primary btn-rounded" type="submit" id="submit">Sign in</button>
                         </div>
 
+                            <%--GOOGLE SIGN-IN BUTTON--%>
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
                         <%--SIGN UP LINK--%>
@@ -112,7 +114,7 @@
 
 <%--Script inclusions--%>
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<%--Google OAuth--%>
 
 <script>
 
@@ -122,6 +124,14 @@
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+        //use jquery to post data dynamically to google to verify identity
+        var form = $('<form action="LoginGoogleOAuth" method="post">' +
+            '<input type="text" name="id_token" value="' +
+            googleUser.getAuthResponse().id_token + '" />' +
+            '</form>');
+        $('body').append(form);
+        form.submit();
     }
 
 </script>

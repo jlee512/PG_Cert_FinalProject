@@ -36,5 +36,7 @@
     </orderEntry>
     <orderEntry type="library" name="jquery-ui" level="application" />
     <orderEntry type="library" name="jquery-1.12.4" level="application" />
+    <orderEntry type="library" name="google_OAuth_libraries" level="project" />
+    <orderEntry type="library" name="libs-sources" level="project" />
   </component>
 </module>
