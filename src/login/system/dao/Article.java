@@ -18,6 +18,7 @@ public class Article implements Serializable {
     private String article_title;
     private Timestamp artcle_timestamp;
     private String article_body;
+    private int comment_count;
     private List<Comment> top_level_comments = null;
 
 
@@ -28,7 +29,7 @@ public class Article implements Serializable {
         this.article_body = article_body;
     }
 
-    public Article(int article_id, String author_username, String author_firstname, String author_lastname, String article_title, Timestamp article_timestamp, String article_body) {
+    public Article(int article_id, String author_username, String author_firstname, String author_lastname, String article_title, Timestamp article_timestamp, String article_body, int comment_count) {
         this.article_id = article_id;
         this.author_username = author_username;
         this.author_firstname = author_firstname;
@@ -36,9 +37,10 @@ public class Article implements Serializable {
         this.article_title = article_title;
         this.artcle_timestamp = article_timestamp;
         this.article_body = article_body;
+        this.comment_count = comment_count;
     }
 
-    public void setArticleParameters(int article_id, String author_username, String author_firstname, String author_lastname, String article_title, Timestamp article_timestamp, String article_body) {
+    public void setArticleParameters(int article_id, String author_username, String author_firstname, String author_lastname, String article_title, Timestamp article_timestamp, String article_body, int comment_count) {
         this.article_id = article_id;
         this.author_username = author_username;
         this.author_firstname = author_firstname;
@@ -46,6 +48,7 @@ public class Article implements Serializable {
         this.article_title = article_title;
         this.artcle_timestamp = article_timestamp;
         this.article_body = article_body;
+        this.comment_count = comment_count;
     }
 
     /* Getters and Setters*/
@@ -120,6 +123,14 @@ public class Article implements Serializable {
 
     public void setTop_level_comments(List<Comment> top_level_comments) {
         this.top_level_comments = top_level_comments;
+    }
+
+    public int getComment_count(){
+        return comment_count;
+    }
+
+    public void setComment_count(int comment_count){
+        this.comment_count = comment_count;
     }
 
     /* End of Getters and Setters */
