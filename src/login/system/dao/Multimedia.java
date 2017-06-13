@@ -27,13 +27,6 @@ public class Multimedia implements Serializable {
         this.multimedia_title = multimedia_title;
     }
 
-    public Multimedia(int multimedia_id, int article_id, String file_type, String file_path, String multimedia_title) {
-        this.multimedia_id = multimedia_id;
-        this.article_id = article_id;
-        this.file_type = file_type;
-        this.file_path = file_path;
-        this.multimedia_title = multimedia_title;
-    }
 
     public int getMultimedia_id() {
         return multimedia_id;

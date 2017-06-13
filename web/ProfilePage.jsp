@@ -402,7 +402,7 @@
 <%--Moved by JUL to separate JS file--%>
 <script type="text/javascript" src="Javascript/update_profile_picture.js"></script>
 <script type="text/javascript" src="Javascript/edit_an_article_form.js"></script>
-
+<script type="text/javascript" src="Javascript/upload_multimedia.js"></script>
 <%------------------------------------------------------------------------------------------------------------------------------------%>
 
 

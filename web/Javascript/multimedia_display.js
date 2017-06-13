@@ -4,7 +4,7 @@
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
 
-    "<div class='panel panel-default col-sm-3'>" +
+    "<div class='panel panel-default' style='margin: 10px;'>" +
     "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
     "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
     "</div>" +
@@ -71,14 +71,30 @@ function successfulArticleLoad(msg) {
 
             // var date = new Date(article.article_date);
 
+            if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
+                console.log(multimedia.file_path);
+                articleDiv.find(".panel-body").html("<img width='100px' height='100px' src='" + multimedia.file_path + "' >");
+                articleDiv.find(".panel-body").css("text-align", "left");
 
-            articleDiv.find(".panel-body").html("<img width='100px' height='100px' src='" + multimedia.file_path + "' >");
-            articleDiv.find(".panel-body").css("text-align", "left");
+                /*Remove the loading icon*/
+                $('.loader-wrapper').hide();
 
-            /*Remove the loading icon*/
-            $('.loader-wrapper').hide();
+                articleContainer.append(articleDiv);
+            }
 
-            articleContainer.append(articleDiv);
+            if (multimedia.file_type == ".mp4") {
+                articleDiv.find(".panel-body").html("<video controls width='200px' height='200px'><source src='" + multimedia.file_path + "' type='video/mp4'></video>");
+                articleDiv.find(".panel-body").css("text-align", "left");
+
+                /*Remove the loading icon*/
+                $('.loader-wrapper').hide();
+
+                articleContainer.append(articleDiv);
+            }
+
+
+
+
         }
 
         if (msg.length < count) {

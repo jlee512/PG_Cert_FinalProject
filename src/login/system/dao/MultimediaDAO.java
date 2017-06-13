@@ -28,11 +28,7 @@ Add a new user to the Database
 
             try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM posted_multimedia")) {
 
-
                         getListOfMultimedia(multimedia, stmt);
-
-
-
 
             }
         } catch (SQLIntegrityConstraintViolationException e) {

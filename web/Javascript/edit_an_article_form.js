@@ -12,13 +12,13 @@ var articleEditFormString =
 
 $('.panel-body').on('click', '.edit_article', (function () {
 
-    articleEditForm = $(articleEditFormString);
+    var articleEditForm = $(articleEditFormString);
 
-    original_title = $(this).parent().parent().children().first().text();
+    var original_title = $(this).parent().parent().children().first().text();
 
-    article_id = $(this).parent().attr("id");
+    var article_id = $(this).parent().attr("id");
 
-    original_article_body = getCookie(article_id + "_full_article_body");
+    var original_article_body = getCookie(article_id + "_full_article_body");
 
     console.log(original_article_body);
 
