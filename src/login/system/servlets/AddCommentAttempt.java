@@ -18,8 +18,9 @@ import java.sql.Date;
  */
 public class AddCommentAttempt extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response){
-        //redirect
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
+        LoginAttempt.loginStatusRedirection(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
