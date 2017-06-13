@@ -1,4 +1,7 @@
 /**
+ * Created by catherinedechalain on 13/06/17.
+ */
+/**
  * Created by jlee512 on 5/06/2017.
  */
 
@@ -11,6 +14,9 @@ var articleTemplate =
     "<div class='panel-body'>" +
     "</div>" +
     "</div>";
+
+//Get the username of the author.
+var username = $("#username").text();
 
 /*jQuery function to animate each article header on hover*/
 
@@ -48,7 +54,7 @@ function successfulArticleLoad(msg) {
 
     var articleContainer = $(".news_feed");
 
-    if (msg.length == 0) {
+    if (msg.length == 0){
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
         $('.loader-wrapper').hide();
         $('#loaded1, #loaded2, #loaded3, #loaded4').show();
@@ -75,24 +81,7 @@ function successfulArticleLoad(msg) {
 
             articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p>" +
                 "<p>" + formattedDate + "</p>" +
-                "<p>" + article.article_body + "</p>" +
-                "<a href=" + href + " style='color: white;'>" +
-                "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
-                "<i class='fa fa-eye' aria-hidden='true'></i>" +
-                "</div>" +
-                "</a>" +
-                "<a href='DeleteAnArticle?article_id=" + article.article_id + "' style='color: white;'>" +
-                "<div class='btn btn-sm' style='background-color: #b23434;'>" +
-                "<i class='fa fa-trash' aria-hidden='true'></i>" +
-                "</div>" +
-                "</a>" +
-                "<div type='button' class='btn btn-sm edit_article' style='background-color: #f9a825; color: white;'>" +
-                "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +
-                "</div>" +
-                "<div type='button' class='btn btn-sm add_multimedia' style='background-color: #42a5f5; color: white;'>" +
-                "<i class='fa fa-file-picture-o' aria-hidden='true'></i>" +
-                "</div><div class='multimediaForm'></div>"
-            );
+                "<p>" + article.article_body + "</p>");
 
             articleDiv.find(".panel-body").css("text-align", "left");
 
@@ -124,6 +113,7 @@ function successfulArticleLoad(msg) {
 }
 
 
+
 function formatDate(date) {
 
     var days = date.getDate();
@@ -148,7 +138,7 @@ function formatDate(date) {
         amPM = 'AM';
     }
 
-    return days + "/" + months + "/" + year + " " + hours + ":" + minutes + " " + amPM;
+    return days + "/" + months + "/" + year + " " + hours +":" + minutes + " " + amPM;
 
 }
 
@@ -168,9 +158,9 @@ function loadArticlesIncrement() {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: 'ViewIndividualArticles',
+        url: 'ViewPublicArticles',
         type: 'GET',
-        data: {from: from, count: count},
+        data: {from: from, count: count, username: username},
         success: function (msg) {
             successfulArticleLoad(msg);
         },
@@ -186,7 +176,7 @@ $(document).ready(function () {
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 
     /*Add in infinite scrolling to load more articles*/
-    $(window).scroll(function () {
+    $(window).scroll(function() {
 
         /*Function to facilitate infinite scrolling of articles*/
         if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreArticles) {

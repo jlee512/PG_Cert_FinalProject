@@ -55,7 +55,6 @@ $(document).on("click", ".show_replies", function () {
                 type: "GET",
                 success: function loadNestedComments(msg) {
                     buttonsDiv.find(".loader-wrapper").show();
-                    console.log(msg.length);
                     if (msg.length != 0){
                         for (i = 0; i < msg.length; i++) {
 
@@ -153,6 +152,7 @@ function loadNestedCommentsFail(jqXHR, textStatus, errorThrown) {
     console.log(jqXHR.status);
     console.log(textStatus);
     console.log(errorThrown);
+
 }
 
 function getArticleID () {

@@ -60,7 +60,7 @@ public class DeleteComment extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        response.sendRedirect("/ViewArticle?article_id=" + articleID);
+        response.sendRedirect("ViewArticle?article_id=" + articleID);
     }
 
     private void adjustParentCommentStatus(MySQL DB, int commentID, int parentCommentID){

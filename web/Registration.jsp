@@ -71,8 +71,7 @@
 
                         <%--GOOGLE RECAPTCHA--%>
                         <div class="md-form" style="opacity: 1">
-                            <div class="g-recaptcha"
-                                 data-sitekey="6LdfICQUAAAAAKDVV0dEaobS0ecRWPLFvdfKTyzn"></div>
+                            <div class="g-recaptcha" data-sitekey="6LdFMSUUAAAAAIXRxfSlQ6gkpE9-jjAHZGs0DHBR"></div>
                         </div>
 
                         <%--Sign Up button and link to RegistrationAttempt Servlet--%>
@@ -103,6 +102,10 @@
                                 <p style="color: red">the system could not connect to the database right now, please try
                                     again
                                     soon</p>
+                            </c:when>
+                            <c:when test="${param.registrationStatus == 'recaptchaNull'}">
+                                <br>
+                                <p style="color: red">You did not complete the recaptcha validation</p>
                             </c:when>
                         </c:choose>
                         <%------------------------------------------------------------------------------%>
