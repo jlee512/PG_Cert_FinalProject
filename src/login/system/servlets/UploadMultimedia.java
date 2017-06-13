@@ -153,10 +153,18 @@ public class UploadMultimedia extends HttpServlet {
 
                     /*Getting Youtube link info*/
                     if (fi.getFieldName().equals("youtubeLink") && fi.getFieldName() != null) {
-                        System.out.println("The youtube link entered is: " + fi.getString());
+                        String conversionLink = fi.getString().replace("watch?v=", "embed/");
+
+
+
+                        System.out.println(conversionLink);
+                        String youtubeLink = "<iframe width='420' height='315' src='" + conversionLink + "'></iframe>";
+                        System.out.println(youtubeLink);
+                        MultimediaDAO.addMultimediaToDB(DB, 2, ".web", youtubeLink, "Youtube Video");
                         // DEAL WITH THE YOUTUBE IFRAME HERE CREATE NEW DAO METHOD
                     }
                 }
+
 
 //                List
 

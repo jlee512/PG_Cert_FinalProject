@@ -42,7 +42,7 @@ $('div.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundCo
 /* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
 var from = 0;
 var count = 6;
-var moreArticles = true;
+var moreMultimedia = true;
 
 
 function successfulArticleLoad(msg) {
@@ -53,7 +53,7 @@ function successfulArticleLoad(msg) {
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
         $('.loader-wrapper').hide();
         $('#loaded1, #loaded2, #loaded3, #loaded4').show();
-        moreArticles = false;
+        moreMultimedia = false;
 
     } else {
         for (var i = 0; i < msg.length; i++) {
@@ -83,6 +83,7 @@ function successfulArticleLoad(msg) {
             }
 
             if (multimedia.file_type == ".mp4") {
+
                 articleDiv.find(".panel-body").html("<video controls width='200px' height='200px'><source src='" + multimedia.file_path + "' type='video/mp4'></video>");
                 articleDiv.find(".panel-body").css("text-align", "left");
 
@@ -92,16 +93,28 @@ function successfulArticleLoad(msg) {
                 articleContainer.append(articleDiv);
             }
 
+            if (multimedia.file_type == ".web") {
+                console.log(multimedia.file_path);
+                articleDiv.find(".panel-body").html(multimedia.file_path);
+                articleDiv.find(".panel-body").css("text-align", "left");
+
+                /*Remove the loading icon*/
+                $('.loader-wrapper').hide();
+
+                articleContainer.append(articleDiv);
+            }
 
 
+            if (msg.length < count) {
+                console.log("inside if statement multimedia");
+                $('.loader-wrapper').hide();
+                $('#loaded1, #loaded2, #loaded3, #loaded4').show();
+                moreMultimedia = false;
+            }
 
         }
 
-        if (msg.length < count) {
-            $('.loader-wrapper').hide();
-            $('#loaded1, #loaded2, #loaded3, #loaded4').show();
-            moreArticles = false;
-        }
+
     }
 }
 
@@ -113,7 +126,7 @@ function failedArticleLoad(jqXHR, textStatus, errorThrown) {
 
 }
 
-function loadArticlesIncrement() {
+function loadMultimediaIncrement() {
 
     /*Show the articles loader*/
     $('.loader-wrapper').show();
@@ -142,11 +155,11 @@ $(document).ready(function () {
     $(window).scroll(function () {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreArticles) {
-            loadArticlesIncrement();
+        if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreMultimedia) {
+            loadMultimediaIncrement();
         }
     });
 
     /*Load initial four articles*/
-    loadArticlesIncrement();
+    loadMultimediaIncrement();
 });
