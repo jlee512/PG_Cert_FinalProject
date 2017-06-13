@@ -72,6 +72,7 @@
                         <h3>${param.username}, please select your new password</h3>
                     </div>
 
+                        <c:if test="${!sessionScope.googleSignIn}">
                     <%--Current Password--%>
                     <div class="md-form">
                         <input class="form-control" type="password" id="currentPassword" name="currentPassword"
@@ -80,6 +81,7 @@
                                required>
                         <label for="currentPassword">Current password</label>
                     </div>
+                        </c:if>
 
                     <%--New Password (1)--%>
                     <div class="md-form">

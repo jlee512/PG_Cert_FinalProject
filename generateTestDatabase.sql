@@ -27,7 +27,8 @@ CREATE TABLE uploaded_articles (
   timestamp     TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   article_title VARCHAR(500)    NOT NULL,
   article_body  TEXT            NOT NULL,
-  FOREIGN KEY (author_id) REFERENCES registered_users (user_id),
+  FOREIGN KEY (author_id) REFERENCES registered_users (user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT uniqueArticle UNIQUE
   (
     timestamp, article_title
@@ -42,10 +43,13 @@ CREATE TABLE posted_comments (
   timestamp         TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   comment_body      TEXT            NOT NULL,
   is_parent         BOOLEAN,
-  FOREIGN KEY (article_id) REFERENCES uploaded_articles (article_id),
-  FOREIGN KEY (author_id) REFERENCES registered_users (user_id),
+  FOREIGN KEY (article_id) REFERENCES uploaded_articles (article_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (author_id) REFERENCES registered_users (user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (parent_comment_id) REFERENCES posted_comments (comment_id)
-  ON DELETE CASCADE
+  ON DELETE CASCADE ON UPDATE CASCADE
+
 );
 
 CREATE TABLE posted_multimedia (
@@ -83,3 +87,7 @@ CREATE TABLE posted_multimedia (
 # SELECT article_id, username, firstname, lastname, timestamp, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = 1 ORDER BY timestamp DESC LIMIT 3 OFFSET 0;
 
 SELECT COUNT(username) FROM registered_users;
+
+UPDATE uploaded_articles SET timestamp = CURRENT_TIMESTAMP, article_title = 'TEST', article_body = 'TESTtestTEST'  WHERE article_id = 89 AND author_id = 3;
+
+SELECT COUNT(comment_id) FROM posted_comments WHERE parent_comment_id = 1 AND author_id != 3;

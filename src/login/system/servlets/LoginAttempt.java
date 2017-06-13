@@ -17,10 +17,6 @@ import java.io.IOException;
  */
 public class LoginAttempt extends HttpServlet {
 
-
-
-
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/

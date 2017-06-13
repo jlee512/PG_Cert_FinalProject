@@ -55,8 +55,13 @@ $(document).on("click", ".show_replies", function () {
                 type: "GET",
                 success: function loadNestedComments(msg) {
                     buttonsDiv.find(".loader-wrapper").show();
+
+                    console.log(msg.length);
+
                     if (msg.length != 0){
                         for (i = 0; i < msg.length; i++) {
+
+                            console.log("Test");
 
                             var commentContainerTemplate = $(commentPara);
                             var replyCommentsButtonPanel = $(commentContainerTemplate).find('.buttons');
@@ -122,7 +127,7 @@ $(document).on("click", ".show_replies", function () {
 function formatDate(date) {
 
     var days = date.getDate();
-    var months = date.getMonth();
+    var months = date.getMonth() + 1;
     var year = date.getFullYear();
 
     var hours = date.getHours();
@@ -152,6 +157,7 @@ function loadNestedCommentsFail(jqXHR, textStatus, errorThrown) {
     console.log(jqXHR.status);
     console.log(textStatus);
     console.log(errorThrown);
+
 }
 
 function getArticleID () {

@@ -53,6 +53,26 @@
 
     <title>Your Account</title>
     <%@ include file="HeadStylingLinks.jsp" %>
+    <meta name="google-signin-client_id"
+          content="17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        window.onLoadCallback = function(){
+        gapi.load('auth2', function() {
+
+            gapi.auth2.init();
+
+        });
+        }
+    </script>
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+    </script>
 
 <style type="text/css">
 

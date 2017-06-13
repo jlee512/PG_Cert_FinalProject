@@ -66,18 +66,23 @@
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>uploaded_articles</RefTableName>
       <RefColNames>article_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
     </foreign-key>
     <foreign-key id="22" parent="6" name="posted_comments_ibfk_2">
       <ColNames>author_id</ColNames>
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>registered_users</RefTableName>
       <RefColNames>user_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
     </foreign-key>
     <foreign-key id="23" parent="6" name="posted_comments_ibfk_3">
       <ColNames>parent_comment_id</ColNames>
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>posted_comments</RefTableName>
       <RefColNames>comment_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
       <OnDelete>delete</OnDelete>
     </foreign-key>
     <column id="24" parent="7" name="multimedia_id">
@@ -235,6 +240,8 @@ article_title</ColNames>
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>registered_users</RefTableName>
       <RefColNames>user_id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
     </foreign-key>
   </database-model>
 </dataSource>

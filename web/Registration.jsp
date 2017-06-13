@@ -23,6 +23,105 @@
     <title>Welcome! Register an Account</title>
     <%--Google recaptcha--%>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <%--Google Sign Up--%>
+    <meta name="google-signin-client_id"
+          content="17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script>
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+            //use jquery to post data dynamically to google to verify identity
+            var form = $('<form action="GoogleRegistration" method="post">' +
+                '<input type="text" name="id_token" value="' +
+                googleUser.getAuthResponse().id_token + '" />' +
+                '</form>');
+            $('body').append(form);
+            form.submit();
+        }
+
+        var googleUser = {};
+        var startApp = function() {
+            gapi.load('auth2', function(){
+                // Retrieve the singleton for the GoogleAuth library and set up the client.
+                auth2 = gapi.auth2.init({
+                    client_id: '17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    // Request scopes in addition to 'profile' and 'email'
+                    //scope: 'additional_scope'
+                });
+                attachSignin(document.getElementById('customBtn'));
+            });
+        };
+
+        function attachSignin(element) {
+            console.log(element.id);
+            auth2.attachClickHandler(element, {},
+                function(googleUser) {
+                    document.getElementById('name').innerText = "Signed in: " +
+                        googleUser.getBasicProfile().getName();
+                    onSignIn(googleUser)
+                }, function(error) {
+                    alert(JSON.stringify(error, undefined, 2));
+                });
+        }
+    </script>
+    <style type="text/css">
+        #customBtn {
+            text-align: center;
+            display: inline-block;
+            background: #4285f4;
+            color: white;
+            width: 155px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        #customBtn:hover {
+            cursor: pointer;
+        }
+
+        span.label {
+            font-weight: bold;
+        }
+
+        span.icon {
+            background: url('Multimedia/GoogleSignIn/google_logo.png') transparent 5px 50% no-repeat;
+            display: inline-block;
+            vertical-align: middle;
+            width: 42px;
+            height: 42px;
+            border-right: #2265d4 1px solid;
+        }
+
+        span.buttonText {
+            display: inline-block;
+            vertical-align: middle;
+            padding-left: 3px;
+            padding-right: 42px;
+            font-size: 14px;
+            font-weight: bold;
+            /* Use the Roboto font that is loaded in the <head> */
+            font-family: 'Roboto', sans-serif;
+        }
+
+        #gSignInWrapper {
+
+            text-align: center;
+
+        }
+
+    </style>
+
 </head>
 <body>
 <div class="backGroundImage">
@@ -47,7 +146,8 @@
                             <i class="fa fa-envelope prefix"></i>
                             <input class="form-control" type="email" id="email" name="email"
                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                   oninvalid="setCustomValidity('Please ensure you enter a valid email address in lowercase')" onchange="checkForSpaces(this)"/>
+                                   oninvalid="setCustomValidity('Please ensure you enter a valid email address in lowercase')"
+                                   onchange="checkForSpaces(this)"/>
                             <label for="email">Your email</label>
                         </div>
 
@@ -71,14 +171,32 @@
 
                         <%--GOOGLE RECAPTCHA--%>
                         <div class="md-form" style="opacity: 1">
-                            <div class="g-recaptcha"
-                                 data-sitekey="6LdfICQUAAAAAKDVV0dEaobS0ecRWPLFvdfKTyzn"></div>
+                            <div class="g-recaptcha" data-sitekey="6LdFMSUUAAAAAIXRxfSlQ6gkpE9-jjAHZGs0DHBR"></div>
                         </div>
 
                         <%--Sign Up button and link to RegistrationAttempt Servlet--%>
                         <div class="text-center">
                             <button type="submit" id="submit" class="btn btn-primary">sign up</button>
                         </div>
+
+                        <br>
+
+                        <%--GOOGLE SIGN-IN BUTTON--%>
+                        <!-- In the callback, you would hide the gSignInWrapper element on a
+successful sign in -->
+
+                        <div id="gSignInDiv">
+                            <div id="gSignInWrapper">
+                                <div id="customBtn" class="customGPlusSignIn">
+                                    <span class="icon"></span>
+                                    <span class="buttonText" style="text-align: left;">Google Sign Up</span>
+                                </div>
+                            </div>
+                        </div>
+                            <div id="name"></div>
+
+                        <br>
+
                         <a class="text-right" href="Login">or log in here</a>
 
                         <%--Selection of additional user feedback for different registration errors--%>
@@ -104,6 +222,15 @@
                                     again
                                     soon</p>
                             </c:when>
+                            <c:when test="${param.registrationStatus == 'recaptchaNull'}">
+                                <br>
+                                <p style="color: red">you did not complete the recaptcha validation</p>
+                            </c:when>
+                            <c:when test="${param.registrationStatus == 'invalidGoogleSignIn'}">
+                                <br>
+                                <p style="color: red">your google sign in details were incorrect, please try again</p>
+                            </c:when>
+
                         </c:choose>
                         <%------------------------------------------------------------------------------%>
 
@@ -113,6 +240,9 @@
         </div>
     </div>
 </div>
+
+<%@include file="BodyStylingLinks.jsp" %>
+
 <script>
     function checkForSpaces(textFieldInput) {
         var textFieldInputTest = textFieldInput.value;
@@ -124,7 +254,10 @@
             textFieldInput.setCustomValidity("");
         }
     }
+
 </script>
-<%@include file="BodyStylingLinks.jsp" %>
+
+<script>startApp();</script>
+
 </body>
 </html>

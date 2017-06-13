@@ -17,6 +17,7 @@ import java.io.IOException;
 public class PublicProfilePageContent extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         /*Setup the database*/
         MySQL DB = new MySQL();
 
@@ -24,23 +25,25 @@ public class PublicProfilePageContent extends HttpServlet {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
+
+        } else {
+
+            //Pass the username as a parameter when clicking the link to the profile.
+            String username = request.getParameter("username");
+
+            //If the user is trying to navigate to their own page, go to the editable version.
+            User currentUser = (User) session.getAttribute("userDetails");
+            if (currentUser.getUsername().equals(username)) {
+                response.sendRedirect("ProfilePage?username=" + currentUser.getUsername());
+            }
+
+            //Otherwise forward the user information to the JSP.
+            else {
+                User user = UserDAO.getUser(DB, username);
+                request.setAttribute("user", user);
+                getServletContext().getRequestDispatcher("/PublicProfilePage").forward(request, response);
+            }
+
         }
-
-        //Pass the username as a parameter when clicking the link to the profile.
-        String username = request.getParameter("username");
-
-        //If the user is trying to navigate to their own page, go to the editable version.
-        User currentUser = (User) session.getAttribute("userDetails");
-        if (currentUser.getUsername().equals(username)){
-            response.sendRedirect("ProfilePage?username=" + currentUser.getUsername());
-        }
-
-        //Otherwise forward the user information to the JSP.
-        else {
-            User user = UserDAO.getUser(DB, username);
-            request.setAttribute("user", user);
-            getServletContext().getRequestDispatcher("/PublicProfilePage").forward(request, response);
-        }
-
     }
 }
