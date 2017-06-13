@@ -17,7 +17,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.json.jackson2.JacksonFactory;
+//import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class GoogleLoginServlet extends HttpServlet {
 
@@ -25,9 +25,9 @@ public class GoogleLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpTransport transport = new NetHttpTransport();
-        JacksonFactory jsonFactory = new JacksonFactory();
+//        JacksonFactory jsonFactory = new JacksonFactory();
 
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).setAudience(Collections.singletonList("17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com")).build();
+//        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).setAudience(Collections.singletonList("17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com")).build();
 
         // (Receive idTokenString by HTTPS POST)
         Map idTokenString = request.getParameterMap();
