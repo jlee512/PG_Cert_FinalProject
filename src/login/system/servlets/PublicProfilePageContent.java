@@ -17,6 +17,7 @@ import java.io.IOException;
 public class PublicProfilePageContent extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         /*Setup the database*/
         MySQL DB = new MySQL();
 

@@ -204,7 +204,7 @@
         <url-pattern>/EditArticle</url-pattern>
     </servlet-mapping>
 
-    <!--Google OAuth Login Servley-->
+    <!--Google OAuth Login Servlet-->
     <servlet>
         <servlet-name>GoogleOAuthLogin</servlet-name>
         <servlet-class>login.system.servlets.GoogleLoginServlet</servlet-class>
@@ -213,6 +213,17 @@
     <servlet-mapping>
         <servlet-name>GoogleOAuthLogin</servlet-name>
         <url-pattern>/LoginGoogleOAuth</url-pattern>
+    </servlet-mapping>
+
+    <!--Google Registration Servley-->
+    <servlet>
+        <servlet-name>GoogleRegistration</servlet-name>
+        <servlet-class>login.system.servlets.GoogleRegistrationServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GoogleRegistration</servlet-name>
+        <url-pattern>/GoogleRegistration</url-pattern>
     </servlet-mapping>
 
     <!--Public Profile Servlet-->
@@ -355,6 +366,17 @@
     <servlet-mapping>
         <servlet-name>EditCommentFormJSP</servlet-name>
         <url-pattern>/EditCommentForm</url-pattern>
+    </servlet-mapping>
+
+    <!--(13) Public Profile Page-->
+    <servlet>
+        <servlet-name>PublicProfilePage</servlet-name>
+        <jsp-file>/PublicProfilePage.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PublicProfilePage</servlet-name>
+        <url-pattern>/PublicProfilePage</url-pattern>
     </servlet-mapping>
 
 </web-app>

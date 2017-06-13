@@ -39,52 +39,68 @@ public class ChangePasswordAttempt extends HttpServlet {
         String newPasswordStr = request.getParameter("newPassword");
         String newPasswordStrVerify = request.getParameter("newPasswordVerify");
 
+        /*Check if the google sign-in status is in the session, if so allow the user to update their password*/
+        if ((boolean) session.getAttribute("googleSignIn")) {
+
+            int passwordChangeStatus = UserDAO.updateUserPassword(DB, user, newPasswordStr);
+
+            user = checkPasswordChangeStatus(response, DB, session, user, passwordChangeStatus);
+
+            return;
+
+        } else {
+
         /*Need to get user hash from the database to ensure most up-to-date password is referenced for validation purposes*/
-        User userDBLookup = UserDAO.getUser(DB, user.getUsername());
+            User userDBLookup = UserDAO.getUser(DB, user.getUsername());
 
         /*Verify that currentPasswordStr matches the users current password*/
-        boolean currentPasswordValidity = Passwords.isExpectedPassword(currentPasswordStr.toCharArray(), userDBLookup.getSalt(), userDBLookup.getIterations(), userDBLookup.getHash());
+            boolean currentPasswordValidity = Passwords.isExpectedPassword(currentPasswordStr.toCharArray(), userDBLookup.getSalt(), userDBLookup.getIterations(), userDBLookup.getHash());
 
-        if (currentPasswordValidity) {
+            if (currentPasswordValidity) {
             /*If the current password is valid, check that the new password (entry 1 and 2) are the same*/
-            if (!passwordInputVerification(newPasswordStr, newPasswordStrVerify)) {
-                response.sendRedirect("ChangePassword?passwordChangeStatus=newPasswordMismatch&username=" + user.getUsername());
-            } else {
+                if (!passwordInputVerification(newPasswordStr, newPasswordStrVerify)) {
+                    response.sendRedirect("ChangePassword?passwordChangeStatus=newPasswordMismatch&username=" + user.getUsername());
+                } else {
                 /*If the new login.passwords do match, updated the database with the new password hash, salt and iterations*/
-                int passwordChangeStatus = UserDAO.updateUserPassword(DB, user, newPasswordStr);
+                    int passwordChangeStatus = UserDAO.updateUserPassword(DB, user, newPasswordStr);
 
-                switch (passwordChangeStatus) {
-                    case 1:
-                        System.out.println("Password updated successfully");
-                        user = UserDAO.getUser(DB, user.getUsername());
-                        /*Update the user stored in the session*/
-                        session.setAttribute("userDetails", user);
+                    user = checkPasswordChangeStatus(response, DB, session, user, passwordChangeStatus);
 
-                    /*Redirect the response to the Content Serv*/
-                        response.sendRedirect("Content?username=" + user.getUsername());
-                        break;
-                    case 2:
-                    /*Unexpected exception but if there is a database error, send redirect to the Password change page to clarify the issue*/
-                        System.out.println("User password update was invalid");
-                        response.sendRedirect("ChangePassword?passwordChangeStatus=invalid&username=" + user.getUsername());
-                        break;
-                    case 3:
-                        /*If no connection the database can be established print out a descriptive error message and redirect to the password change page*/
-                        System.out.println("No connection to the database");
-                        response.sendRedirect("ChangePassword?passwordChangeStatus=dbConn&username=" + user.getUsername());
-                        break;
                 }
-
+            } else {
+                response.sendRedirect("ChangePassword?passwordChangeStatus=incorrect&username=" + user.getUsername());
             }
-        } else {
-            response.sendRedirect("ChangePassword?passwordChangeStatus=incorrect&username=" + user.getUsername());
+
         }
-
-
 
     }
 
-        private boolean passwordInputVerification(String newPasswordInput, String newPasswordVerificationInput) {
-            return newPasswordInput.equals(newPasswordVerificationInput);
+    private User checkPasswordChangeStatus(HttpServletResponse response, MySQL DB, HttpSession session, User user, int passwordChangeStatus) throws IOException {
+        switch (passwordChangeStatus) {
+            case 1:
+                System.out.println("Password updated successfully");
+                user = UserDAO.getUser(DB, user.getUsername());
+                    /*Update the user stored in the session*/
+                session.setAttribute("userDetails", user);
+
+                /*Redirect the response to the Content Serv*/
+                response.sendRedirect("Content?username=" + user.getUsername());
+                break;
+            case 2:
+                /*Unexpected exception but if there is a database error, send redirect to the Password change page to clarify the issue*/
+                System.out.println("User password update was invalid");
+                response.sendRedirect("ChangePassword?passwordChangeStatus=invalid&username=" + user.getUsername());
+                break;
+            case 3:
+                    /*If no connection the database can be established print out a descriptive error message and redirect to the password change page*/
+                System.out.println("No connection to the database");
+                response.sendRedirect("ChangePassword?passwordChangeStatus=dbConn&username=" + user.getUsername());
+                break;
         }
+        return user;
+    }
+
+    private boolean passwordInputVerification(String newPasswordInput, String newPasswordVerificationInput) {
+        return newPasswordInput.equals(newPasswordVerificationInput);
+    }
 }

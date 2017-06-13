@@ -27,9 +27,6 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="LogoutAttempt?username=${sessionScope.userDetails.username}" style="font-size: 18px">Logout</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" onclick="signOut();">Sign out with Google</a></li>
-            </ul>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
 </nav>

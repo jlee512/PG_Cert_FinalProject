@@ -84,7 +84,11 @@ function successfulArticleLoad(msg) {
             articleDiv.find(".panel-body").css("text-align", "left");
 
             /*Display number of comments*/
-            var commentCountDiv = "<div class='btn' style='background-color: #ffd54f; color: white;'>"+
+            var commentCountDiv = "<a href=" + href + " style='color: white;'>" +
+            "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
+            "<i class='fa fa-eye' aria-hidden='true'></i>" +
+            "</div>" +
+            "</a>" + "<div class='btn btn-sm' style='background-color: #ffd54f; color: white;'>"+
                                     "<i class='fa fa-comment-o' aria-hidden='true'></i><span style='display: inline; margin-left: 5px'>" + article.comment_count + "</span></div>";
 
             articleDiv.find(".panel-body").append(commentCountDiv);

@@ -89,9 +89,9 @@ function successfulArticleLoad(msg) {
                                                     "<div type='button' class='btn btn-sm edit_article' style='background-color: #f9a825; color: white;'>" +
                                                         "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +
                 "</div>" +
-                "<div class='btn btn-sm' style='background-color: #ffd54f; color: white;'>"+
-                "<i class='fa fa-comment-o' aria-hidden='true'></i>" +
-                "<span style='display: inline; margin-left: 5px; font-size: small'>" + article.comment_count + "</span></div>");
+                "<div class='btn btn-sm view_comments' style='background-color: #ffd54f; color: white;'>"+
+                "<i class='fa fa-comment-o' aria-hidden='true'></i> " +
+                article.comment_count + "</div>");
 
             articleDiv.find(".panel-body").css("text-align", "left");
 

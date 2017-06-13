@@ -39,8 +39,12 @@ public class ProfilePageContent extends HttpServlet {
         HttpSession session = request.getSession(true);
 
         User user = (User) session.getAttribute("userDetails");
+        String original_username = user.getUsername();
+
 
         String username = request.getParameter("username");
+        System.out.println(username);
+
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String occupation = request.getParameter("occupation");
@@ -50,23 +54,43 @@ public class ProfilePageContent extends HttpServlet {
         String aboutme = request.getParameter("aboutme");
 
 
-        UserDAO.updateUserDetails(DB, username, email, phone, occupation, location, aboutme, firstname, lastname);
+        int userUpdateStatus = UserDAO.updateUserDetails(DB, username, email, phone, occupation, location, aboutme, firstname, lastname, original_username);
 
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPhone(phone);
-        user.setOccupation(occupation);
-        user.setCity(location);
-        user.setProfile_description(aboutme);
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
+        if (userUpdateStatus == 1) {
 
-        session.setMaxInactiveInterval(60 * 5);
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setOccupation(occupation);
+            user.setCity(location);
+            user.setProfile_description(aboutme);
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+
+            session.setMaxInactiveInterval(60 * 5);
 
 
-        session.setAttribute("userDetails", user);
+            session.setAttribute("userDetails", user);
 
-        response.sendRedirect("ProfilePage?username=" + user.getUsername());
+            System.out.println(((User) session.getAttribute("userDetails")).getUsername());
+
+            response.sendRedirect("ProfilePage?username=" + user.getUsername());
+        } else if (userUpdateStatus == 2) {
+
+            System.out.println("Duplicate username");
+            response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=duplicateUsername");
+
+        } else if (userUpdateStatus == 3) {
+
+            System.out.println("Invalid username");
+            response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=invalideUsername");
+
+        } else {
+
+            System.out.println("Database connectivity issues");
+            response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=db");
+
+        }
 
     }
 

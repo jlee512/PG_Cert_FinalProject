@@ -82,6 +82,11 @@ function successfulArticleLoad(msg) {
             articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p>" +
                 "<p>" + formattedDate + "</p>" +
                 "<p>" + article.article_body + "</p>" +
+                "<a href=" + href + " style='color: white;'>" +
+                "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
+                "<i class='fa fa-eye' aria-hidden='true'></i>" +
+                "</div>" +
+                "</a>" +
                 "<div class='btn btn-sm' style='background-color: #ffd54f; color: white;'>"+
                 "<i class='fa fa-comment-o' aria-hidden='true'></i><span style='display: inline; margin-left: 5px; font-size: small;'>" + article.comment_count + "</span></div>");
 
