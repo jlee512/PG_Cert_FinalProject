@@ -17,11 +17,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by jlee512 on 9/06/2017.
+ * Created by catherinedechalain on 13/06/17.
  */
-public class IndividualAuthorArticles extends HttpServlet {
+public class IndividualPublicAuthorArticles extends HttpServlet {
 
-    /*This Servlet is mapped to ViewIndividualArticles*/
+        /*This Servlet is mapped to ViewPublicArticles*/
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +34,9 @@ public class IndividualAuthorArticles extends HttpServlet {
         /*Get the number of articles requested and the author_id*/
         int firstArticle = Integer.parseInt(request.getParameter("from"));
         int articleCount = Integer.parseInt(request.getParameter("count"));
-        int author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
+        String username = request.getParameter("username");
+        User user = UserDAO.getUser(DB, username);
+        int author_id = user.getUser_id();
 
         List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByAuthor(DB, firstArticle, articleCount, author_id);
 

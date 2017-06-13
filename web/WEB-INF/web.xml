@@ -215,6 +215,28 @@
         <url-pattern>/LoginGoogleOAuth</url-pattern>
     </servlet-mapping>
 
+    <!--Public Profile Servlet-->
+    <servlet>
+        <servlet-name>PublicProfilePageContent</servlet-name>
+        <servlet-class>login.system.servlets.PublicProfilePageContent</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PublicProfilePageContent</servlet-name>
+        <url-pattern>/PublicProfile</url-pattern>
+    </servlet-mapping>
+
+    <!--Public Profile Servlet-->
+    <servlet>
+        <servlet-name>IndividualPublicAuthorArticles</servlet-name>
+        <servlet-class>login.system.servlets.IndividualPublicAuthorArticles</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>IndividualPublicAuthorArticles</servlet-name>
+        <url-pattern>/ViewPublicArticles</url-pattern>
+    </servlet-mapping>
+
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 

@@ -12,9 +12,6 @@ var articleTemplate =
             "</div>" +
         "</div>";
 
-//Get the username of the author.
-var username = $("#username").text();
-
 /*jQuery function to animate each article header on hover*/
 
 function hoverBackgroundColor() {
@@ -91,7 +88,10 @@ function successfulArticleLoad(msg) {
                                                     "</a>" +
                                                     "<div type='button' class='btn btn-sm edit_article' style='background-color: #f9a825; color: white;'>" +
                                                         "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +
-                                                    "</div>");
+                "</div>" +
+                "<div class='btn btn-sm' style='background-color: #ffd54f; color: white;'>"+
+                "<i class='fa fa-comment-o' aria-hidden='true'></i>" +
+                "<span style='display: inline; margin-left: 5px; font-size: small'>" + article.comment_count + "</span></div>");
 
             articleDiv.find(".panel-body").css("text-align", "left");
 
@@ -170,7 +170,7 @@ function loadArticlesIncrement() {
 
         url: 'ViewIndividualArticles',
         type: 'GET',
-        data: {from: from, count: count, username: username},
+        data: {from: from, count: count},
         success: function (msg) {
             successfulArticleLoad(msg);
         },
