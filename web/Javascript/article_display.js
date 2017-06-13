@@ -74,7 +74,10 @@ function successfulArticleLoad(msg) {
             var href = "ViewArticle?article_id=" + article.article_id;
             articleDiv.find(".individualArticleLink").attr("href", href);
 
-            articleDiv.find(".panel-title").append(" " + article.article_title);
+            articleDiv.find(".panel-title").append(" <span>" + article.article_title + "</span>");
+            articleDiv.find(".panel-title").append("<div class='view_comments pull-right' style='color: white'>"+
+                "<i class='fa fa-comment-o' aria-hidden='true'></i> " +
+                article.comment_count + "</div>");
 
             var date = new Date(article.article_timestamp);
             var formattedDate = formatDate(date);
@@ -82,16 +85,6 @@ function successfulArticleLoad(msg) {
 
             articleDiv.find(".panel-body").html("<p>Published by: <strong><a href='PublicProfile?username=" + article.author_username + "'style='color: #f9a825;'>" + article.author_username + "</a></strong></p><p>" + formattedDate + "</p><p>" + article.article_body + "</p>");
             articleDiv.find(".panel-body").css("text-align", "left");
-
-            /*Display number of comments*/
-            var commentCountDiv = "<a href=" + href + " style='color: white;'>" +
-            "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
-            "<i class='fa fa-eye' aria-hidden='true'></i>" +
-            "</div>" +
-            "</a>" + "<div class='btn btn-sm' style='background-color: #ffd54f; color: white;'>"+
-                                    "<i class='fa fa-comment-o' aria-hidden='true'></i><span style='display: inline; margin-left: 5px'>" + article.comment_count + "</span></div>";
-
-            articleDiv.find(".panel-body").append(commentCountDiv);
 
             /*Remove the loading icon*/
             $('.loader-wrapper').hide();

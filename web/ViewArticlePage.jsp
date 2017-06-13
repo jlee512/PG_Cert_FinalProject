@@ -22,6 +22,7 @@
 <body>
 <%@include file="Navbar.jsp" %>
 <%----------------------------------------Article--------------------------------------------------%>
+
 <h1 class="display-4">${requestScope.article.article_title}</h1>
 <br>
 <h3 id="author">Published by: <strong><a href="PublicProfile?username=${requestScope.article.author_username}" style="color: #f9a825;">${requestScope.article.author_username}</a></strong></h3>
