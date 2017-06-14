@@ -35,6 +35,8 @@ public class UploadMultimedia extends HttpServlet {
     private File file;
 
 
+
+
     // Gets the file location the uploaded file is stored
 
 
@@ -130,6 +132,7 @@ public class UploadMultimedia extends HttpServlet {
                                     fileName.substring(fileName.lastIndexOf("\\"));
                             file = new File(filePathforMultimediaObject);
                         }
+
                     } else {
                         filePathforMultimediaObject = filePath +
                                 fileName.substring(fileName.lastIndexOf("\\") + 1);
