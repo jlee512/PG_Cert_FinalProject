@@ -31,22 +31,28 @@ public class PublicProfilePageContent extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-                //Pass the username as a parameter when clicking the link to the profile.
-                String username = request.getParameter("username");
+                if (request.getParameter("username") == null) {
+                    response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
 
-                //If the user is trying to navigate to their own page, go to the editable version.
-                User currentUser = (User) session.getAttribute("userDetails");
-                if (currentUser.getUsername().equals(username)) {
-                    response.sendRedirect("ProfilePage?username=" + currentUser.getUsername());
+                } else {
+
+                    //Pass the username as a parameter when clicking the link to the profile.
+                    String username = request.getParameter("username");
+
+                    //If the user is trying to navigate to their own page, go to the editable version.
+                    User currentUser = (User) session.getAttribute("userDetails");
+                    if (currentUser.getUsername().equals(username)) {
+                        response.sendRedirect("ProfilePage?username=" + currentUser.getUsername());
+                    }
+
+                    //Otherwise forward the user information to the JSP.
+                    else {
+                        User user = UserDAO.getUser(DB, username);
+                        request.setAttribute("user", user);
+                        getServletContext().getRequestDispatcher("/PublicProfilePage").forward(request, response);
+                    }
+
                 }
-
-                //Otherwise forward the user information to the JSP.
-                else {
-                    User user = UserDAO.getUser(DB, username);
-                    request.setAttribute("user", user);
-                    getServletContext().getRequestDispatcher("/PublicProfilePage").forward(request, response);
-                }
-
             }
         }
     }

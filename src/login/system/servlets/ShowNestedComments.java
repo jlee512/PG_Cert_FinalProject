@@ -34,30 +34,34 @@ public class ShowNestedComments extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-                int parentCommentID = Integer.parseInt(request.getParameter("parentCommentID"));
-                List<Comment> commentList = CommentDAO.getNestedComments(DB, parentCommentID);
+                if (request.getParameter("parentCommentID") == null) {
+                    response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
+                } else {
+                    int parentCommentID = Integer.parseInt(request.getParameter("parentCommentID"));
+                    List<Comment> commentList = CommentDAO.getNestedComments(DB, parentCommentID);
 
-                response.setContentType("application/json");
-                PrintWriter out = response.getWriter();
-                JSONArray commentDetails = new JSONArray();
+                    response.setContentType("application/json");
+                    PrintWriter out = response.getWriter();
+                    JSONArray commentDetails = new JSONArray();
 
-                for (Comment comment : commentList) {
-                    JSONObject jsonComment = new JSONObject();
-                    jsonComment.put("comment_id", comment.getCommentID());
-                    jsonComment.put("author_id", comment.getAuthorID());
-                    jsonComment.put("article_id", comment.getArticleID());
-                    jsonComment.put("parent_comment_id", comment.getParentCommentID());
-                    jsonComment.put("timestamp", comment.getTimestamp().getTime());
-                    jsonComment.put("content", comment.getContent());
-                    jsonComment.put("is_parent", comment.getIsParent());
-                    jsonComment.put("author_username", comment.getAuthor_username());
-                    jsonComment.put("author_firstname", comment.getAuthor_firstname());
-                    jsonComment.put("author_lastname", comment.getAuthor_lastname());
-                    commentDetails.add(jsonComment);
+                    for (Comment comment : commentList) {
+                        JSONObject jsonComment = new JSONObject();
+                        jsonComment.put("comment_id", comment.getCommentID());
+                        jsonComment.put("author_id", comment.getAuthorID());
+                        jsonComment.put("article_id", comment.getArticleID());
+                        jsonComment.put("parent_comment_id", comment.getParentCommentID());
+                        jsonComment.put("timestamp", comment.getTimestamp().getTime());
+                        jsonComment.put("content", comment.getContent());
+                        jsonComment.put("is_parent", comment.getIsParent());
+                        jsonComment.put("author_username", comment.getAuthor_username());
+                        jsonComment.put("author_firstname", comment.getAuthor_firstname());
+                        jsonComment.put("author_lastname", comment.getAuthor_lastname());
+                        commentDetails.add(jsonComment);
+                    }
+
+                    commentDetails.toJSONString();
+                    out.println(commentDetails);
                 }
-
-                commentDetails.toJSONString();
-                out.println(commentDetails);
             }
         }
     }

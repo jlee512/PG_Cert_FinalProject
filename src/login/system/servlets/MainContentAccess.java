@@ -2,6 +2,7 @@ package login.system.servlets;
 
 import login.system.dao.Article;
 import login.system.dao.ArticleDAO;
+import login.system.dao.User;
 import login.system.db.MySQL;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -34,31 +35,30 @@ public class MainContentAccess extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-        /*Get the number of articles requested*/
-                int firstArticle = Integer.parseInt(request.getParameter("from"));
-                int articleCount = Integer.parseInt(request.getParameter("count"));
+                if (request.getParameter("from") == null || request.getParameter("count") == null) {
+                    response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
+                } else {
 
-                List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByDate(DB, firstArticle, articleCount);
+        /*Get the number of articles requested*/
+                    int firstArticle = Integer.parseInt(request.getParameter("from"));
+                    int articleCount = Integer.parseInt(request.getParameter("count"));
+
+                    List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByDate(DB, firstArticle, articleCount);
 
 
         /*Return a JSON object with the article information included*/
-                response.setContentType("application/json");
-                JSONArray articleDetails = new JSONArray();
+                    response.setContentType("application/json");
+                    JSONArray articleDetails = new JSONArray();
 
-                IndividualAuthorArticles.constructArticlePreviewJSON(articles, articleDetails);
+                    IndividualAuthorArticles.constructArticlePreviewJSON(articles, articleDetails);
 
-                articleDetails.toJSONString();
+                    articleDetails.toJSONString();
 
-                response.getWriter().write(articleDetails.toString());
+                    response.getWriter().write(articleDetails.toString());
 
+                }
             }
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        //DO POST
-
-    }
 }
