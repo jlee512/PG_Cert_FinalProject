@@ -38,7 +38,8 @@ public class ProfilePicture extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("get to redirect");
+         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt Servlet)*/
+        LoginAttempt.loginStatusRedirection(request, response);
 
     }
 
