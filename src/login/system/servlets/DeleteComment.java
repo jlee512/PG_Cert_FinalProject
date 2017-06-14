@@ -44,19 +44,22 @@ public class DeleteComment extends HttpServlet {
                         response.sendRedirect("Content?username=" + user.getUsername());
                     } else {
 
-                        System.out.println("comment deletion started");
-                        CommentDAO.deleteComment(DB, commentID);
-
-
-                /*Setup parent comment adjustment and run*/
                         String parent_comment_id = request.getParameter("parent_comment_id");
-                        if (parent_comment_id != null && parent_comment_id.length() > 0) {
-                            int parentID = Integer.parseInt(request.getParameter("parent_comment_id"));
-                            System.out.println("parent comment adjust started");
-                            adjustParentCommentStatus(DB, commentID, parentID);
 
-                            System.out.println("delete comment finished");
+                        System.out.println("comment deletion started");
+
+                        if (parent_comment_id == null || parent_comment_id.length() <= 0) {
+
+                            CommentDAO.deleteComment(DB, commentID);
+
+                        } else {
+                            int parentID = Integer.parseInt(parent_comment_id);
+
+                            CommentDAO.deleteIndividualNestedComment(DB, commentID, parentID);
+
                         }
+                /*Setup parent comment adjustment and run*/
+                        System.out.println("delete comment finished");
                     }
                     response.sendRedirect("ViewArticle?article_id=" + articleID);
                 }

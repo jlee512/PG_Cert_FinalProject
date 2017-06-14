@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/.idea" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/generateTestDatabase.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/project_initial_databaseDevelopment.iml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/test" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/web" dialect="MySQL" />
   </component>
 </project>

@@ -265,6 +265,80 @@ public class CommentDAO {
         return status;
     }
 
+    /*----------Individual Comment Delete Update-------------------*/
+
+    public static String deleteIndividualNestedComment(MySQL DB, int commentID, int parentCommentID) {
+
+        /*Initialise variables as required*/
+        List<Comment> comments = null;
+
+        String status = "Could not delete your comment at this time.";
+        try (Connection conn = DB.connection()) {
+
+            try (PreparedStatement statement = conn.prepareStatement("DELETE FROM posted_comments WHERE comment_id = ?;")) {
+
+                statement.setInt(1, commentID);
+                statement.executeUpdate();
+                status = "Single comment deleted successfully.";
+
+                try (PreparedStatement statement1 = conn.prepareStatement("SELECT article_id, comment_id, author_id, timestamp, comment_body, is_parent, username, firstname, lastname FROM posted_comments LEFT JOIN registered_users ON author_id = user_id WHERE parent_comment_id = ?;")) {
+                    statement1.setInt(1, parentCommentID);
+                    try (ResultSet resultSet = statement1.executeQuery()) {
+                        comments = new ArrayList<>();
+                        while (resultSet.next()) {
+                            Comment comment = new Comment();
+                            comment.setParentCommentID(parentCommentID);
+                            comment.setArticleID(resultSet.getInt(resultSet.findColumn("article_id")));
+                            comment.setCommentID(resultSet.getInt(resultSet.findColumn("comment_id")));
+                            comment.setAuthorID(resultSet.getInt(resultSet.findColumn("author_id")));
+                            comment.setTimestamp(resultSet.getTimestamp(resultSet.findColumn("timestamp")));
+                            comment.setContent(resultSet.getString(resultSet.findColumn("comment_body")));
+                            comment.setIsParent(resultSet.getBoolean(resultSet.findColumn("is_parent")));
+                            comment.setAuthor_username(resultSet.getString(resultSet.findColumn("username")));
+                            comment.setAuthor_firstname(resultSet.getString(resultSet.findColumn("firstname")));
+                            comment.setAuthor_lastname(resultSet.getString(resultSet.findColumn("lastname")));
+                            comments.add(comment);
+                        }
+                    }
+                }
+
+                if (comments.size() == 0) {
+                    System.out.println("Parent comment has no other children, updating status");
+                    /*If comments size is zero, there are no other child comments so update parent status to false*/
+                    try (PreparedStatement statement2 = conn.prepareStatement("UPDATE posted_comments SET is_parent = ? WHERE comment_id = ?")){
+                        statement2.setBoolean(1, false);
+                        statement2.setInt(2, parentCommentID);
+                        statement2.executeUpdate();
+                    }
+
+                } else if (comments.size() == 1) {
+                    Comment childComment = comments.get(0);
+                    if (childComment.getCommentID() == commentID) {
+                        System.out.println("Parent comments only child is the comment being deleted, updating status");
+                        /*Else if comments size is one and the comment being deleted is the only child, update the parent status to false*/
+                        try (PreparedStatement statement2 = conn.prepareStatement("UPDATE posted_comments SET is_parent = ? WHERE comment_id = ?")){
+                            statement2.setBoolean(1, false);
+                            statement2.setInt(2, parentCommentID);
+                            statement2.executeUpdate();
+                        }
+
+                    }
+                }
+
+                System.out.println("parent comment update completed");
+
+                return status;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
+
+    /*-------------------------------------------------------------*/
+
     public static String editComment(MySQL DB, int commentID, String newCommentContent) {
         String status = "Comment could not be updated at this time.";
         try (Connection conn = DB.connection()) {
