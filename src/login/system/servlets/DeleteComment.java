@@ -106,6 +106,8 @@ public class DeleteComment extends HttpServlet {
     private boolean verifyUserAuthorization(MySQL DB, int userID, int commentID, int articleID){
         boolean userAuthorized = false;
         /*If the user wrote the comment, they are authorized to delete it.*/
+
+
         Comment comment = CommentDAO.getCommentByID(DB, commentID);
         if (comment.getAuthorID() == userID){
             userAuthorized = true;
