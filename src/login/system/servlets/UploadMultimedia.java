@@ -101,10 +101,7 @@ public class UploadMultimedia extends HttpServlet {
 
                 }
 
-                System.out.println("Condition 1: " + !fi.isFormField());
-                System.out.println("Condition 2: " + (fi.getName() != null));
-
-                if (!fi.isFormField() && (fi.getName() != null)) {
+                if (!fi.isFormField() && !(fi.getName() == null || fi.getName().isEmpty() || fi.getSize() == 0)) {
 
                     // Get the uploaded file parameters
                     String fieldName = fi.getFieldName();
@@ -185,7 +182,7 @@ public class UploadMultimedia extends HttpServlet {
                         String conversionLink = fi.getString().replace("watch?v=", "embed/");
 
                         // Make the entire iframe with link the filepath variable in the DAO method
-                        String youtubeLink = "<div align='center' class='embed-responsive embed-responsive-16by9'><iframe allowfullscreen='allowfullscreen' src='" + conversionLink + "'></iframe></div>";
+                        String youtubeLink = "<iframe allowfullscreen='allowfullscreen' src='" + conversionLink + "'></iframe>";
 
                         multimedia.setFile_type(".web");
                         multimedia.setFile_path(youtubeLink);

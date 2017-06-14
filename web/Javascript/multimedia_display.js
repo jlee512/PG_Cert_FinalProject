@@ -70,55 +70,50 @@ function successfulArticleLoad(msg) {
             multimediaDiv.find(".panel-title").text(multimedia.multimedia_title);
 
             if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
-                articleDiv.find(".panel-body").html("<img src='" + multimedia.file_path + "' class='img-fluid' >");
-                articleDiv.find(".panel-body").css("text-align", "left");
+                multimediaDiv.find(".panel-body").html("<img src='" + multimedia.file_path + "' class='img-fluid' >");
+
+                photoContainer.append(multimediaDiv)
 
             }
 
             if (multimedia.file_type == ".mp4") {
 
-                articleDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'><video class='embed-responsive-item' controls ><source src='" + multimedia.file_path + "' type='video/mp4'></video></div>");
-                articleDiv.find(".panel-body").css("text-align", "left");
-
-            }
-
-            if (multimedia.file_type == ".web") {
-                multimediaDiv.find(".panel-body").html(multimedia.file_path);
+                multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'><video class='embed-responsive-item' controls ><source src='" + multimedia.file_path + "' type='video/mp4'></video></div>");
                 multimediaDiv.find(".panel-body").css("text-align", "left");
+
+                videoContainer.append(multimediaDiv);
+
             }
 
-            /*Append the respective content to the gallery*/
-                articleDiv.find(".panel-body").html(multimedia.file_path);
-                articleDiv.find(".panel-body").css("text-align", "left");
-
-            /*Remove the loading icon*/
-            $('.loader-wrapper').hide();
-
-                videoContainer.append(articleDiv);
-            }
-
-            if (multimedia.file_type == ".mp3") {
-                articleDiv.find(".panel-body").html("<audio controls><source src='"+ multimedia.file_path +"' type='audio/ogg'></audio>");
-                articleDiv.find(".panel-body").css("text-align", "left");
-
-                /*Remove the loading icon*/
-                $('.loader-wrapper').hide();
-
-                videoContainer.append(articleDiv);
-            }
-
-
-            if (msg.length < count) {
-                console.log("inside if statement multimedia");
-                $('.loader-wrapper').hide();
-                $('#loaded1, #loaded2, #loaded3, #loaded4').show();
-                moreMultimedia = false;
-            }
 
         }
 
+        if (multimedia.file_type == ".mp3") {
+            multimediaDiv.find(".panel-body").html("<audio controls><source src='" + multimedia.file_path + "' type='audio/ogg'></audio>");
+            multimediaDiv.find(".panel-body").css("text-align", "left");
+
+            videoContainer.append(multimediaDiv);
+        }
+
+        if (multimedia.file_type == ".web") {
+            multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'>" + multimedia.file_path + "</div>");
+            multimediaDiv.find(".panel-body").css("text-align", "left");
+
+            videoContainer.append(multimediaDiv);
+        }
+
+        /*Remove the loading icon*/
+        $('.loader-wrapper').hide();
+
+        if (msg.length < count) {
+            console.log("inside if statement multimedia");
+            $('.loader-wrapper').hide();
+            $('#loaded1, #loaded2, #loaded3, #loaded4').show();
+            moreMultimedia = false;
+        }
 
     }
+
 }
 
 function failedArticleLoad(jqXHR, textStatus, errorThrown) {
