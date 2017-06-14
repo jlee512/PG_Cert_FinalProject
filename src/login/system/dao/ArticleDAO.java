@@ -149,10 +149,9 @@ public class ArticleDAO {
         try (Connection c = DB.connection()) {
 
             /*Delete all comments associated with the article_id (cascading does not work with the directionality of the foreign key arrangement)*/
-            try (PreparedStatement stmt = c.prepareStatement("DELETE FROM posted_comments WHERE article_id = ? AND author_id = ?")) {
+            try (PreparedStatement stmt = c.prepareStatement("DELETE FROM posted_comments WHERE article_id = ?")) {
 
                 stmt.setInt(1, article_id);
-                stmt.setInt(2, author_id);
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
                 System.out.println("Article comments successfully deleted");
