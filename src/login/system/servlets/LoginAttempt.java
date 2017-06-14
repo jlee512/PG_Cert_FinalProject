@@ -88,4 +88,15 @@ public class LoginAttempt extends HttpServlet {
             response.sendRedirect("Content?username=" + user.getUsername());
         }
     }
+
+    public static boolean sessionExpirationRedirection(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        boolean redirected = false;
+        HttpSession session = request.getSession(true);
+        User user = (User)session.getAttribute("userDetails");
+        if (user == null){
+            response.sendRedirect("Login?loginStatus=loggedOut");
+            redirected = true;
+        }
+        return redirected;
+    }
 }

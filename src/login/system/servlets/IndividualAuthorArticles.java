@@ -34,24 +34,27 @@ public class IndividualAuthorArticles extends HttpServlet {
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
         } else {
+              /*Check if session has timed out*/
+            if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
         /*Get the number of articles requested and the author_id*/
-            int firstArticle = Integer.parseInt(request.getParameter("from"));
-            int articleCount = Integer.parseInt(request.getParameter("count"));
-            int author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
+                int firstArticle = Integer.parseInt(request.getParameter("from"));
+                int articleCount = Integer.parseInt(request.getParameter("count"));
+                int author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
 
-            List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByAuthor(DB, firstArticle, articleCount, author_id);
+                List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByAuthor(DB, firstArticle, articleCount, author_id);
 
         /*Return a JSON object with the article information included*/
-            response.setContentType("application/json");
-            JSONArray articleDetails = new JSONArray();
+                response.setContentType("application/json");
+                JSONArray articleDetails = new JSONArray();
 
-            constructArticlePreviewJSON(articles, articleDetails);
+                constructArticlePreviewJSON(articles, articleDetails);
 
-            articleDetails.toJSONString();
+                articleDetails.toJSONString();
 
-            response.getWriter().write(articleDetails.toString());
+                response.getWriter().write(articleDetails.toString());
 
+            }
         }
     }
 

@@ -33,44 +33,53 @@ public class ChangePasswordAttempt extends HttpServlet {
         /*Access user detail stored within the session*/
 
         HttpSession session = request.getSession(true);
-
-        User user = (User) session.getAttribute("userDetails");
-        String currentPasswordStr = request.getParameter("currentPassword");
-        String newPasswordStr = request.getParameter("newPassword");
-        String newPasswordStrVerify = request.getParameter("newPasswordVerify");
-
-        /*Check if the google sign-in status is in the session, if so allow the user to update their password*/
-        if ((boolean) session.getAttribute("googleSignIn")) {
-
-            int passwordChangeStatus = UserDAO.updateUserPassword(DB, user, newPasswordStr);
-
-            user = checkPasswordChangeStatus(response, DB, session, user, passwordChangeStatus);
-
-            return;
+        if (session.getAttribute("loginStatus") != "active") {
+            response.sendRedirect("Login");
 
         } else {
 
-        /*Need to get user hash from the database to ensure most up-to-date password is referenced for validation purposes*/
-            User userDBLookup = UserDAO.getUser(DB, user.getUsername());
+             /*Check if session has timed out*/
+            if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-        /*Verify that currentPasswordStr matches the users current password*/
-            boolean currentPasswordValidity = Passwords.isExpectedPassword(currentPasswordStr.toCharArray(), userDBLookup.getSalt(), userDBLookup.getIterations(), userDBLookup.getHash());
+                User user = (User) session.getAttribute("userDetails");
+                String currentPasswordStr = request.getParameter("currentPassword");
+                String newPasswordStr = request.getParameter("newPassword");
+                String newPasswordStrVerify = request.getParameter("newPasswordVerify");
 
-            if (currentPasswordValidity) {
-            /*If the current password is valid, check that the new password (entry 1 and 2) are the same*/
-                if (!passwordInputVerification(newPasswordStr, newPasswordStrVerify)) {
-                    response.sendRedirect("ChangePassword?passwordChangeStatus=newPasswordMismatch&username=" + user.getUsername());
-                } else {
-                /*If the new login.passwords do match, updated the database with the new password hash, salt and iterations*/
+        /*Check if the google sign-in status is in the session, if so allow the user to update their password*/
+                if ((boolean) session.getAttribute("googleSignIn")) {
+
                     int passwordChangeStatus = UserDAO.updateUserPassword(DB, user, newPasswordStr);
 
                     user = checkPasswordChangeStatus(response, DB, session, user, passwordChangeStatus);
 
-                }
-            } else {
-                response.sendRedirect("ChangePassword?passwordChangeStatus=incorrect&username=" + user.getUsername());
-            }
+                    return;
 
+                } else {
+
+        /*Need to get user hash from the database to ensure most up-to-date password is referenced for validation purposes*/
+                    User userDBLookup = UserDAO.getUser(DB, user.getUsername());
+
+        /*Verify that currentPasswordStr matches the users current password*/
+                    boolean currentPasswordValidity = Passwords.isExpectedPassword(currentPasswordStr.toCharArray(), userDBLookup.getSalt(), userDBLookup.getIterations(), userDBLookup.getHash());
+
+                    if (currentPasswordValidity) {
+            /*If the current password is valid, check that the new password (entry 1 and 2) are the same*/
+                        if (!passwordInputVerification(newPasswordStr, newPasswordStrVerify)) {
+                            response.sendRedirect("ChangePassword?passwordChangeStatus=newPasswordMismatch&username=" + user.getUsername());
+                        } else {
+                /*If the new login.passwords do match, updated the database with the new password hash, salt and iterations*/
+                            int passwordChangeStatus = UserDAO.updateUserPassword(DB, user, newPasswordStr);
+
+                            user = checkPasswordChangeStatus(response, DB, session, user, passwordChangeStatus);
+
+                        }
+                    } else {
+                        response.sendRedirect("ChangePassword?passwordChangeStatus=incorrect&username=" + user.getUsername());
+                    }
+
+                }
+            }
         }
 
     }

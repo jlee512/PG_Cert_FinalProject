@@ -28,39 +28,50 @@ public class AddAnArticleAttempt extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*Create a link to the database*/
         MySQL DB = new MySQL();
-
-        /*Pull the relevant user details from the current session for addition to the database*/
         HttpSession session = request.getSession(true);
-        User user = (User) session.getAttribute("userDetails");
-        int author_id = user.getUser_id();
-        String username = user.getUsername();
-        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
-        String article_title_input = request.getParameter("article_title_input");
-        String article_body_input = request.getParameter("article_body_input");
+         /*If user is not logged in, redirect them to login page.*/
+        if (session.getAttribute("loginStatus") != "active") {
+            response.sendRedirect("Login");
 
-        int articleAdditionStatus = ArticleDAO.addArticleToDB(DB, author_id, article_title_input, currentTimestamp, article_body_input);
+        } else {
 
-        switch (articleAdditionStatus) {
-            case 1:
-                System.out.println("Article added successfully");
+            /*Check if session has timed out*/
+            if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
+
+                /*Pull the relevant user details from the current session for addition to the database*/
+                User user = (User) session.getAttribute("userDetails");
+                int author_id = user.getUser_id();
+                String username = user.getUsername();
+                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+                String article_title_input = request.getParameter("article_title_input");
+                String article_body_input = request.getParameter("article_body_input");
+
+                int articleAdditionStatus = ArticleDAO.addArticleToDB(DB, author_id, article_title_input, currentTimestamp, article_body_input);
+
+                switch (articleAdditionStatus) {
+                    case 1:
+                        System.out.println("Article added successfully");
                 /*If successful article addition, reload the user's profile page*/
-                response.sendRedirect("ProfilePage?username=" + username + "&articleadded=successful");
-                break;
-            case 2:
-                System.out.println("Article already exists within the database");
+                        response.sendRedirect("ProfilePage?username=" + username + "&articleadded=successful");
+                        break;
+                    case 2:
+                        System.out.println("Article already exists within the database");
                 /*If the article is non-unique (this is not expected as it is based on a combination of article title and article date), return the user to the profile page and display a descriptive message*/
-                response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=exists" + "&articleadded=duplicate");
-                break;
-            case 3:
+                        response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=exists" + "&articleadded=duplicate");
+                        break;
+                    case 3:
                 /*If an invalid article, return the user to the registration page and display a descriptive message*/
-                response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=invalid" + "&articleadded=invalid");
-                break;
-            case 4:
-                System.out.println("No connection to the database");
-                response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=dbConn" + "&articleadded=db");
-                break;
-        }
+                        response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=invalid" + "&articleadded=invalid");
+                        break;
+                    case 4:
+                        System.out.println("No connection to the database");
+                        response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=dbConn" + "&articleadded=db");
+                        break;
+                }
 
+            }
+        }
     }
 }

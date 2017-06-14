@@ -31,11 +31,15 @@ public class EditComment extends HttpServlet {
         }
 
         else {
-            int commentID = Integer.parseInt(request.getParameter("comment_id"));
-            int articleID = Integer.parseInt(request.getParameter("article_id"));
-            String content = request.getParameter("comment_body");
-            CommentDAO.editComment(DB, commentID, content);
-            response.sendRedirect("/ViewArticle?article_id=" + articleID);
+              /*Check if session has timed out*/
+            if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
+
+                int commentID = Integer.parseInt(request.getParameter("comment_id"));
+                int articleID = Integer.parseInt(request.getParameter("article_id"));
+                String content = request.getParameter("comment_body");
+                CommentDAO.editComment(DB, commentID, content);
+                response.sendRedirect("/ViewArticle?article_id=" + articleID);
+            }
         }
     }
 }
