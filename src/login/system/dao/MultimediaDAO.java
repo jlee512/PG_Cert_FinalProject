@@ -114,4 +114,25 @@ Add a new user to the Database
 
     }
 
+    public static void getFirstNMultimediaByArticleDate(MySQL DB, int fromMultimedia, int numMultimedia) {
+
+           /*Dummy multimedia to be returned if none found*/
+        List<Multimedia> multimedia = new ArrayList<Multimedia>();
+
+        try (Connection c = DB.connection()) {
+
+            try (PreparedStatement stmt = c.prepareStatement("")) {
+
+
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

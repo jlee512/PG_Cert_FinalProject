@@ -88,8 +88,10 @@ CREATE TABLE posted_multimedia (
 #
 # SELECT article_id, username, firstname, lastname, timestamp, article_title, SubString(article_body, 1, 100) AS article_preview FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE user_id = 1 ORDER BY timestamp DESC LIMIT 3 OFFSET 0;
 
-SELECT COUNT(username) FROM registered_users;
+/*SELECT COUNT(username) FROM registered_users;
 
 UPDATE uploaded_articles SET timestamp = CURRENT_TIMESTAMP, article_title = 'TEST', article_body = 'TESTtestTEST'  WHERE article_id = 89 AND author_id = 3;
 
-SELECT COUNT(comment_id) FROM posted_comments WHERE parent_comment_id = 1 AND author_id != 3;
+SELECT COUNT(comment_id) FROM posted_comments WHERE parent_comment_id = 1 AND author_id != 3;*/
+
+SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON uploaded_articles.article_id = posted_comments.article_id GROUP BY uploaded_articles.article_id ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?

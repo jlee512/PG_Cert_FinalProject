@@ -5,8 +5,8 @@
 var multimediaTemplate =
 
     "<div class='col-sm-3'><div class='panel panel-default' style='margin: 10px;'>" +
-    "<div class='panel-heading multimedia-heading' style='background-color: #00acc1; color: white'>" +
-    "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
+    "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
+    "<h3 class='panel-title'></h3>" +
     "</div>" +
     "<div class='panel-body'>" +
     "</div>" +
@@ -49,6 +49,9 @@ function successfulArticleLoad(msg) {
 
     var multimediaContainer = $(".news_feed");
 
+    console.log(msg.length);
+    console.log(count);
+
     if (msg.length == 0) {
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
         $('.loader-wrapper').hide();
@@ -61,6 +64,8 @@ function successfulArticleLoad(msg) {
             var multimedia = msg[i];
 
             var multimediaDiv = $(multimediaTemplate);
+
+            multimediaDiv.find(".panel-title").text(multimedia.multimedia_title);
 
             if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
                 multimediaDiv.find(".panel-body").html("<img width='100px' height='100px' src='" + multimedia.file_path + "' >");
