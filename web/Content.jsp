@@ -72,6 +72,13 @@
                 console.log('User signed out.');
             });
         }
+        setTimeout(fade_out, 3000);
+
+        function fade_out() {
+
+            $('.not-found').fadeOut().empty();
+
+        }
     </script>
 
 <style type="text/css">
@@ -112,11 +119,24 @@
 </head>
 
 <body>
-
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
 <c:choose>
     <c:when test="${loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
+
+        <%--Show a message if redirected from failed GET request--%>
+        <c:if test="${not empty param.notFound}">
+            <%--When the article is successfully deleted--%>
+            <c:choose>
+                <c:when test="${param.notFound}">
+                    <div class="not-found card" style="text-align: center; background-color: #FFFACD;">
+                        <div class="card-header">
+                            <h3>Sorry, we couldn't find that page.</h3>
+                        </div>
+                    </div>
+                </c:when>
+            </c:choose>
+        </c:if>
 
         <p class="text-center">Welcome <strong><a href="ProfilePage?username=${sessionScope.userDetails.username}" style="color: #f9a825;">${sessionScope.userDetails.username}</a></strong>! Good to see you</p>
 

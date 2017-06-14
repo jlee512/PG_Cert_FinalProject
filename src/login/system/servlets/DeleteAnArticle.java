@@ -35,17 +35,22 @@ public class DeleteAnArticle extends HttpServlet {
             /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-                int article_id = Integer.parseInt(request.getParameter("article_id"));
-                /*If the user is not authorized to delete the article, redirect them to their homepage.*/
-                if (!verifyUserAuthorization(DB, user.getUser_id(), article_id)) {
-                    response.sendRedirect("Content?username=" + user.getUsername());
+                if (request.getParameter("article_id") == null) {
+                    response.sendRedirect("Content?username=" + user.getUsername() + "&notFound=true");
                 } else {
-                    int deletionStatus = ArticleDAO.deleteAnArticle(DB, article_id, user.getUser_id());
-                    if (deletionStatus == 1) {
-                        /*Redirect to the users profile page*/
-                        response.sendRedirect("ProfilePage?user_id=" + user.getUsername() + "&articleDeleted=true");
+
+                    int article_id = Integer.parseInt(request.getParameter("article_id"));
+                /*If the user is not authorized to delete the article, redirect them to their homepage.*/
+                    if (!verifyUserAuthorization(DB, user.getUser_id(), article_id)) {
+                        response.sendRedirect("Content?username=" + user.getUsername());
                     } else {
-                        response.sendRedirect("ProfilePage?user_id=" + user.getUsername() + "&articleDeleted=false");
+                        int deletionStatus = ArticleDAO.deleteAnArticle(DB, article_id, user.getUser_id());
+                        if (deletionStatus == 1) {
+                        /*Redirect to the users profile page*/
+                            response.sendRedirect("ProfilePage?user_id=" + user.getUsername() + "&articleDeleted=true");
+                        } else {
+                            response.sendRedirect("ProfilePage?user_id=" + user.getUsername() + "&articleDeleted=false");
+                        }
                     }
                 }
             }
