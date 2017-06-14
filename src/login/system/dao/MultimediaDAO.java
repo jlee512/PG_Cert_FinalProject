@@ -114,7 +114,7 @@ Add a new user to the Database
 
     }
 
-    public static void getFirstNMultimediaByArticleDate(MySQL DB, int fromMultimedia, int numMultimedia) {
+    public static List<Multimedia> getFirstNMultimediaByArticleDate(MySQL DB, int fromMultimedia, int numMultimedia) {
 
            /*Dummy multimedia to be returned if none found*/
         List<Multimedia> multimedia = new ArrayList<Multimedia>();
@@ -164,6 +164,7 @@ Add a new user to the Database
             e.printStackTrace();
         }
 
+        return multimedia;
     }
 
 }

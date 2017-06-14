@@ -29,11 +29,11 @@ public class MultimediaContent extends HttpServlet {
 
 
         /*Get the number of articles requested and the author_id*/
-        int firstArticle = Integer.parseInt(request.getParameter("from"));
-        int articleCount = Integer.parseInt(request.getParameter("count"));
+        int first_multimedia_file = Integer.parseInt(request.getParameter("from"));
+        int multimedia_count = Integer.parseInt(request.getParameter("count"));
         int author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
 
-        List<Multimedia> multimedia = MultimediaDAO.getAllMultimedia(DB);
+        List<Multimedia> multimedia = MultimediaDAO.getFirstNMultimediaByArticleDate(DB, first_multimedia_file, multimedia_count);
 
         /*Return a JSON object with the article information included*/
         response.setContentType("application/json");
@@ -58,6 +58,7 @@ public class MultimediaContent extends HttpServlet {
     public static void constructMultimediaPreviewJSON(List<Multimedia> multimedia, JSONArray multimediaDetails) {
         for (int i = 0; i < multimedia.size(); i++) {
             JSONObject singleMultimedia = new JSONObject();
+            singleMultimedia.put("username", multimedia.get(i).getUsername());
             singleMultimedia.put("multimedia_id", multimedia.get(i).getMultimedia_id());
             singleMultimedia.put("article_id", multimedia.get(i).getArticle_id());
             singleMultimedia.put("file_type", multimedia.get(i).getFile_type());

@@ -398,5 +398,16 @@
         <servlet-name>PublicProfilePage</servlet-name>
         <url-pattern>/PublicProfilePage</url-pattern>
     </servlet-mapping>
+    
+    <!--(14) Gallery Page-->
+    <servlet>
+        <servlet-name>MultimediaGalleryView</servlet-name>
+        <jsp-file>/MultimediaGallery.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>MultimediaGalleryView</servlet-name>
+        <url-pattern>/MultimediaGallery</url-pattern>
+    </servlet-mapping>
 
 </web-app>
