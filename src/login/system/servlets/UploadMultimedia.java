@@ -1,5 +1,6 @@
 package login.system.servlets;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import login.system.dao.Multimedia;
 import login.system.dao.MultimediaDAO;
 import login.system.dao.User;
@@ -83,7 +84,7 @@ public class UploadMultimedia extends HttpServlet {
             // Initialize fileName and ArticleID
             String fileName = "";
             int articleID = -1;
-            String extension = "";
+
 
             List<Multimedia> multimedia_to_upload = new ArrayList<>();
             Multimedia multimedia = null;
@@ -91,27 +92,29 @@ public class UploadMultimedia extends HttpServlet {
             while (i.hasNext()) {
                 FileItem fi = (FileItem) i.next();
 
-                System.out.println("field name: " + fi.getFieldName());
-                System.out.println("file name: " + fi.getName());
-                System.out.println("string: " + fi.getString());
 
 
-                if (!fi.getFieldName().equals("uploadArticleId") /*&& !(fi.getString(fi.getFieldName()) != null)*/){
+                if (fi.getFieldName().equals("photoOrVideo") || fi.getFieldName().equals("youtubeLink")) {
 
+                    System.out.println("new multimedia");
                     multimedia = new Multimedia();
 
                 }
 
-                if (!fi.isFormField()) {
+                System.out.println("Condition 1: " + !fi.isFormField());
+                System.out.println("Condition 2: " + (fi.getName() != null));
+
+                if (!fi.isFormField() && (fi.getName() != null)) {
 
                     // Get the uploaded file parameters
                     String fieldName = fi.getFieldName();
-                    System.out.println(fieldName);
+                    System.out.println(fieldName + "field name");
                     fileName = fi.getName();
                     String contentType = fi.getContentType();
                     boolean isInMemory = fi.isInMemory();
                     long sizeInBytes = fi.getSize();
                     String filePathforMultimediaObject = "";
+
 
 
                     /*~~~~~ Write the file and make sure the file name is unique ~~~~~*/
@@ -122,32 +125,33 @@ public class UploadMultimedia extends HttpServlet {
 
                         int counter = 0;
                         while (file.exists()) {
-                            extension = FilenameUtils.getExtension(fileName);
+                            String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
                             counter++;
-                            filePathforMultimediaObject =filePath +
+                            filePathforMultimediaObject = filePath +
                                     fileName.substring(fileName.lastIndexOf("\\"));
                             file = new File(filePathforMultimediaObject);
                         }
                     } else {
-                        filePathforMultimediaObject =filePath +
+                        filePathforMultimediaObject = filePath +
                                 fileName.substring(fileName.lastIndexOf("\\") + 1);
                         file = new File(filePathforMultimediaObject);
 
                         int counter = 0;
                         while (file.exists()) {
-                            extension = FilenameUtils.getExtension(fileName);
+                            String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
                             counter++;
-                            filePathforMultimediaObject = filePath + fileName.substring(fileName.lastIndexOf("\\") + 1) ;
+                            filePathforMultimediaObject = filePath + fileName.substring(fileName.lastIndexOf("\\") + 1);
                             file = new File(filePathforMultimediaObject);
                         }
                     }
 
-                    multimedia.setFile_type(extension);
-                    multimedia.setFile_path(filePathforMultimediaObject);
+                    String extension = FilenameUtils.getExtension(fileName);
+                    multimedia.setFile_type("." + extension);
+                    multimedia.setFile_path("Multimedia/" + fileName);
                     multimedia.setMultimedia_title(fileName);
                     multimedia_to_upload.add(multimedia);
 
@@ -159,6 +163,7 @@ public class UploadMultimedia extends HttpServlet {
                     // Deal with DAO methods and youtube links
                 } else {
 
+
                     /*Gettting the article ID*/
                     if (fi.getFieldName().equals("uploadArticleId")) {
                         articleID = Integer.parseInt(fi.getString());
@@ -168,13 +173,13 @@ public class UploadMultimedia extends HttpServlet {
                     }
 
 
-
                     // Placed here so the article ID is available
 
 
                     /*Getting Youtube link info*/
                     if (fi.getFieldName().equals("youtubeLink") && fi.getFieldName() != null) {
-                        System.out.println("test");
+
+
 
                         // Convert youtube link to be "embed"
                         String conversionLink = fi.getString().replace("watch?v=", "embed/");
@@ -184,7 +189,7 @@ public class UploadMultimedia extends HttpServlet {
 
                         multimedia.setFile_type(".web");
                         multimedia.setFile_path(youtubeLink);
-                        multimedia.setMultimedia_title("youtube video");
+                        multimedia.setMultimedia_title("youtube_video");
                         multimedia_to_upload.add(multimedia);
 
                     }
@@ -195,11 +200,8 @@ public class UploadMultimedia extends HttpServlet {
             for (Multimedia multimedia1 : multimedia_to_upload) {
 
                 multimedia1.setArticle_id(articleID);
-                System.out.println("multimedia article_id set" + articleID);
-                System.out.println(multimedia1.getFile_path());
                 int upload_status = MultimediaDAO.addMultimediaToDB(DB, multimedia1.getArticle_id(), multimedia1.getFile_type(), multimedia1.getFile_path(), multimedia1.getMultimedia_title());
 
-                System.out.println(upload_status);
 
             }
 
