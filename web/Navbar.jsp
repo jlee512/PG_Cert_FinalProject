@@ -23,6 +23,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="ProfilePage?username=${sessionScope.userDetails.username}" style="font-size: 18px;">Profile</a></li>
                 <li><a href="Content" style="font-size: 18px">Articles</a></li>
+                <li><a href="MultimediaGallery.jsp" style="font-size: 18px">Gallery</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="LogoutAttempt?username=${sessionScope.userDetails.username}" style="font-size: 18px">Logout</a></li>

@@ -204,6 +204,16 @@
         <url-pattern>/EditArticle</url-pattern>
     </servlet-mapping>
 
+    <!--Viewing multimedia inside the Gallery-->
+    <servlet>
+        <servlet-name>MultimediaGallery</servlet-name>
+        <servlet-class>login.system.servlets.MultimediaContent</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MultimediaGallery</servlet-name>
+        <url-pattern>/MultimediaContent</url-pattern>
+    </servlet-mapping>
     <!--Google OAuth Login Servlet-->
     <servlet>
         <servlet-name>GoogleOAuthLogin</servlet-name>
@@ -248,6 +258,16 @@
         <url-pattern>/ViewPublicArticles</url-pattern>
     </servlet-mapping>
 
+    <!--Uploading Multimedia-->
+    <servlet>
+        <servlet-name>UploadMultimedia</servlet-name>
+        <servlet-class>login.system.servlets.UploadMultimedia</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UploadMultimedia</servlet-name>
+        <url-pattern>/UploadMultimedia</url-pattern>
+    </servlet-mapping>
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 

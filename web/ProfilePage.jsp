@@ -237,14 +237,14 @@
                                 <input type="text" id="username" name="username"
                                        value="${sessionScope.userDetails.username}">
 
-                                <h4>Name </h4>
+                                <h4>Name</h4>
                                 <input style="width: 20%" class="form-group" type="text" name="firstname"
                                        value="${sessionScope.userDetails.firstname} ">
 
                                 <input style="width: 70%" class="form-group" type="text" name="lastname"
                                        value="${sessionScope.userDetails.lastname}">
 
-                                <h4 style="display: inline-block;">Occupation: </h4>
+                                <h4 style="display: inline-block;">Occupation</h4>
                                 <input style=" display: inline-block" type="text" id="occupation"
                                        name="occupation"
                                        value="${sessionScope.userDetails.occupation}">
@@ -273,7 +273,7 @@
 
 
                                 <h4 style="display: inline-block">Phone </h4>
-                                <input style="display: inline" type="text" id="phone" name="phone"
+                                <input style="display: inline" type="text" id="phone" name="phone" maxlength="14"
                                        value="${sessionScope.userDetails.phone}">
                             </div>
 
@@ -376,9 +376,18 @@
     <%--Edit button makes the form editable and the save changes button is appended--%>
     $("#editButton").click(function () {
         inputfields.removeAttr('readonly', 'readonly');
-        if (!$('#saveChanges')[0]) {
-            $("#submit").append("<input type='submit' class='btn btn-sm' id='saveChanges' name='savechange' value='save changes' style='background-color: #00acc1;'>")
+
+        if ($(".edit_User_Details")[0]) {
+
+            $("#editButton").removeClass("edit_User_Details");
+            inputfields.attr('readonly', 'readonly');
+            $("#saveChanges").remove();
+
+        } else {
+            $("#editButton").addClass("edit_User_Details");
+            $("#submit").append("<button type='submit' class='btn btn-sm btn-success' id='saveChanges' name='savechange' >save changes</button>")
         }
+
     });
 
     <%--Save changes returns the form to readonly and the button is removed--%>
@@ -411,7 +420,7 @@
 <%--Moved by JUL to separate JS file--%>
 <script type="text/javascript" src="Javascript/update_profile_picture.js"></script>
 <script type="text/javascript" src="Javascript/edit_an_article_form.js"></script>
-
+<script type="text/javascript" src="Javascript/upload_multimedia.js"></script>
 <%------------------------------------------------------------------------------------------------------------------------------------%>
 
 

@@ -154,7 +154,7 @@
                         <%--Password input--%>
                         <div class="md-form">
                             <i class="fa fa-unlock-alt prefix"></i>
-                            <input class="form-control" type="password" id="password" name="password" minlength="5"
+                            <input class="form-control" type="password" id="password" name="password" pattern="^(?=.*[^a-zA-Z])(?=.*[a-z])(?=.*[A-Z])\S{8,}$" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                                    onchange="checkForSpaces(this)"
                                    required/>
                             <label for="password">Your password</label>
@@ -164,7 +164,6 @@
                         <div class="md-form">
                             <i class="fa fa-lock prefix"></i>
                             <input class="form-control" type="password" id="passwordVerify" name="passwordVerify"
-                                   minlength="5"
                                    onchange="checkForSpaces(this)" required/>
                             <label for="passwordVerify">Verify password</label>
                         </div>
