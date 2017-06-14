@@ -34,22 +34,26 @@ public class EditAnArticle extends HttpServlet {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
-        }
-        else {
-            User user = (User) session.getAttribute("userDetails");
-            int author_id = user.getUser_id();
+        } else {
+
+              /*Check if session has timed out*/
+            if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
+
+                User user = (User) session.getAttribute("userDetails");
+                int author_id = user.getUser_id();
 
         /*Access POST parameters*/
-            int article_id = Integer.parseInt(request.getParameter("editArticle"));
-            String title_update = request.getParameter("article_title_input");
-            String body_update = request.getParameter("article_body_input");
-            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+                int article_id = Integer.parseInt(request.getParameter("editArticle"));
+                String title_update = request.getParameter("article_title_input");
+                String body_update = request.getParameter("article_body_input");
+                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
 
-            ArticleDAO.updateArticle(DB, article_id, author_id, title_update, body_update, currentTimestamp);
+                ArticleDAO.updateArticle(DB, article_id, author_id, title_update, body_update, currentTimestamp);
 
-            response.sendRedirect("ProfilePage?username=" + user.getUsername());
+                response.sendRedirect("ProfilePage?username=" + user.getUsername());
 
+            }
         }
     }
 }

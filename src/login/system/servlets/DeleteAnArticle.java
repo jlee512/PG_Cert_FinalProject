@@ -30,14 +30,16 @@ public class DeleteAnArticle extends HttpServlet {
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
 
-        } else
-            {
+        } else {
+
+            /*Check if session has timed out*/
+            if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
+
                 int article_id = Integer.parseInt(request.getParameter("article_id"));
                 /*If the user is not authorized to delete the article, redirect them to their homepage.*/
-                if (!verifyUserAuthorization(DB, user.getUser_id(), article_id)){
+                if (!verifyUserAuthorization(DB, user.getUser_id(), article_id)) {
                     response.sendRedirect("Content?username=" + user.getUsername());
-                }
-                else {
+                } else {
                     int deletionStatus = ArticleDAO.deleteAnArticle(DB, article_id, user.getUser_id());
                     if (deletionStatus == 1) {
                         /*Redirect to the users profile page*/
@@ -45,14 +47,9 @@ public class DeleteAnArticle extends HttpServlet {
                     } else {
                         response.sendRedirect("ProfilePage?user_id=" + user.getUsername() + "&articleDeleted=false");
                     }
+                }
             }
         }
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*To be implemented*/
     }
 
     private boolean verifyUserAuthorization(MySQL DB, int user_id, int article_id){

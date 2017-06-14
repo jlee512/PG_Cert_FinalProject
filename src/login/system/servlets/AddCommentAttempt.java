@@ -29,32 +29,40 @@ public class AddCommentAttempt extends HttpServlet {
 
         String status = "";
 
+        HttpSession session = request.getSession(true);
+        if (session.getAttribute("loginStatus") != "active") {
+            response.sendRedirect("Login");
+
+        } else {
+
+             /*Check if session has timed out*/
+            if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
+
         /*Get printwriter to write to JSON*/
-        PrintWriter out = response.getWriter();
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        String content = request.getParameter("comment_body");
-        String username = request.getParameter("username");
-        int articleID = Integer.parseInt(request.getParameter("article_id"));
+                PrintWriter out = response.getWriter();
+                Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+                String content = request.getParameter("comment_body");
+                String username = request.getParameter("username");
+                int articleID = Integer.parseInt(request.getParameter("article_id"));
 
         /*Access user details from the session*/
-        HttpSession session = request.getSession(true);
-        User currentUser = (User) session.getAttribute("userDetails");
+                User currentUser = (User) session.getAttribute("userDetails");
 
-        int userID = currentUser.getUser_id();
-        if (request.getParameter("parent_comment_id").length() > 0){
-            int parentCommentID = Integer.parseInt(request.getParameter("parent_comment_id"));
-            status = addReplyComment(parentCommentID, articleID, DB, userID, currentTime, content);
-            System.out.println(status);
-        }
-        else {
-            status = addTopLevelComment(articleID, DB, userID, currentTime, content);
-            System.out.println(status);
-        }
-        if (status.equals("Comment added successfully.")){
-            response.sendRedirect("ViewArticle?article_id=" + articleID);
-        }
-        else {
-            out.println("<p>" + status + " Click <a href=\"ViewArticle?article_id=" + articleID + "\">here</a> to return to the article.");
+                int userID = currentUser.getUser_id();
+                if (request.getParameter("parent_comment_id").length() > 0) {
+                    int parentCommentID = Integer.parseInt(request.getParameter("parent_comment_id"));
+                    status = addReplyComment(parentCommentID, articleID, DB, userID, currentTime, content);
+                    System.out.println(status);
+                } else {
+                    status = addTopLevelComment(articleID, DB, userID, currentTime, content);
+                    System.out.println(status);
+                }
+                if (status.equals("Comment added successfully.")) {
+                    response.sendRedirect("ViewArticle?article_id=" + articleID);
+                } else {
+                    out.println("<p>" + status + " Click <a href=\"ViewArticle?article_id=" + articleID + "\">here</a> to return to the article.");
+                }
+            }
         }
     }
 

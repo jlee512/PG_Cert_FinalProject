@@ -28,26 +28,30 @@ public class ViewArticle extends HttpServlet {
 
         } else {
 
-            //Pass the articleID as a parameter when clicking the link to the article.
-            int articleID = Integer.parseInt(request.getParameter("article_id"));
+              /*Check if session has timed out*/
+            if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
+
+                //Pass the articleID as a parameter when clicking the link to the article.
+                int articleID = Integer.parseInt(request.getParameter("article_id"));
 
         /*Store the article ID in a cookie for use on the server side*/
-            Cookie article_id_cookie = new Cookie("article_id", Integer.toString(articleID));
-            article_id_cookie.setMaxAge(2 * 60 * 60); //Max age 2 hours
-            article_id_cookie.setPath("/");
-            response.addCookie(article_id_cookie);
+                Cookie article_id_cookie = new Cookie("article_id", Integer.toString(articleID));
+                article_id_cookie.setMaxAge(2 * 60 * 60); //Max age 2 hours
+                article_id_cookie.setPath("/");
+                response.addCookie(article_id_cookie);
 
-            //Get Article object by ID from ArticleDAO.
-            Article article = ArticleDAO.getArticle(DB, articleID);
-            Timestamp timestamp = article.getArtcle_timestamp();
-            String date_for_output = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(timestamp);
+                //Get Article object by ID from ArticleDAO.
+                Article article = ArticleDAO.getArticle(DB, articleID);
+                Timestamp timestamp = article.getArtcle_timestamp();
+                String date_for_output = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(timestamp);
 
-            //Set it as an attribute to pass to the JSP.
-            request.setAttribute("article", article);
-            request.setAttribute("date", date_for_output);
+                //Set it as an attribute to pass to the JSP.
+                request.setAttribute("article", article);
+                request.setAttribute("date", date_for_output);
 
 
-            getServletContext().getRequestDispatcher("/ViewArticlePage").forward(request, response);
+                getServletContext().getRequestDispatcher("/ViewArticlePage").forward(request, response);
+            }
         }
     }
 

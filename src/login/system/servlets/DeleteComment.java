@@ -23,63 +23,68 @@ public class DeleteComment extends HttpServlet {
             response.sendRedirect("Login");
 
         } else {
-            MySQL DB = new MySQL();
 
-            User user = (User) session.getAttribute("userDetails");
+              /*Check if session has timed out*/
+            if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
+
+                MySQL DB = new MySQL();
+
+                User user = (User) session.getAttribute("userDetails");
 
             /*If user tries to access DeleteComment directly with no parameters, redirect to homepage*/
-            if (request.getParameter("comment_id") == null || request.getParameter("article_id") == null) {
-                response.sendRedirect("Content?username=" + user.getUsername());
+                if (request.getParameter("comment_id") == null || request.getParameter("article_id") == null) {
+                    response.sendRedirect("Content?username=" + user.getUsername());
 
-            } else {
-                int commentID = Integer.parseInt(request.getParameter("comment_id"));
-                int articleID = Integer.parseInt(request.getParameter("article_id"));
+                } else {
+                    int commentID = Integer.parseInt(request.getParameter("comment_id"));
+                    int articleID = Integer.parseInt(request.getParameter("article_id"));
 
                 /*Verify that User is authorized to delete comment.*/
-                if (!verifyUserAuthorization(DB, user.getUser_id(), commentID, articleID)) {
-                    response.sendRedirect("Content?username=" + user.getUsername());
-                } else {
+                    if (!verifyUserAuthorization(DB, user.getUser_id(), commentID, articleID)) {
+                        response.sendRedirect("Content?username=" + user.getUsername());
+                    } else {
 
                 /*Setup delete comment thread and run*/
-                    Thread deleteComment = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            System.out.println("comment deletion started");
-                            CommentDAO.deleteComment(DB, commentID);
-                        }
-                    });
-                    deleteComment.run();
-
-                /*Setup parent comment adjustment and run*/
-                    String parent_comment_id = request.getParameter("parent_comment_id");
-                    if (parent_comment_id != null && parent_comment_id.length() > 0) {
-                        int parentID = Integer.parseInt(request.getParameter("parent_comment_id"));
-                        Thread commentAdjust = new Thread(new Runnable() {
+                        Thread deleteComment = new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                System.out.println("parent comment adjust started");
-                                adjustParentCommentStatus(DB, commentID, parentID);
+                                System.out.println("comment deletion started");
+                                CommentDAO.deleteComment(DB, commentID);
                             }
                         });
-                        commentAdjust.run();
+                        deleteComment.run();
 
-                        try {
-                            commentAdjust.join();
-                            System.out.println("adjust parent comment status finished");
-                            deleteComment.join();
-                            System.out.println("delete comment finished");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                /*Setup parent comment adjustment and run*/
+                        String parent_comment_id = request.getParameter("parent_comment_id");
+                        if (parent_comment_id != null && parent_comment_id.length() > 0) {
+                            int parentID = Integer.parseInt(request.getParameter("parent_comment_id"));
+                            Thread commentAdjust = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    System.out.println("parent comment adjust started");
+                                    adjustParentCommentStatus(DB, commentID, parentID);
+                                }
+                            });
+                            commentAdjust.run();
+
+                            try {
+                                commentAdjust.join();
+                                System.out.println("adjust parent comment status finished");
+                                deleteComment.join();
+                                System.out.println("delete comment finished");
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            try {
+                                deleteComment.join();
+                                System.out.println("delete comment finished");
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    } else {
-                        try {
-                            deleteComment.join();
-                            System.out.println("delete comment finished");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        response.sendRedirect("ViewArticle?article_id=" + articleID);
                     }
-                    response.sendRedirect("ViewArticle?article_id=" + articleID);
                 }
             }
         }

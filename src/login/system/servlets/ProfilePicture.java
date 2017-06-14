@@ -48,7 +48,6 @@ public class ProfilePicture extends HttpServlet {
         MySQL DB = new MySQL();
 
 
-
 //       Store the file save file path
         ServletContext servletContext = getServletContext();
         filePath = servletContext.getRealPath("Multimedia/");
@@ -56,7 +55,8 @@ public class ProfilePicture extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("userDetails");
 
-
+  /*Check if session has timed out*/
+        if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
 
 
@@ -68,100 +68,101 @@ public class ProfilePicture extends HttpServlet {
         /*Increment profile picture filepath number by 1 and create save file string*/
 
 
-        isMultipart = ServletFileUpload.isMultipartContent(request);
+            isMultipart = ServletFileUpload.isMultipartContent(request);
 
-        if (!isMultipart) {
-            response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&photoUpload=invalid");
-        }
+            if (!isMultipart) {
+                response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&photoUpload=invalid");
+            }
 
-        DiskFileItemFactory factory = new DiskFileItemFactory();
+            DiskFileItemFactory factory = new DiskFileItemFactory();
 
-        // maximum size that will be stored in memory
-        factory.setSizeThreshold(maxFileSize);
+            // maximum size that will be stored in memory
+            factory.setSizeThreshold(maxFileSize);
 
-        // Location to save data that is larger than maxMemSize.
-        factory.setRepository(new File("c:\\TEMP"));
+            // Location to save data that is larger than maxMemSize.
+            factory.setRepository(new File("c:\\TEMP"));
 
-        // Create a new file upload handler
-        ServletFileUpload upload = new ServletFileUpload(factory);
+            // Create a new file upload handler
+            ServletFileUpload upload = new ServletFileUpload(factory);
 
-        // maximum file size to be uploaded.
-        upload.setSizeMax(maxUploadSize);
+            // maximum file size to be uploaded.
+            upload.setSizeMax(maxUploadSize);
 
-        try {
+            try {
 
 //         Parse the request to get file items.
-            List fileItems = upload.parseRequest(request);
+                List fileItems = upload.parseRequest(request);
 
-            // Process the uploaded file items
-            Iterator i = fileItems.iterator();
-
-
-            while (i.hasNext()) {
-                FileItem fi = (FileItem) i.next();
+                // Process the uploaded file items
+                Iterator i = fileItems.iterator();
 
 
-                if (!fi.isFormField()) {
+                while (i.hasNext()) {
+                    FileItem fi = (FileItem) i.next();
 
-                    // Get the uploaded file parameters
-                    String fieldName = fi.getFieldName();
-                    String fileName = fi.getName();
-                    String contentType = fi.getContentType();
-                    boolean isInMemory = fi.isInMemory();
-                    long sizeInBytes = fi.getSize();
+
+                    if (!fi.isFormField()) {
+
+                        // Get the uploaded file parameters
+                        String fieldName = fi.getFieldName();
+                        String fileName = fi.getName();
+                        String contentType = fi.getContentType();
+                        boolean isInMemory = fi.isInMemory();
+                        long sizeInBytes = fi.getSize();
 
 
                     /*~~~~~ Write the file and make sure the file name is unique ~~~~~*/
 
-                    if (fileName.lastIndexOf("\\") >= 0) {
-                        file = new File(filePath +
-                                fileName.substring(fileName.lastIndexOf("\\")));
-
-                        int counter = 0;
-                        while (file.exists()) {
-
-                            String extension = FilenameUtils.getExtension(fileName);
-                            fileName = FilenameUtils.removeExtension(fileName);
-                            fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
-                            counter++;
+                        if (fileName.lastIndexOf("\\") >= 0) {
                             file = new File(filePath +
                                     fileName.substring(fileName.lastIndexOf("\\")));
-                        }
-                    } else {
-                        file = new File(filePath +
-                                fileName.substring(fileName.lastIndexOf("\\") + 1));
 
-                        int counter = 0;
-                        while (file.exists()) {
+                            int counter = 0;
+                            while (file.exists()) {
 
-                            String extension = FilenameUtils.getExtension(fileName);
-                            fileName = FilenameUtils.removeExtension(fileName);
-                            fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
-                            counter++;
+                                String extension = FilenameUtils.getExtension(fileName);
+                                fileName = FilenameUtils.removeExtension(fileName);
+                                fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
+                                counter++;
+                                file = new File(filePath +
+                                        fileName.substring(fileName.lastIndexOf("\\")));
+                            }
+                        } else {
                             file = new File(filePath +
                                     fileName.substring(fileName.lastIndexOf("\\") + 1));
+
+                            int counter = 0;
+                            while (file.exists()) {
+
+                                String extension = FilenameUtils.getExtension(fileName);
+                                fileName = FilenameUtils.removeExtension(fileName);
+                                fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
+                                counter++;
+                                file = new File(filePath +
+                                        fileName.substring(fileName.lastIndexOf("\\") + 1));
+                            }
                         }
-                    }
                     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
                     /* Write the file */
-                    fi.write(file);
+                        fi.write(file);
                     /* Update the database and session */
-                    UserDAO.updateProfilePicture(DB, "Multimedia/" + fileName, user.getUsername());
-                    user.setProfile_picture("Multimedia/" + fileName);
+                        UserDAO.updateProfilePicture(DB, "Multimedia/" + fileName, user.getUsername());
+                        user.setProfile_picture("Multimedia/" + fileName);
 
-                } else {
+                    } else {
                     /*If a default picture is selected, update the database with the value of the form-field submitted*/
-                    System.out.println(fi.getString());
-                    UserDAO.updateProfilePicture(DB, fi.getString(), user.getUsername());
-                    user.setProfile_picture(fi.getString());
+                        System.out.println(fi.getString());
+                        UserDAO.updateProfilePicture(DB, fi.getString(), user.getUsername());
+                        user.setProfile_picture(fi.getString());
+                    }
                 }
-            }
             /* Send the user back to their profile */
-            response.sendRedirect("ProfilePage");
+                response.sendRedirect("ProfilePage");
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
