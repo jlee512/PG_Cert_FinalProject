@@ -94,4 +94,6 @@ UPDATE uploaded_articles SET timestamp = CURRENT_TIMESTAMP, article_title = 'TES
 
 SELECT COUNT(comment_id) FROM posted_comments WHERE parent_comment_id = 1 AND author_id != 3;*/
 
-SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON uploaded_articles.article_id = posted_comments.article_id GROUP BY uploaded_articles.article_id ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?
+SELECT registered_users.username, posted_multimedia.multimedia_id, posted_multimedia.article_id, posted_multimedia.file_type, posted_multimedia.file_path, posted_multimedia.multimedia_title FROM posted_multimedia
+  LEFT JOIN uploaded_articles ON posted_multimedia.article_id = uploaded_articles.article_id
+  LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id ORDER BY uploaded_articles.timestamp DESC LIMIT 4 OFFSET 0;

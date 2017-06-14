@@ -161,13 +161,10 @@ public class UploadMultimedia extends HttpServlet {
                 } else {
 
 
-                    System.out.println(fi.getFieldName());
                     /*Gettting the article ID*/
                     if (fi.getFieldName().equals("uploadArticleId")) {
-                        System.out.println(fi.getString());
 
                         articleID = Integer.parseInt(fi.getString());
-                        System.out.println("Article ID is " + articleID);
 
                         //Placed this method here otherwise it doesnt seem to pick up the updated ArticleID and defaults to = 0
                     }
