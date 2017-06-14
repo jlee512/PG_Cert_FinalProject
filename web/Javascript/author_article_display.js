@@ -66,11 +66,11 @@ function successfulArticleLoad(msg) {
 
             articleDiv.find(".individualArticleLink").attr("href", href);
 
-            articleDiv.find(".panel-title").append(" <span>" + article.article_title + "</span>");
-            articleDiv.find(".panel-title").append("<div class='view_comments pull-right' style='color: white'>" +
+            /*Add in the article title and comment count*/
+            articleDiv.find(".panel-title").append(" <div style='width: 70%; display: inline-block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>" + article.article_title + "</div>");
+            articleDiv.find(".panel-title").append("<div class='view_comments pull-right' style='color: white' style='display: inline-block;'>"+
                 "<i class='fa fa-comment-o' aria-hidden='true'></i> " +
                 article.comment_count + "</div>");
-            articleDiv.find(".panel-body").attr("id", article.article_id);
 
             var date = new Date(article.article_timestamp);
 
