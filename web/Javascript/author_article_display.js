@@ -66,7 +66,10 @@ function successfulArticleLoad(msg) {
 
             articleDiv.find(".individualArticleLink").attr("href", href);
 
-            articleDiv.find(".panel-title").append(" " + article.article_title);
+            articleDiv.find(".panel-title").append(" <span>" + article.article_title + "</span>");
+            articleDiv.find(".panel-title").append("<div class='view_comments pull-right' style='color: white'>"+
+                "<i class='fa fa-comment-o' aria-hidden='true'></i> " +
+                article.comment_count + "</div>");
             articleDiv.find(".panel-body").attr("id", article.article_id);
 
             var date = new Date(article.article_timestamp);
@@ -87,7 +90,7 @@ function successfulArticleLoad(msg) {
                                                         "</div>" +
                                                     "</a>" +
                                                     "<div type='button' class='btn btn-sm edit_article' style='background-color: #f9a825; color: white;'>" +
-                                                        "<i class='fa fa-pencil-square-o' aria-hidden='true'></i></div>" + "<div type='button' class='btn btn-sm add_multimedia' style='background-color: #42a5f5; color: white;'>" + "<i class='fa fa-file-picture-o' aria-hidden='true'></i>" + "</div><div class='multimediaForm'></div>");
+                                                        "<i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</div>" + "<div type='button' class='btn btn-sm add_multimedia' style='background-color: #42a5f5; color: white;'>" + "<i class='fa fa-file-picture-o' aria-hidden='true'></i>" + "</div><div class='multimediaForm'></div>");
 
             articleDiv.find(".panel-body").css("text-align", "left");
 

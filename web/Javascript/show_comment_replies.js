@@ -55,8 +55,19 @@ $(document).on("click", ".show_replies", function () {
                 type: "GET",
                 success: function loadNestedComments(msg) {
                     buttonsDiv.find(".loader-wrapper").show();
-                    if (msg.length != 0){
+
+                    console.log(msg.length);
+
+                    if (msg.length == 0){
+                        /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
+                        $('.loader-wrapper').hide();
+                        $('#loaded1, #loaded2, #loaded3, #loaded4').show();
+                        moreComments = false;
+
+                    } else {
                         for (i = 0; i < msg.length; i++) {
+
+                            console.log("Test");
 
                             var commentContainerTemplate = $(commentPara);
                             var replyCommentsButtonPanel = $(commentContainerTemplate).find('.buttons');

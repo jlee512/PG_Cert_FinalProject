@@ -16,7 +16,7 @@ $('.panel-body').on('click', '.edit_article', (function (e) {
 
     articleEditForm = $(articleEditFormString);
 
-    original_title = $(this).parent().parent().children().first().text();
+    original_title = $(this).parent().parent().children().first().find('span').text();
 
     article_id = $(this).parent().attr("id");
 
@@ -58,9 +58,6 @@ function getCookie(cookie_name, article_id) {
         }
         if (cookie.indexOf(name) == 0) {
             full_article_body = cookie.substring(name.length, cookie.length);
-
-            /*Delete the cookie that was originally created*/
-            document.cookie = article_id + "_full_article_body=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
             return full_article_body;
         }
