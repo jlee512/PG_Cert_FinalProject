@@ -77,8 +77,8 @@ function successfulArticleLoad(msg) {
             articleDiv.find(".panel-title").append("<div class='view_comments pull-right' style='color: white' style='display: inline-block;'>"+
                 "<i class='fa fa-comment-o' aria-hidden='true'></i> " +
                 article.comment_count + "</div>");
-            articleDiv.find(".panel-body").attr("id", article.article_id);
 
+            /*Get the article id*/
             articleDiv.find(".panel-body").attr("id", article.article_id);
 
             var date = new Date(article.article_timestamp);

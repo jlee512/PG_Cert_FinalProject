@@ -161,8 +161,11 @@ public class UploadMultimedia extends HttpServlet {
                 } else {
 
 
+                    System.out.println(fi.getFieldName());
                     /*Gettting the article ID*/
                     if (fi.getFieldName().equals("uploadArticleId")) {
+                        System.out.println(fi.getString());
+
                         articleID = Integer.parseInt(fi.getString());
                         System.out.println("Article ID is " + articleID);
 

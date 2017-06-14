@@ -80,6 +80,8 @@ function successfulArticleLoad(msg) {
                 "<i class='fa fa-comment-o' aria-hidden='true'></i> " +
                 article.comment_count + "</div>");
 
+            articleDiv.find(".panel-body").attr("id", article.article_id);
+
             var date = new Date(article.article_timestamp);
             var formattedDate = formatDate(date);
 
