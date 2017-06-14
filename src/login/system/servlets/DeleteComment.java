@@ -33,7 +33,7 @@ public class DeleteComment extends HttpServlet {
 
             /*If user tries to access DeleteComment directly with no parameters, redirect to homepage*/
                 if (request.getParameter("comment_id") == null || request.getParameter("article_id") == null) {
-                    response.sendRedirect("Content?username=" + user.getUsername());
+                    response.sendRedirect("Content?username=" + user.getUsername() + "&notFound=true");
 
                 } else {
                     int commentID = Integer.parseInt(request.getParameter("comment_id"));
