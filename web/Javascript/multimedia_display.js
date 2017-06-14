@@ -2,10 +2,10 @@
  * Created by Yuri on 12/06/2017.
  */
 // Created a template which will be used for inserting new article HTML.
-var articleTemplate =
+var multimediaTemplate =
 
     "<div class='col-sm-3'><div class='panel panel-default' style='margin: 10px;'>" +
-    "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
+    "<div class='panel-heading multimedia-heading' style='background-color: #00acc1; color: white'>" +
     "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
     "</div>" +
     "<div class='panel-body'>" +
@@ -17,7 +17,7 @@ var articleTemplate =
 
 function hoverBackgroundColor() {
 
-    $(this).find('.article-heading').stop().animate({
+    $(this).find('.multimedia-heading').stop().animate({
         backgroundColor: "#ffd54f",
         color: "black"
     }, 'slow');
@@ -26,7 +26,7 @@ function hoverBackgroundColor() {
 
 function normalBackgroundColor() {
 
-    $(this).find('.article-heading').stop().animate({
+    $(this).find('.multimedia-heading').stop().animate({
         backgroundColor: "#00acc1",
         color: "white"
     }, 'slow');
@@ -35,19 +35,19 @@ function normalBackgroundColor() {
 
 /*jQuery function to animate headings of articles as they are hovered over*/
 
-$('div.news_feed').on('mouseenter', '.individualArticleLink', hoverBackgroundColor);
+$('div.news_feed').on('mouseenter', '.individualMultimediaLink', hoverBackgroundColor);
 
-$('div.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundColor);
+$('div.news_feed').on('mouseleave', '.individualMultimediaLink', normalBackgroundColor);
 
 /* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
 var from = 0;
-var count = 6;
+var count = 4;
 var moreMultimedia = true;
 
 
 function successfulArticleLoad(msg) {
 
-    var articleContainer = $(".news_feed");
+    var multimediaContainer = $(".news_feed");
 
     if (msg.length == 0) {
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
@@ -57,52 +57,31 @@ function successfulArticleLoad(msg) {
 
     } else {
         for (var i = 0; i < msg.length; i++) {
-            console.log(i);
+
             var multimedia = msg[i];
 
-            var articleDiv = $(articleTemplate);
-
-            // /*Make each article container a link to the full article*/
-            // var href = "ViewArticle?article_id=" + article.article_id;
-            //
-            // articleDiv.attr("href", href);
-
-            articleDiv.find(".panel-title").text(multimedia.multimedia_title);
-
-            // var date = new Date(article.article_date);
+            var multimediaDiv = $(multimediaTemplate);
 
             if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
-                console.log(multimedia.file_path);
-                articleDiv.find(".panel-body").html("<img width='100px' height='100px' src='" + multimedia.file_path + "' >");
-                articleDiv.find(".panel-body").css("text-align", "left");
-
-                /*Remove the loading icon*/
-                $('.loader-wrapper').hide();
-
-                articleContainer.append(articleDiv);
+                multimediaDiv.find(".panel-body").html("<img width='100px' height='100px' src='" + multimedia.file_path + "' >");
+                multimediaDiv.find(".panel-body").css("text-align", "left");
             }
 
             if (multimedia.file_type == ".mp4") {
-
-                articleDiv.find(".panel-body").html("<video controls width='200px' height='200px'><source src='" + multimedia.file_path + "' type='video/mp4'></video>");
-                articleDiv.find(".panel-body").css("text-align", "left");
-
-                /*Remove the loading icon*/
-                $('.loader-wrapper').hide();
-
-                articleContainer.append(articleDiv);
+                multimediaDiv.find(".panel-body").html("<video controls width='200px' height='200px'><source src='" + multimedia.file_path + "' type='video/mp4'></video>");
+                multimediaDiv.find(".panel-body").css("text-align", "left");
             }
 
             if (multimedia.file_type == ".web") {
-                console.log(multimedia.file_path);
-                articleDiv.find(".panel-body").html(multimedia.file_path);
-                articleDiv.find(".panel-body").css("text-align", "left");
-
-                /*Remove the loading icon*/
-                $('.loader-wrapper').hide();
-
-                articleContainer.append(articleDiv);
+                multimediaDiv.find(".panel-body").html(multimedia.file_path);
+                multimediaDiv.find(".panel-body").css("text-align", "left");
             }
+
+            /*Append the respective content to the gallery*/
+            multimediaContainer.append(multimediaDiv);
+
+            /*Remove the loading icon*/
+            $('.loader-wrapper').hide();
 
 
             if (msg.length < count) {
