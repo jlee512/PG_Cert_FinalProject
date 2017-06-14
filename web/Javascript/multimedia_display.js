@@ -47,8 +47,6 @@ var moreMultimedia = true;
 
 function successfulArticleLoad(msg) {
 
-    console.log(msg.length);
-
     var photoContainer = $(".uploadedPhotos");
     var videoContainer = $(".uploadedVideos");
 
@@ -64,9 +62,6 @@ function successfulArticleLoad(msg) {
             var multimedia = msg[i];
 
             var multimediaDiv = $(multimediaTemplate);
-
-            console.log(multimedia.file_path);
-            console.log(multimedia.file_type);
 
             multimediaDiv.find(".panel-title").text(multimedia.multimedia_title);
 
@@ -94,7 +89,6 @@ function successfulArticleLoad(msg) {
             }
 
             if (multimedia.file_type == ".web") {
-                console.log("test");
                 multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'>" + multimedia.file_path + "</div>");
                 multimediaDiv.find(".panel-body").css("text-align", "left");
 
@@ -107,7 +101,6 @@ function successfulArticleLoad(msg) {
         $('.loader-wrapper').hide();
 
         if (msg.length < count) {
-            console.log("inside if statement multimedia");
             $('.loader-wrapper').hide();
             $('#loaded1, #loaded2, #loaded3, #loaded4').show();
             moreMultimedia = false;
@@ -154,7 +147,8 @@ $(document).ready(function () {
     $(window).scroll(function () {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreMultimedia) {
+        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) && moreMultimedia) {
+
             loadMultimediaIncrement();
         }
     });
