@@ -4,13 +4,13 @@
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
 
-    "<div class='col-sm-3'><div class='panel panel-default' style='margin: 10px;'>" +
+    "<div class='panel panel-default' style='margin: 10px;'>" +
     "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
     "<h3 class='panel-title'><i class='fa fa-newspaper-o' aria-hidden='true'></i></h3>" +
     "</div>" +
     "<div class='panel-body'>" +
     "</div>" +
-    "</div></div>";
+    "</div>";
 
 
 /*jQuery function to animate each article header on hover*/
@@ -47,7 +47,8 @@ var moreMultimedia = true;
 
 function successfulArticleLoad(msg) {
 
-    var articleContainer = $(".news_feed");
+    var photoContainer = $(".uploadedPhotos");
+    var videoContainer = $(".uploadedVideos");
 
     if (msg.length == 0) {
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
@@ -73,35 +74,44 @@ function successfulArticleLoad(msg) {
 
             if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
                 console.log(multimedia.file_path);
-                articleDiv.find(".panel-body").html("<img width='100px' height='100px' src='" + multimedia.file_path + "' >");
+                articleDiv.find(".panel-body").html("<img src='" + multimedia.file_path + "' class='img-fluid' >");
                 articleDiv.find(".panel-body").css("text-align", "left");
 
                 /*Remove the loading icon*/
                 $('.loader-wrapper').hide();
 
-                articleContainer.append(articleDiv);
+                photoContainer.append(articleDiv);
             }
 
             if (multimedia.file_type == ".mp4") {
 
-                articleDiv.find(".panel-body").html("<video controls width='200px' height='200px'><source src='" + multimedia.file_path + "' type='video/mp4'></video>");
+                articleDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'><video class='embed-responsive-item' controls ><source src='" + multimedia.file_path + "' type='video/mp4'></video></div>");
                 articleDiv.find(".panel-body").css("text-align", "left");
 
                 /*Remove the loading icon*/
                 $('.loader-wrapper').hide();
 
-                articleContainer.append(articleDiv);
+                videoContainer.append(articleDiv);
             }
 
             if (multimedia.file_type == ".web") {
-                console.log(multimedia.file_path);
                 articleDiv.find(".panel-body").html(multimedia.file_path);
                 articleDiv.find(".panel-body").css("text-align", "left");
 
                 /*Remove the loading icon*/
                 $('.loader-wrapper').hide();
 
-                articleContainer.append(articleDiv);
+                videoContainer.append(articleDiv);
+            }
+
+            if (multimedia.file_type == ".mp3") {
+                articleDiv.find(".panel-body").html("<audio controls><source src='"+ multimedia.file_path +"' type='audio/ogg'></audio>");
+                articleDiv.find(".panel-body").css("text-align", "left");
+
+                /*Remove the loading icon*/
+                $('.loader-wrapper').hide();
+
+                videoContainer.append(articleDiv);
             }
 
 

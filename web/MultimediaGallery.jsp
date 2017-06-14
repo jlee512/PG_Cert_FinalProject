@@ -37,8 +37,11 @@
 
 
 
-        <div class="news_feed">
-            <%--Articles are inserted here via AJAX request--%>
+        <div class="uploadedPhotos col-sm-6">
+            <%--Photos are inserted here via AJAX request--%>
+        </div>
+        <div class="uploadedVideos col-sm-6">
+            <%--Videos are inserted here via AJAX request--%>
         </div>
 
     <div class="loader-wrapper" style="text-align: center;">
