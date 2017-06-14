@@ -33,6 +33,7 @@ public class EditComment extends HttpServlet {
         else {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
+
                 int commentID = Integer.parseInt(request.getParameter("comment_id"));
                 int articleID = Integer.parseInt(request.getParameter("article_id"));
                 String content = request.getParameter("comment_body");

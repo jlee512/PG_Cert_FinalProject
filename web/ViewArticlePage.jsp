@@ -1,5 +1,6 @@
 <%@ page import="login.system.dao.Article" %>
-<%@ page import="login.system.servlets.ViewArticle" %><%--
+<%@ page import="login.system.servlets.ViewArticle" %>
+<%@ page import="login.system.dao.User" %><%--
   Created by IntelliJ IDEA.
   User: cbla080
   Date: 3/06/2017
@@ -12,6 +13,18 @@
 <%@include file="HeadStylingLinks.jsp"%>
 <html>
 <head>
+    <%
+        /*Prevents cache access of content/changepassword/logout pages*/
+        response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+        response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
+        response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+        response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
+        User user = (User) session.getAttribute("userDetails");
+        if (user == null) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Login");
+            dispatcher.forward(request, response);
+        }
+    %>
     <c:if test="${loginStatus != 'active'}">
         <c:redirect url="Login"/>
     </c:if>
