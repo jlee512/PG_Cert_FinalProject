@@ -185,7 +185,7 @@ public class UploadMultimedia extends HttpServlet {
                         String conversionLink = fi.getString().replace("watch?v=", "embed/");
 
                         // Make the entire iframe with link the filepath variable in the DAO method
-                        String youtubeLink = "<iframe width='420' height='315' src='" + conversionLink + "'></iframe>";
+                        String youtubeLink = "<div align='center' class='embed-responsive embed-responsive-16by9'><iframe allowfullscreen='allowfullscreen' src='" + conversionLink + "'></iframe></div>";
 
                         multimedia.setFile_type(".web");
                         multimedia.setFile_path(youtubeLink);
