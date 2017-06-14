@@ -47,10 +47,7 @@ var moreMultimedia = true;
 
 function successfulArticleLoad(msg) {
 
-    var multimediaContainer = $(".news_feed");
 
-    console.log(msg.length);
-    console.log(count);
     var photoContainer = $(".uploadedPhotos");
     var videoContainer = $(".uploadedVideos");
 
