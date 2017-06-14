@@ -30,6 +30,7 @@ $('.panel-body').on('click', '.add_multimedia', (function (e) {
     } else {
 
         $(this).parent().parent().addClass("add_multimedia_on");
+        console.log(article_id);
         $('.uploadArticleID', multimediaForm).val(article_id);
         $(this).next().append(multimediaForm);
     }

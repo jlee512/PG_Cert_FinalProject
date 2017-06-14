@@ -153,8 +153,12 @@ public class ArticleDAO {
 
                 stmt.setInt(1, article_id);
                 /*Execute the prepared statement*/
-                stmt.executeUpdate();
-                System.out.println("Article comments successfully deleted");
+                int deleted = stmt.executeUpdate();
+                if (deleted == 0) {
+                    System.out.println("No article comments to delete");
+                } else {
+                    System.out.println("Article comments deleted");
+                }
             }
 
             /*Provided the article's comments are deleted successfully, the database should now be permitted to delete the article itself*/
@@ -164,9 +168,16 @@ public class ArticleDAO {
                 stmt.setInt(2, author_id);
 
                 /*Execute the prepared statement*/
-                stmt.executeUpdate();
-                System.out.println("Article successfully deleted");
-                return 1;
+                int deletedArticle = stmt.executeUpdate();
+                if (deletedArticle == 0) {
+
+                    System.out.println("No comments to delete");
+                    return 2;
+
+                } else {
+                    System.out.println("Article successfully deleted");
+                    return 1;
+                }
             }
 
         } catch (SQLIntegrityConstraintViolationException e) {

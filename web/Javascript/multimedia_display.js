@@ -47,10 +47,6 @@ var moreMultimedia = true;
 
 function successfulArticleLoad(msg) {
 
-    var multimediaContainer = $(".news_feed");
-
-    console.log(msg.length);
-    console.log(count);
     var photoContainer = $(".uploadedPhotos");
     var videoContainer = $(".uploadedVideos");
 
@@ -85,28 +81,26 @@ function successfulArticleLoad(msg) {
 
             }
 
+            if (multimedia.file_type == ".mp3") {
+                multimediaDiv.find(".panel-body").html("<audio controls><source src='" + multimedia.file_path + "' type='audio/ogg'></audio>");
+                multimediaDiv.find(".panel-body").css("text-align", "left");
 
-        }
+                videoContainer.append(multimediaDiv);
+            }
 
-        if (multimedia.file_type == ".mp3") {
-            multimediaDiv.find(".panel-body").html("<audio controls><source src='" + multimedia.file_path + "' type='audio/ogg'></audio>");
-            multimediaDiv.find(".panel-body").css("text-align", "left");
+            if (multimedia.file_type == ".web") {
+                multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'>" + multimedia.file_path + "</div>");
+                multimediaDiv.find(".panel-body").css("text-align", "left");
 
-            videoContainer.append(multimediaDiv);
-        }
+                videoContainer.append(multimediaDiv);
+            }
 
-        if (multimedia.file_type == ".web") {
-            multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'>" + multimedia.file_path + "</div>");
-            multimediaDiv.find(".panel-body").css("text-align", "left");
-
-            videoContainer.append(multimediaDiv);
         }
 
         /*Remove the loading icon*/
         $('.loader-wrapper').hide();
 
         if (msg.length < count) {
-            console.log("inside if statement multimedia");
             $('.loader-wrapper').hide();
             $('#loaded1, #loaded2, #loaded3, #loaded4').show();
             moreMultimedia = false;
@@ -153,7 +147,8 @@ $(document).ready(function () {
     $(window).scroll(function () {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight == $(window).scrollTop() & moreMultimedia) {
+        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) && moreMultimedia) {
+
             loadMultimediaIncrement();
         }
     });

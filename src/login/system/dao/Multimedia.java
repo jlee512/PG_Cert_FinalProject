@@ -12,6 +12,8 @@ public class Multimedia implements Serializable {
     private String file_type;
     private String file_path;
     private String multimedia_title;
+    /*Additional paramters*/
+    private String username;
 
     public Multimedia(int multimedia_id, int article_id, String file_type, String file_path, String multimedia_title) {
         this.article_id = article_id;
@@ -52,6 +54,10 @@ public class Multimedia implements Serializable {
         return multimedia_title;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void setMultimedia_id(int multimedia_id) {
         this.multimedia_id = multimedia_id;
     }
@@ -70,6 +76,10 @@ public class Multimedia implements Serializable {
 
     public void setMultimedia_title(String multimedia_title) {
         this.multimedia_title = multimedia_title;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setMultimediaParameters(int multimedia_id, int article_id, String file_type, String file_path, String multimedia_title) {
