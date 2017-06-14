@@ -27,6 +27,10 @@ public class Multimedia implements Serializable {
         this.multimedia_title = multimedia_title;
     }
 
+    /*Blank constructor for staged variable setting when uploading multimedia*/
+    public Multimedia(){
+    }
+
 
     public int getMultimedia_id() {
         return multimedia_id;

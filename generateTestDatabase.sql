@@ -57,7 +57,9 @@ CREATE TABLE posted_multimedia (
   article_id       INT             NOT NULL,
   file_type        VARCHAR(5),
   file_path        VARCHAR(200)    NOT NULL UNIQUE,
-  multimedia_title TEXT
+  multimedia_title TEXT,
+  FOREIGN KEY (article_id) REFERENCES uploaded_articles (article_id)
+  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 /*---------------------------------------------------TEST QUERIES---------------------------------------------------*/
