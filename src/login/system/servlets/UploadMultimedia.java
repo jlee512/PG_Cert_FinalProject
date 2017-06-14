@@ -110,6 +110,12 @@ public class UploadMultimedia extends HttpServlet {
                     long sizeInBytes = fi.getSize();
                     String filePathforMultimediaObject = "";
 
+                    if (fi.getSize() >= maxFileSize) {
+
+                        response.sendRedirect("ProfilePage?multimediaAdditionStatus=file_too_large");
+
+                    }
+
 
 
                     /*~~~~~ Write the file and make sure the file name is unique ~~~~~*/

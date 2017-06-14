@@ -229,6 +229,16 @@
 
               </c:when>
 
+              <%--If uploaded multimedia is too large--%>
+              <c:when test="${param.multimediaAdditionStatus == 'file_too_large'}">
+                  <div class="multimedia-add-notification mmadd-none card" style="text-align: center; background-color: #fff3cc;">
+                      <div class="card-header">
+                          <h3>The file you tried to upload was too large</h3>
+                      </div>
+                  </div>
+
+              </c:when>
+
           </c:choose>
       </c:if>
 

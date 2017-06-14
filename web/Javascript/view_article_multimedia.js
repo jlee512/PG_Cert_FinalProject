@@ -68,7 +68,7 @@ function successfulArticleLoad(msg) {
             multimediaDiv.find(".panel-title").append("<div style='width: 65%; display: inline-block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>Published by: <strong><a href='PublicProfile?username=" + multimedia.username + "'style='color: #f9a825;'>" + multimedia.username + "</a></strong></div>");
 
             //IMAGE//
-            if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
+            if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg" || multimedia.file_type == ".gif") {
 
                 multimediaDiv.find(".panel-body").html("<img src='" + multimedia.file_path + "' class='img-fluid' >");
 
