@@ -239,7 +239,7 @@
               <c:when test="${param.edit_status == 'success'}">
                   <div class="article-edit-notification edit-true card" style="text-align: center; background-color: #c2f5a3;">
                       <div class="card-header">
-                          <h3>Article edited successfully added</h3>
+                          <h3>Article edited successfully</h3>
                       </div>
                   </div>
 
