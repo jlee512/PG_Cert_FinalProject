@@ -49,9 +49,19 @@ public class EditAnArticle extends HttpServlet {
                 Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
 
-                ArticleDAO.updateArticle(DB, article_id, author_id, title_update, body_update, currentTimestamp);
+                int edit_status = ArticleDAO.updateArticle(DB, article_id, author_id, title_update, body_update, currentTimestamp);
 
-                response.sendRedirect("ProfilePage?username=" + user.getUsername());
+                if (edit_status == 1) {
+
+                    /*Edit has been successful, temporarily display a useful message to the user*/
+                    response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&edit_status=success");
+
+                } else {
+
+                    /*The article could not be edited - notify the user*/
+                    response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&edit_status=invalid");
+
+                }
 
             }
         }

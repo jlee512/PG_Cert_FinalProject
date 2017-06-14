@@ -124,8 +124,11 @@ public class UploadMultimedia extends HttpServlet {
 
                         int counter = 0;
                         while (file.exists()) {
+
                             String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
+                            fileName = fileName.replaceAll("[0-9]+$", "");
+
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
                             counter++;
                             filePathforMultimediaObject = filePath +
@@ -142,6 +145,8 @@ public class UploadMultimedia extends HttpServlet {
                         while (file.exists()) {
                             String extension = FilenameUtils.getExtension(fileName);
                             fileName = FilenameUtils.removeExtension(fileName);
+                            fileName = fileName.replaceAll("[0-9]+$", "");
+
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
                             counter++;
                             filePathforMultimediaObject = filePath + fileName.substring(fileName.lastIndexOf("\\") + 1);
@@ -173,13 +178,9 @@ public class UploadMultimedia extends HttpServlet {
                     }
 
 
-                    // Placed here so the article ID is available
+                    if (fi.getFieldName().equals("youtubeLink") && fi.getString().length() != 0) {
 
-
-                    /*Getting Youtube link info*/
-                    if (fi.getFieldName().equals("youtubeLink") && fi.getFieldName() != null) {
-
-
+                        System.out.println(fi.getString().length() == 0);
 
                         // Convert youtube link to be "embed"
                         String conversionLink = fi.getString().replace("watch?v=", "embed/");
@@ -197,19 +198,38 @@ public class UploadMultimedia extends HttpServlet {
 
             }
 
+            int upload_status = -1;
+
             for (Multimedia multimedia1 : multimedia_to_upload) {
 
+                System.out.println(multimedia1.getFile_path());
+
                 multimedia1.setArticle_id(articleID);
-                int upload_status = MultimediaDAO.addMultimediaToDB(DB, multimedia1.getArticle_id(), multimedia1.getFile_type(), multimedia1.getFile_path(), multimedia1.getMultimedia_title());
+                upload_status = MultimediaDAO.addMultimediaToDB(DB, multimedia1.getArticle_id(), multimedia1.getFile_type(), multimedia1.getFile_path(), multimedia1.getMultimedia_title());
 
 
             }
 
-            // Update session? DAO method which puts multimedia in articles
+            int num_uploads = multimedia_to_upload.size();
 
+            System.out.println("num uploads: " + num_uploads);
+            System.out.println("upload status: " + upload_status);
+
+            if (num_uploads > 0 && upload_status == 1) {
+                /*  Send the user back to the profile page and display a useful message temporarily*/
+                response.sendRedirect("ProfilePage?multimediaAdditionStatus=success&num_uploads=" + num_uploads);
+
+            } else if (num_uploads == 0) {
 
             /* Send the user back to their profile */
-            response.sendRedirect("ProfilePage");
+                response.sendRedirect("ProfilePage?multimediaAdditionStatus=no_files");
+
+            } else {
+
+                /* Send the user back to their profile */
+                response.sendRedirect("ProfilePage?multimediaAdditionStatus=invalid_upload");
+
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();

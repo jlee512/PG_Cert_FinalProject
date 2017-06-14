@@ -192,6 +192,62 @@
 
                     </c:choose>
                 </c:if>
+
+          <%--If the multimediaAdditionStatus parameter exists, display a top level panel header notifying the user of the multimedia addition status--%>
+      <c:if test="${not empty param.multimediaAdditionStatus}">
+          <c:choose>
+              <%--When the multimedia is successfully added--%>
+              <c:when test="${param.multimediaAdditionStatus == 'success'}">
+                  <div class="multimedia-add add-true card" style="text-align: center; background-color: #c2f5a3;">
+                      <div class="card-header">
+                          <h3>${param.num_uploads} multimedia files successfully added</h3>
+                      </div>
+                  </div>
+
+              </c:when>
+
+              <%--If the multimedia is not successfully added (invalid)--%>
+              <c:when test="${param.multimediaAdditionStatus == 'invalid'}">
+                  <div class="article-add add-invalid card" style="text-align: center; background-color: #fff3cc;">
+                      <div class="card-header">
+                          <h3>You multimedia uploads were not valid</h3>
+                          <p>Compatible file upload formats (JPEG, PNG, MP3 and MP4)</p>
+                          <p>YouTube videos to be in the form: https://www.youtube.com/watch?v=...</p>
+                      </div>
+                  </div>
+
+              </c:when>
+
+          </c:choose>
+      </c:if>
+
+          <%--If the edit_status parameter exists, display a top level panel header notifying the user of the article edit status--%>
+      <c:if test="${not empty param.edit_status}">
+          <c:choose>
+              <%--When the article is successfully edited--%>
+              <c:when test="${param.edit_status == 'success'}">
+                  <div class="multimedia-add add-true card" style="text-align: center; background-color: #c2f5a3;">
+                      <div class="card-header">
+                          <h3>Article edited successfully added</h3>
+                      </div>
+                  </div>
+
+              </c:when>
+
+              <%--If the article is not successfully edited (invalid)--%>
+              <c:when test="${param.edit_status == 'invalid'}">
+                  <div class="article-add add-invalid card" style="text-align: center; background-color: #fff3cc;">
+                      <div class="card-header">
+                          <h3>Sorry, we were not able to update your article at this time</h3>
+                          <p>Some invalid information was entered or you do not have permission to edit this article</p>
+                      </div>
+                  </div>
+
+              </c:when>
+
+          </c:choose>
+      </c:if>
+
  <%-----------------------------ALERT MESSAGES FINISHED------------------------%>
 
 
