@@ -127,7 +127,7 @@
                     <c:choose>
                         <%--When the article is successfully deleted--%>
                         <c:when test="${param.articleDeleted}">
-                            <div class="comment-delete delete-true card" style="text-align: center; background-color: #c2f5a3;">
+                            <div class="comment-delete-notification delete-true card" style="text-align: center; background-color: #c2f5a3;">
                                 <div class="card-header">
                                     <h3>Article successfully deleted</h3>
                                 </div>
@@ -152,7 +152,7 @@
                     <c:choose>
                         <%--When the article is successfully added--%>
                         <c:when test="${param.articleadded == 'successful'}">
-                            <div class="article-add add-true card" style="text-align: center; background-color: #c2f5a3;">
+                            <div class="article-add-notification add-true card" style="text-align: center; background-color: #c2f5a3;">
                                 <div class="card-header">
                                     <h3>Article successfully added</h3>
                                 </div>
@@ -162,7 +162,7 @@
 
                         <%--If the article is not successfully added (duplicate)--%>
                         <c:when test="${param.articleadded == 'duplicate'}">
-                            <div class="article-add add-duplicate card" style="text-align: center; background-color: #fff3cc;">
+                            <div class="article-add-notification add-duplicate card" style="text-align: center; background-color: #fff3cc;">
                                 <div class="card-header">
                                     <h3>You have tried to add a duplicate article</h3>
                                 </div>
@@ -172,7 +172,7 @@
 
                         <%--If the article is not successfully added (invalid)--%>
                         <c:when test="${param.articleadded == 'invalid'}">
-                            <div class="article-add add-invalid card" style="text-align: center; background-color: #fff3cc;">
+                            <div class="article-add-notification add-invalid card" style="text-align: center; background-color: #fff3cc;">
                                 <div class="card-header">
                                     <h3>The article contains invalid fields</h3>
                                 </div>
@@ -182,7 +182,7 @@
 
                         <%--If the article is not successfully added (invalid)--%>
                         <c:when test="${param.articleadded == 'db'}">
-                            <div class="article-add add--db card" style="text-align: center; background-color: #fff3cc;">
+                            <div class="article-add-notification add-db card" style="text-align: center; background-color: #fff3cc;">
                                 <div class="card-header">
                                     <h3>The article could not be added to the database</h3>
                                 </div>
@@ -198,21 +198,32 @@
           <c:choose>
               <%--When the multimedia is successfully added--%>
               <c:when test="${param.multimediaAdditionStatus == 'success'}">
-                  <div class="multimedia-add add-true card" style="text-align: center; background-color: #c2f5a3;">
+                  <div class="multimedia-add-notification mmadd-true card" style="text-align: center; background-color: #c2f5a3;">
                       <div class="card-header">
-                          <h3>${param.num_uploads} multimedia files successfully added</h3>
+                          <h3>Multimedia files successfully added</h3>
                       </div>
                   </div>
 
               </c:when>
 
               <%--If the multimedia is not successfully added (invalid)--%>
-              <c:when test="${param.multimediaAdditionStatus == 'invalid'}">
-                  <div class="article-add add-invalid card" style="text-align: center; background-color: #fff3cc;">
+              <c:when test="${param.multimediaAdditionStatus == 'invalid_upload'}">
+                  <div class="multimedia-add-notification mmadd-invalid card" style="text-align: center; background-color: #fff3cc;">
                       <div class="card-header">
                           <h3>You multimedia uploads were not valid</h3>
                           <p>Compatible file upload formats (JPEG, PNG, MP3 and MP4)</p>
                           <p>YouTube videos to be in the form: https://www.youtube.com/watch?v=...</p>
+                          <p>This video may already exist</p>
+                      </div>
+                  </div>
+
+              </c:when>
+
+              <%--If no multimedia is attached to the upload--%>
+              <c:when test="${param.multimediaAdditionStatus == 'no_files'}">
+                  <div class="multimedia-add-notification mmadd-none card" style="text-align: center; background-color: #fff3cc;">
+                      <div class="card-header">
+                          <h3>No files were added to the upload form</h3>
                       </div>
                   </div>
 
@@ -226,9 +237,9 @@
           <c:choose>
               <%--When the article is successfully edited--%>
               <c:when test="${param.edit_status == 'success'}">
-                  <div class="multimedia-add add-true card" style="text-align: center; background-color: #c2f5a3;">
+                  <div class="article-edit-notification edit-true card" style="text-align: center; background-color: #c2f5a3;">
                       <div class="card-header">
-                          <h3>Article edited successfully added</h3>
+                          <h3>Article edited successfully</h3>
                       </div>
                   </div>
 
@@ -236,7 +247,7 @@
 
               <%--If the article is not successfully edited (invalid)--%>
               <c:when test="${param.edit_status == 'invalid'}">
-                  <div class="article-add add-invalid card" style="text-align: center; background-color: #fff3cc;">
+                  <div class="article-edit-notification edit-invalid card" style="text-align: center; background-color: #fff3cc;">
                       <div class="card-header">
                           <h3>Sorry, we were not able to update your article at this time</h3>
                           <p>Some invalid information was entered or you do not have permission to edit this article</p>
