@@ -30,8 +30,8 @@ public class UploadMultimedia extends HttpServlet {
 
     private boolean isMultipart;
     private String filePath;
-    private int maxFileSize = 10 * 1024 * 1024;
-    private int maxUploadSize = 10 * 1024 * 1024;
+    private int maxFileSize = 30 * 1024 * 1024;
+    private int maxUploadSize = 30 * 1024 * 1024;
     private File file;
 
 
@@ -180,8 +180,6 @@ public class UploadMultimedia extends HttpServlet {
 
                     if (fi.getFieldName().equals("youtubeLink") && fi.getString().length() != 0) {
 
-                        System.out.println(fi.getString().length() == 0);
-
                         // Convert youtube link to be "embed"
                         String conversionLink = fi.getString().replace("watch?v=", "embed/");
 
@@ -191,6 +189,7 @@ public class UploadMultimedia extends HttpServlet {
                         multimedia.setFile_type(".web");
                         multimedia.setFile_path(youtubeLink);
                         multimedia.setMultimedia_title("youtube_video");
+                        System.out.println("youtube being added");
                         multimedia_to_upload.add(multimedia);
 
                     }
