@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,24 +24,31 @@ public class MainContentAccess extends HttpServlet {
 
         /*Create link to the database*/
         MySQL DB = new MySQL();
+        HttpSession session = request.getSession();
+          /*If user is logged out, redirect to login page*/
+        if (session.getAttribute("loginStatus") != "active") {
+            response.sendRedirect("Login");
+
+        } else {
 
         /*Get the number of articles requested*/
-        int firstArticle = Integer.parseInt(request.getParameter("from"));
-        int articleCount = Integer.parseInt(request.getParameter("count"));
+            int firstArticle = Integer.parseInt(request.getParameter("from"));
+            int articleCount = Integer.parseInt(request.getParameter("count"));
 
-        List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByDate(DB, firstArticle, articleCount);
+            List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByDate(DB, firstArticle, articleCount);
 
 
         /*Return a JSON object with the article information included*/
-        response.setContentType("application/json");
-        JSONArray articleDetails = new JSONArray();
+            response.setContentType("application/json");
+            JSONArray articleDetails = new JSONArray();
 
-        IndividualAuthorArticles.constructArticlePreviewJSON(articles, articleDetails);
+            IndividualAuthorArticles.constructArticlePreviewJSON(articles, articleDetails);
 
-        articleDetails.toJSONString();
+            articleDetails.toJSONString();
 
-        response.getWriter().write(articleDetails.toString());
+            response.getWriter().write(articleDetails.toString());
 
+        }
     }
 
     @Override

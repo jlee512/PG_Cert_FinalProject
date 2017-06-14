@@ -6,6 +6,7 @@ import login.system.db.MySQL;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -13,12 +14,28 @@ import java.io.IOException;
  */
 public class EditComment extends HttpServlet {
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
+        LoginAttempt.loginStatusRedirection(request, response);
+    }
+
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MySQL DB = new MySQL();
-        int commentID = Integer.parseInt(request.getParameter("comment_id"));
-        int articleID = Integer.parseInt(request.getParameter("article_id"));
-        String content = request.getParameter("comment_body");
-        CommentDAO.editComment(DB, commentID, content);
-        response.sendRedirect("/ViewArticle?article_id=" + articleID);
+
+        HttpSession session = request.getSession(true);
+        if (session.getAttribute("loginStatus") != "active") {
+            response.sendRedirect("Login");
+        }
+
+        else {
+            int commentID = Integer.parseInt(request.getParameter("comment_id"));
+            int articleID = Integer.parseInt(request.getParameter("article_id"));
+            String content = request.getParameter("comment_body");
+            CommentDAO.editComment(DB, commentID, content);
+            response.sendRedirect("/ViewArticle?article_id=" + articleID);
+        }
     }
 }
