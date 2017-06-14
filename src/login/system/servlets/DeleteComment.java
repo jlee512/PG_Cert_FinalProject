@@ -44,79 +44,51 @@ public class DeleteComment extends HttpServlet {
                         response.sendRedirect("Content?username=" + user.getUsername());
                     } else {
 
-                /*Setup delete comment thread and run*/
-                        Thread deleteComment = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                System.out.println("comment deletion started");
-                                CommentDAO.deleteComment(DB, commentID);
-                            }
-                        });
-                        deleteComment.run();
+                        System.out.println("comment deletion started");
+                        CommentDAO.deleteComment(DB, commentID);
+
 
                 /*Setup parent comment adjustment and run*/
                         String parent_comment_id = request.getParameter("parent_comment_id");
                         if (parent_comment_id != null && parent_comment_id.length() > 0) {
                             int parentID = Integer.parseInt(request.getParameter("parent_comment_id"));
-                            Thread commentAdjust = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    System.out.println("parent comment adjust started");
-                                    adjustParentCommentStatus(DB, commentID, parentID);
-                                }
-                            });
-                            commentAdjust.run();
+                            System.out.println("parent comment adjust started");
+                            adjustParentCommentStatus(DB, commentID, parentID);
 
-                            try {
-                                commentAdjust.join();
-                                System.out.println("adjust parent comment status finished");
-                                deleteComment.join();
-                                System.out.println("delete comment finished");
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            try {
-                                deleteComment.join();
-                                System.out.println("delete comment finished");
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            System.out.println("delete comment finished");
                         }
-                        response.sendRedirect("ViewArticle?article_id=" + articleID);
                     }
+                    response.sendRedirect("ViewArticle?article_id=" + articleID);
                 }
             }
         }
     }
 
-    private void adjustParentCommentStatus(MySQL DB, int commentID, int parentCommentID){
+    private void adjustParentCommentStatus(MySQL DB, int commentID, int parentCommentID) {
         List<Comment> commentList = CommentDAO.getNestedComments(DB, parentCommentID);
-        if (commentList.size() == 0){
+        if (commentList.size() == 0) {
             CommentDAO.setCommentNotParent(DB, parentCommentID);
-        }
-        else if (commentList.size() == 1){
+        } else if (commentList.size() == 1) {
             Comment childComment = commentList.get(0);
-            if (childComment.getCommentID() == commentID){
+            if (childComment.getCommentID() == commentID) {
                 CommentDAO.setCommentNotParent(DB, parentCommentID);
             }
         }
     }
 
-    private boolean verifyUserAuthorization(MySQL DB, int userID, int commentID, int articleID){
+    private boolean verifyUserAuthorization(MySQL DB, int userID, int commentID, int articleID) {
         boolean userAuthorized = false;
         /*If the user wrote the comment, they are authorized to delete it.*/
 
 
         Comment comment = CommentDAO.getCommentByID(DB, commentID);
-        if (comment.getAuthorID() == userID){
+        if (comment.getAuthorID() == userID) {
             userAuthorized = true;
             return userAuthorized;
-        }
-        else {
+        } else {
             /*If the user wrote the article they can delete any comments on the article.*/
             Article article = ArticleDAO.getArticle(DB, articleID);
-            if (article.getAuthor_id() == userID){
+            if (article.getAuthor_id() == userID) {
                 userAuthorized = true;
                 return userAuthorized;
             }
