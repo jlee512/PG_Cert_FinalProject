@@ -128,33 +128,7 @@ Add a new user to the Database
                 stmt.setInt(1, numMultimedia);
                 stmt.setInt(2, fromMultimedia);
 
-                try (ResultSet r = stmt.executeQuery()) {
-
-                    while (r.next()) {
-                        /*If there is a next result, there are multimedia in the database to be accessed still, get the available parameters an store in the multimedia object*/
-
-                        String usernameLookup = r.getString("username");
-                        int multimedia_idLookup = r.getInt("multimedia_id");
-                        int article_idLookup = r.getInt("article_id");
-                        String file_typeLookup = r.getString("file_type");
-                        String file_pathLookup = r.getString("file_path");
-                        String multimedia_titleLookup = r.getString("multimedia_title");
-
-                        Multimedia multimedia_temp = new Multimedia(multimedia_idLookup, article_idLookup, file_typeLookup, file_pathLookup, multimedia_titleLookup);
-
-                        multimedia_temp.setUsername(usernameLookup);
-                        multimedia.add(multimedia_temp);
-
-                    }
-
-                    /*Summary print-out to the console*/
-                    if (multimedia.size() > 0) {
-                        System.out.println("Multimedia retrieved from the database");
-                    } else {
-                        System.out.println("Multimedia could not be found in the database");
-                    }
-
-                }
+                constructListFromMultimediaQuery(multimedia, stmt);
 
             }
 
@@ -165,6 +139,92 @@ Add a new user to the Database
         }
 
         return multimedia;
+    }
+
+    public static List<Multimedia> getFirstNMultimediaForPosterByDate(MySQL DB, int fromMultimedia, int numMultimedia, int poster_id) {
+
+           /*Dummy multimedia to be returned if none found*/
+        List<Multimedia> multimedia = new ArrayList<Multimedia>();
+
+        try (Connection c = DB.connection()) {
+
+            try (PreparedStatement stmt = c.prepareStatement("SELECT registered_users.username, posted_multimedia.multimedia_id, posted_multimedia.article_id, posted_multimedia.file_type, posted_multimedia.file_path, posted_multimedia.multimedia_title FROM posted_multimedia\n" +
+                    "  LEFT JOIN uploaded_articles ON posted_multimedia.article_id = uploaded_articles.article_id\n" +
+                    "  LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE author_id = ? ORDER BY uploaded_articles.timestamp DESC LIMIT ? OFFSET ?")) {
+
+                stmt.setInt(1, poster_id);
+                stmt.setInt(2, numMultimedia);
+                stmt.setInt(3, fromMultimedia);
+
+                constructListFromMultimediaQuery(multimedia, stmt);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return multimedia;
+    }
+
+    public static List<Multimedia> getFirstNMultimediaForArticle(MySQL DB, int fromMultimedia, int numMultimedia, int article_id) {
+
+           /*Dummy multimedia to be returned if none found*/
+        List<Multimedia> multimedia = new ArrayList<Multimedia>();
+
+        try (Connection c = DB.connection()) {
+
+            try (PreparedStatement stmt = c.prepareStatement("SELECT registered_users.username, posted_multimedia.multimedia_id, posted_multimedia.article_id, posted_multimedia.file_type, posted_multimedia.file_path, posted_multimedia.multimedia_title FROM posted_multimedia\n" +
+                    "  LEFT JOIN uploaded_articles ON posted_multimedia.article_id = uploaded_articles.article_id\n" +
+                    "  LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE posted_multimedia.article_id = ? ORDER BY uploaded_articles.timestamp DESC LIMIT ? OFFSET ?")) {
+
+                stmt.setInt(1, article_id);
+                stmt.setInt(2, numMultimedia);
+                stmt.setInt(3, fromMultimedia);
+
+                constructListFromMultimediaQuery(multimedia, stmt);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return multimedia;
+    }
+
+    private static void constructListFromMultimediaQuery(List<Multimedia> multimedia, PreparedStatement stmt) throws SQLException {
+        try (ResultSet r = stmt.executeQuery()) {
+
+            while (r.next()) {
+                /*If there is a next result, there are multimedia in the database to be accessed still, get the available parameters an store in the multimedia object*/
+
+                String usernameLookup = r.getString("username");
+                int multimedia_idLookup = r.getInt("multimedia_id");
+                int article_idLookup = r.getInt("article_id");
+                String file_typeLookup = r.getString("file_type");
+                String file_pathLookup = r.getString("file_path");
+                String multimedia_titleLookup = r.getString("multimedia_title");
+
+                Multimedia multimedia_temp = new Multimedia(multimedia_idLookup, article_idLookup, file_typeLookup, file_pathLookup, multimedia_titleLookup);
+
+                multimedia_temp.setUsername(usernameLookup);
+                multimedia.add(multimedia_temp);
+
+            }
+
+            /*Summary print-out to the console*/
+            if (multimedia.size() > 0) {
+                System.out.println("Multimedia retrieved from the database");
+            } else {
+                System.out.println("Multimedia could not be found in the database");
+            }
+
+        }
     }
 
 }
