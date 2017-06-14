@@ -211,7 +211,7 @@
                   <div class="multimedia-add-notification mmadd-invalid card" style="text-align: center; background-color: #fff3cc;">
                       <div class="card-header">
                           <h3>You multimedia uploads were not valid</h3>
-                          <p>Compatible file upload formats (JPEG, PNG, MP3 and MP4)</p>
+                          <p>Compatible file upload formats (JPEG, PNG, GIF, MP3 and MP4)</p>
                           <p>YouTube videos to be in the form: https://www.youtube.com/watch?v=...</p>
                           <p>This video may already exist</p>
                       </div>
