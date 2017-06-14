@@ -34,11 +34,7 @@ public class UploadMultimedia extends HttpServlet {
     private int maxUploadSize = 30 * 1024 * 1024;
     private File file;
 
-
-
-
     // Gets the file location the uploaded file is stored
-
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("get to redirect");

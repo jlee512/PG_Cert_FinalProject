@@ -47,7 +47,9 @@ setTimeout(fade_out, 3000);
 
 function fade_out() {
 
-    $('.comment-delete').fadeOut().empty();
-    $('.article-add').fadeOut().empty();
+    $('.comment-delete-notification').fadeOut().empty();
+    $('.article-add-notification').fadeOut().empty();
+    $('.multimedia-add-notification').fadeOut().empty();
+    $('.article-edit-notification').fadeOut().empty();
 
 }
