@@ -30,13 +30,19 @@
 <script>
     $(document).ready(function () {
 
+        // Size of the viewport - not used
+        var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
         // Represents the number of photos
         var upperLimit = 7;
         // Randomise background photo
         var randomNum = Math.floor((Math.random() * upperLimit) + 1);
 
+
         // Edits the backGroundImage class to add a random image each time the webpage is loaded
         $(".backGroundImage").css("background-image", "url('Multimedia/BackgroundImages/" + randomNum + ".jpg')");//<--changed path
+
 
     });
 </script>

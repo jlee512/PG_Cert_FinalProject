@@ -31,6 +31,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <script src="https://apis.google.com/js/api:client.js"></script>
+
+
     <script>
 
         function onSignIn(googleUser) {
@@ -255,6 +257,7 @@ successful sign in -->
     }
 
 </script>
+
 
 <script>startApp();</script>
 
