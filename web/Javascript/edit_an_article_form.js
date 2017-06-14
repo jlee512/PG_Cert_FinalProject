@@ -16,7 +16,9 @@ $('.panel-body').on('click', '.edit_article', (function (e) {
 
     articleEditForm = $(articleEditFormString);
 
-    original_title = $(this).parent().parent().children().first().find('span').text();
+    original_title = $(this).parent().parent().children().first().find('.edit-article-title').text();
+
+    console.log(original_title);
 
     article_id = $(this).parent().attr("id");
 
@@ -35,6 +37,7 @@ $('.panel-body').on('click', '.edit_article', (function (e) {
         $(this).parent().parent().addClass("article_edit_open");
         $(this).parent().children().slice(0, 3).hide();
 
+        console.log(original_title);
         $('.article_title_input', articleEditForm).val(original_title);
 
         $('.article_body_input', articleEditForm).val(original_article_body);

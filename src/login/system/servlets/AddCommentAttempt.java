@@ -72,8 +72,7 @@ public class AddCommentAttempt extends HttpServlet {
     }
 
     protected String addReplyComment(int parentCommentID, int articleID, MySQL DB, int userID, Timestamp timestamp, String content){
-        String status = CommentDAO.addComment(DB, userID, articleID, parentCommentID, timestamp, content);
-        CommentDAO.setCommentAsParent(DB, parentCommentID);
+        String status = CommentDAO.addReplyComment(DB, userID, articleID, parentCommentID, timestamp, content);
         return status;
     }
 }

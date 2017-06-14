@@ -41,7 +41,7 @@ $('div.news_feed').on('mouseleave', '.individualMultimediaLink', normalBackgroun
 
 /* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
 var from = 0;
-var count = 4;
+var count = 6;
 var moreMultimedia = true;
 
 

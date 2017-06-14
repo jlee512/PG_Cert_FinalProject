@@ -388,7 +388,7 @@
 
     <servlet-mapping>
         <servlet-name>HomepageJSP</servlet-name>
-        <url-pattern>/While_E_Coyote</url-pattern>
+        <url-pattern>/while_e_coyote</url-pattern>
     </servlet-mapping>
 
     <!--(10) Profile Page-->

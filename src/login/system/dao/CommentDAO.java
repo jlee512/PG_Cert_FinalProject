@@ -188,6 +188,64 @@ public class CommentDAO {
 
     }
 
+    /*--------------Adding reply comments - minimise data connections ----------*/
+
+    public static String addReplyComment(MySQL DB, int authorID, int articleID, int parentCommentID, Timestamp timestamp, String content) {
+        String status = "Could not add a comment at this time.";
+        Comment comment = new Comment(articleID, authorID, parentCommentID, timestamp, content);
+        try (Connection conn = DB.connection()) {
+            /*If parentCommentID does not exist, add a comment with a 'NULL' parent*/
+            if (parentCommentID == -1) {
+                try (PreparedStatement statement = conn.prepareStatement("INSERT INTO posted_comments (article_id, author_id, parent_comment_id, timestamp, comment_body, is_parent) VALUES (?, ?, ?, ?, ?, ?)")) {
+                    statement.setInt(1, comment.getArticleID());
+                    statement.setInt(2, comment.getAuthorID());
+                    statement.setNull(3, Types.INTEGER);
+                    statement.setTimestamp(4, comment.getTimestamp());
+                    statement.setString(5, comment.getContent());
+                    statement.setBoolean(6, false);
+                    statement.executeUpdate();
+
+                    System.out.println("non-child comment addition");
+
+                    status = "Comment added successfully.";
+                    return status;
+                }
+                /*Else if parentCommentID does exist, add a comment with the parentCommentID*/
+            } else {
+                try (PreparedStatement statement = conn.prepareStatement("INSERT INTO posted_comments (article_id, author_id, parent_comment_id, timestamp, comment_body, is_parent) VALUES (?, ?, ?, ?, ?, ?)")) {
+                    statement.setInt(1, comment.getArticleID());
+                    statement.setInt(2, comment.getAuthorID());
+                    statement.setInt(3, comment.getParentCommentID());
+                    statement.setTimestamp(4, comment.getTimestamp());
+                    statement.setString(5, comment.getContent());
+                    statement.setBoolean(6, false);
+                    statement.executeUpdate();
+
+                    System.out.println("child comment addition");
+
+                    System.out.println("updating parent status");
+                    try (PreparedStatement statement1 = conn.prepareStatement("UPDATE posted_comments SET is_parent = ? WHERE comment_id = ?")) {
+                        statement1.setBoolean(1, true);
+                        statement1.setInt(2, parentCommentID);
+                        statement1.executeUpdate();
+                    }
+
+                    status = "Comment added successfully.";
+                    return status;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return status;
+
+    }
+
+    /*--------------------------------------------------------------------------*/
+
     public static String deleteComment(MySQL DB, int commentID) {
         String status = "Could not delete your comment at this time.";
         Integer parentCommentID = -1;
