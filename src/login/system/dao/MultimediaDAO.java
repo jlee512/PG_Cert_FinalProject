@@ -169,7 +169,7 @@ Add a new user to the Database
         return multimedia;
     }
 
-    public static List<Multimedia> getFirstNMultimediaForArticle(MySQL DB, int fromMultimedia, int numMultimedia, int article_id) {
+    public static List<Multimedia> getAllMultimediaForArticle(MySQL DB, int article_id) {
 
            /*Dummy multimedia to be returned if none found*/
         List<Multimedia> multimedia = new ArrayList<Multimedia>();
@@ -178,11 +178,9 @@ Add a new user to the Database
 
             try (PreparedStatement stmt = c.prepareStatement("SELECT registered_users.username, posted_multimedia.multimedia_id, posted_multimedia.article_id, posted_multimedia.file_type, posted_multimedia.file_path, posted_multimedia.multimedia_title FROM posted_multimedia\n" +
                     "  LEFT JOIN uploaded_articles ON posted_multimedia.article_id = uploaded_articles.article_id\n" +
-                    "  LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE posted_multimedia.article_id = ? ORDER BY uploaded_articles.timestamp DESC LIMIT ? OFFSET ?")) {
+                    "  LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE posted_multimedia.article_id = ? ORDER BY uploaded_articles.timestamp DESC")) {
 
                 stmt.setInt(1, article_id);
-                stmt.setInt(2, numMultimedia);
-                stmt.setInt(3, fromMultimedia);
 
                 constructListFromMultimediaQuery(multimedia, stmt);
 

@@ -70,6 +70,7 @@ function successfulArticleLoad(msg) {
 
             //IMAGE//
             if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
+
                 multimediaDiv.find(".panel-body").html("<img src='" + multimedia.file_path + "' class='img-fluid' >");
 
                 photoContainer.append(multimediaDiv)
@@ -78,6 +79,7 @@ function successfulArticleLoad(msg) {
 
             //UPLOADED VIDEO
             if (multimedia.file_type == ".mp4") {
+
                 multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'><video class='embed-responsive-item' controls ><source src='" + multimedia.file_path + "' type='video/mp4'></video></div>");
                 multimediaDiv.find(".panel-body").css("text-align", "left");
 
@@ -87,6 +89,7 @@ function successfulArticleLoad(msg) {
 
             //UPLOADED MP3
             if (multimedia.file_type == ".mp3") {
+
                 multimediaDiv.find(".panel-body").html("<audio controls><source src='" + multimedia.file_path + "' type='audio/ogg'></audio>");
                 multimediaDiv.find(".panel-body").css("text-align", "left");
 
@@ -95,6 +98,7 @@ function successfulArticleLoad(msg) {
 
             //YOUTUBE LINK
             if (multimedia.file_type == ".web") {
+
                 multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'>" + multimedia.file_path + "</div>");
                 multimediaDiv.find(".panel-body").css("text-align", "left");
 
@@ -131,7 +135,7 @@ function loadMultimediaIncrement() {
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
-        url: '/MultimediaContent',
+        url: 'MultimediaContent',
         type: 'GET',
         data: {from: from, count: count},
         success: function (msg) {

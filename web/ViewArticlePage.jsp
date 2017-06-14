@@ -47,6 +47,17 @@
 <em>Published: ${requestScope.date}</em>
 <hr>
 
+<%--------------------------------------Multimedia-------------------------------------------------%>
+
+<div class="row">
+<div class="uploadedPhotos col-sm-6">
+    <%--Photos are inserted here via AJAX request--%>
+</div>
+<div class="uploadedVideos col-sm-6">
+    <%--Videos are inserted here via AJAX request--%>
+</div>
+</div>
+
 <%---------------------------------------Comments-------------------------------------------------%>
 <button class="btn btn-default add-comment-button">Add New Comment</button>
 
@@ -74,6 +85,7 @@
 <script src="Javascript/add_comment_form.js"></script>
 <script src="Javascript/reply_to_comment_form.js"></script>
 <script src="Javascript/edit_comment_form.js"></script>
+<script type="application/javascript" src="Javascript/view_article_multimedia.js"></script>
 <%@include file="BodyStylingLinks.jsp"%>
 
 </body>

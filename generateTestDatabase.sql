@@ -101,3 +101,7 @@ SELECT registered_users.username, posted_multimedia.multimedia_id, posted_multim
 SELECT registered_users.username, posted_multimedia.multimedia_id, posted_multimedia.article_id, posted_multimedia.file_type, posted_multimedia.file_path, posted_multimedia.multimedia_title FROM posted_multimedia
   LEFT JOIN uploaded_articles ON posted_multimedia.article_id = uploaded_articles.article_id
   LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE posted_multimedia.article_id = 25 ORDER BY uploaded_articles.timestamp DESC LIMIT 4 OFFSET 0;
+
+SELECT registered_users.username, posted_multimedia.multimedia_id, posted_multimedia.article_id, posted_multimedia.file_type, posted_multimedia.file_path, posted_multimedia.multimedia_title FROM posted_multimedia
+LEFT JOIN uploaded_articles ON posted_multimedia.article_id = uploaded_articles.article_id
+LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id WHERE posted_multimedia.article_id = 26  ORDER BY uploaded_articles.timestamp DESC

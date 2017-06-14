@@ -2,7 +2,6 @@ package login.system.servlets;
 
 import login.system.dao.Multimedia;
 import login.system.dao.MultimediaDAO;
-import login.system.dao.User;
 import login.system.db.MySQL;
 import org.json.simple.JSONArray;
 
@@ -27,12 +26,10 @@ public class Article_Multimedia extends HttpServlet {
         HttpSession session = request.getSession(true);
 
 
-        /*Get the number of articles requested and the author_id*/
-        int first_multimedia_file = Integer.parseInt(request.getParameter("from"));
-        int multimedia_count = Integer.parseInt(request.getParameter("count"));
+        /*Get the article_id*/
         int article_id = Integer.parseInt(request.getParameter("article_id"));
 
-        List<Multimedia> multimedia = MultimediaDAO.getFirstNMultimediaForArticle(DB, first_multimedia_file, multimedia_count, article_id);
+        List<Multimedia> multimedia = MultimediaDAO.getAllMultimediaForArticle(DB, article_id);
 
         /*Return a JSON object with the article information included*/
         response.setContentType("application/json");

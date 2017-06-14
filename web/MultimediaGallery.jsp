@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
     <title>Gallery</title>
 </head>
+
 <body>
 <c:choose>
     <c:when test="${loginStatus == 'active'}">

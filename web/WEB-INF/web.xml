@@ -435,4 +435,15 @@
         <url-pattern>/MultimediaGallery</url-pattern>
     </servlet-mapping>
 
+    <!--(15) User Gallery Page-->
+    <servlet>
+        <servlet-name>UserGalleryPage</servlet-name>
+        <jsp-file>/ViewUserGallery.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UserGalleryPage</servlet-name>
+        <url-pattern>/MyGallery</url-pattern>
+    </servlet-mapping>
+
 </web-app>
