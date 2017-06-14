@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by jlee512 on 8/06/2017.
@@ -43,12 +46,33 @@ public class AddAnArticleAttempt extends HttpServlet {
                 User user = (User) session.getAttribute("userDetails");
                 int author_id = user.getUser_id();
                 String username = user.getUsername();
-                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+                Timestamp timestamp_for_article = new Timestamp(System.currentTimeMillis());
 
                 String article_title_input = request.getParameter("article_title_input");
                 String article_body_input = request.getParameter("article_body_input");
+                String calendar_date_input = request.getParameter("calendar_input");
 
-                int articleAdditionStatus = ArticleDAO.addArticleToDB(DB, author_id, article_title_input, currentTimestamp, article_body_input);
+                /*Check whether a calendar input has been used to supply a publishing date*/
+                if (calendar_date_input.length() > 0) {
+                    System.out.println("test");
+                    /*Provide the calendar format so that the string output can be processed by the server*/
+                    try {
+
+                        DateFormat formatter;
+                        formatter = new SimpleDateFormat("MM/dd/yyyy");
+
+                        /*Parse the date string from the calendar input (jQuery UI)*/
+                        Date parsedDate = formatter.parse(calendar_date_input);
+                        timestamp_for_article = new Timestamp(parsedDate.getTime());
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                System.out.println(timestamp_for_article);
+
+                int articleAdditionStatus = ArticleDAO.addArticleToDB(DB, author_id, article_title_input, timestamp_for_article, article_body_input);
 
                 switch (articleAdditionStatus) {
                     case 1:

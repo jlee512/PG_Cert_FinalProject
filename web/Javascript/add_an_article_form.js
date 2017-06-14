@@ -26,9 +26,15 @@ $(document).ready(function () {
                 "<label for='article_body_input'>Article Body:</label>" +
                 "<textarea name='article_body_input' id='article_body_input' class='form-control' rows='5' style='max-width: 100%;' required></textarea>" +
                 "</div>" +
+                "<!--Article Date Calendar Input-->" +
+                "<div id='addArticleDate' class='form-group'>" +
+                "<p>Please select a publishing date: <input type='text' id='datepicker' name='calendar_input'></p>" +
+                "</div>" +
+                    /*Submit Button*/
                 "<button class='btn btn-sm' type='addArticle' id='addArticle' style='background-color: #00acc1;'>Post Article</button>" +
                 "</fieldset>" +
-                "</form>" + "</div>";
+                "</form>" + "</div>" +
+            "<script>$('#datepicker').datepicker(); </script>";
 
             $(add_article_form).insertAfter($('.add-article-button'));
         }
