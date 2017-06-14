@@ -1,6 +1,7 @@
 /**
  * Created by julia on 14/06/2017.
  */
+// Created a template which will be used for inserting new article HTML.
 /**
  * Created by Yuri on 12/06/2017.
  */
@@ -8,8 +9,8 @@
 var multimediaTemplate =
 
     "<div class='panel panel-default' style='margin: 10px;'>" +
-    "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white'>" +
-    "<h3 class='panel-title'></h3>" +
+    "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white;'>" +
+    "<div class='panel-title'></div>" +
     "</div>" +
     "<div class='panel-body'>" +
     "</div>" +
@@ -63,11 +64,15 @@ function successfulArticleLoad(msg) {
         for (var i = 0; i < msg.length; i++) {
 
             var multimedia = msg[i];
-
             var multimediaDiv = $(multimediaTemplate);
 
-            multimediaDiv.find(".panel-title").text(multimedia.multimedia_title);
+            //Set the title using the username and hyperlinking it to their profile
+            multimediaDiv.find(".panel-title").append("<div style='width: 65%; display: inline-block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>Published by: <strong><a href='PublicProfile?username=" + multimedia.username + "'style='color: #f9a825;'>" + multimedia.username + "</a></strong></div>");
 
+            multimediaDiv.find(".panel-title").append("<div class='view_comments pull-right' style='display: inline-block; padding: 5px 10px 5px 10px; background-color: #64dd17; border-radius: 2px;'><strong><a href='ViewArticle?article_id=" + multimedia.article_id + "'style='color: white;'>" + "<i class='fa fa-eye' aria-hidden='true'></i></a></strong></div>");
+
+
+            //IMAGE//
             if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
                 multimediaDiv.find(".panel-body").html("<img src='" + multimedia.file_path + "' class='img-fluid' >");
 
@@ -75,8 +80,8 @@ function successfulArticleLoad(msg) {
 
             }
 
+            //UPLOADED VIDEO
             if (multimedia.file_type == ".mp4") {
-
                 multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'><video class='embed-responsive-item' controls ><source src='" + multimedia.file_path + "' type='video/mp4'></video></div>");
                 multimediaDiv.find(".panel-body").css("text-align", "left");
 
@@ -84,6 +89,7 @@ function successfulArticleLoad(msg) {
 
             }
 
+            //UPLOADED MP3
             if (multimedia.file_type == ".mp3") {
                 multimediaDiv.find(".panel-body").html("<audio controls><source src='" + multimedia.file_path + "' type='audio/ogg'></audio>");
                 multimediaDiv.find(".panel-body").css("text-align", "left");
@@ -91,13 +97,13 @@ function successfulArticleLoad(msg) {
                 videoContainer.append(multimediaDiv);
             }
 
+            //YOUTUBE LINK
             if (multimedia.file_type == ".web") {
                 multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'>" + multimedia.file_path + "</div>");
                 multimediaDiv.find(".panel-body").css("text-align", "left");
 
                 videoContainer.append(multimediaDiv);
             }
-
         }
 
         /*Remove the loading icon*/

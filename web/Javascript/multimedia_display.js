@@ -5,7 +5,7 @@
 var multimediaTemplate =
 
     "<div class='panel panel-default' style='margin: 10px;'>" +
-    "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white; padding-top: 0cm'>" +
+    "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white;'>" +
     "<div class='panel-title'></div>" +
     "</div>" +
     "<div class='panel-body'>" +
@@ -63,7 +63,10 @@ function successfulArticleLoad(msg) {
             var multimediaDiv = $(multimediaTemplate);
 
             //Set the title using the username and hyperlinking it to their profile
-            multimediaDiv.find(".panel-title").html("<h3 style='display: inline-block;' >Published by: <strong><a href='PublicProfile?username=" + multimedia.username + "'style='color: #f9a825;'>" + multimedia.username + "</a></strong></h3><div class='btn btn-sm pull-right' style='background-color: #64dd17;  display: inline-block;'><i class='fa fa-eye' aria-hidden='true'></i></div>");
+            multimediaDiv.find(".panel-title").append("<div style='width: 65%; display: inline-block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>Published by: <strong><a href='PublicProfile?username=" + multimedia.username + "'style='color: #f9a825;'>" + multimedia.username + "</a></strong></div>");
+
+            multimediaDiv.find(".panel-title").append("<div class='view_comments pull-right' style='display: inline-block; padding: 5px 10px 5px 10px; background-color: #64dd17; border-radius: 2px;'><strong><a href='ViewArticle?article_id=" + multimedia.article_id + "'style='color: white;'>" + "<i class='fa fa-eye' aria-hidden='true'></i></a></strong></div>");
+
 
             //IMAGE//
             if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
