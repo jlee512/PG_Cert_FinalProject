@@ -315,11 +315,12 @@
                                        value="${sessionScope.userDetails.username}">
 
                                 <h4>Name</h4>
-                                <input style="width: 20%" class="form-group" type="text" name="firstname"
-                                       value="${sessionScope.userDetails.firstname} ">
+                                <div>
+                                <input class="form-group" type="text" name="firstname"
+                                       value="${sessionScope.userDetails.firstname} "></div>
 
-                                <input style="width: 79%" class="form-group" type="text" name="lastname"
-                                       value="${sessionScope.userDetails.lastname}">
+                                <div><input class="form-group" type="text" name="lastname"
+                                            value="${sessionScope.userDetails.lastname}"></div>
 
                                 <h4 style="display: inline-block;">Occupation</h4>
                                 <input style=" display: inline-block" type="text" id="occupation"
@@ -396,7 +397,8 @@
         <div class="col-sm-8" id="userArticles">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">${sessionScope.userDetails.username}'s Article Archive</h3>
+                    <h3 class="panel-title" style="display: inline-block;">${sessionScope.userDetails.username}'s Article Archive</h3>
+                    <a href="MyGallery"><h3 id="multimedia-gallery-link" class="panel-title pull-right" style="color: white;"><span style="background-color: #00acc1; padding: 5px 10px 5px 10px; border-radius: 2px;" >My Gallery &nbsp <i class="fa fa-camera" aria-hidden="true"></i></span></h3></a>
                 </div>
                 <div class="panel-body">
                     <div class="panel panel-default">

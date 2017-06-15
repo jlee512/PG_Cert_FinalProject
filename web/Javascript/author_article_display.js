@@ -112,7 +112,7 @@ function successfulArticleLoad(msg) {
 
             var full_article_body = encodeURI(article.article_body_full);
 
-            document.cookie = article.article_id + "_full_article_body=" + full_article_body + ";" + expires + "; path=/ProfilePage";
+            document.cookie = article.article_id + "_full_article_body=" + full_article_body + ";" + expires + "; path=/while_e_coyote/ProfilePage";
 
         }
 
