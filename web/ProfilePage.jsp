@@ -397,7 +397,7 @@
         <div class="col-sm-8" id="userArticles">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title" style="display: inline-block;">${sessionScope.userDetails.username}'s Article Archive</h3>
+                    <h3 class="panel-title" style='width: 50%; display: inline-block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>${sessionScope.userDetails.username}'s Article Archive</h3>
                     <a href="MyGallery"><h3 id="multimedia-gallery-link" class="panel-title pull-right" style="color: white;"><span style="background-color: #00acc1; padding: 5px 10px 5px 10px; border-radius: 2px;" >My Gallery &nbsp <i class="fa fa-camera" aria-hidden="true"></i></span></h3></a>
                 </div>
                 <div class="panel-body">
