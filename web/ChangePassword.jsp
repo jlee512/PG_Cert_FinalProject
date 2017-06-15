@@ -25,6 +25,7 @@
 <html>
 <head>
     <%@include file="HeadStylingLinks.jsp" %>
+    <script src="Javascript/form_security_validation.js"></script>
     <title>Password change</title>
 </head>
 
@@ -44,7 +45,6 @@
 </style>
 
 <body>
-
 <%--If user is not logged in, re-direct to the login page--%>
 <c:if test="${loginStatus != 'active'}">
     <c:choose>

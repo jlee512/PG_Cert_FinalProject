@@ -315,6 +315,31 @@ public class ArticleDAO {
         }
     }
 
+    public static List<Article> getfirstNArticlePreviewsBySearchTerm(MySQL DB, int fromArticle, int numArticles, String searchTerm) {
+
+        /*Dummy article to be returned if article not found*/
+        List<Article> articles = new ArrayList<Article>();
+
+        try (Connection c = DB.connection()) {
+
+            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON uploaded_articles.article_id = posted_comments.article_id WHERE uploaded_articles.article_title LIKE ? OR registered_users.username LIKE ? GROUP BY uploaded_articles.article_id ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
+
+                stmt.setString(1, "%" + searchTerm + "%");
+                stmt.setString(2, "%" + searchTerm + "%");
+                stmt.setInt(3, numArticles);
+                stmt.setInt(4, fromArticle);
+
+                getListofArticles(articles, stmt);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return articles;
+    }
+
 
     /*-----------END OF ARTICLE DAO--------------*/
 }
