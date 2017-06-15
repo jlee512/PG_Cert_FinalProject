@@ -67,10 +67,10 @@
 
 
 <%--Loader animation and bottom of comments symbol--%>
-<div class="loader-wrapper" style="margin-left: 3%;">
+<div class="loader-wrapper" style="margin-left: 3%; text-align: center;">
     <div class="loader" style="display: inline-block;"></div>
 </div>
-<div class="loaded-wrapper">
+<div class="loaded-wrapper" style="text-align: center;">
     <div id="loaded1" style="display: inline-block;"></div>
     <div id="loaded2" style="display: inline-block;"></div>
     <div id="loaded3" style="display: inline-block;"></div>

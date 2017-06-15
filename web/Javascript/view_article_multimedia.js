@@ -70,7 +70,7 @@ function successfulArticleLoad(msg) {
             //IMAGE//
             if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg" || multimedia.file_type == ".gif") {
 
-                multimediaDiv.find(".panel-body").html("<img src='" + multimedia.file_path + "' class='img-fluid' >");
+                multimediaDiv.find(".panel-body").html("<img src='" + multimedia.file_path + "' class='img-fluid center-block' >");
 
                 photoContainer.append(multimediaDiv)
 

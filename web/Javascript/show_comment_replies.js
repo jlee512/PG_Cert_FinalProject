@@ -10,8 +10,8 @@ var commentPara = '<div class="panel panel-info">' +
     '<div class="buttons"></div>' +
     '</div>';
 
-var loaderWrapper = '<div class="loader-wrapper" style="margin-left: 3%;">' +
-    '<div class="loader" style="display: inline-block;"></div>' +
+var loaderWrapper = '<div class="loader-wrapper" style="margin-left: 3%; text-align: center;">' +
+    '<div class="loader" style="display: inline-block; text-align: center;"></div>' +
     '</div>';
 
 $(document).on("click", ".show_replies", function () {
