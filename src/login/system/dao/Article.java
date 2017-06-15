@@ -40,6 +40,18 @@ public class Article implements Serializable {
         this.comment_count = comment_count;
     }
 
+    public Article(int article_id,int  author_id, String author_username, String author_firstname, String author_lastname, String article_title, Timestamp article_timestamp, String article_body, int comment_count) {
+        this.article_id = article_id;
+        this.author_id = author_id;
+        this.author_username = author_username;
+        this.author_firstname = author_firstname;
+        this.author_lastname = author_lastname;
+        this.article_title = article_title;
+        this.artcle_timestamp = article_timestamp;
+        this.article_body = article_body;
+        this.comment_count = comment_count;
+    }
+
     public void setArticleParameters(int article_id, String author_username, String author_firstname, String author_lastname, String article_title, Timestamp article_timestamp, String article_body, int comment_count) {
         this.article_id = article_id;
         this.author_username = author_username;
