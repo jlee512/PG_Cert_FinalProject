@@ -47,21 +47,25 @@ public class ViewArticle extends HttpServlet {
 
                     //Get Article object by ID from ArticleDAO.
                     Article article = ArticleDAO.getArticle(DB, articleID);
+                    System.out.println(article.getAuthor_id());
+
                     if (article.getAuthor_id() == -1) {
 
                         response.sendRedirect("Content?username=" + user.getUsername());
 
+                    } else {
+
+                        Timestamp timestamp = article.getArtcle_timestamp();
+                        String date_for_output = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(timestamp);
+
+                        //Set it as an attribute to pass to the JSP.
+                        request.setAttribute("article", article);
+                        request.setAttribute("date", date_for_output);
+
+                        System.out.println("test");
+
+                        getServletContext().getRequestDispatcher("/ViewArticlePage").forward(request, response);
                     }
-
-                    Timestamp timestamp = article.getArtcle_timestamp();
-                    String date_for_output = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(timestamp);
-
-                    //Set it as an attribute to pass to the JSP.
-                    request.setAttribute("article", article);
-                    request.setAttribute("date", date_for_output);
-
-
-                    getServletContext().getRequestDispatcher("/ViewArticlePage").forward(request, response);
                 }
             }
         }

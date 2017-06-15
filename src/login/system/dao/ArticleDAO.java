@@ -56,7 +56,7 @@ public class ArticleDAO {
         Article article = new Article(-1, null, null, null);
 
         try (Connection c = DB.connection()) {
-            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id INNER JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id WHERE uploaded_articles.article_id = ?")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, uploaded_articles.author_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id INNER JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id WHERE uploaded_articles.article_id = ?")) {
 
                 stmt.setInt(1, article_id);
 
@@ -66,6 +66,7 @@ public class ArticleDAO {
                         /*If there is a next result, the article exists in the database*/
                         /*Get article_id, author_id, date, article_title and article_body*/
                         int article_idLookup = r.getInt("article_id");
+                        int author_idLookup = r.getInt("author_id");
                         String author_username = r.getString("username");
                         String author_firstname = r.getString("firstname");
                         String author_lastname = r.getString("lastname");
@@ -75,6 +76,7 @@ public class ArticleDAO {
                         int comment_countLookup = r.getInt("comment_count");
 
                         article.setArticleParameters(article_idLookup, author_username, author_firstname, author_lastname, article_titleLookup, timestampLookup, article_bodyLookup, comment_countLookup);
+                        article.setAuthor_id(author_idLookup);
 
                         System.out.println("Article retrieved from the database");
                     } else {
