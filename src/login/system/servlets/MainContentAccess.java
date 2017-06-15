@@ -35,16 +35,31 @@ public class MainContentAccess extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-                if (request.getParameter("from") == null || request.getParameter("count") == null) {
+                if (request.getParameter("from") == null || request.getParameter("count") == null || request.getParameter("sort_by") == null) {
                     response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
                 } else {
 
         /*Get the number of articles requested*/
                     int firstArticle = Integer.parseInt(request.getParameter("from"));
                     int articleCount = Integer.parseInt(request.getParameter("count"));
+                    String sort_by = request.getParameter("sort_by");
 
-                    List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByDate(DB, firstArticle, articleCount);
+                    /*Check the sort-by parameter and call the appropriate ArticleDAO method*/
+                    List<Article> articles;
 
+                    if (sort_by.equals("title")) {
+
+                        articles = ArticleDAO.getfirstNArticlePreviewsByTitle(DB, firstArticle, articleCount);
+
+                    } else if (sort_by.equals("author")) {
+
+                        articles = ArticleDAO.getfirstNArticlePreviewsByTitle(DB, firstArticle, articleCount);
+
+                    } else {
+
+                        articles = ArticleDAO.getfirstNArticlePreviewsByDate(DB, firstArticle, articleCount);
+
+                    }
 
         /*Return a JSON object with the article information included*/
                     response.setContentType("application/json");

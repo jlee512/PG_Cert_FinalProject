@@ -116,7 +116,7 @@ public class ArticleDAO {
         return articles;
     }
 
-    public static List<Article> getfirstNArticlePreviewsByAuthor(MySQL DB, int fromArticle, int numArticles, int author_id) {
+    public static List<Article> getfirstNArticlePreviewsByTitle(MySQL DB, int fromArticle, int numArticles) {
 
         /*Dummy article to be returned if article not found*/
         List<Article> articles = new ArrayList<Article>();
@@ -140,7 +140,7 @@ public class ArticleDAO {
     }
 
 
-    public static List<Article> getfirstNArticlePreviewsByTitle(MySQL DB, int fromArticle, int numArticles, int author_id) {
+    public static List<Article> getfirstNArticlePreviewsByAuthor(MySQL DB, int fromArticle, int numArticles, int author_id) {
 
         /*Dummy article to be returned if article not found*/
         List<Article> articles = new ArrayList<Article>();
