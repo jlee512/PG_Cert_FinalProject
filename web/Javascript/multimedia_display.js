@@ -165,3 +165,24 @@ $(document).ready(function () {
     /*Load initial four articles*/
     loadMultimediaIncrement();
 });
+
+/*Clear individual article cookies function*/
+
+function getCookie(cookie_name, article_id) {
+
+    var name = cookie_name + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var cookie_array = decodedCookie.split(';');
+    for (var i = 0; i < cookie_array.length; i++) {
+        var cookie = cookie_array[i];
+        while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) == 0) {
+            full_article_body = cookie.substring(name.length, cookie.length);
+
+            return full_article_body;
+        }
+    }
+    return "";
+}
