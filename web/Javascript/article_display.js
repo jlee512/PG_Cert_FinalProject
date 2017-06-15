@@ -57,6 +57,7 @@ var search_term = "";
 var date_default_ordering = "DESC";
 var title_default_ordering = "ASC";
 var author_default_ordering = "ASC";
+var scroll_registered = false;
 
 
 
@@ -108,6 +109,7 @@ function successfulArticleLoad(msg) {
             }
         }
     }
+    scroll_registered = false;
 }
 
 function formatDate(date) {
@@ -181,7 +183,8 @@ $(document).ready(function () {
     $(window).scroll(function() {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) && moreArticles) {
+        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) && moreArticles && !scroll_registered) {
+            scroll_registered = true;
             loadArticlesIncrement(false);
         }
     });

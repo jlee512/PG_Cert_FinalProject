@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="uoawhileecoyote@mysql1.sporadic.co.nz">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
     <root id="1"/>
     <schema id="2" parent="1" name="uoawhileecoyote">
       <Current>1</Current>
@@ -58,7 +58,6 @@
       <ColNames>parent_comment_id</ColNames>
     </index>
     <key id="20" parent="6" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
       <ColNames>comment_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -67,24 +66,24 @@
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>uploaded_articles</RefTableName>
       <RefColNames>article_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
     </foreign-key>
     <foreign-key id="22" parent="6" name="posted_comments_ibfk_2">
       <ColNames>author_id</ColNames>
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>registered_users</RefTableName>
       <RefColNames>user_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
     </foreign-key>
     <foreign-key id="23" parent="6" name="posted_comments_ibfk_3">
       <ColNames>parent_comment_id</ColNames>
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>posted_comments</RefTableName>
       <RefColNames>comment_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
     </foreign-key>
     <column id="24" parent="7" name="multimedia_id">
       <Position>1</Position>
@@ -118,7 +117,6 @@
       <Unique>1</Unique>
     </index>
     <key id="31" parent="7" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
       <ColNames>multimedia_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -131,8 +129,8 @@
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>uploaded_articles</RefTableName>
       <RefColNames>article_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
     </foreign-key>
     <column id="34" parent="8" name="user_id">
       <Position>1</Position>
@@ -197,7 +195,6 @@
       <Unique>1</Unique>
     </index>
     <key id="48" parent="8" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -236,7 +233,6 @@
       <ColNames>author_id</ColNames>
     </index>
     <key id="56" parent="9" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
       <ColNames>article_id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -245,8 +241,8 @@
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>registered_users</RefTableName>
       <RefColNames>user_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
     </foreign-key>
   </database-model>
 </dataSource>
