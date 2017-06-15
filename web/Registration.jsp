@@ -20,7 +20,12 @@
     </c:if>
     <%------------------------------------------------------------------------------------------------------------%>
 
+    <%--Title--%>
     <title>Welcome! Register an Account</title>
+
+    <%--Icon--%>
+    <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
+
     <%--Google recaptcha--%>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
@@ -52,8 +57,8 @@
         }
 
         var googleUser = {};
-        var startApp = function() {
-            gapi.load('auth2', function(){
+        var startApp = function () {
+            gapi.load('auth2', function () {
                 // Retrieve the singleton for the GoogleAuth library and set up the client.
                 auth2 = gapi.auth2.init({
                     client_id: '17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com',
@@ -68,16 +73,21 @@
         function attachSignin(element) {
             console.log(element.id);
             auth2.attachClickHandler(element, {},
-                function(googleUser) {
+                function (googleUser) {
                     document.getElementById('name').innerText = "Signed in: " +
                         googleUser.getBasicProfile().getName();
                     onSignIn(googleUser)
-                }, function(error) {
+                }, function (error) {
                     alert(JSON.stringify(error, undefined, 2));
                 });
         }
+
+
+
+
     </script>
-    <script src="Javascript/form_security_validation.js"></script>
+
+
     <style type="text/css">
         #customBtn {
             text-align: center;
@@ -123,10 +133,14 @@
 
         }
 
+
     </style>
+
+
 
 </head>
 <body>
+
 <div class="backGroundImage">
     <div class="vertical-center">
         <div class="card container setOpacity">
@@ -139,7 +153,8 @@
                         <%--Username input--%>
                         <div class="md-form">
                             <i class="fa fa-user prefix"></i>
-                            <input class="form-control" type="text" id="username" name="username" required minlength="3" maxlength="20" title="Enter a username between 3 and 20 characters long"
+                            <input class="form-control" type="text" id="username" name="username" required minlength="3"
+                                   maxlength="20" title="Enter a username between 3 and 20 characters long"
                                    onchange="checkForSpaces(this)"/>
                             <label for="username">New username</label>
                         </div>
@@ -157,7 +172,9 @@
                         <%--Password input--%>
                         <div class="md-form">
                             <i class="fa fa-unlock-alt prefix"></i>
-                            <input class="form-control" type="password" id="password" name="password" pattern="^(?=.*[^a-zA-Z])(?=.*[a-z])(?=.*[A-Z])\S{8,}$" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                            <input class="form-control" type="password" id="password" name="password"
+                                   pattern="^(?=.*[^a-zA-Z])(?=.*[a-z])(?=.*[A-Z])\S{8,}$"
+                                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                                    onchange="checkForSpaces(this)"
                                    required/>
                             <label for="password">Your password</label>
@@ -195,7 +212,7 @@ successful sign in -->
                                 </div>
                             </div>
                         </div>
-                            <div id="name"></div>
+                        <div id="name"></div>
 
                         <br>
 
@@ -245,7 +262,19 @@ successful sign in -->
 
 <%@include file="BodyStylingLinks.jsp" %>
 
+
+<%--When keyboard appears, the content is not obscured. MUST BE ENCLOSED IN SEPERATE SCRIPT TAGS--%>
+<script type="text/javascript">
+    var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1; //&& ua.indexOf("mobile");
+    if(isAndroid) {
+        document.write('<meta name="viewport" content="width=device-width,height='+window.innerHeight+', initial-scale=1.0">');
+    }
+</script>
+
+
 <script>
+
+
     function checkForSpaces(textFieldInput) {
         var textFieldInputTest = textFieldInput.value;
         if (textFieldInputTest.replace(/\s/g, "").length == 0 && (textFieldInputTest.length != 0)) {
