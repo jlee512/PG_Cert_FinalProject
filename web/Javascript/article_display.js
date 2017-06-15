@@ -52,6 +52,7 @@ var from = 0;
 var count = 4;
 var moreArticles = true;
 var sort_by = "date";
+var ordering = "DESC";
 var search_term = "";
 var date_default_ordering = "DESC";
 var title_default_ordering = "ASC";
@@ -154,7 +155,7 @@ function loadArticlesIncrement() {
 
         url: 'MainContentAccess',
         type: 'GET',
-        data: {from: from, count: count, sort_by: sort_by, search_term: search_term},
+        data: {from: from, count: count, sort_by: sort_by, ordering: ordering, search_term: search_term},
         success: function (msg) {
             successfulArticleLoad(msg);
         },
@@ -163,6 +164,8 @@ function loadArticlesIncrement() {
 
     /*Increment the current "from" by the count so that next time the function is called, the next set of articles is loaded*/
     from += count;
+    console.log(from);
+    console.log(count);
 }
 
 $(document).ready(function () {
@@ -182,7 +185,15 @@ $(document).ready(function () {
     loadArticlesIncrement();
 });
 
+/*---------------------------------Title sort----------------------------------*/
+
 $("#title-sort-button").on("click", function() {
+
+    /*Reset the other sorting field icons*/
+    $("#author-sort-button > i").remove();
+    $("#author-sort-button").append("<i class='fa fa-sort' aria-hidden='true'></i>");
+    $("#date-sort-button > i").remove();
+    $("#date-sort-button").append("<i class='fa fa-sort' aria-hidden='true'></i>");
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 
@@ -201,21 +212,32 @@ $("#title-sort-button").on("click", function() {
         /*If the order is already reversed, remove the class and set the order back to standard*/
         $("#title-sort-button").removeClass("reverse-sorting-order");
         title_default_ordering = "ASC";
+        /*Remove the reverse icon and add the asecnding icon*/
+        $("#title-sort-button > i").remove();
+        $("#title-sort-button").append("<i class='fa fa-sort-alpha-asc' aria-hidden='true'></i>");
 
         /*Else if sorted and not in reverse order, reverse the sorting order*/
     } else if ($("#title-sort-button").hasClass("sorted")) {
 
         $("#title-sort-button").addClass("reverse-sorting-order");
         title_default_ordering = "DESC";
+        /*Remove the reverse icon and add the asecnding icon*/
+        $("#title-sort-button > i").remove();
+        $("#title-sort-button").append("<i class='fa fa-sort-alpha-desc' aria-hidden='true'></i>");
 
         /*Else the field is being sorted for the first time and set the default ordering*/
     } else {
 
+        $("#title-sort-button").addClass("sorted");
         title_default_ordering = "ASC";
+        /*Remove the standard icon and add the asecnding icon*/
+        $("#title-sort-button > i").remove();
+        $("#title-sort-button").append("<i class='fa fa-sort-alpha-asc' aria-hidden='true'></i>");
 
     }
 
     sort_by = "title";
+    ordering = title_default_ordering;
     console.log(sort_by);
     console.log(title_default_ordering);
 
@@ -231,7 +253,15 @@ $("#title-sort-button").on("click", function() {
 
 });
 
+/*-----------------------------------Date Sort-----------------------------------*/
+
 $("#date-sort-button").on("click", function() {
+
+    /*Reset the other sorting field icons*/
+    $("#author-sort-button > i").remove();
+    $("#author-sort-button").append("<i class='fa fa-sort' aria-hidden='true'></i>");
+    $("#title-sort-button > i").remove();
+    $("#title-sort-button").append("<i class='fa fa-sort' aria-hidden='true'></i>");
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 
@@ -252,20 +282,31 @@ $("#date-sort-button").on("click", function() {
         $("#date-sort-button").removeClass("reverse-sorting-order");
         date_default_ordering = "DESC";
 
+        $("#date-sort-button > i").remove();
+        $("#date-sort-button").append("<i class='fa fa-sort-desc' aria-hidden='true'></i>");
+
         /*Else if sorted and not in reverse order, reverse the sorting order*/
     } else if ($("#date-sort-button").hasClass("sorted")) {
 
         $("#date-sort-button").addClass("reverse-sorting-order");
         date_default_ordering = "ASC";
 
+        $("#date-sort-button > i").remove();
+        $("#date-sort-button").append("<i class='fa fa-sort-asc' aria-hidden='true'></i>");
+
         /*Else the field is being sorted for the first time and set the default ordering*/
     } else {
 
+        $("#date-sort-button").addClass("sorted");
         date_default_ordering = "DESC";
+
+        $("#date-sort-button > i").remove();
+        $("#date-sort-button").append("<i class='fa fa-sort-desc' aria-hidden='true'></i>");
 
     }
 
     sort_by = "date";
+    ordering = date_default_ordering;
     console.log(sort_by);
     console.log(date_default_ordering);
 
@@ -281,7 +322,15 @@ $("#date-sort-button").on("click", function() {
 
 });
 
+/*-----------------------------------Author Sort---------------------------------------*/
+
 $("#author-sort-button").on("click", function() {
+
+    /*Reset the other sorting field icons*/
+    $("#title-sort-button > i").remove();
+    $("#title-sort-button").append("<i class='fa fa-sort' aria-hidden='true'></i>");
+    $("#date-sort-button > i").remove();
+    $("#date-sort-button").append("<i class='fa fa-sort' aria-hidden='true'></i>");
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 
@@ -301,20 +350,31 @@ $("#author-sort-button").on("click", function() {
         $("#author-sort-button").removeClass("reverse-sorting-order");
         author_default_ordering = "ASC";
 
+        $("#author-sort-button > i").remove();
+        $("#author-sort-button").append("<i class='fa fa-sort-alpha-asc' aria-hidden='true'></i>");
+
         /*Else if sorted and not in reverse order, reverse the sorting order*/
     } else if ($("#author-sort-button").hasClass("sorted")) {
 
         $("#author-sort-button").addClass("reverse-sorting-order");
         author_default_ordering = "DESC";
 
+        $("#author-sort-button > i").remove();
+        $("#author-sort-button").append("<i class='fa fa-sort-alpha-desc' aria-hidden='true'></i>");
+
         /*Else the field is being sorted for the first time and set the default ordering*/
     } else {
 
+        $("#author-sort-button").addClass("sorted");
         author_default_ordering = "ASC";
+
+        $("#author-sort-button > i").remove();
+        $("#author-sort-button").append("<i class='fa fa-sort-alpha-asc' aria-hidden='true'></i>");
 
     }
 
     sort_by = "author";
+    ordering = author_default_ordering;
     console.log(sort_by);
     console.log(author_default_ordering);
 
@@ -330,7 +390,19 @@ $("#author-sort-button").on("click", function() {
 
 });
 
+/*---------------------------------------Searching-------------------------------------------*/
+
 $("#search-button").on("click", function() {
+
+    /*Reset the other sorting field icons*/
+    $("#title-sort-button > i").remove();
+    $("#title-sort-button").append("<i class='fa fa-sort' aria-hidden='true'></i>");
+    $("#date-sort-button > i").remove();
+    $("#date-sort-button").append("<i class='fa fa-sort' aria-hidden='true'></i>");
+    $("#author-sort-button > i").remove();
+    $("#author-sort-button").append("<i class='fa fa-sort' aria-hidden='true'></i>");
+
+
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 

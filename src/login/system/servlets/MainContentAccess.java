@@ -44,25 +44,56 @@ public class MainContentAccess extends HttpServlet {
                     int articleCount = Integer.parseInt(request.getParameter("count"));
                     String sort_by = request.getParameter("sort_by");
                     String search_term = request.getParameter("search_term");
+                    String ordering = request.getParameter("ordering");
 
                     /*Check the sort-by parameter and call the appropriate ArticleDAO method*/
-                    List<Article> articles;
+                    List<Article> articles = null;
 
                     if (search_term.length() > 0 || sort_by.equals("searchterm")) {
-                        articles = ArticleDAO.getArticlePreviewsBySearchTerm(DB, search_term);
+                        articles = ArticleDAO.getArticlePreviewsBySearchTerm(DB, search_term, firstArticle, articleCount);
                     }
 
                     else if (sort_by.equals("title")) {
+
+                        switch (ordering) {
+
+                            case "ASC":
+
+                                break;
+
+                            case "DESC":
+
+                                break;
+                        }
+
 
                         articles = ArticleDAO.getfirstNArticlePreviewsByTitle(DB, firstArticle, articleCount);
 
                     } else if (sort_by.equals("author")) {
 
-                        articles = ArticleDAO.getfirstNArticlePreviewsSortedByAuthor(DB, firstArticle, articleCount);
+                        switch (ordering) {
+
+                            case "ASC":
+                                articles = ArticleDAO.getfirstNArticlePreviewsSortedByAuthor(DB, firstArticle, articleCount);
+                                break;
+
+                            case "DESC":
+                                articles = ArticleDAO.getfirstNArticlePreviewsSortedByAuthorDESC(DB, firstArticle, articleCount);
+                                break;
+                        }
 
                     } else {
 
-                        articles = ArticleDAO.getfirstNArticlePreviewsByDate(DB, firstArticle, articleCount);
+                        switch (ordering) {
+
+                            case "ASC":
+                                articles = ArticleDAO.getfirstNArticlePreviewsByDateASC(DB, firstArticle, articleCount);
+                                break;
+
+                            case "DESC":
+                                articles = ArticleDAO.getfirstNArticlePreviewsByDate(DB, firstArticle, articleCount);
+                                break;
+                        }
 
                     }
 

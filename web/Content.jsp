@@ -143,9 +143,9 @@
             Good to see you</p>
 
         <div class="sorting-button-container" style="text-align: center;">
-            <a id="title-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Title</a>
-            <a id="date-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Date</a>
-            <a id="author-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Author</a>
+            <a id="title-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Title &nbsp <i class="fa fa-sort" aria-hidden="true"></i></a>
+            <a id="date-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Date &nbsp <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+            <a id="author-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Author &nbsp <i class="fa fa-sort" aria-hidden="true"></i></a>
         </div>
 
         <div class="search-bar-container" style="text-align: center">
