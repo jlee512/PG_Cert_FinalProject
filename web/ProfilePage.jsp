@@ -318,7 +318,7 @@
                                 <input style="width: 20%" class="form-group" type="text" name="firstname"
                                        value="${sessionScope.userDetails.firstname} ">
 
-                                <input style="width: 70%" class="form-group" type="text" name="lastname"
+                                <input style="width: 79%" class="form-group" type="text" name="lastname"
                                        value="${sessionScope.userDetails.lastname}">
 
                                 <h4 style="display: inline-block;">Occupation</h4>
