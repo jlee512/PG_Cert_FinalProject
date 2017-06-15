@@ -57,12 +57,12 @@
           content="17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script>
-        window.onLoadCallback = function(){
-        gapi.load('auth2', function() {
+        window.onLoadCallback = function () {
+            gapi.load('auth2', function () {
 
-            gapi.auth2.init();
+                gapi.auth2.init();
 
-        });
+            });
         }
     </script>
     <script>
@@ -81,40 +81,40 @@
         }
     </script>
 
-<style type="text/css">
+    <style type="text/css">
 
-    #logoutButton {
-        position: absolute;
-        top: 0%;
-        right: 0%;
-        margin-top: 1em;
-        margin-right: 2em;
-    }
+        #logoutButton {
+            position: absolute;
+            top: 0%;
+            right: 0%;
+            margin-top: 1em;
+            margin-right: 2em;
+        }
 
-    p {
-        top: 0%;
-        left: 0%;
-        margin-top: 1em;
-    }
+        p {
+            top: 0%;
+            left: 0%;
+            margin-top: 1em;
+        }
 
-    .footer {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        text-align: right;
-    }
+        .footer {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            text-align: right;
+        }
 
-    .view_comments:hover {
-        /*Override default hover function*/
-        box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12) !important;
-    }
+        .view_comments:hover {
+            /*Override default hover function*/
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !important;
+        }
 
-</style>
+    </style>
 
-<link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
+    <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 
-<link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 
 </head>
 
@@ -138,7 +138,15 @@
             </c:choose>
         </c:if>
 
-        <p class="text-center">Welcome <strong><a href="ProfilePage?username=${sessionScope.userDetails.username}" style="color: #f9a825;">${sessionScope.userDetails.username}</a></strong>! Good to see you</p>
+        <p class="text-center">Welcome <strong><a href="ProfilePage?username=${sessionScope.userDetails.username}"
+                                                  style="color: #f9a825;">${sessionScope.userDetails.username}</a></strong>!
+            Good to see you</p>
+
+        <div class="sorting-button-container" style="text-align: center;">
+            <a id="title-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Title</a>
+            <a id="date-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Date</a>
+            <a id="author-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Author</a>
+        </div>
 
 
         <div class="news_feed">

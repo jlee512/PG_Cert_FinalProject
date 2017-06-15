@@ -51,6 +51,7 @@ $('.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundColor
 var from = 0;
 var count = 4;
 var moreArticles = true;
+var sort_by = "date";
 
 
 function successfulArticleLoad(msg) {
@@ -148,7 +149,7 @@ function loadArticlesIncrement() {
 
         url: 'MainContentAccess',
         type: 'GET',
-        data: {from: from, count: count},
+        data: {from: from, count: count, sort_by: sort_by},
         success: function (msg) {
             successfulArticleLoad(msg);
         },
@@ -167,11 +168,68 @@ $(document).ready(function () {
     $(window).scroll(function() {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) && moreArticles) {
+        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) && moreArticles && sort_by == "date") {
             loadArticlesIncrement();
         }
     });
 
     /*Load initial four articles*/
     loadArticlesIncrement();
+});
+
+$("#title-sort-button").on("click", function() {
+
+    $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
+
+    sort_by = "title";
+    console.log(sort_by);
+
+    /*Remove all existing articles*/
+    $(".news_feed").empty();
+
+    /*Reset article count and'more_articles' variables*/
+    from = 0;
+    moreArticles = true;
+
+    /*Load first increment of articles*/
+    loadArticlesIncrement();
+
+});
+
+$("#date-sort-button").on("click", function() {
+
+    $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
+
+    sort_by = "date";
+    console.log(sort_by);
+
+    /*Remove all existing articles*/
+    $(".news_feed").empty();
+
+    /*Reset article count and'more_articles' variables*/
+    from = 0;
+    moreArticles = true;
+
+    /*Load first increment of articles*/
+    loadArticlesIncrement();
+
+});
+
+$("#author-sort-button").on("click", function() {
+
+    $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
+
+    sort_by = "author";
+    console.log(sort_by);
+
+    /*Remove all existing articles*/
+    $(".news_feed").empty();
+
+    /*Reset article count and'more_articles' variables*/
+    from = 0;
+    moreArticles = true;
+
+    /*Load first increment of articles*/
+    loadArticlesIncrement();
+
 });

@@ -123,6 +123,30 @@ public class ArticleDAO {
 
         try (Connection c = DB.connection()) {
 
+            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id GROUP BY uploaded_articles.article_id ORDER BY article_title ASC LIMIT ? OFFSET ?;")) {
+
+                stmt.setInt(1, numArticles);
+                stmt.setInt(2, fromArticle);
+
+                getListofArticles(articles, stmt);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return articles;
+    }
+
+
+    public static List<Article> getfirstNArticlePreviewsByTitle(MySQL DB, int fromArticle, int numArticles, int author_id) {
+
+        /*Dummy article to be returned if article not found*/
+        List<Article> articles = new ArrayList<Article>();
+
+        try (Connection c = DB.connection()) {
+
             try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id WHERE user_id = ? GROUP BY uploaded_articles.article_id ORDER BY TIMESTAMP DESC LIMIT ? OFFSET ?;")) {
 
                 stmt.setInt(1, author_id);
@@ -139,7 +163,6 @@ public class ArticleDAO {
         }
         return articles;
     }
-
 
     /*Method to delete and article*/
     public static int deleteAnArticle(MySQL DB, int article_id, int author_id) {

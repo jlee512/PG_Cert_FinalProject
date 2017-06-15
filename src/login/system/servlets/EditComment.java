@@ -38,7 +38,7 @@ public class EditComment extends HttpServlet {
                 int articleID = Integer.parseInt(request.getParameter("article_id"));
                 String content = request.getParameter("comment_body");
                 CommentDAO.editComment(DB, commentID, content);
-                response.sendRedirect("/ViewArticle?article_id=" + articleID);
+                response.sendRedirect("ViewArticle?article_id=" + articleID);
             }
         }
     }

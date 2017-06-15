@@ -47,7 +47,7 @@ public class ViewArticle extends HttpServlet {
 
                     //Get Article object by ID from ArticleDAO.
                     Article article = ArticleDAO.getArticle(DB, articleID);
-                    if (article.getArticle_id() == -1) {
+                    if (article.getAuthor_id() == -1) {
 
                         response.sendRedirect("Content?username=" + user.getUsername());
 
