@@ -222,12 +222,12 @@
 <%@include file="BodyStylingLinks.jsp" %>
 
 <%--When keyboard appears, the content is not obscured. MUST BE ENCLOSED IN SEPERATE SCRIPT TAGS--%>
-<%--<script type="text/javascript">--%>
-    <%--var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1; //&& ua.indexOf("mobile");--%>
-    <%--if(isAndroid) {--%>
-        <%--document.write('<meta name="viewport" content="width=device-width,height='+window.innerHeight+', initial-scale=1.0">');--%>
-    <%--}--%>
-<%--</script>--%>
+<script type="text/javascript">
+    var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1; //&& ua.indexOf("mobile");
+    if(isAndroid) {
+        document.write('<meta name="viewport" content="width=device-width,height='+window.innerHeight+', initial-scale=1.0">');
+    }
+</script>
 
 <%--Script inclusions--%>
 
