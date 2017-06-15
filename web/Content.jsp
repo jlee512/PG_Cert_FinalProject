@@ -148,6 +148,11 @@
             <a id="author-sort-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;">Sort by Author</a>
         </div>
 
+        <div class="search-bar-container" style="text-align: center">
+            <input type="search" name="searchbar" id="searchbar" style="width: 30%">
+            <a id="search-button" class="btn btn-sm btn-rounded" style="background-color: #d2f7ba; color:black !important;"><i class="fa fa-search" aria-hidden="true"></i></a>
+        </div>
+
 
         <div class="news_feed">
                 <%--Articles should be dropped into here from AJAX calls--%>

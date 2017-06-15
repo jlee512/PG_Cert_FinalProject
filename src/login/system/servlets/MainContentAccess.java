@@ -43,11 +43,16 @@ public class MainContentAccess extends HttpServlet {
                     int firstArticle = Integer.parseInt(request.getParameter("from"));
                     int articleCount = Integer.parseInt(request.getParameter("count"));
                     String sort_by = request.getParameter("sort_by");
+                    String search_term = request.getParameter("search_term");
 
                     /*Check the sort-by parameter and call the appropriate ArticleDAO method*/
                     List<Article> articles;
 
-                    if (sort_by.equals("title")) {
+                    if (search_term.length() > 0 || sort_by.equals("searchterm")) {
+                        articles = ArticleDAO.getArticlePreviewsBySearchTerm(DB, search_term);
+                    }
+
+                    else if (sort_by.equals("title")) {
 
                         articles = ArticleDAO.getfirstNArticlePreviewsByTitle(DB, firstArticle, articleCount);
 

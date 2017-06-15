@@ -291,16 +291,6 @@
         <url-pattern>/ViewArticleMultimedia</url-pattern>
     </servlet-mapping>
 
-    <!--Get Search Results-->
-    <servlet>
-        <servlet-name>GetSearchResults</servlet-name>
-        <servlet-class>login.system.servlets.GetSearchResults</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>GetSearchResults</servlet-name>
-        <url-pattern>/GetSearchResults</url-pattern>
-    </servlet-mapping>
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
