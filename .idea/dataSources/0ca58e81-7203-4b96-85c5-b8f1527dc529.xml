@@ -232,21 +232,11 @@
     <index id="55" parent="9" name="author_id">
       <ColNames>author_id</ColNames>
     </index>
-    <index id="56" parent="9" name="uniqueArticle">
-      <ColNames>timestamp
-article_title</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="57" parent="9" name="PRIMARY">
+    <key id="56" parent="9" name="PRIMARY">
       <ColNames>article_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="58" parent="9" name="uniqueArticle">
-      <ColNames>timestamp
-article_title</ColNames>
-      <UnderlyingIndexName>uniqueArticle</UnderlyingIndexName>
-    </key>
-    <foreign-key id="59" parent="9" name="uploaded_articles_ibfk_1">
+    <foreign-key id="57" parent="9" name="uploaded_articles_ibfk_1">
       <ColNames>author_id</ColNames>
       <RefSchemaName>uoawhileecoyote</RefSchemaName>
       <RefTableName>registered_users</RefTableName>

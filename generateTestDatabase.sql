@@ -28,11 +28,7 @@ CREATE TABLE uploaded_articles (
   article_title VARCHAR(500)    NOT NULL,
   article_body  TEXT            NOT NULL,
   FOREIGN KEY (author_id) REFERENCES registered_users (user_id)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT uniqueArticle UNIQUE
-  (
-    timestamp, article_title
-  )
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE posted_comments (
