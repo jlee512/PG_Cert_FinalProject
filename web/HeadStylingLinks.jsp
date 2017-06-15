@@ -30,9 +30,7 @@
 <script>
     $(document).ready(function () {
 
-        // Size of the viewport - not used
-        var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
 
         // Represents the number of photos
         var upperLimit = 7;
