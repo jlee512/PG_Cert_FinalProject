@@ -156,7 +156,7 @@ public class UploadMultimedia extends HttpServlet {
                         }
                     }
 
-                    String extension = FilenameUtils.getExtension(fileName);
+                    String extension = FilenameUtils.getExtension(fileName).toLowerCase();
 
                     if (extension.equals("png") || extension.equals("jpeg") || extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4") || extension.equals("gif")) {
 
