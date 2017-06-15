@@ -53,7 +53,7 @@ public class MainContentAccess extends HttpServlet {
 
                     } else if (sort_by.equals("author")) {
 
-                        articles = ArticleDAO.getfirstNArticlePreviewsByTitle(DB, firstArticle, articleCount);
+                        articles = ArticleDAO.getfirstNArticlePreviewsSortedByAuthor(DB, firstArticle, articleCount);
 
                     } else {
 
