@@ -77,6 +77,7 @@
                 });
         }
     </script>
+    <script src="Javascript/form_security_validation.js"></script>
     <style type="text/css">
         #customBtn {
             text-align: center;
