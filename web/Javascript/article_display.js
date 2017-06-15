@@ -52,6 +52,10 @@ var from = 0;
 var count = 4;
 var moreArticles = true;
 var sort_by = "date";
+var date_default_ordering = "DESC";
+var title_default_ordering = "ASC";
+var author_default_ordering = "ASC";
+
 
 
 function successfulArticleLoad(msg) {
@@ -181,8 +185,38 @@ $("#title-sort-button").on("click", function() {
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 
+    /*Remove all sorting classes from the other fields*/
+    $("#author-sort-button").removeClass("sorted");
+    $("#author-sort-button").removeClass("reverse-sorting-order");
+    $("#date-sort-button").removeClass("sorted");
+    $("#date-sort-button").removeClass("reverse-sorting-order");
+
+    date_default_ordering = "DESC";
+    author_default_ordering = "ASC";
+
+    /*If already sorted and sorted in reverse, revert to regular sorting order*/
+    if ($("#title-sort-button").hasClass("sorted") && $("#title-sort-button").hasClass("reverse-sorting-order")) {
+
+        /*If the order is already reversed, remove the class and set the order back to standard*/
+        $("#title-sort-button").removeClass("reverse-sorting-order");
+        title_default_ordering = "ASC";
+
+        /*Else if sorted and not in reverse order, reverse the sorting order*/
+    } else if ($("#title-sort-button").hasClass("sorted")) {
+
+        $("#title-sort-button").addClass("reverse-sorting-order");
+        title_default_ordering = "DESC";
+
+        /*Else the field is being sorted for the first time and set the default ordering*/
+    } else {
+
+        title_default_ordering = "ASC";
+
+    }
+
     sort_by = "title";
     console.log(sort_by);
+    console.log(title_default_ordering);
 
     /*Remove all existing articles*/
     $(".news_feed").empty();
@@ -200,8 +234,39 @@ $("#date-sort-button").on("click", function() {
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 
+    /*Remove all sorting classes from the other fields*/
+    $("#title-sort-button").removeClass("sorted");
+    $("#title-sort-button").removeClass("reverse-sorting-order");
+
+    $("#author-sort-button").removeClass("sorted");
+    $("#author-sort-button").removeClass("reverse-sorting-order");
+
+    title_default_ordering = "ASC";
+    author_default_ordering = "ASC";
+
+    /*If already sorted and sorted in reverse, revert to regular sorting order*/
+    if ($("#date-sort-button").hasClass("sorted") && $("#date-sort-button").hasClass("reverse-sorting-order")) {
+
+        /*If the order is already reversed, remove the class and set the order back to standard*/
+        $("#date-sort-button").removeClass("reverse-sorting-order");
+        date_default_ordering = "DESC";
+
+        /*Else if sorted and not in reverse order, reverse the sorting order*/
+    } else if ($("#date-sort-button").hasClass("sorted")) {
+
+        $("#date-sort-button").addClass("reverse-sorting-order");
+        date_default_ordering = "ASC";
+
+        /*Else the field is being sorted for the first time and set the default ordering*/
+    } else {
+
+        date_default_ordering = "DESC";
+
+    }
+
     sort_by = "date";
     console.log(sort_by);
+    console.log(date_default_ordering);
 
     /*Remove all existing articles*/
     $(".news_feed").empty();
@@ -219,8 +284,38 @@ $("#author-sort-button").on("click", function() {
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 
+    /*Remove all sorting classes from the other fields*/
+    $("#title-sort-button").removeClass("sorted");
+    $("#title-sort-button").removeClass("reverse-sorting-order");
+    $("#date-sort-button").removeClass("sorted");
+    $("#date-sort-button").removeClass("reverse-sorting-order");
+
+    title_default_ordering = "ASC";
+    date_default_ordering = "DESC";
+
+    /*If already sorted and sorted in reverse, revert to regular sorting order*/
+    if ($("#author-sort-button").hasClass("sorted") && $("#author-sort-button").hasClass("reverse-sorting-order")) {
+
+        /*If the order is already reversed, remove the class and set the order back to standard*/
+        $("#author-sort-button").removeClass("reverse-sorting-order");
+        author_default_ordering = "ASC";
+
+        /*Else if sorted and not in reverse order, reverse the sorting order*/
+    } else if ($("#author-sort-button").hasClass("sorted")) {
+
+        $("#author-sort-button").addClass("reverse-sorting-order");
+        author_default_ordering = "DESC";
+
+        /*Else the field is being sorted for the first time and set the default ordering*/
+    } else {
+
+        author_default_ordering = "ASC";
+
+    }
+
     sort_by = "author";
     console.log(sort_by);
+    console.log(author_default_ordering);
 
     /*Remove all existing articles*/
     $(".news_feed").empty();
