@@ -23,6 +23,7 @@ public class ViewArticle extends HttpServlet {
 
         //Don't let users see articles if they are not logged in.
         HttpSession session = request.getSession(true);
+        User user = (User) session.getAttribute("userDetails");
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
 
@@ -32,7 +33,7 @@ public class ViewArticle extends HttpServlet {
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
                 if (request.getParameter("article_id") == null) {
-                    response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
+                    response.sendRedirect("Content?username=" + user.getUsername() + "&notFound=true");
                 } else {
 
                     //Pass the articleID as a parameter when clicking the link to the article.
@@ -46,6 +47,12 @@ public class ViewArticle extends HttpServlet {
 
                     //Get Article object by ID from ArticleDAO.
                     Article article = ArticleDAO.getArticle(DB, articleID);
+                    if (article.getArticle_id() == -1) {
+
+                        response.sendRedirect("Content?username=" + user.getUsername());
+
+                    }
+
                     Timestamp timestamp = article.getArtcle_timestamp();
                     String date_for_output = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(timestamp);
 

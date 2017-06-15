@@ -53,7 +53,7 @@ public class AddAnArticleAttempt extends HttpServlet {
                 String calendar_date_input = request.getParameter("calendar_input");
 
                 /*Check whether a calendar input has been used to supply a publishing date*/
-                if (calendar_date_input.length() > 0) {
+                if (calendar_date_input != null && calendar_date_input.length() > 0) {
                     System.out.println("test");
                     /*Provide the calendar format so that the string output can be processed by the server*/
                     try {

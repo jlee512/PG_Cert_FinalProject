@@ -138,7 +138,7 @@
                         <%--Username input--%>
                         <div class="md-form">
                             <i class="fa fa-user prefix"></i>
-                            <input class="form-control" type="text" id="username" name="username" required minlength="3"
+                            <input class="form-control" type="text" id="username" name="username" required minlength="3" maxlength="20" title="Enter a username between 3 and 20 characters long"
                                    onchange="checkForSpaces(this)"/>
                             <label for="username">New username</label>
                         </div>
