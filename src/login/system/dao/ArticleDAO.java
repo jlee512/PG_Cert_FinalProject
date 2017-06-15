@@ -194,7 +194,7 @@ public class ArticleDAO {
 
         try (Connection c = DB.connection()) {
 
-            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id GROUP BY uploaded_articles.article_id ORDER BY uploaded_articles.author_id ASC LIMIT ? OFFSET ?;")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id GROUP BY uploaded_articles.article_id ORDER BY username ASC LIMIT ? OFFSET ?;")) {
 
                 stmt.setInt(1, numArticles);
                 stmt.setInt(2, fromArticle);
@@ -217,7 +217,7 @@ public class ArticleDAO {
 
         try (Connection c = DB.connection()) {
 
-            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id GROUP BY uploaded_articles.article_id ORDER BY uploaded_articles.author_id DESC LIMIT ? OFFSET ?;")) {
+            try (PreparedStatement stmt = c.prepareStatement("SELECT uploaded_articles.article_id, username, firstname, lastname, uploaded_articles.timestamp, article_title, article_body AS article_preview, COUNT(posted_comments.article_id) AS comment_count FROM uploaded_articles LEFT JOIN registered_users ON uploaded_articles.author_id = registered_users.user_id LEFT JOIN posted_comments ON posted_comments.article_id = uploaded_articles.article_id GROUP BY uploaded_articles.article_id ORDER BY username DESC LIMIT ? OFFSET ?;")) {
 
                 stmt.setInt(1, numArticles);
                 stmt.setInt(2, fromArticle);
