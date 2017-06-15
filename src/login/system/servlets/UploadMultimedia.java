@@ -91,7 +91,6 @@ public class UploadMultimedia extends HttpServlet {
                 FileItem fi = (FileItem) i.next();
 
 
-
                 if (fi.getFieldName().equals("photoOrVideo") || fi.getFieldName().equals("youtubeLink")) {
 
                     System.out.println("new multimedia");
@@ -128,6 +127,7 @@ public class UploadMultimedia extends HttpServlet {
                         while (file.exists()) {
 
                             String extension = FilenameUtils.getExtension(fileName);
+
                             fileName = FilenameUtils.removeExtension(fileName);
                             fileName = fileName.replaceAll("[0-9]+$", "");
 
@@ -157,15 +157,21 @@ public class UploadMultimedia extends HttpServlet {
                     }
 
                     String extension = FilenameUtils.getExtension(fileName);
-                    multimedia.setFile_type("." + extension);
-                    multimedia.setFile_path("Multimedia/" + fileName);
-                    multimedia.setMultimedia_title(fileName);
-                    multimedia_to_upload.add(multimedia);
 
-                    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+                    if (extension.equals("png") || extension.equals("jpeg") || extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4") || extension.equals("gif")) {
+
+                        multimedia.setFile_type("." + extension);
+                        multimedia.setFile_path("Multimedia/" + fileName);
+                        multimedia.setMultimedia_title(fileName);
+                        multimedia_to_upload.add(multimedia);
+                        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
                     /* Write the file */
-                    fi.write(file);
+                        fi.write(file);
+
+
+                    }
+
 
                     // Deal with DAO methods and youtube links
                 } else {
@@ -219,11 +225,6 @@ public class UploadMultimedia extends HttpServlet {
             if (num_uploads > 0 && upload_status == 1) {
                 /*  Send the user back to the profile page and display a useful message temporarily*/
                 response.sendRedirect("ProfilePage?multimediaAdditionStatus=success&num_uploads=" + num_uploads);
-
-            } else if (num_uploads == 0) {
-
-            /* Send the user back to their profile */
-                response.sendRedirect("ProfilePage?multimediaAdditionStatus=no_files");
 
             } else {
 

@@ -65,7 +65,7 @@ function successfulArticleLoad(msg) {
             //Set the title using the username and hyperlinking it to their profile
             multimediaDiv.find(".panel-title").append("<div style='width: 65%; display: inline-block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>Published by: <strong><a href='PublicProfile?username=" + multimedia.username + "'style='color: #f9a825;'>" + multimedia.username + "</a></strong></div>");
 
-            multimediaDiv.find(".panel-title").append("<div class='view_comments pull-right' style='display: inline-block; padding: 5px 10px 5px 10px; background-color: #64dd17; border-radius: 2px;'><strong><a href='ViewArticle?article_id=" + multimedia.article_id + "'style='color: white;'>" + "<i class='fa fa-eye' aria-hidden='true'></i></a></strong></div>");
+            multimediaDiv.find(".panel-title").append("<a href='ViewArticle?article_id=" + multimedia.article_id + "'style='color: white;'><div class='view_comments pull-right' style='display: inline-block; padding: 5px 10px 5px 10px; background-color: #64dd17; border-radius: 2px;'><strong>" + "<i class='fa fa-eye' aria-hidden='true'></i></strong></div></a>");
 
 
             //IMAGE//
