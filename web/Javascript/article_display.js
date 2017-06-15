@@ -52,6 +52,7 @@ var from = 0;
 var count = 4;
 var moreArticles = true;
 var sort_by = "date";
+var search_term = "";
 var date_default_ordering = "DESC";
 var title_default_ordering = "ASC";
 var author_default_ordering = "ASC";
@@ -153,7 +154,7 @@ function loadArticlesIncrement() {
 
         url: 'MainContentAccess',
         type: 'GET',
-        data: {from: from, count: count, sort_by: sort_by},
+        data: {from: from, count: count, sort_by: sort_by, search_term: search_term},
         success: function (msg) {
             successfulArticleLoad(msg);
         },
@@ -316,6 +317,28 @@ $("#author-sort-button").on("click", function() {
     sort_by = "author";
     console.log(sort_by);
     console.log(author_default_ordering);
+
+    /*Remove all existing articles*/
+    $(".news_feed").empty();
+
+    /*Reset article count and'more_articles' variables*/
+    from = 0;
+    moreArticles = true;
+
+    /*Load first increment of articles*/
+    loadArticlesIncrement();
+
+});
+
+$("#search-button").on("click", function() {
+
+    $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
+
+    sort_by = "searchterm";
+    console.log(sort_by);
+
+    search_term = $("#searchbar").val();
+    console.log(search_term);
 
     /*Remove all existing articles*/
     $(".news_feed").empty();

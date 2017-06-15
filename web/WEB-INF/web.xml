@@ -291,8 +291,6 @@
         <url-pattern>/ViewArticleMultimedia</url-pattern>
     </servlet-mapping>
 
-
-
     <!--=======================================================================================================-->
     <!--JSP Mapping-->
 
