@@ -14,7 +14,7 @@
 
 <style>
 
-    #homepageVideo {
+    .homepageVideo {
         height: 100%;
         width: 100%;
         background-position: center;
@@ -26,12 +26,24 @@
         overflow-y: hidden;
     }
 
+    .homepageImage {
+        /*background-image: url("Multimedia/BackgroundImages/2.jpg");*/
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #def4f7;
+    }
+
 </style>
 
 <body>
 
-<div id="homepageVideo">
-    <video autoplay loop muted src="Multimedia/indexVideo.mp4"></video>
+
+
+<div class="homepageVideo toggleViewPort">
+
+    <%--<video autoplay loop muted src="Multimedia/indexVideo.mp4"></video>--%>
     <div class="vertical-center " style="position: absolute; width: 100%">
         <div class="text-center">
             <div class=" container">
@@ -44,7 +56,25 @@
         </div>
     </div>
 </div>
+<script>
 
+    // Size of the viewport - not used
+    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+    console.log(w, h);
+
+    if ( w > 1200 && h > 500) {
+        $(".homepageVideo").prepend("<video autoplay loop muted src='Multimedia/indexVideo.mp4'></video>");
+    } else {
+        $('div.toggleViewPort').removeClass("homepageVideo");
+        $(".toggleViewPort").addClass("homepageImage");
+        $(".homepageImage").css("background-image", "url('Multimedia/BackgroundImages/7.jpg')")
+
+    }
+
+
+</script>
 </body>
 <%@include file="BodyStylingLinks.jsp" %>
 </html>
