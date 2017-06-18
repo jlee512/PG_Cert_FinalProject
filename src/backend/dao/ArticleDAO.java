@@ -7,8 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ycow194 on 1/06/2017.
+ * The ArticleDAO class links the backend representation of an article object with the database.
+ *
+ * The contained methods are called from the relevant servlets.
+ *
  */
+
 public class ArticleDAO {
 
 
@@ -23,6 +27,7 @@ public class ArticleDAO {
         * (4) Database connection error*/
     /*------------------------------------------------------------*/
 
+    /*Create an article instance to be used when passing values to the database*/
         Article tempArticle = new Article(author_id, article_title, article_timestamp, article_body);
 
         try (Connection c = DB.connection()) {
@@ -130,7 +135,7 @@ public class ArticleDAO {
             e.printStackTrace();
         }
 
-        /*Returns a list of 'N' articles or a list of size = 0 if not articles are returned by a given query*/
+        /*Returns a list of 'N' articles or a list of size = 0 if no articles are returned by a given query*/
         return articles;
     }
 
@@ -162,7 +167,7 @@ public class ArticleDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        /*Returns a list of 'N' articles or a list of size = 0 if not articles are returned by a given query*/
+        /*Returns a list of 'N' articles or a list of size = 0 if no articles are returned by a given query*/
         return articles;
     }
 
@@ -194,7 +199,7 @@ public class ArticleDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        /*Returns a list of 'N' articles or a list of size = 0 if not articles are returned by a given query*/
+        /*Returns a list of 'N' articles or a list of size = 0 if no articles are returned by a given query*/
         return articles;
     }
 
@@ -226,7 +231,7 @@ public class ArticleDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        /*Returns a list of 'N' articles or a list of size = 0 if not articles are returned by a given query*/
+        /*Returns a list of 'N' articles or a list of size = 0 if no articles are returned by a given query*/
         return articles;
     }
 
@@ -258,7 +263,7 @@ public class ArticleDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        /*Returns a list of 'N' articles or a list of size = 0 if not articles are returned by a given query*/
+        /*Returns a list of 'N' articles or a list of size = 0 if no articles are returned by a given query*/
         return articles;
     }
 
@@ -290,7 +295,7 @@ public class ArticleDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        /*Returns a list of 'N' articles or a list of size = 0 if not articles are returned by a given query*/
+        /*Returns a list of 'N' articles or a list of size = 0 if no articles are returned by a given query*/
         return articles;
     }
 
@@ -324,7 +329,7 @@ public class ArticleDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        /*Returns a list of 'N' articles or a list of size = 0 if not articles are returned by a given query*/
+        /*Returns a list of 'N' articles or a list of size = 0 if no articles are returned by a given query*/
         return articles;
     }
 
@@ -492,7 +497,7 @@ public class ArticleDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        /*Returns a list of 'N' articles or a list of size = 0 if not articles are returned by a given query*/
+        /*Returns a list of 'N' articles or a list of size = 0 if no articles are returned by a given query*/
         return articles;
     }
 
