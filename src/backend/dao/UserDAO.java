@@ -9,9 +9,18 @@ import java.sql.*;
 /**
  * Created by jlee512 on 29/05/2017.
  */
+
+/**
+ * The UserDAO class links the backend representation of an user object with the database.
+ *
+ * The contained methods are called from the relevant servlets.
+ *
+ */
+
 public class UserDAO {
 
     /*Add a new user to the Database*/
+
     public static int addUserToDB(MySQL DB, String userName, int iterations, byte[] salt, byte[] hash, String email, String phone, String occupation, String city, String profile_description, String profile_picture, String firstname, String lastname) {
 
         /*Return method status
@@ -45,7 +54,7 @@ public class UserDAO {
 
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
-                System.out.println("User added to the database");
+//                User added to the database
 
                 /*Get the user ID for use within the session object*/
                 try(PreparedStatement stmt1 = c.prepareStatement("SELECT * FROM registered_users WHERE username = ?")) {
@@ -55,6 +64,7 @@ public class UserDAO {
                     try (ResultSet r = stmt1.executeQuery()) {
                         if (r.next()) {
                             int user_id = r.getInt("user_id");
+                            /*If the user has been found, return the successful status which is the user_id (a positive integer)*/
                             return user_id;
                         } else {
                             throw new SQLException();
@@ -71,8 +81,10 @@ public class UserDAO {
             e.printStackTrace();
             return -4;
         }
-        /*------------------------------------------------------------*/
     }
+
+    /*---------------------------------------------------------------*/
+    /*Update a user password in the database (core of the change password functionality)*/
 
     public static int updateUserPassword(MySQL DB, User user, String passwordChange) {
         /*Convert username to lookup to lowercase*/
@@ -94,7 +106,7 @@ public class UserDAO {
                 stmt.setString(4, usernameToLookup);
 
                 stmt.executeUpdate();
-                System.out.println("User password updated");
+//              If no exceptions are thrown, the user password has been updated and return the successful status = 1
                 return 1;
             }
         } catch (SQLException e) {
@@ -107,8 +119,8 @@ public class UserDAO {
 
     }
 
-
-    /*Get a user's details (hashed password, salt and number of iterations) for use with login validation*/
+    /*---------------------------------------------------------------*/
+    /*Get a user's details based on their username (hashed password, salt and number of iterations) for use with login validation*/
     public static User getUser(MySQL DB, String usernameToLookup) {
     /*----------------------------------------------------*/
         /*Convert username to lookup to lowercase*/
@@ -130,39 +142,16 @@ public class UserDAO {
             e.printStackTrace();
         }
 
-        /*----------------------------------------------------*/
+        /*If no exceptions are thrown, the selected user will be returned (otherwise the dummy user object will be returned which is to be recognised by the calling methods)*/
         return user;
     }
 
-    public static User getUser(MySQL DB, int IDtoLookUp) {
-    /*----------------------------------------------------*/
-
-        /*Method development to verify user password*/
-        User user = new User(null, null, null, -1, null, null, null, null, null, null, null, null);
-
-        try (Connection c = DB.connection()) {
-            try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM registered_users WHERE user_id = ?")) {
-                /**/
-                stmt.setInt(1, IDtoLookUp);
-
-                executeUserSQLSelectStatement(user, stmt);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        /*----------------------------------------------------*/
-        return user;
-    }
-
+/*---------------------------------------------------------------*/
     /*Get user by email for Google sign-in*/
 
     public static User getUserByEmail(MySQL DB, String email) {
-    /*----------------------------------------------------*/
 
-        /*Method development to verify user password*/
+        /*Method developed to verify user password*/
         User user = new User(null, null, null, -1, null, null, null, null, null, null, null, null);
 
         try (Connection c = DB.connection()) {
@@ -178,10 +167,13 @@ public class UserDAO {
             e.printStackTrace();
         }
 
-        /*----------------------------------------------------*/
+        /*If no exceptions are thrown, the selected user will be returned (otherwise the dummy user object will be returned which is to be recognised by the calling methods)*/
         return user;
     }
 
+
+    /*---------------------------------------------------------------*/
+    /*Extracted method for processing a user MySQL query and update Java User object*/
 
     private static void executeUserSQLSelectStatement(User user, PreparedStatement stmt) throws SQLException {
         try (ResultSet r = stmt.executeQuery()) {
@@ -218,15 +210,16 @@ public class UserDAO {
 
                 user.setUserParameters(userIdLookup, usernameLookup, hashLookup, saltLookup, iterationsLookup, email, phone, occupation, city, profile_description, profile_picture, firstnameLookup, lastnameLookup);
 
-                System.out.println("User retrieved from database");
+//                User retrieved from database
             } else {
             /*If the user can't be found in the database, return null user*/
-                System.out.println("User could not be found in the database");
+//                User could not be found in the database
             }
         }
     }
 
-    /*Updates the users details*/
+    /*---------------------------------------------------------------*/
+    /*A method to update a user's details*/
     public static int updateUserDetails(MySQL DB, String userName, String email, String phone, String occupation, String city, String profile_description, String firstname, String lastname, String original_username) {
 
         /*Return method status
@@ -237,7 +230,6 @@ public class UserDAO {
     /*------------------------------------------------------------*/
     /*convert username to lowercase to avoid duplication*/
         String username = userName.toLowerCase();
-        System.out.println(username);
 
         /*Addition to database*/
         User tempUser = new User(username, email, phone, occupation, city, profile_description, firstname, lastname);
@@ -254,10 +246,8 @@ public class UserDAO {
                     if(resultSet.next()) {
                         int user_id = resultSet.getInt(1);
                         tempUser.setUser_id(user_id);
-                        System.out.println("User");
                     } else {
-
-                        System.out.println("User could not be located");
+//                        User could not be located
                     }
                 }
             }
@@ -278,7 +268,7 @@ public class UserDAO {
 
                 /*Execute the prepared statement*/
                 stmt1.executeUpdate();
-                System.out.println("User details successfully updated");
+                /*If no exceptions are thrown, return the successful status = 1*/
                 return 1;
 
             }
@@ -291,8 +281,12 @@ public class UserDAO {
             e.printStackTrace();
             return 4;
         }
-        /*------------------------------------------------------------*/
+
     }
+
+
+    /*---------------------------------------------------------------*/
+    /*Method to delete a user account*/
 
     public static int deleteUserAccount(MySQL DB, String username) {
 
@@ -302,9 +296,9 @@ public class UserDAO {
 
                 stmt.setString(1, username);
 
-                /*Execute the prepared statement*/
+                /*Execute the prepared statement (cascading update/delete functionality included to also remove any comments/articles written by the user being deleted*/
                 stmt.executeUpdate();
-                System.out.println("User successfully deleted");
+                /*If no exceptions are thrown, return the successfuly status = 1*/
                 return 1;
             }
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -317,6 +311,9 @@ public class UserDAO {
             return 4;
         }
     }
+
+    /*---------------------------------------------------------------*/
+    /*Method to update a user's profile picture*/
 
     public static int updateProfilePicture(MySQL DB, String profile_picture, String username) {
 
@@ -329,7 +326,8 @@ public class UserDAO {
 
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
-                System.out.println("User picture successfully updated");
+                //User picture successfully updated
+                /*If no exceptions are thrown, return the successful status = 1*/
                 return 1;
             }
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -342,4 +340,9 @@ public class UserDAO {
             return 4;
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

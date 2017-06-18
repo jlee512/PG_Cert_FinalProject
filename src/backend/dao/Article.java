@@ -31,8 +31,10 @@ public class Article implements Serializable {
             Article Constructors
 ------------------------------------------------*/
 
-    /*Used when adding-an-article. Also used to populate an empty temp articles in DAO methods*/
+    public Article () {
+    }
 
+    /*Used when adding-an-article. Also used to populate an empty temp articles in DAO methods*/
     public Article(int author_id, String article_title, Timestamp article_timestamp, String article_body) {
         this.author_id = author_id;
         this.article_title = article_title;
@@ -53,6 +55,7 @@ public class Article implements Serializable {
         this.comment_count = comment_count;
     }
 
+    /*----------------------------------------------------------------*/
 
     /*Used in the ArticleDAO to set all the parameters for an Article instance which has been sucessfully looked up in the database */
 

@@ -1,13 +1,21 @@
 package backend.dao;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
  * Created by catherinedechalain on 1/06/17.
  */
+
+/**
+ * The Comment class stores the backend representation of an comment object.
+ *
+ * Comments can be added/edited/deleted/replied-to by users.
+ *
+ */
 public class Comment implements Serializable {
+
+    /*Comment instance variables*/
     private int commentID;
     private int articleID;
     private int authorID;
@@ -15,10 +23,15 @@ public class Comment implements Serializable {
     private Timestamp timestamp;
     private String content;
     private boolean isParent;
+
+    /*Addition instance variables used when multimedia lookups are joined with users table*/
     private String author_username;
     private String author_firstname;
     private String author_lastname;
 
+    /*---------------------------------------------
+            Comment Constructors
+------------------------------------------------*/
 
     public Comment(){
     }
@@ -32,89 +45,136 @@ public class Comment implements Serializable {
         this.isParent = false;
     }
 
+    /*----------------------------------------------------------------*/
+
+    /**
+     * @param commentID represents the autoincrement database id assigned to a specific comment
+     */
+
+    public void setCommentID(int commentID){
+        this.commentID = commentID;
+    }
+
     public int getCommentID() {
         return commentID;
     }
 
-    public void setCommentID(int commentID){
-        this.commentID = commentID;
+
+    /**
+     * @param articleID represents the foreign key between the uploaded_articles table and the posted_comments table.
+     */
+
+    public void setArticleID(int articleID){
+        this.articleID = articleID;
     }
 
     public int getArticleID(){
         return articleID;
     }
 
-    public void setArticleID(int articleID){
-        this.articleID = articleID;
+
+    /**
+     * @param authorID represents the foreign key between the posted_comments table and the registered_users table.
+     */
+
+    public void setAuthorID(int authorID){
+        this.authorID = authorID;
     }
 
     public int getAuthorID(){
         return authorID;
     }
 
-    public void setAuthorID(int authorID){
-        this.authorID = authorID;
+    /**
+     * @param parentCommentID represents the foreign key between the parent comments and reply comments (i.e. children).
+     */
+
+    public void setParentCommentID(int parentCommentID){
+        this.parentCommentID = parentCommentID;
     }
 
     public int getParentCommentID(){
         return parentCommentID;
     }
 
-    public void setParentCommentID(int parentCommentID){
-        this.parentCommentID = parentCommentID;
+
+    /**
+     * @param timestamp represents the comment timestamp
+     */
+
+    public void setTimestamp(Timestamp timestamp){
+        this.timestamp = timestamp;
     }
 
     public Timestamp getTimestamp(){return timestamp;}
 
-    public void setTimestamp(Timestamp timestamp){
-        this.timestamp = timestamp;
+
+    /**
+     * @param content represents the comment text
+     */
+
+    public void setContent(String content){
+        this.content = content;
     }
 
     public String getContent(){
         return content;
     }
 
-    public void setContent(String content){
-        this.content = content;
+
+    /**
+     * @param isParent a boolean representing whether the comment is a parent comment
+     */
+
+    public void setIsParent(boolean isParent){
+        this.isParent = isParent;
     }
 
     public boolean getIsParent(){
         return isParent;
     }
 
-    public void setIsParent(boolean isParent){
-        this.isParent = isParent;
-    }
 
-    public boolean isParent() {
-        return isParent;
+    /**
+     * @param author_username represents the username string for a specific author_id when the posted_comments table is joined to the registered_users table
+     */
+
+    public void setAuthor_username(String author_username) {
+        this.author_username = author_username;
     }
 
     public String getAuthor_username() {
         return author_username;
     }
 
+
+    /**
+     * @param author_firstname represents the firstname string for a specific author_id when the uploaded_articles table is joined to the registered_users table
+     */
+
+    public void setAuthor_firstname(String author_firstname) {
+        this.author_firstname = author_firstname;
+    }
+
     public String getAuthor_firstname() {
         return author_firstname;
+    }
+
+
+    /**
+     * @param author_lastname represents the lastname string for a specific author_id when the uploaded_articles table is joined to the registered_users table
+     */
+
+    public void setAuthor_lastname(String author_lastname) {
+        this.author_lastname = author_lastname;
     }
 
     public String getAuthor_lastname() {
         return author_lastname;
     }
 
-    public void setParent(boolean parent) {
-        isParent = parent;
-    }
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
-    public void setAuthor_username(String author_username) {
-        this.author_username = author_username;
-    }
-
-    public void setAuthor_firstname(String author_firstname) {
-        this.author_firstname = author_firstname;
-    }
-
-    public void setAuthor_lastname(String author_lastname) {
-        this.author_lastname = author_lastname;
-    }
 }

@@ -48,9 +48,9 @@ public class ProfilePageContent extends HttpServlet {
 
 
                 String username = request.getParameter("username");
-                System.out.println(username);
 
                 String firstname = request.getParameter("firstname");
+
                 String lastname = request.getParameter("lastname");
                 String occupation = request.getParameter("occupation");
                 String location = request.getParameter("location");
