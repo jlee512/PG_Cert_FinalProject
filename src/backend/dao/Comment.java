@@ -24,7 +24,7 @@ public class Comment implements Serializable {
     private String content;
     private boolean isParent;
 
-    /*Addition instance variables used when article lookups are joined with users table*/
+    /*Addition instance variables used when multimedia lookups are joined with users table*/
     private String author_username;
     private String author_firstname;
     private String author_lastname;

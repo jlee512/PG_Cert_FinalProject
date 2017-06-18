@@ -15,14 +15,14 @@ import java.io.Serializable;
 
 public class Multimedia implements Serializable {
 
-    /*Article instance variables*/
+    /*Multimedia instance variables*/
     private int multimedia_id;
     private int article_id;
     private String file_type;
     private String file_path;
     private String multimedia_title;
 
-    /*Addition instance variables used when article lookups are joined with users table*/
+    /*Addition instance variables used when multimedia lookups are joined with the users table*/
     private String username;
 
     /*---------------------------------------------

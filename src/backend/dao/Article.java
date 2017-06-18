@@ -35,7 +35,6 @@ public class Article implements Serializable {
     }
 
     /*Used when adding-an-article. Also used to populate an empty temp articles in DAO methods*/
-
     public Article(int author_id, String article_title, Timestamp article_timestamp, String article_body) {
         this.author_id = author_id;
         this.article_title = article_title;
