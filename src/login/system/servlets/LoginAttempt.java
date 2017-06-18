@@ -41,7 +41,7 @@ public class LoginAttempt extends HttpServlet {
             /*If user credentials are validated, create a session with a 5 minute maximum inactivity timeout*/
             System.out.println("User details verified, successful login!");
             HttpSession session = request.getSession(true);
-            session.setMaxInactiveInterval(60 * 5);
+            session.setMaxInactiveInterval(60 * 60 * 24);
 
             /*Attach user details and loginStatus to the HttpSession*/
             session.setAttribute("loginStatus", "active");

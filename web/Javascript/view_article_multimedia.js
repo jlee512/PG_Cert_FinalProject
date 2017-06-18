@@ -77,7 +77,7 @@ function successfulArticleLoad(msg) {
             }
 
             //UPLOADED VIDEO
-            if (multimedia.file_type == ".mp4") {
+            if (multimedia.file_type == ".mp4" || multimedia.file_type == "mpeg-4") {
 
                 multimediaDiv.find(".panel-body").html("<div align='center' class='embed-responsive embed-responsive-16by9'><video class='embed-responsive-item' controls ><source src='" + multimedia.file_path + "' type='video/mp4'></video></div>");
                 multimediaDiv.find(".panel-body").css("text-align", "left");

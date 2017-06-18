@@ -50,14 +50,18 @@ public class ViewArticle extends HttpServlet {
                     Article article = ArticleDAO.getArticle(DB, articleID);
                     System.out.println(article.getAuthor_id());
 
-                    if (article.getAuthor_id() == -1) {
+                    if (article.getAuthor_id() == -1 || article.getArtcle_timestamp() == null) {
 
                         response.sendRedirect("Content?username=" + user.getUsername());
 
                     } else {
 
                         Timestamp timestamp = article.getArtcle_timestamp();
+
+
                         String date_for_output = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(timestamp);
+
+
 
                         //Set it as an attribute to pass to the JSP.
                         request.setAttribute("article", article);

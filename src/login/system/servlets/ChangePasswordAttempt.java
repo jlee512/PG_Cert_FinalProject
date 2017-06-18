@@ -47,7 +47,7 @@ public class ChangePasswordAttempt extends HttpServlet {
                 String newPasswordStrVerify = request.getParameter("newPasswordVerify");
 
         /*Check if the google sign-in status is in the session, if so allow the user to update their password*/
-                if ((boolean) session.getAttribute("googleSignIn")) {
+                if (session.getAttribute("googleSignIn") != null && (boolean) session.getAttribute("googleSignIn")) {
 
                     int passwordChangeStatus = UserDAO.updateUserPassword(DB, user, newPasswordStr);
 

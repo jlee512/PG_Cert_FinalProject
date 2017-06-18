@@ -58,16 +58,13 @@ public class MainContentAccess extends HttpServlet {
                         switch (ordering) {
 
                             case "ASC":
-
+                                articles = ArticleDAO.getfirstNArticlePreviewsByTitle(DB, firstArticle, articleCount);
                                 break;
 
                             case "DESC":
-
+                                articles = ArticleDAO.getfirstNArticlePreviewsByTitleDESC(DB, firstArticle, articleCount);
                                 break;
                         }
-
-
-                        articles = ArticleDAO.getfirstNArticlePreviewsByTitle(DB, firstArticle, articleCount);
 
                     } else if (sort_by.equals("author")) {
 

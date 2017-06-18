@@ -108,11 +108,11 @@ function successfulArticleLoad(msg) {
             cookie_date.setTime(cookie_date.getTime() + (24 * 60 * 60 * 1000 * 0.5));
             var expires = "expires=" + cookie_date.toUTCString();
 
-            document.cookie = article.article_id + "_full_article_body=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = article.article_id + "_full_article_body=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/while_e_coyote/ProfilePage;";
 
             var full_article_body = encodeURI(article.article_body_full);
 
-            document.cookie = article.article_id + "_full_article_body=" + full_article_body + ";" + expires + "; path=/";
+            document.cookie = article.article_id + "_full_article_body=" + full_article_body + ";" + expires + "; path=/while_e_coyote/ProfilePage";
 
         }
 

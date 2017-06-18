@@ -47,7 +47,7 @@ $('.news_feed').on('mouseenter', '.individualArticleLink', hoverBackgroundColor)
 
 $('.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundColor);
 
-/* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
+/* Setup global variables to store the state of article loading on the page at a given point in time as well as sorting mechanisms*/
 var from = 0;
 var count = 4;
 var moreArticles = true;
@@ -57,13 +57,14 @@ var search_term = "";
 var date_default_ordering = "DESC";
 var title_default_ordering = "ASC";
 var author_default_ordering = "ASC";
+var scroll_registered = false;
 
 
 
 function successfulArticleLoad(msg) {
 
     var articleContainer = $(".news_feed");
-
+    
     if (msg.length == 0){
         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
         $('.loader-wrapper').hide();
@@ -108,6 +109,7 @@ function successfulArticleLoad(msg) {
             }
         }
     }
+    scroll_registered = false;
 }
 
 function formatDate(date) {
@@ -145,15 +147,20 @@ function failedArticleLoad(jqXHR, textStatus, errorThrown) {
 
 }
 
-function loadArticlesIncrement() {
+function loadArticlesIncrement(asynchronous) {
 
     /*Show the articles loader*/
     $('.loader-wrapper').show();
+
+    console.log(sort_by);
+    console.log(ordering);
+    console.log(search_term);
 
     /*Start an AJAX call to load more articles*/
     $.ajax({
 
         url: 'MainContentAccess',
+        async: true,
         type: 'GET',
         data: {from: from, count: count, sort_by: sort_by, ordering: ordering, search_term: search_term},
         success: function (msg) {
@@ -176,13 +183,14 @@ $(document).ready(function () {
     $(window).scroll(function() {
 
         /*Function to facilitate infinite scrolling of articles*/
-        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) && moreArticles) {
-            loadArticlesIncrement();
+        if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) && moreArticles && !scroll_registered) {
+            scroll_registered = true;
+            loadArticlesIncrement(false);
         }
     });
 
     /*Load initial four articles*/
-    loadArticlesIncrement();
+    loadArticlesIncrement(true);
 });
 
 /*---------------------------------Title sort----------------------------------*/
@@ -238,6 +246,7 @@ $("#title-sort-button").on("click", function() {
 
     sort_by = "title";
     ordering = title_default_ordering;
+    search_term = "";
     console.log(sort_by);
     console.log(title_default_ordering);
 
@@ -249,7 +258,7 @@ $("#title-sort-button").on("click", function() {
     moreArticles = true;
 
     /*Load first increment of articles*/
-    loadArticlesIncrement();
+    loadArticlesIncrement(true);
 
 });
 
@@ -307,6 +316,7 @@ $("#date-sort-button").on("click", function() {
 
     sort_by = "date";
     ordering = date_default_ordering;
+    search_term = "";
     console.log(sort_by);
     console.log(date_default_ordering);
 
@@ -318,7 +328,7 @@ $("#date-sort-button").on("click", function() {
     moreArticles = true;
 
     /*Load first increment of articles*/
-    loadArticlesIncrement();
+    loadArticlesIncrement(true);
 
 });
 
@@ -375,6 +385,7 @@ $("#author-sort-button").on("click", function() {
 
     sort_by = "author";
     ordering = author_default_ordering;
+    search_term = "";
     console.log(sort_by);
     console.log(author_default_ordering);
 
@@ -386,7 +397,7 @@ $("#author-sort-button").on("click", function() {
     moreArticles = true;
 
     /*Load first increment of articles*/
-    loadArticlesIncrement();
+    loadArticlesIncrement(true);
 
 });
 
@@ -420,6 +431,6 @@ $("#search-button").on("click", function() {
     moreArticles = true;
 
     /*Load first increment of articles*/
-    loadArticlesIncrement();
+    loadArticlesIncrement(true);
 
 });
