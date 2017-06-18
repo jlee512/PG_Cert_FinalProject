@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import static login.system.servlets.AddAnArticleAttempt.inputContainsHTML;
+
 /**
  * Created by ycow194 on 6/06/2017.
  */
@@ -61,6 +63,11 @@ public class ProfilePageContent extends HttpServlet {
                 String phone = request.getParameter("phone");
                 String aboutme = request.getParameter("aboutme");
 
+                if (inputContainsHTML(firstname) || inputContainsHTML(lastname) || inputContainsHTML(occupation) || inputContainsHTML(location) || inputContainsHTML(email) || inputContainsHTML(phone) || inputContainsHTML(aboutme)) {
+
+                    response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=invalidUsername");
+                    return;
+                }
 
                 int userUpdateStatus = UserDAO.updateUserDetails(DB, username, email, phone, occupation, location, aboutme, firstname, lastname, original_username);
 
@@ -91,7 +98,7 @@ public class ProfilePageContent extends HttpServlet {
                 } else if (userUpdateStatus == 3) {
 
                     System.out.println("Invalid username");
-                    response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=invalideUsername");
+                    response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=invalidUsername");
 
                 } else {
 

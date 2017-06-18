@@ -5,13 +5,14 @@ import login.system.dao.UserDAO;
 import login.system.db.MySQL;
 import login.system.passwords.Passwords;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+import static login.system.servlets.AddAnArticleAttempt.inputContainsHTML;
 
 /**
  * Created by Julian on 30-May-17.
@@ -49,6 +50,13 @@ public class ChangePasswordAttempt extends HttpServlet {
         /*Check if the google sign-in status is in the session, if so allow the user to update their password*/
                 if (session.getAttribute("googleSignIn") != null && (boolean) session.getAttribute("googleSignIn")) {
 
+                    if (inputContainsHTML(newPasswordStr) || inputContainsHTML(newPasswordStrVerify)) {
+
+                        response.sendRedirect("ChangePassword?passwordChangeStatus=invalid&username=" + user.getUsername());
+                        return;
+
+                    }
+
                     int passwordChangeStatus = UserDAO.updateUserPassword(DB, user, newPasswordStr);
 
                     user = checkPasswordChangeStatus(response, DB, session, user, passwordChangeStatus);
@@ -69,6 +77,15 @@ public class ChangePasswordAttempt extends HttpServlet {
                             response.sendRedirect("ChangePassword?passwordChangeStatus=newPasswordMismatch&username=" + user.getUsername());
                         } else {
                 /*If the new login.passwords do match, updated the database with the new password hash, salt and iterations*/
+
+                            if (inputContainsHTML(newPasswordStr) || inputContainsHTML(newPasswordStrVerify)) {
+
+                                response.sendRedirect("ChangePassword?passwordChangeStatus=invalid&username=" + user.getUsername());
+                                return;
+
+                            }
+
+
                             int passwordChangeStatus = UserDAO.updateUserPassword(DB, user, newPasswordStr);
 
                             user = checkPasswordChangeStatus(response, DB, session, user, passwordChangeStatus);

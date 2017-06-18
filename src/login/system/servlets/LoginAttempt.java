@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static login.system.servlets.AddAnArticleAttempt.inputContainsHTML;
+
 /**
  * Created by jlee512 on 29/05/2017.
  */
@@ -30,6 +32,13 @@ public class LoginAttempt extends HttpServlet {
 
         String usernameAttempt = request.getParameter("username");
         String passwordAttempt = request.getParameter("password");
+
+        if (inputContainsHTML(usernameAttempt) || inputContainsHTML(passwordAttempt)) {
+
+            response.sendRedirect("Login?loginStatus=invalidUsername");
+            return;
+
+        }
 
         /*Convert password to char array and hash*/
         User user = UserDAO.getUser(DB, usernameAttempt);

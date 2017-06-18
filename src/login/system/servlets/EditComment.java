@@ -1,6 +1,7 @@
 package login.system.servlets;
 
 import login.system.dao.CommentDAO;
+import login.system.dao.User;
 import login.system.db.MySQL;
 
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+import static login.system.servlets.AddAnArticleAttempt.inputContainsHTML;
 
 /**
  * Created by cbla080 on 7/06/2017.
@@ -26,6 +29,7 @@ public class EditComment extends HttpServlet {
         MySQL DB = new MySQL();
 
         HttpSession session = request.getSession(true);
+        User user  = (User) session.getAttribute("userDetails");
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
         }
@@ -37,6 +41,12 @@ public class EditComment extends HttpServlet {
                 int commentID = Integer.parseInt(request.getParameter("comment_id"));
                 int articleID = Integer.parseInt(request.getParameter("article_id"));
                 String content = request.getParameter("comment_body");
+
+                if (inputContainsHTML(content)) {
+                    response.sendRedirect("Content?username=" + user.getUsername());
+                    return;
+                }
+
                 CommentDAO.editComment(DB, commentID, content);
                 response.sendRedirect("ViewArticle?article_id=" + articleID);
             }

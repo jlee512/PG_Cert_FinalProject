@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
 
+import static login.system.servlets.AddAnArticleAttempt.inputContainsHTML;
+
 /**
  * Created by Julian on 12/06/2017.
  */
@@ -47,6 +49,11 @@ public class EditAnArticle extends HttpServlet {
                 String title_update = request.getParameter("article_title_input");
                 String body_update = request.getParameter("article_body_input");
                 Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+                if (inputContainsHTML(title_update) || inputContainsHTML(body_update)) {
+                    response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&edit_status=invalid");
+                    return;
+                }
 
 
                 int edit_status = ArticleDAO.updateArticle(DB, article_id, author_id, title_update, body_update, currentTimestamp);

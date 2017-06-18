@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static login.system.servlets.AddAnArticleAttempt.inputContainsHTML;
+
 /**
  * Created by jlee512 on 30/05/2017.
  */
@@ -33,6 +35,14 @@ public class RegistrationAttempt extends HttpServlet {
         String emailInput = request.getParameter("email");
         String passwordInput = request.getParameter("password");
         String passwordVerificationInput = request.getParameter("passwordVerify");
+
+        if (inputContainsHTML(usernameInput) || inputContainsHTML(emailInput) || inputContainsHTML(passwordInput) || inputContainsHTML(passwordVerificationInput)) {
+
+            response.sendRedirect("Registration?registrationStatus=invalid");
+            return;
+
+        }
+
         String phoneInput = "";
         String occupationInput = "";
         String cityInput = "";

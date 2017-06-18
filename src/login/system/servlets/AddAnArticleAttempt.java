@@ -15,6 +15,8 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by jlee512 on 8/06/2017.
@@ -52,9 +54,13 @@ public class AddAnArticleAttempt extends HttpServlet {
                 String article_body_input = request.getParameter("article_body_input");
                 String calendar_date_input = request.getParameter("calendar_input");
 
+                if (inputContainsHTML(article_title_input) || inputContainsHTML(article_body_input)) {
+                    response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=invalid" + "&articleadded=invalid");
+                    return;
+                }
+
                 /*Check whether a calendar input has been used to supply a publishing date*/
                 if (calendar_date_input != null && calendar_date_input.length() > 0) {
-                    System.out.println("test");
                     /*Provide the calendar format so that the string output can be processed by the server*/
                     try {
 
@@ -70,7 +76,6 @@ public class AddAnArticleAttempt extends HttpServlet {
                     }
                 }
 
-                System.out.println(timestamp_for_article);
 
                 int articleAdditionStatus = ArticleDAO.addArticleToDB(DB, author_id, article_title_input, timestamp_for_article, article_body_input);
 
@@ -98,4 +103,22 @@ public class AddAnArticleAttempt extends HttpServlet {
             }
         }
     }
+
+    public static boolean inputContainsHTML (String input) {
+
+        Pattern pattern = Pattern.compile(".*<[^>]+>.*|.*\\s");
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find()) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+
 }

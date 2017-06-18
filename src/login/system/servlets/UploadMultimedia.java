@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static login.system.servlets.AddAnArticleAttempt.inputContainsHTML;
+
 /**
  * Created by ycow194 on 13/06/2017.
  */
@@ -186,7 +188,7 @@ public class UploadMultimedia extends HttpServlet {
                     }
 
 
-                    if (fi.getFieldName().equals("youtubeLink") && fi.getString().length() != 0) {
+                    if (fi.getFieldName().equals("youtubeLink") && fi.getString().length() != 0 && !inputContainsHTML(fi.getString())) {
 
                         // Convert youtube link to be "embed"
                         String conversionLink = fi.getString().replace("watch?v=", "embed/");

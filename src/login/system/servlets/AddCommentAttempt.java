@@ -13,6 +13,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.sql.Date;
 
+import static login.system.servlets.AddAnArticleAttempt.inputContainsHTML;
+
 /**
  * Created by catherinedechalain on 1/06/17.
  */
@@ -43,10 +45,17 @@ public class AddCommentAttempt extends HttpServlet {
                 Timestamp currentTime = new Timestamp(System.currentTimeMillis());
                 String content = request.getParameter("comment_body");
                 String username = request.getParameter("username");
+
                 int articleID = Integer.parseInt(request.getParameter("article_id"));
 
         /*Access user details from the session*/
                 User currentUser = (User) session.getAttribute("userDetails");
+
+                if (inputContainsHTML(content)) {
+                    response.sendRedirect("Content?username=" + currentUser.getUsername());
+                    return;
+                }
+
 
                 int userID = currentUser.getUser_id();
                 if (request.getParameter("parent_comment_id").length() > 0) {
