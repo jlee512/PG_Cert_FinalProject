@@ -1,24 +1,33 @@
 /**
  * Created by cbla080 on 12/06/2017.
  */
+//When edit button is clicked, open the comment editing form.
 $(document).on("click", ".edit_comment", function () {
+
+    //Get the article id from the page.
     var articleID = $("#articleid").text();
+
+    //Get the comment id from the button.
     var button = $(this);
     var comment_id = button.val();
+
+    //Get the container div for the comment being edited.
     var commentContainerDiv = button.closest(".panel-info");
     var commentBodyDiv = commentContainerDiv.find(".panel-body:first");
     var commentHeadingDiv = commentContainerDiv.find(".panel-heading:first");
+
+    //Get the current content of the comment being edited.
     var commentContent = commentBodyDiv.text();
 
+    //If the editing form is open when the button is clicked, close it.
     if (button.hasClass("edit_open")){
         $(".panel-body").show();
         button.removeClass("edit_open");
         button.html("Edit");
         $(".edit_comment_body").remove();
 
-
-
     } else {
+        //If the editing form is closed, open it.
         button.addClass("edit_open");
         button.html("<p><i class='fa fa-pencil' aria-hidden='true'></i>Edit</p>");
         var edit_comment_form = "<div class='panel-body edit_comment_body'>" + "<form action='EditComment' method='POST'>" +

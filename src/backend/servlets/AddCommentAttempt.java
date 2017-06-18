@@ -20,7 +20,7 @@ import static backend.servlets.AddAnArticleAttempt.inputContainsHTML;
 public class AddCommentAttempt extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
+         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt)*/
         LoginAttempt.loginStatusRedirection(request, response);
     }
 
@@ -40,7 +40,7 @@ public class AddCommentAttempt extends HttpServlet {
              /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-        /*Get printwriter to write to JSON*/
+                /*Get printwriter to write to page*/
                 PrintWriter out = response.getWriter();
 
                 /*Get comment details*/
@@ -50,7 +50,7 @@ public class AddCommentAttempt extends HttpServlet {
 
                 int articleID = Integer.parseInt(request.getParameter("article_id"));
 
-        /*Access user details from the session*/
+                /*Access user details from the session*/
                 User currentUser = (User) session.getAttribute("userDetails");
                 int userID = currentUser.getUser_id();
 
@@ -84,15 +84,13 @@ public class AddCommentAttempt extends HttpServlet {
 
 
     /*The addTopLevelComment method adds a top level comment which is designated with a parentCommentID = - 1*/
-    protected String addTopLevelComment(int articleID, MySQL DB, int userID, Timestamp timestamp, String content) {
-        String status = CommentDAO.addComment(DB, userID, articleID, -1, timestamp, content);
-        return status;
+    private String addTopLevelComment(int articleID, MySQL DB, int userID, Timestamp timestamp, String content){
+        return CommentDAO.addComment(DB, userID, articleID, -1, timestamp, content);
     }
 
     /*The addReplyComment method adds a reply comment in accordance with the CommentDAO method*/
-    protected String addReplyComment(int parentCommentID, int articleID, MySQL DB, int userID, Timestamp timestamp, String content) {
-        String status = CommentDAO.addReplyComment(DB, userID, articleID, parentCommentID, timestamp, content);
-        return status;
+    private String addReplyComment(int parentCommentID, int articleID, MySQL DB, int userID, Timestamp timestamp, String content){
+        return CommentDAO.addReplyComment(DB, userID, articleID, parentCommentID, timestamp, content);
     }
 
     /*------------------------------*/

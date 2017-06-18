@@ -38,14 +38,16 @@ public class ShowNestedComments extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
+                /*If the page is accessed directly without the appropriate parameter, redirect to homepage with error message*/
                 if (request.getParameter("parentCommentID") == null) {
                     response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
                 } else {
                     int parentCommentID = Integer.parseInt(request.getParameter("parentCommentID"));
 
-                    /*Get the child comments based on the specific parent_comment_id*/
+                    /*Get the comments from the database*/
                     List<Comment> commentList = CommentDAO.getNestedComments(DB, parentCommentID);
 
+                    /*Write comments to JSON page*/
                     response.setContentType("application/json");
                     PrintWriter out = response.getWriter();
                     JSONArray commentDetails = new JSONArray();

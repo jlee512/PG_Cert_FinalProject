@@ -51,8 +51,10 @@ public class GetComments_IndividualArticle extends HttpServlet {
                     int firstComment = Integer.parseInt(request.getParameter("from"));
                     int commentCount = Integer.parseInt(request.getParameter("count"));
 
+                    /*Get the comments from database*/
                     List<Comment> commentList = CommentDAO.getTopLevelCommentsByArticle(DB, articleID, firstComment, commentCount);
 
+                    /*Write JSON information for each comment*/
                     response.setContentType("application/json");
                     JSONArray top_level_comments = new JSONArray();
 

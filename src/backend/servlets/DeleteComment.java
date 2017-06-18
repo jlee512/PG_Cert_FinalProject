@@ -42,6 +42,7 @@ public class DeleteComment extends HttpServlet {
                     response.sendRedirect("Content?username=" + user.getUsername() + "&notFound=true");
 
                 } else {
+                    /*Get details from request*/
                     int commentID = Integer.parseInt(request.getParameter("comment_id"));
                     int articleID = Integer.parseInt(request.getParameter("article_id"));
 
@@ -75,19 +76,17 @@ public class DeleteComment extends HttpServlet {
     */
     private boolean verifyUserAuthorization(MySQL DB, int userID, int commentID, int articleID) {
         boolean userAuthorized = false;
+
         /*If the user wrote the comment, they are authorized to delete it.*/
-
-
         Comment comment = CommentDAO.getCommentByID(DB, commentID);
         if (comment.getAuthorID() == userID) {
             userAuthorized = true;
-            return userAuthorized;
-        } else {
+        }
+        else {
             /*If the user wrote the article they can delete any comments on the article.*/
             Article article = ArticleDAO.getArticle(DB, articleID);
             if (article.getAuthor_id() == userID) {
                 userAuthorized = true;
-                return userAuthorized;
             }
         }
         return userAuthorized;

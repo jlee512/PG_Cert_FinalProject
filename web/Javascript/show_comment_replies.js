@@ -23,11 +23,6 @@ $(document).on("click", ".show_replies", function () {
     var parentID = button.val();
     var commentContainer = $('<div style="margin-left: 5%"></div>');
     var buttonsDiv = button.parent();
-    // console.log(replyCommentButtonsDiv.prop('nodeName'));
-    // console.log(replyCommentButtonsDiv.attr('class'));
-    /*Console.log of Class name and element type of parent element for testing - TO BE REMOVED*/
-    // console.log(buttonsDiv.prop('nodeName'));
-    // console.log(buttonsDiv.attr('class'));
 
     buttonsDiv.append(loaderWrapper);
 
@@ -100,14 +95,21 @@ $(document).on("click", ".show_replies", function () {
 
                             /*Add a button to reply to the comment*/
                             var replyButton = '<button type="button" class="add_reply btn btn-default btn-sm" value="' + comment.comment_id + '">Reply</button>';
+
+                            //Append the reply button.
                             replyCommentsButtonPanel.append(replyButton);
 
+                            //If there are replies, append the Show Replies button.
                             if (comment.is_parent) {
                                 replyCommentsButtonPanel.append(viewRepliesButton);
                             }
+
+                            //If current user is authorized to delete the comment, append the delete button.
                             if (username == comment.author_username || username == authorUsername) {
                                 replyCommentsButtonPanel.append(deleteButton);
                             }
+
+                            //If current user is authorized to edit the comment, append the edit button.
                             if (username == comment.author_username) {
                                 replyCommentsButtonPanel.append(editButton);
                             }
@@ -116,6 +118,7 @@ $(document).on("click", ".show_replies", function () {
 
                         }
 
+                        //Insert replies at the bottom of the parent comment.
                         commentContainer.insertAfter(buttonsDiv);
 
                     buttonsDiv.find(".loader-wrapper").hide();

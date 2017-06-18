@@ -36,6 +36,7 @@ public class ViewArticle extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
+                /*If user attempts to access the servlet without the article_id parameter, redirect to the homepage with an error message*/
                 if (request.getParameter("article_id") == null) {
                     response.sendRedirect("Content?username=" + user.getUsername() + "&notFound=true");
                 } else {

@@ -2,6 +2,7 @@
  * Created by Julian on 06-Jun-17.
  */
 
+//Comment panel template.
 var commentPara = '<div class="panel panel-info">' +
                         '<div class ="comment-content">' +
                             '<div class="panel-heading">INSERT COMMENT HEADING</div>'+
@@ -17,15 +18,19 @@ var moreComments = true;
 
 function successfulCommentsLoad(msg) {
 
+    //Get page element to append comments to.
     var commentContainer = $(".top_level_comment_feed");
 
     /*Get username of current user*/
     var username = $("#userdetails").text();
+
+    /*Get username of article author*/
     var authorUsername = $("#author").text();
     console.log(authorUsername);
     console.log(msg.length);
+
     if (msg.length == 0){
-        /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
+        /*Hide the loader picture, show the loaded underline and return that there are no further comments*/
         $('.loader-wrapper').hide();
         $('#loaded1, #loaded2, #loaded3, #loaded4').show();
         moreComments = false;
@@ -37,6 +42,7 @@ function successfulCommentsLoad(msg) {
             var commentDiv = $(commentPara);
             var buttonsDiv = commentDiv.find('.buttons');
 
+            //Get the formatted date.
             var dateUnformatted = new Date(comment.timestamp);
             var date = formatDate(dateUnformatted);
             console.log(date);
@@ -63,7 +69,7 @@ function successfulCommentsLoad(msg) {
             }
 
             /*Add header to comment template*/
-            commentDiv.find(".panel-heading").html('<p><strong><a href="PublicProfile?username='+ comment.username + '"style="color: #f9a825;">' + comment.username + '</a></strong>, ' + date + '</p>');
+            commentDiv.find(".panel-heading").html('<p><strong><a href="PublicProfile?username='+ comment.username + ' "style="color: #f9a825;">' + comment.username + '</a></strong>, ' + date + '</p>');
             /*Add body to comment template*/
             commentDiv.find(".panel-body").html("<p>" + comment.content + "</p>");
 
@@ -75,10 +81,12 @@ function successfulCommentsLoad(msg) {
                 buttonsDiv.append(viewRepliesButton);
             }
 
+            /*If current user is the commenter or the author of the article, allow them to delete the comment*/
             if (username == comment.username || username == authorUsername) {
                 buttonsDiv.append(deleteButton);
             }
 
+            /*If current user is the commenter, allow them to edit the comment*/
             if (username == comment.username) {
                 buttonsDiv.append(editButton);
             }
