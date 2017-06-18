@@ -106,7 +106,7 @@ public class AddAnArticleAttempt extends HttpServlet {
 
     public static boolean inputContainsHTML (String input) {
 
-        Pattern pattern = Pattern.compile(".*<[^>]+>.*|.*\\s");
+        Pattern pattern = Pattern.compile("(.*<+[^>]+>.*)|(.*<+[^>]+>.*\\s)");
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.find()) {

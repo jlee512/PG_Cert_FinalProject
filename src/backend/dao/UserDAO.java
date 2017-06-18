@@ -54,7 +54,7 @@ public class UserDAO {
 
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
-                System.out.println("User added to the database");
+//                User added to the database
 
                 /*Get the user ID for use within the session object*/
                 try(PreparedStatement stmt1 = c.prepareStatement("SELECT * FROM registered_users WHERE username = ?")) {
