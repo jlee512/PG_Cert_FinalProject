@@ -1,3 +1,5 @@
+/*CSS styling for loader used throughout the site to show progress/loading processes to the user*/
+
 .loader {
     border: 7px solid #f3f3f3;
     border-radius: 50%;
