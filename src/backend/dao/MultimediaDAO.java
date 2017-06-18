@@ -8,64 +8,14 @@ import java.util.List;
 
 public class MultimediaDAO {
 
-/*
-Add a new user to the Database
-*/
+    /**
+     * The MultimediaDAO class links the backend representation of a multimedia object with the database.
+     *
+     * The contained methods are called from the relevant servlets.
+     *
+     */
 
-    public static List<Multimedia> getAllMultimedia(MySQL DB) {
-
-
-        /*Addition to database*/
-        List<Multimedia> multimedia = new ArrayList<Multimedia>();
-
-        /*Connect to the database and add user*/
-        try (Connection c = DB.connection()) {
-
-
-            try (PreparedStatement stmt = c.prepareStatement("SELECT * FROM posted_multimedia")) {
-
-                        getListOfMultimedia(multimedia, stmt);
-
-            }
-        } catch (SQLIntegrityConstraintViolationException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        /*------------------------------------------------------------*/
-        System.out.println("All Multimedia has been selected");
-
-        return multimedia;
-    }
-
-
-    private static void getListOfMultimedia(List<Multimedia> multimedia, PreparedStatement stmt) throws SQLException {
-        try (ResultSet r = stmt.executeQuery()) {
-            while (r.next()) {
-             /*If there is a next result, the user exists in the database*/
-
-
-                /*Get additional user details*/
-                int multimedia_id = r.getInt("multimedia_id");
-                int article_id = r.getInt("article_id");
-                String file_type = r.getString("file_type");
-                String file_path = r.getString("file_path");
-                String multimedia_title = r.getString("multimedia_title");
-
-                System.out.println("singlemultimedia added");
-                Multimedia singleMultimedia = new Multimedia(multimedia_id, article_id, file_type, file_path, multimedia_title);
-
-                multimedia.add(singleMultimedia);
-
-
-                System.out.println("Multimedia retrieved from database");
-            }
-
-        }
-    }
-
+     /*Add a new multimedia file to the Database*/
 
     public static int addMultimediaToDB(MySQL DB, int article_id, String file_type, String file_path, String multimedia_title) {
 
@@ -77,7 +27,7 @@ Add a new user to the Database
 
     ------------------------------------------------------------*/
 
-        /*Addition to database*/
+        /*Create a multimedia instance to be used when passing values to the database*/
         Multimedia tempMultimedia = new Multimedia(file_type, file_path, multimedia_title);
 
         /*Connect to the database and add user*/
@@ -93,7 +43,7 @@ Add a new user to the Database
 
                 /*Execute the prepared statement*/
                 stmt.executeUpdate();
-                System.out.println("Multimedia added to the database");
+                /*If no exception is thrown, the addition has been carried out successfully*/
                 return 1;
 
             }
@@ -106,9 +56,14 @@ Add a new user to the Database
             e.printStackTrace();
             return 4;
         }
-        /*------------------------------------------------------------*/
 
     }
+
+            /*---------------------------------------------------------------*/
+    /*This method is used to access the first 'N' multimedia files for all authors in date order.
+    * The method takes the initial multimedia number and a number of multimedia to get.
+    * It is called from the MultimediaContent Servlet (which is accessed via AJAX) and is used to build the full gallery feature*/
+
 
     public static List<Multimedia> getFirstNMultimediaByArticleDate(MySQL DB, int fromMultimedia, int numMultimedia) {
 
@@ -124,6 +79,8 @@ Add a new user to the Database
                 stmt.setInt(1, numMultimedia);
                 stmt.setInt(2, fromMultimedia);
 
+                /*This method cycles through a table of multimedia produced by an SQL query.
+                The parameters returned from the database are put into a list of multimedia instances*/
                 constructListFromMultimediaQuery(multimedia, stmt);
 
             }
@@ -134,8 +91,15 @@ Add a new user to the Database
             e.printStackTrace();
         }
 
+        /*Returns a list of 'N' multimedia or a list of size = 0 if no multimedia are returned by a given query*/
         return multimedia;
     }
+
+
+     /*---------------------------------------------------------------*/
+    /*This method is used to access the first 'N' articles for a given 'poster'/user in date order.
+    * The method takes the 'poster'/user id, an initial multimedia number and a number of multimedia.
+    * It is called from the UserMultimedia Servlet (which is accessed via AJAX) and used to build the user gallery feature*/
 
     public static List<Multimedia> getFirstNMultimediaForPosterByDate(MySQL DB, int fromMultimedia, int numMultimedia, int poster_id) {
 
@@ -152,6 +116,8 @@ Add a new user to the Database
                 stmt.setInt(2, numMultimedia);
                 stmt.setInt(3, fromMultimedia);
 
+                /*This method cycles through a table of multimedia produced by an SQL query.
+                The parameters returned from the database are put into a list of multimedia instances*/
                 constructListFromMultimediaQuery(multimedia, stmt);
 
             }
@@ -162,8 +128,15 @@ Add a new user to the Database
             e.printStackTrace();
         }
 
+        /*Returns a list of 'N' multimedia or a list of size = 0 if no multimedia are returned by a given query*/
         return multimedia;
     }
+
+
+    /*---------------------------------------------------------------*/
+    /*This method is used to access all of the multimedia for a given article.
+    * The method takes the article id
+    * It is called from the ArticleMultimedia Servlet (which is accessed via AJAX)*/
 
     public static List<Multimedia> getAllMultimediaForArticle(MySQL DB, int article_id) {
 
@@ -178,6 +151,8 @@ Add a new user to the Database
 
                 stmt.setInt(1, article_id);
 
+                /*This method cycles through a table of multimedia produced by an SQL query.
+                The parameters returned from the database are put into a list of multimedia instances*/
                 constructListFromMultimediaQuery(multimedia, stmt);
 
             }
@@ -188,9 +163,12 @@ Add a new user to the Database
             e.printStackTrace();
         }
 
+        /*Returns a list of 'N' multimedia or a list of size = 0 if no multimedia are returned by a given query*/
         return multimedia;
     }
 
+        /*---------------------------------------------------------------*/
+    /*This is the method used in a number of the other DAO methods to process a MySQL results table of Multimedia and assign these to Multimedia object instances*/
     private static void constructListFromMultimediaQuery(List<Multimedia> multimedia, PreparedStatement stmt) throws SQLException {
         try (ResultSet r = stmt.executeQuery()) {
 
@@ -213,9 +191,9 @@ Add a new user to the Database
 
             /*Summary print-out to the console*/
             if (multimedia.size() > 0) {
-                System.out.println("Multimedia retrieved from the database");
+//                Multimedia retrieved from the database
             } else {
-                System.out.println("Multimedia could not be found in the database");
+//                Multimedia could not be found in the database
             }
 
         }

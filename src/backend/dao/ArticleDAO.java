@@ -124,7 +124,7 @@ public class ArticleDAO {
                 stmt.setInt(1, numArticles);
                 stmt.setInt(2, fromArticle);
 
-                /*This method cycles through a table of articles produced by and SQL query.
+                /*This method cycles through a table of articles produced by an SQL query.
                 The parameters returned from the database are put into a list of Article instances*/
                 getListofArticles(articles, stmt);
 
