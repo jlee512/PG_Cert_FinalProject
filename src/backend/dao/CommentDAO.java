@@ -216,8 +216,6 @@ public class CommentDAO {
                     statement.setBoolean(6, false);
                     statement.executeUpdate();
 
-                    System.out.println("non-child comment addition");
-
                     status = "Comment added successfully.";
                     return status;
                 }
