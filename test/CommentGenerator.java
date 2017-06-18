@@ -94,8 +94,8 @@ public class CommentGenerator {
 
     }
 
-    public static void main(String[] args) {
-        CommentGenerator.generateRandomCommentAndReply();
-    }
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

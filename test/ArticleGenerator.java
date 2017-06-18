@@ -8,6 +8,11 @@ import java.sql.Timestamp;
 /**
  * Created by jlee512 on 3/06/2017.
  */
+
+/**
+ * This class is used to generate a random article for testing purposes as well as a known article
+ */
+
 public class ArticleGenerator {
 
     static MySQL DB = new MySQL();
@@ -35,14 +40,15 @@ public class ArticleGenerator {
 
     public static Article getKnownArticle() {
 
+        /*Lookups up article_id = 3 in the database*/
         Article knownArticle = ArticleDAO.getArticle(DB, 3);
 
         return knownArticle;
 
     }
 
-    public static void main(String[] args) {
-        ArticleGenerator.getKnownArticle();
-    }
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

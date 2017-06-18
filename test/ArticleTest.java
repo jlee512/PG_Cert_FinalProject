@@ -1,7 +1,3 @@
-/**
- * Created by catherinedechalain on 1/06/17.
- */
-
 import junit.framework.TestCase;
 import backend.dao.Article;
 import backend.dao.ArticleDAO;
@@ -21,6 +17,16 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+/**
+ * Created by catherinedechalain on 1/06/17.
+ */
+
+/**
+ * Unit tests used in test-driven-development of Article Object and DAO.
+ * Note: the sequence of these tests is important
+ * Note: all tables need to be dropped and the database_testing script needs to be run prior to commencing this unit test
+ */
 
 /*Fix test order*/
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -309,5 +315,9 @@ public class ArticleTest {
 
 
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

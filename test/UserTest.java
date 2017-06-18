@@ -1,7 +1,3 @@
-/**
- * Created by jlee512 on 2/06/2017.
- */
-
 import backend.dao.User;
 import backend.dao.UserDAO;
 import backend.db.MySQL;
@@ -18,6 +14,16 @@ import java.sql.SQLException;
 
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertArrayEquals;
+
+/**
+ * Created by jlee512 on 2/06/2017.
+ */
+
+/**
+ * Unit tests used in test-driven-development of User Object and DAO.
+ * Note: the sequence of these tests is important
+ * Note: all tables need to be dropped and the database_testing script needs to be run prior to commencing this unit test
+ */
 
 /*Fix test order*/
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -151,5 +157,9 @@ public class UserTest {
         assertEquals(maxUserID + 2, UserDAO.addUserToDB(DB, testUser2.getUsername(), testUser2.getIterations(), testUser2.getSalt(), testUser2.getHash(), testUser2.getEmail(), "", testUser2.getOccupation(), testUser2.getCity(), "", testUser2.getProfile_picture(), testUser2.getFirstname(), testUser2.getLastname()));
 
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

@@ -6,6 +6,11 @@ import backend.passwords.Passwords;
 /**
  * Created by Julian on 02-Jun-17.
  */
+
+/**
+ * This class is used to generate a random user for testing purposes as well as a known user
+ */
+
 public class UserGenerator {
 
     static MySQL DB = new MySQL();
@@ -44,5 +49,9 @@ public class UserGenerator {
         return knownUser;
 
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }
