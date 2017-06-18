@@ -52,7 +52,6 @@ public class ViewArticle extends HttpServlet {
 
                     //Get Article object by ID from ArticleDAO.
                     Article article = ArticleDAO.getArticle(DB, articleID);
-                    System.out.println(article.getAuthor_id());
 
                     if (article.getAuthor_id() == -1 || article.getArtcle_timestamp() == null) {
 
@@ -70,8 +69,6 @@ public class ViewArticle extends HttpServlet {
                         //Set it as an attribute to pass to the ViewArticlePage jsp
                         request.setAttribute("article", article);
                         request.setAttribute("date", date_for_output);
-
-                        System.out.println("test");
 
                         getServletContext().getRequestDispatcher("/ViewArticlePage").forward(request, response);
                     }

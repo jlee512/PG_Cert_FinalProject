@@ -330,7 +330,7 @@ public class CommentDAO {
                 } else if (comments.size() == 1) {
                     Comment childComment = comments.get(0);
                     if (childComment.getCommentID() == commentID) {
-                        System.out.println("Parent comments only child is the comment being deleted, updating status");
+                        //Parent comments only child is the comment being deleted, updating status
                         /*Else if comments size is one and the comment being deleted is the only child, update the parent status to false*/
                         setCommentNotParent(DB, parentCommentID);
 
