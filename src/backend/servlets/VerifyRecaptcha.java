@@ -13,6 +13,12 @@ import java.net.URL;
 /**
  * Created by jlee512 on 13/06/2017.
  */
+
+/**
+ *  This class is used to verify the google recapthca response in accordance with the documentation link below:
+ *  https://developers.google.com/recaptcha/intro
+ */
+
 public class VerifyRecaptcha {
 
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
@@ -28,7 +34,7 @@ public class VerifyRecaptcha {
             URL obj = new URL(url);
             HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
-            // add reuqest header
+            // Add request header
             con.setRequestMethod("POST");
             con.setRequestProperty("User-Agent", USER_AGENT);
             con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
@@ -75,4 +81,9 @@ public class VerifyRecaptcha {
             return false;
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

@@ -10,11 +10,17 @@ import java.io.IOException;
 /**
  * Created by Julian on 29-May-17.
  */
+
+/**
+ * This servlet is used to log a user out of the application
+ */
+
 public class LogoutAttempt extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        /*If the user is logged-in, log them out by removing all current session attributes and invalidating the session*/
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != null) {
             session.removeAttribute("loginStatus");
@@ -29,6 +35,8 @@ public class LogoutAttempt extends HttpServlet {
         }
     }
 
-
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

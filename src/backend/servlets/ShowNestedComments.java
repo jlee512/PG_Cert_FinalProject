@@ -18,6 +18,11 @@ import java.util.List;
 /**
  * Created by cbla080 on 5/06/2017.
  */
+
+/**
+ * The ShowNestedComments servlet returns a JSON for a specific parent_comment_id representing the next level of associated reply comments
+ */
+
 public class ShowNestedComments extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,12 +42,15 @@ public class ShowNestedComments extends HttpServlet {
                     response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
                 } else {
                     int parentCommentID = Integer.parseInt(request.getParameter("parentCommentID"));
+
+                    /*Get the child comments based on the specific parent_comment_id*/
                     List<Comment> commentList = CommentDAO.getNestedComments(DB, parentCommentID);
 
                     response.setContentType("application/json");
                     PrintWriter out = response.getWriter();
                     JSONArray commentDetails = new JSONArray();
 
+                    /*Construct an array of JSON objects representing each reply comment*/
                     for (Comment comment : commentList) {
                         JSONObject jsonComment = new JSONObject();
                         jsonComment.put("comment_id", comment.getCommentID());
@@ -64,4 +72,9 @@ public class ShowNestedComments extends HttpServlet {
             }
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

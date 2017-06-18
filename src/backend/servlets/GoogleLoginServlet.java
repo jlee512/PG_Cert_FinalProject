@@ -10,13 +10,11 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 
-/**
- * Created by jlee512 on 13/06/2017.
- */
-
 import backend.dao.User;
 import backend.dao.UserDAO;
 import backend.db.MySQL;
+
+/*Addition libraries required in this verification method*/
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -25,24 +23,38 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+/**
+ * Created by jlee512 on 13/06/2017.
+ */
+
+/**
+ * This servlet processes the posted Google sign-in results when logging-in
+ * This servlet was prepared using the methodology detailed by Google at:
+ * https://developers.google.com/identity/sign-in/web/sign-in
+ */
 
 public class GoogleLoginServlet extends HttpServlet {
 
+
+    /*Redirect if the servlet is directly accessed from the browser using a GET request*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
         LoginAttempt.loginStatusRedirection(request, response);
     }
 
+    /*POST processing method*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         /*Establish a reference to the database*/
         MySQL DB = new MySQL();
 
+        /*Construct HTTP transport and JacksonFactory instances*/
         HttpTransport transport = new NetHttpTransport();
         JacksonFactory jsonFactory = new JacksonFactory();
 
+        /*Verify the google token*/
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).setAudience(Collections.singletonList("17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com")).build();
 
         // (Receive idTokenString by HTTPS POST)
@@ -61,7 +73,6 @@ public class GoogleLoginServlet extends HttpServlet {
 
             // Print user identifier
             String userId = payload.getSubject();
-            System.out.println("User ID: " + userId);
 
             // Get profile information from payload
             String email = payload.getEmail();
@@ -77,15 +88,12 @@ public class GoogleLoginServlet extends HttpServlet {
 
             if (user.getUsername() == null) {
 
-                System.out.println("User does not exist");
                 response.sendRedirect("Login?loginStatus=invalidUsername");
 
             } else {
 
-                System.out.println("The user does exist");
                 int verificationStatus = 1; //Successful status code
                 /*If user credentials are validated, create a session with a 5 minute maximum inactivity timeout*/
-                System.out.println("User details verified, successful login!");
                 HttpSession session = request.getSession(true);
                 session.setMaxInactiveInterval(60 * 60 * 24);
 
@@ -99,9 +107,13 @@ public class GoogleLoginServlet extends HttpServlet {
           /*If the google sign in is invalid, re-direct to the login page and display a descriptive message*/
         } else {
 
-            System.out.println("Invalid ID token.");
             response.sendRedirect("Login?loginStatus=invalidGoogleSignIn" );
 
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

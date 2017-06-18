@@ -24,6 +24,11 @@ import java.util.List;
 /**
  * Created by ycow194 on 13/06/2017.
  */
+
+/**
+ * This servlet has been developed to process multimedia uploads (file and YouTube video links)
+ */
+
 public class UploadMultimedia extends HttpServlet {
 
     private boolean isMultipart;
@@ -31,12 +36,6 @@ public class UploadMultimedia extends HttpServlet {
     private int maxFileSize = 30 * 1024 * 1024;
     private int maxUploadSize = 30 * 1024 * 1024;
     private File file;
-
-    // Gets the file location the uploaded file is stored
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        Do Get
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -50,6 +49,7 @@ public class UploadMultimedia extends HttpServlet {
 
         isMultipart = ServletFileUpload.isMultipartContent(request);
 
+        /*Confirm the upload is multi-part type*/
         if (!isMultipart) {
             response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&multimediaUpload=invalid");
         }
@@ -87,20 +87,20 @@ public class UploadMultimedia extends HttpServlet {
             while (i.hasNext()) {
                 FileItem fi = (FileItem) i.next();
 
-                // Creates a new multimedia object for each field name which is empty
+                // Creates a new multimedia object for the file upload and youtube link fields
+                //If valid Multimedia objects are created (i.e. the fields are not null or blank) add the multimedia to a list and process the list
                 if (fi.getFieldName().equals("photoOrVideo") || fi.getFieldName().equals("youtubeLink")) {
 
-                    System.out.println("new multimedia");
                     multimedia = new Multimedia();
 
                 }
 
-                // If the form file is not empty, set variables
+                // If the input is not a form field, it is the file upload.
+                // Carry out file upload process
                 if (!fi.isFormField() && !(fi.getName() == null || fi.getName().isEmpty() || fi.getSize() == 0)) {
 
                     // Get the uploaded file parameters
                     String fieldName = fi.getFieldName();
-                    System.out.println(fieldName + "field name");
                     fileName = fi.getName();
                     String contentType = fi.getContentType();
                     boolean isInMemory = fi.isInMemory();
@@ -114,7 +114,7 @@ public class UploadMultimedia extends HttpServlet {
 
                     }
 
-                    /*~~~~~ Write the file and make sure the file name is unique ~~~~~*/
+                    /*~~~~~ Write the file and generate a unique filename as required ~~~~~*/
 
                     if (fileName.lastIndexOf("\\") >= 0) {
                         filePathforMultimediaObject = filePath + fileName.substring(fileName.lastIndexOf("\\"));
@@ -171,6 +171,9 @@ public class UploadMultimedia extends HttpServlet {
 
                     }
 
+
+                /* Else if the upload is a form field it is either the article_id (associated with the subnit button)
+                * or the YouTube link*/
                 } else {
 
 
@@ -182,8 +185,7 @@ public class UploadMultimedia extends HttpServlet {
                     }
 
 
-                    // YOUTUBE link
-
+                    // YouTube link - convert watch link into the embed link and insert into Iframe tags and store within the database as the 'filepath'
                     if (fi.getFieldName().equals("youtubeLink") && fi.getString().length() != 0 && !AddAnArticleAttempt.inputContainsHTML(fi.getString())) {
 
                         // Convert youtube link to be "embed"
@@ -204,7 +206,7 @@ public class UploadMultimedia extends HttpServlet {
 
             int upload_status = -1;
 
-            // Goes through the file type and youtube link in the arraylist and sets the article id variable, then adds to database
+            // Goes through the valid Multimedia objects added to the multimedia list and sets the article id variable and adds to database
             for (Multimedia multimedia1 : multimedia_to_upload) {
 
                 multimedia1.setArticle_id(articleID);
@@ -214,11 +216,8 @@ public class UploadMultimedia extends HttpServlet {
 
             int num_uploads = multimedia_to_upload.size();
 
-            System.out.println("num uploads: " + num_uploads);
-            System.out.println("upload status: " + upload_status);
-
             if (num_uploads > 0 && upload_status == 1) {
-                /*  Send the user back to the profile page and display a useful message temporarily*/
+                /*  Send the user back to the profile page and display a message with the upload status*/
                 response.sendRedirect("ProfilePage?multimediaAdditionStatus=success&num_uploads=" + num_uploads);
 
             } else {
@@ -232,4 +231,9 @@ public class UploadMultimedia extends HttpServlet {
             ex.printStackTrace();
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

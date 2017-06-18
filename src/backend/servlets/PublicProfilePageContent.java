@@ -14,6 +14,11 @@ import java.io.IOException;
 /**
  * Created by cbla080 on 12/06/2017.
  */
+
+/**
+ * This servlet is used to get a user's public profile details
+ */
+
 public class PublicProfilePageContent extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,7 +26,7 @@ public class PublicProfilePageContent extends HttpServlet {
         /*Setup the database*/
         MySQL DB = new MySQL();
 
-        //Don't let users see profiles if they are not logged in.
+        //Don't let users see any public profiles if they are not logged in.
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
@@ -45,7 +50,7 @@ public class PublicProfilePageContent extends HttpServlet {
                         response.sendRedirect("ProfilePage?username=" + currentUser.getUsername());
                     }
 
-                    //Otherwise forward the user information to the JSP.
+                    //Otherwise direct the user to the public profile
                     else {
                         User user = UserDAO.getUser(DB, username);
                         request.setAttribute("user", user);
@@ -56,4 +61,9 @@ public class PublicProfilePageContent extends HttpServlet {
             }
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

@@ -16,14 +16,21 @@ import static backend.servlets.AddAnArticleAttempt.inputContainsHTML;
 /**
  * Created by ycow194 on 6/06/2017.
  */
+
+/**
+ * This servlet is used to process a user's request to edit their profile details
+ */
+
 public class ProfilePageContent extends HttpServlet {
 
+    /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt Servlet)*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt Servlet)*/
+
         LoginAttempt.loginStatusRedirection(request, response);
     }
 
+    /*POST processing method*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -40,17 +47,14 @@ public class ProfilePageContent extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-             /*When used attempts to post new password*/
-        /*Access user detail stored within the session*/
-
+                /*Access user detail stored within the session*/
                 User user = (User) session.getAttribute("userDetails");
                 String original_username = user.getUsername();
 
 
+                /*Process input form fields*/
                 String username = request.getParameter("username");
-
                 String firstname = request.getParameter("firstname");
-
                 String lastname = request.getParameter("lastname");
                 String occupation = request.getParameter("occupation");
                 String location = request.getParameter("location");
@@ -58,14 +62,17 @@ public class ProfilePageContent extends HttpServlet {
                 String phone = request.getParameter("phone");
                 String aboutme = request.getParameter("aboutme");
 
+                /*Confirm if any of the user inputs contains HTML code (and potential cross-scripting)*/
                 if (inputContainsHTML(firstname) || inputContainsHTML(lastname) || inputContainsHTML(occupation) || inputContainsHTML(location) || inputContainsHTML(email) || inputContainsHTML(phone) || inputContainsHTML(aboutme)) {
 
                     response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=invalidUsername");
                     return;
                 }
 
+                /*Update the user's profile details*/
                 int userUpdateStatus = UserDAO.updateUserDetails(DB, username, email, phone, occupation, location, aboutme, firstname, lastname, original_username);
 
+                /*Depending on the profile update status, carry out corresponding action to inform the user*/
                 if (userUpdateStatus == 1) {
 
                     user.setUsername(username);
@@ -105,5 +112,9 @@ public class ProfilePageContent extends HttpServlet {
             }
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

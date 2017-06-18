@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 /**
- * The Article_Multimedia Class returns a JSON for a specific article_id representing the multimedia associated with that article
+ * The Article_Multimedia servlet returns a JSON for a specific article_id representing the multimedia associated with that article
  */
 public class Article_Multimedia extends HttpServlet {
 

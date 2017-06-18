@@ -13,6 +13,12 @@ import java.util.List;
 /**
  * Created by cbla080 on 7/06/2017.
  */
+
+/**
+ * This servlet is used to delete a user comment
+ */
+
+
 public class DeleteComment extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -46,8 +52,6 @@ public class DeleteComment extends HttpServlet {
 
                         String parent_comment_id = request.getParameter("parent_comment_id");
 
-                        System.out.println("comment deletion started");
-
                         if (parent_comment_id == null || parent_comment_id.length() <= 0) {
 
                             CommentDAO.deleteComment(DB, commentID);
@@ -58,8 +62,7 @@ public class DeleteComment extends HttpServlet {
                             CommentDAO.deleteIndividualNestedComment(DB, commentID, parentID);
 
                         }
-                /*Setup parent comment adjustment and run*/
-                        System.out.println("delete comment finished");
+                /*delete comment finished*/
                     }
                     response.sendRedirect("ViewArticle?article_id=" + articleID);
                 }
@@ -67,18 +70,9 @@ public class DeleteComment extends HttpServlet {
         }
     }
 
-    private void adjustParentCommentStatus(MySQL DB, int commentID, int parentCommentID) {
-        List<Comment> commentList = CommentDAO.getNestedComments(DB, parentCommentID);
-        if (commentList.size() == 0) {
-            CommentDAO.setCommentNotParent(DB, parentCommentID);
-        } else if (commentList.size() == 1) {
-            Comment childComment = commentList.get(0);
-            if (childComment.getCommentID() == commentID) {
-                CommentDAO.setCommentNotParent(DB, parentCommentID);
-            }
-        }
-    }
-
+    /*This method verifies that a user is the author of the comment being deleted
+    * It returns a boolean (true if the user is authorised, false if not)
+    */
     private boolean verifyUserAuthorization(MySQL DB, int userID, int commentID, int articleID) {
         boolean userAuthorized = false;
         /*If the user wrote the comment, they are authorized to delete it.*/
@@ -98,5 +92,9 @@ public class DeleteComment extends HttpServlet {
         }
         return userAuthorized;
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

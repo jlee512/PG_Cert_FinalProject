@@ -15,22 +15,31 @@ import java.io.IOException;
 /**
  * Created by jlee512 on 29/05/2017.
  */
+
+/**
+ * This servlet is for processing log-in attempts for registered users
+ */
+
 public class LoginAttempt extends HttpServlet {
 
+    /*Redirect if the servlet is directly accessed from the browser using a GET request*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
         loginStatusRedirection(request, response);
     }
 
+    /*POST processing method*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*Create link to the database*/
         MySQL DB = new MySQL();
 
+        /*Read the form inputs*/
         String usernameAttempt = request.getParameter("username");
         String passwordAttempt = request.getParameter("password");
 
+        /*Check whether any of the form inputs contain HTML code and re-direct accordingly*/
         if (AddAnArticleAttempt.inputContainsHTML(usernameAttempt) || AddAnArticleAttempt.inputContainsHTML(passwordAttempt)) {
 
             response.sendRedirect("Login?loginStatus=invalidUsername");
@@ -45,8 +54,7 @@ public class LoginAttempt extends HttpServlet {
         /*Provide appropriate response depending on user credential verification process (method definition has additional detail)*/
         if (verificationStatus == 1){
 
-            /*If user credentials are validated, create a session with a 5 minute maximum inactivity timeout*/
-            System.out.println("User details verified, successful login!");
+            /*If user credentials are validated, create a session*/
             HttpSession session = request.getSession(true);
             session.setMaxInactiveInterval(60 * 60 * 24);
 
@@ -56,10 +64,8 @@ public class LoginAttempt extends HttpServlet {
             response.sendRedirect("Content?username=" + user.getUsername());
 
         } else if (verificationStatus == 2) {
-            System.out.println("Incorrect password");
             response.sendRedirect("Login?loginStatus=invalidPassword&username=" + usernameAttempt);
         } else {
-            System.out.println("The username does not exist");
             response.sendRedirect("Login?loginStatus=invalidUsername");
         }
 
@@ -86,6 +92,8 @@ public class LoginAttempt extends HttpServlet {
         }
     }
 
+    /*Method to check a user's login-status and redirect accordingly
+    (this method is used across most user-sensitive servlets to confirm their login status)*/
     public static void loginStatusRedirection(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != "active"){
@@ -96,6 +104,8 @@ public class LoginAttempt extends HttpServlet {
         }
     }
 
+    /*Method developed to confirm that a user's session has not timed-out during a period of inactivity
+    (this method is used across most user-sensitive servlets to confirm their login-status)*/
     public static boolean sessionExpirationRedirection(HttpServletRequest request, HttpServletResponse response) throws IOException {
         boolean redirected = false;
         HttpSession session = request.getSession(true);
@@ -106,4 +116,9 @@ public class LoginAttempt extends HttpServlet {
         }
         return redirected;
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

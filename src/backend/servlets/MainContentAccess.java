@@ -17,6 +17,12 @@ import java.util.List;
 /**
  * Created by jlee512 on 5/06/2017.
  */
+
+/**
+ * This servlet accesses all articles to prepare the MainContent page.
+ * Searching/sorting selections are processed here and a JSON array of articles is output for access bia AJAX calls
+ */
+
 public class MainContentAccess extends HttpServlet {
 
     @Override
@@ -38,7 +44,7 @@ public class MainContentAccess extends HttpServlet {
                     response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
                 } else {
 
-        /*Get the number of articles requested*/
+                    /*Get the number of articles requested*/
                     int firstArticle = Integer.parseInt(request.getParameter("from"));
                     int articleCount = Integer.parseInt(request.getParameter("count"));
                     String sort_by = request.getParameter("sort_by");
@@ -48,10 +54,12 @@ public class MainContentAccess extends HttpServlet {
                     /*Check the sort-by parameter and call the appropriate ArticleDAO method*/
                     List<Article> articles = null;
 
+                    /*Case (A) If a search term is provided, output articles in accordance with the search term*/
                     if (search_term.length() > 0 || sort_by.equals("searchterm")) {
                         articles = ArticleDAO.getArticlePreviewsBySearchTerm(DB, search_term, firstArticle, articleCount);
                     }
 
+                    /*Case (B) Else if the user has sorted the MainContent by title (ASC or DSC) output the articles in sorted order by title*/
                     else if (sort_by.equals("title")) {
 
                         switch (ordering) {
@@ -65,6 +73,7 @@ public class MainContentAccess extends HttpServlet {
                                 break;
                         }
 
+                    /*Case (C) Else if the user has sorted the MainContent by author (ASC or DSC) output the articles in sorted order by author-name*/
                     } else if (sort_by.equals("author")) {
 
                         switch (ordering) {
@@ -78,6 +87,7 @@ public class MainContentAccess extends HttpServlet {
                                 break;
                         }
 
+                    /*Case (D) Else if the user has sorted the MainContent by date (ASC or DSC) output the articles in sorted order by date*/
                     } else {
 
                         switch (ordering) {
@@ -93,7 +103,7 @@ public class MainContentAccess extends HttpServlet {
 
                     }
 
-        /*Return a JSON object with the article information included*/
+                    /*Return a JSON object with the article information included*/
                     response.setContentType("application/json");
                     JSONArray articleDetails = new JSONArray();
 
@@ -107,5 +117,9 @@ public class MainContentAccess extends HttpServlet {
             }
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

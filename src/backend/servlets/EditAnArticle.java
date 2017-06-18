@@ -17,8 +17,15 @@ import static backend.servlets.AddAnArticleAttempt.inputContainsHTML;
 /**
  * Created by Julian on 12/06/2017.
  */
+
+/**
+ * This servlet processes form inputs as part of the edit article feature
+ */
+
 public class EditAnArticle extends HttpServlet {
 
+
+    /*Redirect if the servlet is directly accessed from the browser using a GET request*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
@@ -26,6 +33,7 @@ public class EditAnArticle extends HttpServlet {
 
     }
 
+    /*Form processing method*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -44,12 +52,13 @@ public class EditAnArticle extends HttpServlet {
                 User user = (User) session.getAttribute("userDetails");
                 int author_id = user.getUser_id();
 
-        /*Access POST parameters*/
+                /*Access form POST parameters*/
                 int article_id = Integer.parseInt(request.getParameter("editArticle"));
                 String title_update = request.getParameter("article_title_input");
                 String body_update = request.getParameter("article_body_input");
                 Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
+                /*Verify there is no HTML code being cross-scripted into the text field inputs*/
                 if (inputContainsHTML(title_update) || inputContainsHTML(body_update)) {
                     response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&edit_status=invalid");
                     return;
@@ -73,4 +82,9 @@ public class EditAnArticle extends HttpServlet {
             }
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

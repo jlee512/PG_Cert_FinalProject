@@ -13,8 +13,15 @@ import java.io.IOException;
 /**
  * Created by cbla080 on 7/06/2017.
  */
+
+/**
+ * This servlet processes the form input for comment editing
+ */
+
 public class EditComment extends HttpServlet {
 
+
+    /*Redirect if the servlet is directly accessed from the browser using a GET request*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
          /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
@@ -22,6 +29,7 @@ public class EditComment extends HttpServlet {
     }
 
 
+    /*Form processing method*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MySQL DB = new MySQL();
@@ -45,9 +53,14 @@ public class EditComment extends HttpServlet {
                     return;
                 }
 
+                /*Edit the selected comment*/
                 CommentDAO.editComment(DB, commentID, content);
                 response.sendRedirect("ViewArticle?article_id=" + articleID);
             }
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 }

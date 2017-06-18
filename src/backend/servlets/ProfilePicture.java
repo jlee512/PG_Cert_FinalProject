@@ -22,6 +22,11 @@ import java.util.List;
 /**
  * Created by ycow194 on 8/06/2017.
  */
+
+/**
+ * This servlet has been developed to process non-default, user profile photo uploads
+ */
+
 public class ProfilePicture extends HttpServlet {
 
     private boolean isMultipart;
@@ -31,39 +36,29 @@ public class ProfilePicture extends HttpServlet {
     private File file;
 
 
-    // Gets the file location the uploaded file is stored
-
-
+    /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt Servlet)*/
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt Servlet)*/
+
         LoginAttempt.loginStatusRedirection(request, response);
 
     }
 
+    /*POST processing method*/
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        /*Establish a connection to the database*/
         MySQL DB = new MySQL();
 
 
-//       Store the file save file path
+        /*Store the file save file path*/
         ServletContext servletContext = getServletContext();
         filePath = servletContext.getRealPath("Multimedia/");
 
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("userDetails");
 
-  /*Check if session has timed out*/
+        /*Check if session has timed out*/
         if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
-
-
-
-
-        /*Obtain current user profile picture filepath*/
-
-        /*Extract profile picture filepath number*/
-
-        /*Increment profile picture filepath number by 1 and create save file string*/
-
 
             isMultipart = ServletFileUpload.isMultipartContent(request);
 
@@ -87,7 +82,7 @@ public class ProfilePicture extends HttpServlet {
 
             try {
 
-//         Parse the request to get file items.
+                /*Parse the request to get file items*/
                 List fileItems = upload.parseRequest(request);
 
                 // Process the uploaded file items
@@ -108,7 +103,7 @@ public class ProfilePicture extends HttpServlet {
                         long sizeInBytes = fi.getSize();
 
 
-                    /*~~~~~ Write the file and make sure the file name is unique ~~~~~*/
+                        /*~~~~~ Write the file and generate a unique filename if required ~~~~~*/
 
                         if (fileName.lastIndexOf("\\") >= 0) {
                             file = new File(filePath +
@@ -162,6 +157,11 @@ public class ProfilePicture extends HttpServlet {
             }
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }
 
 

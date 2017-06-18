@@ -19,6 +19,11 @@ import java.util.List;
 /**
  * Created by Tammy on 12/06/2017.
  */
+
+/**
+ * This servlet accesses all muiltimedia to prepare the Full Multimedia Gallery page.
+ */
+
 public class MultimediaContent extends HttpServlet {
 
 
@@ -30,17 +35,19 @@ public class MultimediaContent extends HttpServlet {
         HttpSession session = request.getSession(true);
 
 
-        /*Get the number of articles requested and the author_id*/
+        /*Get the number of multimedia files requested and the author_id*/
         int first_multimedia_file = Integer.parseInt(request.getParameter("from"));
         int multimedia_count = Integer.parseInt(request.getParameter("count"));
         int author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
 
+        /*Access a given selection of multimedia*/
         List<Multimedia> multimedia = MultimediaDAO.getFirstNMultimediaByArticleDate(DB, first_multimedia_file, multimedia_count);
 
         /*Return a JSON object with the article information included*/
         response.setContentType("application/json");
         JSONArray multimediaDetails = new JSONArray();
 
+        /*Construct a JSON object representing the multimedia list*/
         constructMultimediaPreviewJSON(multimedia, multimediaDetails);
 
         multimediaDetails.toJSONString();
@@ -50,13 +57,7 @@ public class MultimediaContent extends HttpServlet {
 
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        //DO POST
-
-    }
-
+    /*This method is used to construct a JSON array representing a number of multimedia given a list of Multimedia object instances*/
     public static void constructMultimediaPreviewJSON(List<Multimedia> multimedia, JSONArray multimediaDetails) {
         for (int i = 0; i < multimedia.size(); i++) {
             JSONObject singleMultimedia = new JSONObject();
@@ -72,6 +73,8 @@ public class MultimediaContent extends HttpServlet {
         }
     }
 
-
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

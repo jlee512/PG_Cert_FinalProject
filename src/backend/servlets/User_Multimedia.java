@@ -17,6 +17,11 @@ import java.util.List;
 /**
  * Created by Julian on 14/06/2017.
  */
+
+/**
+ * This servlet accesses all muiltimedia for a specific user to prepare the User Multimedia Gallery page.
+ */
+
 public class User_Multimedia extends HttpServlet {
 
     @Override
@@ -48,12 +53,8 @@ public class User_Multimedia extends HttpServlet {
 
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        //DO POST
-
-    }
-
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

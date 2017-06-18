@@ -1,11 +1,7 @@
 package backend.servlets;
 
 import backend.db.MySQL;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
+
 import backend.dao.User;
 import backend.dao.UserDAO;
 import backend.passwords.Passwords;
@@ -20,26 +16,44 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.UUID;
 
+/*Additional google-sign in libraries required for this servlet*/
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
 /**
  * Created by Julian on 13/06/2017.
  */
+
+/**
+ * This servlet processes the posted Google sign-in results when registering
+ * This servlet was prepared using the methodology detailed by Google at:
+ * https://developers.google.com/identity/sign-in/web/sign-in
+ */
+
 public class GoogleRegistrationServlet extends HttpServlet {
 
+    /*Redirect if the servlet is directly accessed from the browser using a GET request*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
         LoginAttempt.loginStatusRedirection(request, response);
     }
 
+    /*POST processing method*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         /*Establish a connection to the database*/
         MySQL DB = new MySQL();
 
+        /*Construct HTTP transport and JacksonFactory instances*/
         HttpTransport transport = new NetHttpTransport();
         JacksonFactory jsonFactory = new JacksonFactory();
 
+        /*Verify the google token*/
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).setAudience(Collections.singletonList("17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com")).build();
 
         // (Receive idTokenString by HTTPS POST)
@@ -58,7 +72,6 @@ public class GoogleRegistrationServlet extends HttpServlet {
 
             // Print user identifier
             String userId = payload.getSubject();
-            System.out.println("User ID: " + userId);
 
             // Get profile information from payload
             String email = payload.getEmail();
@@ -90,6 +103,7 @@ public class GoogleRegistrationServlet extends HttpServlet {
             int iterations = Passwords.getNextNumIterations();
             byte[] hash = Passwords.hash(password.toCharArray(), salt, iterations);
 
+            /*Register the user*/
             int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, email, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
 
             int user_id = registrationStatus;
@@ -100,9 +114,9 @@ public class GoogleRegistrationServlet extends HttpServlet {
             registrationStatus = 1;
         }
 
+        /*Provide the corresponding re-direct and action depending on registration status*/
         switch (registrationStatus) {
             case 1:
-                System.out.println("User added successfully");
                 User user = new User(usernameInput, hash, salt, iterations, email, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
                 user.setUser_id(user_id);
 
@@ -122,16 +136,13 @@ public class GoogleRegistrationServlet extends HttpServlet {
                 break;
             case -2:
                     /*If username already exists, return the user to the registration page and display a descriptive message*/
-                System.out.println("User already exists within the database");
                 response.sendRedirect("Registration?registrationStatus=exists&username=" + usernameInput);
                 break;
             case -3:
                     /*If an invalid username is entered, return the user to the registration page and display a descriptive message*/
-                System.out.println("User could not be added to the database");
                 response.sendRedirect("Registration?registrationStatus=invalid");
                 break;
             case -4:
-                System.out.println("No connection to the database");
                 response.sendRedirect("Registration?registrationStatus=dbConn");
                 break;
 
@@ -139,11 +150,14 @@ public class GoogleRegistrationServlet extends HttpServlet {
 
         } else {
 
-            System.out.println("Invalid ID token.");
             response.sendRedirect("Login?loginStatus=invalidGoogleSignIn");
 
         }
 
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

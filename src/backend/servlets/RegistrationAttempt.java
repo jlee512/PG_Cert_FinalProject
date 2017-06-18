@@ -17,25 +17,36 @@ import static backend.servlets.AddAnArticleAttempt.inputContainsHTML;
 /**
  * Created by jlee512 on 30/05/2017.
  */
+
+/**
+ * This servlet has been developed to process new user registrations (non-google-sign-in)
+ */
+
 public class RegistrationAttempt extends HttpServlet {
 
+
+    /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt Servlet)*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt Servlet)*/
+
         LoginAttempt.loginStatusRedirection(request, response);
     }
 
+    /*POST processing method*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         /*Create link to the database*/
         MySQL DB = new MySQL();
 
-        /*If user wishes to register, form will post to this method*/
+        /*If user attempts to register, the form will post to this method
+        * Process input form fields*/
         String usernameInput = request.getParameter("username");
         String emailInput = request.getParameter("email");
         String passwordInput = request.getParameter("password");
         String passwordVerificationInput = request.getParameter("passwordVerify");
 
+        /*Confirm whether any of the input form fields have HTML code input and redirect accordingly*/
         if (inputContainsHTML(usernameInput) || inputContainsHTML(emailInput) || inputContainsHTML(passwordInput) || inputContainsHTML(passwordVerificationInput)) {
 
             response.sendRedirect("Registration?registrationStatus=invalid");
@@ -43,6 +54,7 @@ public class RegistrationAttempt extends HttpServlet {
 
         }
 
+        /*Initialise empty user field inputs for currently unavailable expanded user profile details*/
         String phoneInput = "";
         String occupationInput = "";
         String cityInput = "";
@@ -67,21 +79,19 @@ public class RegistrationAttempt extends HttpServlet {
             String recaptcha_response = request.getParameter("g-recaptcha-response");
 
             /*If no recaptcha entry, redirect to the registration page*/
+            boolean verify = VerifyRecaptcha.verify(recaptcha_response);
             if (recaptcha_response == null || recaptcha_response.length() == 0) {
 
                 response.sendRedirect("Registration?registrationStatus=recaptchaNull");
                 return;
             }
 
-            boolean verify = VerifyRecaptcha.verify(recaptcha_response);
-
+            /*Register the user if they are 'human'*/
             int registrationStatus = UserDAO.addUserToDB(DB, usernameInput, iterations, salt, hash, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
 
             int user_id = registrationStatus;
 
-            
-
-            /*reset the registrationStatus variable to be 1 if the user is successfully added*/
+            /*Reset the registrationStatus variable to be 1 if the user is successfully added*/
             if (user_id >= 0) {
                 registrationStatus = 1;
             }
@@ -128,4 +138,9 @@ public class RegistrationAttempt extends HttpServlet {
     private boolean passwordInputVerification(String passwordInput, String passwordVerificationInput) {
         return passwordInput.equals(passwordVerificationInput);
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

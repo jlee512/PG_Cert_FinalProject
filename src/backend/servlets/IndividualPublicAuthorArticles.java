@@ -16,13 +16,20 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import static backend.servlets.IndividualAuthorArticles.constructArticlePreviewJSON;
+
 /**
  * Created by catherinedechalain on 13/06/17.
  */
+
+/**
+ * This servlet is used to construct a JSON array representing a number of articles written by a particular user in date order
+ * (for the public profile)
+ */
+
 public class IndividualPublicAuthorArticles extends HttpServlet {
 
-        /*This Servlet is mapped to ViewPublicArticles*/
-
+    /*This Servlet is mapped to ViewPublicArticles*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -43,7 +50,7 @@ public class IndividualPublicAuthorArticles extends HttpServlet {
                     response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
                 } else {
 
-        /*Get the number of articles requested and the author_id*/
+                    /*Get the number of articles requested and the author_id*/
                     int firstArticle = Integer.parseInt(request.getParameter("from"));
                     int articleCount = Integer.parseInt(request.getParameter("count"));
                     String username = request.getParameter("username");
@@ -52,10 +59,11 @@ public class IndividualPublicAuthorArticles extends HttpServlet {
 
                     List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByAuthor(DB, firstArticle, articleCount, author_id);
 
-        /*Return a JSON object with the article information included*/
+                    /*Return a JSON object with the article information included*/
                     response.setContentType("application/json");
                     JSONArray articleDetails = new JSONArray();
 
+                    /*Construct the JSON array using the method developed in "IndividualAuthorArticles*/
                     constructArticlePreviewJSON(articles, articleDetails);
 
                     articleDetails.toJSONString();
@@ -67,21 +75,8 @@ public class IndividualPublicAuthorArticles extends HttpServlet {
         }
     }
 
-    public static void constructArticlePreviewJSON(List<Article> articles, JSONArray articleDetails) {
-        for (int i = 0; i < articles.size(); i++) {
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
-            JSONObject singleArticle = new JSONObject();
-            singleArticle.put("article_id", articles.get(i).getArticle_id());
-            singleArticle.put("article_title", articles.get(i).getArticle_title());
-            singleArticle.put("article_timestamp", articles.get(i).getArtcle_timestamp().getTime());
-            singleArticle.put("author_username", articles.get(i).getAuthor_username());
-
-            singleArticle.put("author_firstname", articles.get(i).getAuthor_firstname());
-            singleArticle.put("author_lastname", articles.get(i).getAuthor_lastname());
-            singleArticle.put("article_body", articles.get(i).getArticle_body().substring(0, Math.min(articles.get(i).getArticle_body().length(), 100)) + "...");
-            singleArticle.put("article_body_full", articles.get(i).getArticle_body());
-            singleArticle.put("comment_count", articles.get(i).getComment_count());
-            articleDetails.add(i, singleArticle);
-        }
-    }
 }

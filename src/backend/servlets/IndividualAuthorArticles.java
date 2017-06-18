@@ -18,10 +18,15 @@ import java.util.List;
 /**
  * Created by jlee512 on 9/06/2017.
  */
+
+/**
+ * This servlet is used to construct a JSON array representing a number of articles written by a particular user in date order
+ * (for the private profile)
+ */
+
 public class IndividualAuthorArticles extends HttpServlet {
 
     /*This Servlet is mapped to ViewIndividualArticles*/
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -36,7 +41,7 @@ public class IndividualAuthorArticles extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-        /*Get the number of articles requested and the author_id*/
+                /*Get the number of articles requested and the author_id*/
 
                 if (request.getParameter("from") == null || request.getParameter("count") == null) {
                     response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
@@ -47,10 +52,11 @@ public class IndividualAuthorArticles extends HttpServlet {
 
                     List<Article> articles = ArticleDAO.getfirstNArticlePreviewsByAuthor(DB, firstArticle, articleCount, author_id);
 
-        /*Return a JSON object with the article information included*/
+                    /*Return a JSON object with the article information included*/
                     response.setContentType("application/json");
                     JSONArray articleDetails = new JSONArray();
 
+                    /*Construct the JSON array*/
                     constructArticlePreviewJSON(articles, articleDetails);
 
                     articleDetails.toJSONString();
@@ -62,6 +68,7 @@ public class IndividualAuthorArticles extends HttpServlet {
         }
     }
 
+    /*This method is used to construct a JSON array representing a number of articles given a list of Article object instances*/
     public static void constructArticlePreviewJSON(List<Article> articles, JSONArray articleDetails) {
         for (int i = 0; i < articles.size(); i++) {
 
@@ -79,4 +86,9 @@ public class IndividualAuthorArticles extends HttpServlet {
             articleDetails.add(i, singleArticle);
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

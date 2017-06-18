@@ -18,6 +18,11 @@ import java.util.List;
 /**
  * Created by jlee512 on 6/06/2017.
  */
+
+/**
+ * The GetComments_IndividualArticle servlet returns a JSON for a specific article_id representing the top level comments associated with that article
+ */
+
 public class GetComments_IndividualArticle extends HttpServlet {
 
 
@@ -35,9 +40,12 @@ public class GetComments_IndividualArticle extends HttpServlet {
              /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
+                /*Check if the article_id is available as well as the article count and offset*/
                 if (request.getParameter("article_id") == null || request.getParameter("from") == null || request.getParameter("count") == null) {
                     User user = ((User) session.getAttribute("userDetails"));
                     response.sendRedirect("Content?username=" + user.getUsername() + "&notFound=true");
+
+                    /*If the necessary parameters are provided, get the top-level comments and put into a JSON array*/
                 } else {
                     int articleID = Integer.parseInt(request.getParameter("article_id"));
                     int firstComment = Integer.parseInt(request.getParameter("from"));
@@ -67,5 +75,9 @@ public class GetComments_IndividualArticle extends HttpServlet {
             }
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

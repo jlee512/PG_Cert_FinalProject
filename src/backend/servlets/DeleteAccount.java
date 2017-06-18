@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 /**
- * This servlet is used to delete a user account
+ * This servlet is used to delete a user article
  */
 
 public class DeleteAccount extends HttpServlet {
