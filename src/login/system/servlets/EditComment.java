@@ -16,7 +16,7 @@ public class EditComment extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
+         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt)*/
         LoginAttempt.loginStatusRedirection(request, response);
     }
 
@@ -25,6 +25,7 @@ public class EditComment extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MySQL DB = new MySQL();
 
+        /*If not logged in, redirect to login page*/
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
@@ -34,10 +35,15 @@ public class EditComment extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
+                /*Get parameters from the form*/
                 int commentID = Integer.parseInt(request.getParameter("comment_id"));
                 int articleID = Integer.parseInt(request.getParameter("article_id"));
                 String content = request.getParameter("comment_body");
+
+                /*Update comment in the database*/
                 CommentDAO.editComment(DB, commentID, content);
+
+                /*Redirect to article*/
                 response.sendRedirect("ViewArticle?article_id=" + articleID);
             }
         }

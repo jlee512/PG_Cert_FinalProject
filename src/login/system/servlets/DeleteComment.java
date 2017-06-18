@@ -31,11 +31,12 @@ public class DeleteComment extends HttpServlet {
 
                 User user = (User) session.getAttribute("userDetails");
 
-            /*If user tries to access DeleteComment directly with no parameters, redirect to homepage*/
+            /*If user tries to access DeleteComment directly with no parameters, redirect to homepage with error message*/
                 if (request.getParameter("comment_id") == null || request.getParameter("article_id") == null) {
                     response.sendRedirect("Content?username=" + user.getUsername() + "&notFound=true");
 
                 } else {
+                    /*Get details from request*/
                     int commentID = Integer.parseInt(request.getParameter("comment_id"));
                     int articleID = Integer.parseInt(request.getParameter("article_id"));
 
@@ -67,33 +68,19 @@ public class DeleteComment extends HttpServlet {
         }
     }
 
-    private void adjustParentCommentStatus(MySQL DB, int commentID, int parentCommentID) {
-        List<Comment> commentList = CommentDAO.getNestedComments(DB, parentCommentID);
-        if (commentList.size() == 0) {
-            CommentDAO.setCommentNotParent(DB, parentCommentID);
-        } else if (commentList.size() == 1) {
-            Comment childComment = commentList.get(0);
-            if (childComment.getCommentID() == commentID) {
-                CommentDAO.setCommentNotParent(DB, parentCommentID);
-            }
-        }
-    }
-
     private boolean verifyUserAuthorization(MySQL DB, int userID, int commentID, int articleID) {
         boolean userAuthorized = false;
+
         /*If the user wrote the comment, they are authorized to delete it.*/
-
-
         Comment comment = CommentDAO.getCommentByID(DB, commentID);
         if (comment.getAuthorID() == userID) {
             userAuthorized = true;
-            return userAuthorized;
-        } else {
+        }
+        else {
             /*If the user wrote the article they can delete any comments on the article.*/
             Article article = ArticleDAO.getArticle(DB, articleID);
             if (article.getAuthor_id() == userID) {
                 userAuthorized = true;
-                return userAuthorized;
             }
         }
         return userAuthorized;

@@ -31,6 +31,7 @@ public class PublicProfilePageContent extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
+                /*If there is no username parameter, redirect to homepage with an error message*/
                 if (request.getParameter("username") == null) {
                     response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
 

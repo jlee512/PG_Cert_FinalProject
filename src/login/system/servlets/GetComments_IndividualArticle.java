@@ -36,16 +36,22 @@ public class GetComments_IndividualArticle extends HttpServlet {
              /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
+                /*If the user is trying to access the servlet directly with one or more missing parameters, redirect to the homepage with error message*/
                 if (request.getParameter("article_id") == null || request.getParameter("from") == null || request.getParameter("count") == null) {
                     User user = ((User) session.getAttribute("userDetails"));
                     response.sendRedirect("Content?username=" + user.getUsername() + "&notFound=true");
-                } else {
+                }
+
+                else {
+                    /*Get parameters from request*/
                     int articleID = Integer.parseInt(request.getParameter("article_id"));
                     int firstComment = Integer.parseInt(request.getParameter("from"));
                     int commentCount = Integer.parseInt(request.getParameter("count"));
 
+                    /*Get the comments from database*/
                     List<Comment> commentList = CommentDAO.getTopLevelCommentsByArticle(DB, articleID, firstComment, commentCount);
 
+                    /*Write JSON information for each comment*/
                     response.setContentType("application/json");
                     JSONArray top_level_comments = new JSONArray();
 

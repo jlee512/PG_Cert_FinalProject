@@ -24,7 +24,7 @@ public class ShowNestedComments extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MySQL DB = new MySQL();
 
-        //Don't let users see comments if they are not logged in.
+        //Don't let users see comments if they are not logged in. Redirect to Login page.
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
@@ -34,12 +34,16 @@ public class ShowNestedComments extends HttpServlet {
               /*Check if session has timed out*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
+                /*If the page is accessed directly without the appropriate parameter, redirect to homepage with error message*/
                 if (request.getParameter("parentCommentID") == null) {
                     response.sendRedirect("Content?username=" + ((User) (session.getAttribute("userDetails"))).getUsername() + "&notFound=true");
                 } else {
                     int parentCommentID = Integer.parseInt(request.getParameter("parentCommentID"));
+
+                    /*Get the comments from the database*/
                     List<Comment> commentList = CommentDAO.getNestedComments(DB, parentCommentID);
 
+                    /*Write comments to JSON page*/
                     response.setContentType("application/json");
                     PrintWriter out = response.getWriter();
                     JSONArray commentDetails = new JSONArray();

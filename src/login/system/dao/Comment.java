@@ -19,8 +19,9 @@ public class Comment implements Serializable {
     private String author_firstname;
     private String author_lastname;
 
-
+    /*No argument constructor*/
     public Comment(){
+
     }
 
     public Comment(int articleID, int authorID, int parentCommentID, Timestamp timestamp, String content){
@@ -31,6 +32,8 @@ public class Comment implements Serializable {
         this.content = content;
         this.isParent = false;
     }
+
+    /*Getters and Setters*/
 
     public int getCommentID() {
         return commentID;

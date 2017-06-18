@@ -305,22 +305,14 @@ public class CommentDAO {
                 if (comments.size() == 0) {
                     System.out.println("Parent comment has no other children, updating status");
                     /*If comments size is zero, there are no other child comments so update parent status to false*/
-                    try (PreparedStatement statement2 = conn.prepareStatement("UPDATE posted_comments SET is_parent = ? WHERE comment_id = ?")){
-                        statement2.setBoolean(1, false);
-                        statement2.setInt(2, parentCommentID);
-                        statement2.executeUpdate();
-                    }
+                    setCommentNotParent(DB, parentCommentID);
 
                 } else if (comments.size() == 1) {
                     Comment childComment = comments.get(0);
                     if (childComment.getCommentID() == commentID) {
                         System.out.println("Parent comments only child is the comment being deleted, updating status");
                         /*Else if comments size is one and the comment being deleted is the only child, update the parent status to false*/
-                        try (PreparedStatement statement2 = conn.prepareStatement("UPDATE posted_comments SET is_parent = ? WHERE comment_id = ?")){
-                            statement2.setBoolean(1, false);
-                            statement2.setInt(2, parentCommentID);
-                            statement2.executeUpdate();
-                        }
+                        setCommentNotParent(DB, parentCommentID);
 
                     }
                 }

@@ -38,21 +38,6 @@
             background-size: cover;
         }
 
-        /*Styling for radio check boxes for profile pictures*/
-        label > input { /* HIDE RADIO */
-            visibility: hidden; /* Makes input not-clickable */
-            position: absolute; /* Remove input from document flow */
-        }
-
-        label > input + img { /* IMAGE STYLES */
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        label > input:checked + img { /* (RADIO CHECKED) IMAGE STYLES */
-            border: 2px solid #ffd54f;
-        }
-
         /*END OF STYLING*/
     </style>
 
@@ -121,7 +106,7 @@
                                 <div id="email"><p>${requestScope.user.email}</p></div>
 
                                 <h4 style="display: inline-block">Phone </h4>
-                                <div style="display: inline"id="phone"><p>${requestScope.user.phone}</p></div>
+                                <div style="display: inline" id="phone"><p>${requestScope.user.phone}</p></div>
                             </div>
 
                                 <%------About me------%>
