@@ -10,7 +10,7 @@
     <!--Login Attempt Servlet for processing a specific user login attempt-->
     <servlet>
         <servlet-name>LoginAttempt</servlet-name>
-        <servlet-class>login.system.servlets.LoginAttempt</servlet-class>
+        <servlet-class>backend.servlets.LoginAttempt</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -21,7 +21,7 @@
     <!--Logout Attempt Servlet to handle a specific user logging out-->
     <servlet>
         <servlet-name>LogoutAttempt</servlet-name>
-        <servlet-class>login.system.servlets.LogoutAttempt</servlet-class>
+        <servlet-class>backend.servlets.LogoutAttempt</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -32,7 +32,7 @@
     <!--Registration Attempt Servlet to handle a specific user registering-->
     <servlet>
         <servlet-name>RegistrationAttempt</servlet-name>
-        <servlet-class>login.system.servlets.RegistrationAttempt</servlet-class>
+        <servlet-class>backend.servlets.RegistrationAttempt</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -43,7 +43,7 @@
     <!--ChangePassword Attempt Servlet to handle password changes when logged in-->
     <servlet>
         <servlet-name>ChangePasswordAttempt</servlet-name>
-        <servlet-class>login.system.servlets.ChangePasswordAttempt</servlet-class>
+        <servlet-class>backend.servlets.ChangePasswordAttempt</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -54,7 +54,7 @@
     <!--AddComment Attempt Servlet to handle comment posting-->
     <servlet>
         <servlet-name>AddCommentAttempt</servlet-name>
-        <servlet-class>login.system.servlets.AddCommentAttempt</servlet-class>
+        <servlet-class>backend.servlets.AddCommentAttempt</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -65,7 +65,7 @@
     <!--View Article Servlet to handle individual article viewing-->
     <servlet>
         <servlet-name>ViewArticle</servlet-name>
-        <servlet-class>login.system.servlets.ViewArticle</servlet-class>
+        <servlet-class>backend.servlets.ViewArticle</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -76,7 +76,7 @@
     <!--Main Content Generation Servlet (to incorporate AJAX at a later stage)-->
     <servlet>
         <servlet-name>MainContentAccess</servlet-name>
-        <servlet-class>login.system.servlets.MainContentAccess</servlet-class>
+        <servlet-class>backend.servlets.MainContentAccess</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -87,7 +87,7 @@
     <!--Show Nested Comments servlet (to use AJAX)-->
     <servlet>
         <servlet-name>ShowNestedComments</servlet-name>
-        <servlet-class>login.system.servlets.ShowNestedComments</servlet-class>
+        <servlet-class>backend.servlets.ShowNestedComments</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -98,7 +98,7 @@
     <!--Delete Comments servlet-->
     <servlet>
         <servlet-name>DeleteComment</servlet-name>
-        <servlet-class>login.system.servlets.DeleteComment</servlet-class>
+        <servlet-class>backend.servlets.DeleteComment</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -109,7 +109,7 @@
     <!--Get Top Level Comments Servlet for an individual article-->
     <servlet>
         <servlet-name>GetComments_IndividualArticle</servlet-name>
-        <servlet-class>login.system.servlets.GetComments_IndividualArticle</servlet-class>
+        <servlet-class>backend.servlets.GetComments_IndividualArticle</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -120,7 +120,7 @@
     <!--Profile Page servlet for editing their details-->
     <servlet>
         <servlet-name>ProfilePage</servlet-name>
-        <servlet-class>login.system.servlets.ProfilePageContent</servlet-class>
+        <servlet-class>backend.servlets.ProfilePageContent</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -131,7 +131,7 @@
     <!--Delete Account servlet-->
     <servlet>
         <servlet-name>DeleteAccount</servlet-name>
-        <servlet-class>login.system.servlets.DeleteAccount</servlet-class>
+        <servlet-class>backend.servlets.DeleteAccount</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -142,7 +142,7 @@
     <!--Edit Comment servlet-->
     <servlet>
         <servlet-name>EditComment</servlet-name>
-        <servlet-class>login.system.servlets.EditComment</servlet-class>
+        <servlet-class>backend.servlets.EditComment</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -153,7 +153,7 @@
     <!--AddAnArticleAttempt servlet-->
     <servlet>
         <servlet-name>AddAnArticleAttempt</servlet-name>
-        <servlet-class>login.system.servlets.AddAnArticleAttempt</servlet-class>
+        <servlet-class>backend.servlets.AddAnArticleAttempt</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -163,7 +163,7 @@
     <!--Uploading profile picture-->
     <servlet>
         <servlet-name>UploadProfilePicture</servlet-name>
-        <servlet-class>login.system.servlets.ProfilePicture</servlet-class>
+        <servlet-class>backend.servlets.ProfilePicture</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -174,7 +174,7 @@
     <!--Individual Article Viewer-->
     <servlet>
         <servlet-name>IndividualArticleViewer</servlet-name>
-        <servlet-class>login.system.servlets.IndividualAuthorArticles</servlet-class>
+        <servlet-class>backend.servlets.IndividualAuthorArticles</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -185,7 +185,7 @@
     <!--Delete an Article Servlet-->
     <servlet>
         <servlet-name>DeleteAnArticle</servlet-name>
-        <servlet-class>login.system.servlets.DeleteAnArticle</servlet-class>
+        <servlet-class>backend.servlets.DeleteAnArticle</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -196,7 +196,7 @@
     <!--Edit an Article Servlet-->
     <servlet>
         <servlet-name>EditArticle</servlet-name>
-        <servlet-class>login.system.servlets.EditAnArticle</servlet-class>
+        <servlet-class>backend.servlets.EditAnArticle</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -207,7 +207,7 @@
     <!--Viewing multimedia inside the Gallery-->
     <servlet>
         <servlet-name>MultimediaGallery</servlet-name>
-        <servlet-class>login.system.servlets.MultimediaContent</servlet-class>
+        <servlet-class>backend.servlets.MultimediaContent</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -217,7 +217,7 @@
     <!--Google OAuth Login Servlet-->
     <servlet>
         <servlet-name>GoogleOAuthLogin</servlet-name>
-        <servlet-class>login.system.servlets.GoogleLoginServlet</servlet-class>
+        <servlet-class>backend.servlets.GoogleLoginServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -228,7 +228,7 @@
     <!--Google Registration Servley-->
     <servlet>
         <servlet-name>GoogleRegistration</servlet-name>
-        <servlet-class>login.system.servlets.GoogleRegistrationServlet</servlet-class>
+        <servlet-class>backend.servlets.GoogleRegistrationServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -239,7 +239,7 @@
     <!--Public Profile Servlet-->
     <servlet>
         <servlet-name>PublicProfilePageContent</servlet-name>
-        <servlet-class>login.system.servlets.PublicProfilePageContent</servlet-class>
+        <servlet-class>backend.servlets.PublicProfilePageContent</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -250,7 +250,7 @@
     <!--Public Profile Servlet-->
     <servlet>
         <servlet-name>IndividualPublicAuthorArticles</servlet-name>
-        <servlet-class>login.system.servlets.IndividualPublicAuthorArticles</servlet-class>
+        <servlet-class>backend.servlets.IndividualPublicAuthorArticles</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -261,7 +261,7 @@
     <!--Uploading Multimedia-->
     <servlet>
         <servlet-name>UploadMultimedia</servlet-name>
-        <servlet-class>login.system.servlets.UploadMultimedia</servlet-class>
+        <servlet-class>backend.servlets.UploadMultimedia</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -272,7 +272,7 @@
     <!--Processing User Multimedia-->
     <servlet>
         <servlet-name>UserMultimedia</servlet-name>
-        <servlet-class>login.system.servlets.User_Multimedia</servlet-class>
+        <servlet-class>backend.servlets.User_Multimedia</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -283,7 +283,7 @@
     <!--Processing Article Multimedia-->
     <servlet>
         <servlet-name>ArticleMultimedia</servlet-name>
-        <servlet-class>login.system.servlets.Article_Multimedia</servlet-class>
+        <servlet-class>backend.servlets.Article_Multimedia</servlet-class>
     </servlet>
 
     <servlet-mapping>

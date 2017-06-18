@@ -3,12 +3,11 @@
  */
 
 import junit.framework.TestCase;
-import login.system.dao.Article;
-import login.system.dao.ArticleDAO;
-import login.system.dao.Comment;
-import login.system.dao.CommentDAO;
-import login.system.db.MySQL;
-import login.system.tools.Keyboard;
+import backend.dao.Article;
+import backend.dao.ArticleDAO;
+import backend.dao.Comment;
+import backend.dao.CommentDAO;
+import backend.db.MySQL;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
