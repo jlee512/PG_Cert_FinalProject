@@ -15,6 +15,10 @@ import java.io.IOException;
 /**
  * Created by Julian on 30-May-17.
  */
+
+/**
+ * The ChangePasswordAttempt servlet is used to screen the user's existing password (if available) and update the password based on a users input
+ */
 public class ChangePasswordAttempt extends HttpServlet {
 
     @Override
@@ -25,19 +29,21 @@ public class ChangePasswordAttempt extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         /*Create link to the database*/
         MySQL DB = new MySQL();
 
-        /*When used attempts to post new password*/
-        /*Access user detail stored within the session*/
+        /*When a user attempts to post a new password*/
+        /*Check user details stored within the session*/
 
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != "active") {
+            /*If the user is not logged-in, re-direct to the login page*/
             response.sendRedirect("Login");
 
         } else {
 
-             /*Check if session has timed out*/
+             /*If the user is logged-in and the session hasn't timed out, carry out password verification and update process*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
                 User user = (User) session.getAttribute("userDetails");
@@ -45,9 +51,10 @@ public class ChangePasswordAttempt extends HttpServlet {
                 String newPasswordStr = request.getParameter("newPassword");
                 String newPasswordStrVerify = request.getParameter("newPasswordVerify");
 
-        /*Check if the google sign-in status is in the session, if so allow the user to update their password*/
+                /*Case (A) Check if the google sign-in status is in the session, if so allow the user to update their password without an initial password input*/
                 if (session.getAttribute("googleSignIn") != null && (boolean) session.getAttribute("googleSignIn")) {
 
+                    /*Check if any HTML cross-scripting is included in the form fields, if so, redirect to the password change page*/
                     if (AddAnArticleAttempt.inputContainsHTML(newPasswordStr) || AddAnArticleAttempt.inputContainsHTML(newPasswordStrVerify)) {
 
                         response.sendRedirect("ChangePassword?passwordChangeStatus=invalid&username=" + user.getUsername());
@@ -61,9 +68,10 @@ public class ChangePasswordAttempt extends HttpServlet {
 
                     return;
 
+
+                    /*Case (B) If not using Google sign-in, verify user's current password and update password accordingly*/
                 } else {
 
-        /*Need to get user hash from the database to ensure most up-to-date password is referenced for validation purposes*/
                     User userDBLookup = UserDAO.getUser(DB, user.getUsername());
 
         /*Verify that currentPasswordStr matches the users current password*/
@@ -89,6 +97,8 @@ public class ChangePasswordAttempt extends HttpServlet {
                             user = checkPasswordChangeStatus(response, DB, session, user, passwordChangeStatus);
 
                         }
+
+                        /*If the session has timed out, re-direct to the login page*/
                     } else {
                         response.sendRedirect("ChangePassword?passwordChangeStatus=incorrect&username=" + user.getUsername());
                     }
@@ -102,7 +112,6 @@ public class ChangePasswordAttempt extends HttpServlet {
     private User checkPasswordChangeStatus(HttpServletResponse response, MySQL DB, HttpSession session, User user, int passwordChangeStatus) throws IOException {
         switch (passwordChangeStatus) {
             case 1:
-                System.out.println("Password updated successfully");
                 user = UserDAO.getUser(DB, user.getUsername());
                     /*Update the user stored in the session*/
                 session.setAttribute("userDetails", user);
@@ -110,21 +119,29 @@ public class ChangePasswordAttempt extends HttpServlet {
                 /*Redirect the response to the Content Serv*/
                 response.sendRedirect("Content?username=" + user.getUsername());
                 break;
+
             case 2:
                 /*Unexpected exception but if there is a database error, send redirect to the Password change page to clarify the issue*/
-                System.out.println("User password update was invalid");
                 response.sendRedirect("ChangePassword?passwordChangeStatus=invalid&username=" + user.getUsername());
                 break;
+
             case 3:
                     /*If no connection the database can be established print out a descriptive error message and redirect to the password change page*/
-                System.out.println("No connection to the database");
                 response.sendRedirect("ChangePassword?passwordChangeStatus=dbConn&username=" + user.getUsername());
                 break;
+
         }
+        /*Return the updated user object*/
         return user;
     }
 
+    /*passwordInputVerification method*/
     private boolean passwordInputVerification(String newPasswordInput, String newPasswordVerificationInput) {
         return newPasswordInput.equals(newPasswordVerificationInput);
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

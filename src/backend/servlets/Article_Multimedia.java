@@ -16,6 +16,10 @@ import java.util.List;
 /**
  * Created by Julian on 14/06/2017.
  */
+
+/**
+ * The Article_Multimedia Class returns a JSON for a specific article_id representing the multimedia associated with that article
+ */
 public class Article_Multimedia extends HttpServlet {
 
     @Override
@@ -29,9 +33,10 @@ public class Article_Multimedia extends HttpServlet {
         /*Get the article_id*/
         int article_id = Integer.parseInt(request.getParameter("article_id"));
 
+        /*Access the multimedia for a given article using the MultimediaDAO*/
         List<Multimedia> multimedia = MultimediaDAO.getAllMultimediaForArticle(DB, article_id);
 
-        /*Return a JSON object with the article information included*/
+        /*Return a JSON object with the article information included (to be accessed and read via an AJAX call*/
         response.setContentType("application/json");
         JSONArray multimediaDetails = new JSONArray();
 
@@ -40,15 +45,11 @@ public class Article_Multimedia extends HttpServlet {
         multimediaDetails.toJSONString();
 
         response.getWriter().write(multimediaDetails.toString());
-        System.out.println(multimediaDetails);
 
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        //DO POST
-
-    }
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

@@ -94,4 +94,9 @@ public class AddCommentAttempt extends HttpServlet {
         String status = CommentDAO.addReplyComment(DB, userID, articleID, parentCommentID, timestamp, content);
         return status;
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

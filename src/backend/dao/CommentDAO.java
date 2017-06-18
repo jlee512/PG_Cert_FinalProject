@@ -480,4 +480,49 @@ public class CommentDAO {
             comments.add(comment);
         }
     }
+
+
+    /*-------------------------------------------------------------*/
+        /* Gets the number of children comments for a given parent comment_id and updates the 'isParent' boolean if all child comments have been deleted*/
+
+    public static void updateParentCommentStatus(MySQL DB, List<Comment> delete_user_comments) {
+        try (Connection conn = DB.connection()) {
+
+            for (int i = 0; i < delete_user_comments.size(); i++) {
+
+                try (PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(comment_id) FROM posted_comments WHERE parent_comment_id = ? AND author_id != ?;")) {
+
+                    stmt.setInt(1, delete_user_comments.get(i).getParentCommentID());
+                    stmt.setInt(2, delete_user_comments.get(i).getAuthorID());
+
+                    try (ResultSet resultSet = stmt.executeQuery()) {
+
+                        /*Get the count and if zero, update the is_parent status to be false*/
+                        resultSet.next();
+                        int number_of_children = resultSet.getInt(1);
+
+                        if (number_of_children == 0) {
+
+                            try (PreparedStatement stmt1 = conn.prepareStatement("UPDATE posted_comments SET is_parent = false WHERE comment_id = ?")) {
+                                stmt1.setInt(1, delete_user_comments.get(i).getParentCommentID());
+                                stmt1.executeUpdate();
+
+                            }
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
+
 }

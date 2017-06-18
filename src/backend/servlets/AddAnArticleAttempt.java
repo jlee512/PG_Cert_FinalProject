@@ -121,7 +121,7 @@ public class AddAnArticleAttempt extends HttpServlet {
 
     /**
      * Method developed to check whether input fields contain HTML tags.
-     * <p>
+     *
      * Used for screening user input, server-side (added after 16 June 2017 presentation based on user feedback.
      */
     public static boolean inputContainsHTML(String input) {
@@ -141,7 +141,7 @@ public class AddAnArticleAttempt extends HttpServlet {
 
     }
 
-        /*------------------------------*/
+    /*------------------------------*/
     /*End of Class*/
     /*------------------------------*/
 
