@@ -40,6 +40,7 @@ public class User_Multimedia extends HttpServlet {
 
         MultimediaContent.constructMultimediaPreviewJSON(multimedia, multimediaDetails);
 
+        // Convert to a JSON string
         multimediaDetails.toJSONString();
 
         response.getWriter().write(multimediaDetails.toString());
