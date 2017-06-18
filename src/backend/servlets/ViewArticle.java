@@ -67,7 +67,7 @@ public class ViewArticle extends HttpServlet {
 
 
 
-                        //Set it as an attribute to pass to the JSP.
+                        //Set it as an attribute to pass to the ViewArticlePage jsp
                         request.setAttribute("article", article);
                         request.setAttribute("date", date_for_output);
 
@@ -79,5 +79,9 @@ public class ViewArticle extends HttpServlet {
             }
         }
     }
+
+    /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }
