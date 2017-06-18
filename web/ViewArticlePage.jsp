@@ -1,6 +1,6 @@
-<%@ page import="login.system.dao.Article" %>
-<%@ page import="login.system.servlets.ViewArticle" %>
-<%@ page import="login.system.dao.User" %><%--
+<%@ page import="backend.dao.Article" %>
+<%@ page import="backend.servlets.ViewArticle" %>
+<%@ page import="backend.dao.User" %><%--
   Created by IntelliJ IDEA.
   User: cbla080
   Date: 3/06/2017

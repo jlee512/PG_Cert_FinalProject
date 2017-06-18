@@ -1,7 +1,7 @@
-import login.system.dao.User;
-import login.system.dao.UserDAO;
-import login.system.db.MySQL;
-import login.system.passwords.Passwords;
+import backend.dao.User;
+import backend.dao.UserDAO;
+import backend.db.MySQL;
+import backend.passwords.Passwords;
 
 /**
  * Created by Julian on 02-Jun-17.

@@ -2,15 +2,14 @@
  * Created by jlee512 on 2/06/2017.
  */
 
-import login.system.dao.User;
-import login.system.dao.UserDAO;
-import login.system.db.MySQL;
-import login.system.passwords.Passwords;
+import backend.dao.User;
+import backend.dao.UserDAO;
+import backend.db.MySQL;
+import backend.passwords.Passwords;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import sun.security.util.Password;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

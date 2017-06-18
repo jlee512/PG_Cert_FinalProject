@@ -1,5 +1,5 @@
-import login.system.dao.Comment;
-import login.system.db.MySQL;
+import backend.dao.Comment;
+import backend.db.MySQL;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 
