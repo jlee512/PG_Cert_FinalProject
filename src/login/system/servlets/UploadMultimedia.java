@@ -39,8 +39,7 @@ public class UploadMultimedia extends HttpServlet {
     // Gets the file location the uploaded file is stored
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("get to redirect");
-
+//        Do Get
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -92,7 +91,7 @@ public class UploadMultimedia extends HttpServlet {
             while (i.hasNext()) {
                 FileItem fi = (FileItem) i.next();
 
-
+                // Creates a new multimedia object for each field name which is empty
                 if (fi.getFieldName().equals("photoOrVideo") || fi.getFieldName().equals("youtubeLink")) {
 
                     System.out.println("new multimedia");
@@ -100,6 +99,7 @@ public class UploadMultimedia extends HttpServlet {
 
                 }
 
+                // If the form file is not empty, set variables
                 if (!fi.isFormField() && !(fi.getName() == null || fi.getName().isEmpty() || fi.getSize() == 0)) {
 
                     // Get the uploaded file parameters
@@ -111,13 +111,12 @@ public class UploadMultimedia extends HttpServlet {
                     long sizeInBytes = fi.getSize();
                     String filePathforMultimediaObject = "";
 
+                    // If the file is too large, redirect back and send an error in the URL
                     if (fi.getSize() >= maxFileSize) {
 
                         response.sendRedirect("ProfilePage?multimediaAdditionStatus=file_too_large");
 
                     }
-
-
 
                     /*~~~~~ Write the file and make sure the file name is unique ~~~~~*/
 
@@ -126,13 +125,14 @@ public class UploadMultimedia extends HttpServlet {
                         file = new File(filePathforMultimediaObject);
 
                         int counter = 0;
+
+                        // These methods make sure all files uploaded have a unique name
                         while (file.exists()) {
 
                             String extension = FilenameUtils.getExtension(fileName);
 
                             fileName = FilenameUtils.removeExtension(fileName);
                             fileName = fileName.replaceAll("[0-9]+$", "");
-
                             fileName = fileName.substring(0, (fileName.length())) + counter + "." + extension;
                             counter++;
                             filePathforMultimediaObject = filePath +
@@ -157,11 +157,13 @@ public class UploadMultimedia extends HttpServlet {
                             file = new File(filePathforMultimediaObject);
                         }
                     }
-
+                    // Gets the file extension
                     String extension = FilenameUtils.getExtension(fileName).toLowerCase();
 
+                    // Checks the file extension to make sure it's a valid file type
                     if (extension.equals("png") || extension.equals("jpeg") || extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4") || extension.equals("gif") || extension.equals("mpeg-4")) {
 
+                        // Sets the file multimedia object variables and adds to multimedia arraylist
                         multimedia.setFile_type("." + extension);
                         multimedia.setFile_path("Multimedia/" + fileName);
                         multimedia.setMultimedia_title(fileName);
@@ -171,11 +173,8 @@ public class UploadMultimedia extends HttpServlet {
                     /* Write the file */
                         fi.write(file);
 
-
                     }
 
-
-                    // Deal with DAO methods and youtube links
                 } else {
 
 
@@ -184,10 +183,10 @@ public class UploadMultimedia extends HttpServlet {
 
                         articleID = Integer.parseInt(fi.getString());
 
-                        //Placed this method here otherwise it doesnt seem to pick up the updated ArticleID and defaults to = 0
                     }
 
 
+                    // YOUTUBE link
                     if (fi.getFieldName().equals("youtubeLink") && fi.getString().length() != 0 && !inputContainsHTML(fi.getString())) {
 
                         // Convert youtube link to be "embed"
@@ -196,26 +195,23 @@ public class UploadMultimedia extends HttpServlet {
                         // Make the entire iframe with link the filepath variable in the DAO method
                         String youtubeLink = "<iframe allowfullscreen='allowfullscreen' src='" + conversionLink + "'></iframe>";
 
+                        // Sets the youtube variables and adds to multimedia arraylist
                         multimedia.setFile_type(".web");
                         multimedia.setFile_path(youtubeLink);
                         multimedia.setMultimedia_title("youtube_video");
-                        System.out.println("youtube being added");
                         multimedia_to_upload.add(multimedia);
 
                     }
                 }
-
             }
 
             int upload_status = -1;
 
+            // Goes through the file type and youtube link in the arraylist and sets the article id variable, then adds to database
             for (Multimedia multimedia1 : multimedia_to_upload) {
-
-                System.out.println(multimedia1.getFile_path());
 
                 multimedia1.setArticle_id(articleID);
                 upload_status = MultimediaDAO.addMultimediaToDB(DB, multimedia1.getArticle_id(), multimedia1.getFile_type(), multimedia1.getFile_path(), multimedia1.getMultimedia_title());
-
 
             }
 
@@ -239,6 +235,4 @@ public class UploadMultimedia extends HttpServlet {
             ex.printStackTrace();
         }
     }
-
-
 }
