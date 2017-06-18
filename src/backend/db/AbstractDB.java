@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/*Setup abstract DB class to store JDBC connection/credentials*/
+
 public abstract class AbstractDB {
     protected final String driver;
     protected final String jdbcName;

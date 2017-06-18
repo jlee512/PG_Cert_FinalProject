@@ -2,6 +2,10 @@ package backend.db;
 
 public class MySQL extends AbstractDB {
 
+    /**
+     * MySQL subclass of AbstractDB
+     */
+
     public MySQL() {
         super("com.mysql.jdbc.Driver",
                 "mysql",

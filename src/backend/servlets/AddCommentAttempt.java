@@ -30,6 +30,7 @@ public class AddCommentAttempt extends HttpServlet {
 
         String status = "";
 
+        /*If user is not logged in, redirect to login page*/
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");
@@ -41,6 +42,8 @@ public class AddCommentAttempt extends HttpServlet {
 
         /*Get printwriter to write to JSON*/
                 PrintWriter out = response.getWriter();
+
+                /*Get comment details*/
                 Timestamp currentTime = new Timestamp(System.currentTimeMillis());
                 String content = request.getParameter("comment_body");
                 String username = request.getParameter("username");
@@ -49,22 +52,27 @@ public class AddCommentAttempt extends HttpServlet {
 
         /*Access user details from the session*/
                 User currentUser = (User) session.getAttribute("userDetails");
+                int userID = currentUser.getUser_id();
 
+                /*Check if input contains HTML, if so, redirect the user to the MainContentPage and do not upload comment to the database (this uses the method developed in the AddAnArticleAttempt Class*/
                 if (inputContainsHTML(content)) {
                     response.sendRedirect("Content?username=" + currentUser.getUsername());
                     return;
                 }
 
 
-                int userID = currentUser.getUser_id();
+                /*Case (A) If there is a parent comment ID, the comment is a reply*/
                 if (request.getParameter("parent_comment_id").length() > 0) {
                     int parentCommentID = Integer.parseInt(request.getParameter("parent_comment_id"));
                     status = addReplyComment(parentCommentID, articleID, DB, userID, currentTime, content);
-                    System.out.println(status);
+
+                /*Case (B) Otherwise it is a top level comment*/
                 } else {
                     status = addTopLevelComment(articleID, DB, userID, currentTime, content);
-                    System.out.println(status);
+
                 }
+
+                /*Check output status from comment addition method and send a corresponding redirect*/
                 if (status.equals("Comment added successfully.")) {
                     response.sendRedirect("ViewArticle?article_id=" + articleID);
                 } else {
@@ -74,12 +82,15 @@ public class AddCommentAttempt extends HttpServlet {
         }
     }
 
-    protected String addTopLevelComment(int articleID, MySQL DB, int userID, Timestamp timestamp, String content){
+
+    /*The addTopLevelComment method adds a top level comment which is designated with a parentCommentID = - 1*/
+    protected String addTopLevelComment(int articleID, MySQL DB, int userID, Timestamp timestamp, String content) {
         String status = CommentDAO.addComment(DB, userID, articleID, -1, timestamp, content);
         return status;
     }
 
-    protected String addReplyComment(int parentCommentID, int articleID, MySQL DB, int userID, Timestamp timestamp, String content){
+    /*The addReplyComment method adds a reply comment in accordance with the CommentDAO method*/
+    protected String addReplyComment(int parentCommentID, int articleID, MySQL DB, int userID, Timestamp timestamp, String content) {
         String status = CommentDAO.addReplyComment(DB, userID, articleID, parentCommentID, timestamp, content);
         return status;
     }

@@ -21,30 +21,41 @@ import java.util.regex.Pattern;
 /**
  * Created by jlee512 on 8/06/2017.
  */
+
+/**
+ * Servlet for adding articles to the database
+ */
+
 public class AddAnArticleAttempt extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
+
+        /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined at the bottom of this servlet)*/
+
         LoginAttempt.loginStatusRedirection(request, response);
+
     }
 
+
+    /*doPost method captures form submission from user profile page and stores in the database if a valid article is submitted*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         /*Create a link to the database*/
         MySQL DB = new MySQL();
         HttpSession session = request.getSession(true);
 
          /*If user is not logged in, redirect them to login page.*/
         if (session.getAttribute("loginStatus") != "active") {
+
             response.sendRedirect("Login");
 
         } else {
-
-            /*Check if session has timed out*/
+            /*Check if session has timed out and if it has, redirect to the login page*/
             if (!LoginAttempt.sessionExpirationRedirection(request, response)) {
 
-                /*Pull the relevant user details from the current session for addition to the database*/
+                /*If the user is still logged in, pull the relevant user details from the current session as well as the posted article title, body and date/timestamp addition to the database*/
                 User user = (User) session.getAttribute("userDetails");
                 int author_id = user.getUser_id();
                 String username = user.getUsername();
@@ -77,34 +88,43 @@ public class AddAnArticleAttempt extends HttpServlet {
                 }
 
 
+                /*Call the ArticleDAO method to add an article to the database and */
                 int articleAdditionStatus = ArticleDAO.addArticleToDB(DB, author_id, article_title_input, timestamp_for_article, article_body_input);
 
                 switch (articleAdditionStatus) {
                     case 1:
-                        System.out.println("Article added successfully");
-                /*If successful article addition, reload the user's profile page*/
+                    /*If successful article addition, reload the user's profile page and provide corresponding feedback*/
                         response.sendRedirect("ProfilePage?username=" + username + "&articleadded=successful");
                         break;
+
                     case 2:
-                        System.out.println("Article already exists within the database");
-                /*If the article is non-unique (this is not expected as it is based on a combination of article title and article date), return the user to the profile page and display a descriptive message*/
+                /*If the article is non-unique (not expected to ever occur) return the user to the profile page and display a descriptive message*/
                         response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=exists" + "&articleadded=duplicate");
                         break;
+
                     case 3:
-                /*If an invalid article, return the user to the registration page and display a descriptive message*/
+                /*If an invalid article is input, return the user to the profile page and display a descriptive message*/
                         response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=invalid" + "&articleadded=invalid");
                         break;
+
                     case 4:
-                        System.out.println("No connection to the database");
+//                        No connection to the database - display a corresponding message to the user.
                         response.sendRedirect("ProfilePage?username=" + username + "&articleAdditionStatus=dbConn" + "&articleadded=db");
                         break;
+
                 }
 
             }
         }
     }
 
-    public static boolean inputContainsHTML (String input) {
+
+    /**
+     * Method developed to check whether input fields contain HTML tags.
+     * <p>
+     * Used for screening user input, server-side (added after 16 June 2017 presentation based on user feedback.
+     */
+    public static boolean inputContainsHTML(String input) {
 
         Pattern pattern = Pattern.compile("(.*<+[^>]+>.*)|(.*<+[^>]+>.*\\s)");
         Matcher matcher = pattern.matcher(input);
@@ -120,5 +140,9 @@ public class AddAnArticleAttempt extends HttpServlet {
         }
 
     }
+
+        /*------------------------------*/
+    /*End of Class*/
+    /*------------------------------*/
 
 }

@@ -3,6 +3,11 @@ package backend.db;
 /**
  * Created by jlee512 on 29/05/2017.
  */
+
+/**
+ * Database connection configuration file
+ *
+ * */
 public class Configuration {
 
     static final String MYSQL_DBNAME = "uoawhileecoyote";

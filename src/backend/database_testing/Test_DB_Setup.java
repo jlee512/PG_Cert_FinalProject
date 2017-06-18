@@ -12,6 +12,11 @@ import java.text.ParseException;
 /**
  * Created by jlee512 on 1/06/2017.
  */
+
+/**
+ * This class was used to setup a database with users/articles/multimedia for testing purposes. Comments were added through the comment interface
+ */
+
 public class Test_DB_Setup {
 
     private static MySQL DB = new MySQL();
@@ -19,7 +24,10 @@ public class Test_DB_Setup {
     public static void main(String[] args) throws ParseException {
 
 
-        /*--------------ADD USERS-----------------*/
+/*------------------------------------*/
+/*Setup users*/
+/*------------------------------------*/
+
         System.out.println("Adding test user Catherine");
         String username = "catherine";
         String passwordEntry = "test";
@@ -71,7 +79,9 @@ public class Test_DB_Setup {
         hash = Passwords.hash(passwordEntry.toCharArray(), salt, iterations);
         UserDAO.addUserToDB(DB, username, iterations, salt, hash, email, phoneEntry, occupationEntry, cityEntry, profile_description, profile_picture, firstname, lastname);
 
-        /*------------ADD/ACCESS ARTICLES----------*/
+/*------------------------------------*/
+/*Setup articles*/
+/*------------------------------------*/
         System.out.println("Adding articles to the database: 1");
         int author_id = 1;
         String article_title = "You're a lizard Harry!";
@@ -137,11 +147,11 @@ public class Test_DB_Setup {
 
         ArticleDAO.addArticleToDB(DB, author_id, article_title, timestamp, article_body);
 
-        /*------------ADD/ACCESS COMMENTS----------*/
 
+/*------------------------------------*/
+/*Setup Multimedia Articles*/
+/*------------------------------------*/
 
-
-        /*------------ADD/ACCESS MULTIMEDIA--------*/
         String genericFilePath = "Multimedia/";
 
         System.out.println("Adding multimedia to database: Fushimi Inari");
