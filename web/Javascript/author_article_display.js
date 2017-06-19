@@ -2,6 +2,10 @@
  * Created by jlee512 on 5/06/2017.
  */
 
+/*-------------------------------------------------------*/
+/*This JavaScript file is used to display articles on the user profile page. It incorporates and AJAX call to the ViewIndividualArticles servlet and includes implementation of the front-end sorting/searching functionality*/
+/*-------------------------------------------------------*/
+
 // Created a template which will be used for inserting new article HTML.
 var articleTemplate =
     "<div class='panel panel-default'>" +
@@ -12,8 +16,9 @@ var articleTemplate =
     "</div>" +
     "</div>";
 
-/*jQuery function to animate each article header on hover*/
+/*-------------------------------------------------------*/
 
+/*jQuery function to animate each article header on hover*/
 function hoverBackgroundColor() {
 
     $(this).find('.article-heading').stop().animate({
@@ -32,18 +37,20 @@ function normalBackgroundColor() {
 
 }
 
-/*jQuery function to animate headings of articles as they are hovered over*/
-
 $('div.news_feed').on('mouseenter', '.individualArticleLink', hoverBackgroundColor);
 
 $('div.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundColor);
 
-/* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
+/*-------------------------------------------------------*/
+
+/* Setup global variables to store the state of article loading on the page at a given point in time as well as sorting mechanisms*/
 var from = 0;
 var count = 6;
 var moreArticles = true;
 
+/*-------------------------------------------------------*/
 
+/*If a successful AJAX call is made, this function is called to process the results and populate the user's articles 'news_feed'*/
 function successfulArticleLoad(msg) {
 
     var articleContainer = $(".news_feed");
@@ -79,6 +86,12 @@ function successfulArticleLoad(msg) {
 
             var formattedDate = formatDate(date);
 
+            /*Format the panel body with the article preview and
+            * (1) View button
+            * (2) Delete button
+            * (3) Edit button
+            * (4) Add Multimedia button
+            */
             articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p>" +
                 "<p>" + formattedDate + "</p>" +
                 "<p>" + article.article_body + "</p>" +
@@ -100,10 +113,10 @@ function successfulArticleLoad(msg) {
             /*Remove the loading icon*/
             $('.loader-wrapper').hide();
 
+            /*Append the article to the user's individual article news_feed*/
             articleContainer.append(articleDiv);
 
             /*Create a cookie which stores the full article body for reference in editing (lasts one 1/2 day)*/
-
             var cookie_date = new Date();
             cookie_date.setTime(cookie_date.getTime() + (24 * 60 * 60 * 1000 * 0.5));
             var expires = "expires=" + cookie_date.toUTCString();
@@ -116,6 +129,7 @@ function successfulArticleLoad(msg) {
 
         }
 
+        /*If the message length is less than the requested count, hide the loader and set 'moreArticles' to false as the end of the article list has been reached*/
         if (msg.length < count) {
             $('.loader-wrapper').hide();
             $('#loaded1, #loaded2, #loaded3, #loaded4').show();
@@ -124,7 +138,10 @@ function successfulArticleLoad(msg) {
     }
 }
 
+/*-------------------------------------------------------*/
 
+
+/*Format date function to process the backend timestamp variable*/
 function formatDate(date) {
 
     var days = date.getDate();
@@ -153,6 +170,8 @@ function formatDate(date) {
 
 }
 
+/*-------------------------------------------------------*/
+/*If the AJAX call is failed, output an error message to the console*/
 function failedArticleLoad(jqXHR, textStatus, errorThrown) {
 
     console.log(jqXHR.status);
@@ -161,6 +180,8 @@ function failedArticleLoad(jqXHR, textStatus, errorThrown) {
 
 }
 
+/*-------------------------------------------------------*/
+/*AJAX call to ViewIndividualArticles servlet to access an increment of articles*/
 function loadArticlesIncrement() {
 
     /*Show the articles loader*/
@@ -182,6 +203,9 @@ function loadArticlesIncrement() {
     from += count;
 }
 
+
+/*-------------------------------------------------------*/
+/*On loading, populate the page with the first round of articles*/
 $(document).ready(function () {
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
@@ -198,3 +222,7 @@ $(document).ready(function () {
     /*Load initial four articles*/
     loadArticlesIncrement();
 });
+
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/
