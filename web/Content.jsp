@@ -10,6 +10,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="backend.dao.User" %>
 
+<%--Prevents cache access of content/changepassword/logout pages--%>
 <%
     /*Prevents cache access of content/changepassword/logout pages*/
     response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
@@ -20,32 +21,6 @@
 
     response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
     User user = (User) session.getAttribute("userDetails");
-
-    /*Read in adventure quotes.txt file and extract a random quote*/
-    String quotes_file_path = request.getServletContext().getRealPath("Text_Files/adventure_quotes.txt");
-
-    /*Initialise quote and author strings as well as the numQuotes and randomQuote variables*/
-    String quote = "";
-    String author = "";
-    int numQuotes = 6;
-    int randomQuote = (int) (Math.random() * (numQuotes));
-
-//    File quotes_file = new File(quotes_file_path);
-//    try (BufferedReader br = new BufferedReader(new FileReader(quotes_file))) {
-//
-//        for (int i = 0; i < numQuotes; i++) {
-//            if (i == (randomQuote)) {
-//                quote = br.readLine();
-//                author = br.readLine();
-//            } else {
-//                br.readLine();
-//                br.readLine();
-//            }
-//        }
-//
-//    } catch (IOException e) {
-//        e.printStackTrace();
-//    }
 %>
 
 <html>
@@ -53,6 +28,10 @@
 
     <title>Your Account</title>
     <%@ include file="HeadStylingLinks.jsp" %>
+
+
+    <%---------------------------------------------------------------------------------%>
+    <%--Google Sign-in implementation--%>
     <meta name="google-signin-client_id"
           content="17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -80,6 +59,8 @@
 
         }
     </script>
+
+    <%-----------------------------------------------------------------------------------%>
 
     <style type="text/css">
 
