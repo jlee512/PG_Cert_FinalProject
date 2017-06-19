@@ -1,6 +1,11 @@
 /**
  * Created by cbla080 on 12/06/2017.
  */
+
+/*-------------------------------------------------------*/
+/*This JavaScript file is used to edit comments on a given article.
+/*-------------------------------------------------------*/
+
 //When edit button is clicked, open the comment editing form.
 $(document).on("click", ".edit_comment", function () {
 
@@ -26,8 +31,9 @@ $(document).on("click", ".edit_comment", function () {
         button.html("Edit");
         $(".edit_comment_body").remove();
 
-    } else {
+
         //If the editing form is closed, open it.
+    } else {
         button.addClass("edit_open");
         button.html("<p><i class='fa fa-pencil' aria-hidden='true'></i>Edit</p>");
         var edit_comment_form = "<div class='panel-body edit_comment_body'>" + "<form action='EditComment' method='POST'>" +
@@ -44,3 +50,7 @@ $(document).on("click", ".edit_comment", function () {
     }
 
 });
+
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/

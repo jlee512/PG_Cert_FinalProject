@@ -1,6 +1,12 @@
 /**
  * Created by catherinedechalain on 15/06/17.
  */
+
+/*-------------------------------------------------------*/
+/*This JavaScript file is used to check for HTML cross-scripting in form input fields on the client side
+ Note: following user-testing, server-side scripting has also been implemented to screen for cross-scripting
+ ------------------------------------------------------*/
+
 //Alert users who enter illegal characters into form fields.
 $(document).ready(function () {
 
@@ -24,3 +30,7 @@ $(document).ready(function () {
 
     })
 });
+
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/

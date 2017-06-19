@@ -1,6 +1,12 @@
 /**
  * Created by Yuri on 12/06/2017.
  */
+
+/*-------------------------------------------------------*/
+/*This JavaScript file is used to display multimedia for the full Multimedia Gallery.
+* Multimedia are accessed from the MultimediaContent servlet using AJAX calls*/
+/*-------------------------------------------------------*/
+
 // Created a template which will be used for inserting new article HTML.
 var multimediaTemplate =
 
@@ -13,8 +19,9 @@ var multimediaTemplate =
     "</div>";
 
 
-/*jQuery function to animate each article header on hover*/
+/*-------------------------------------------------------*/
 
+/*jQuery function to animate each article header on hover*/
 function hoverBackgroundColor() {
 
     $(this).find('.multimedia-heading').stop().animate({
@@ -33,18 +40,21 @@ function normalBackgroundColor() {
 
 }
 
-/*jQuery function to animate headings of articles as they are hovered over*/
-
 $('div.news_feed').on('mouseenter', '.individualMultimediaLink', hoverBackgroundColor);
 
 $('div.news_feed').on('mouseleave', '.individualMultimediaLink', normalBackgroundColor);
 
-/* Setup to/count article variables to store the state of article loading on the page at a given point in time*/
+/*-------------------------------------------------------*/
+
+/* Setup global variables to store the state of article loading on the page at a given point in time as well as sorting mechanisms*/
 var from = 0;
 var count = 6;
 var moreMultimedia = true;
 
+/*-------------------------------------------------------*/
 
+
+/*If a successful AJAX call is made, this function is called to process the results and populate the 'uploadedPhotos' container div and the 'uploadedVideos' container div*/
 function successfulArticleLoad(msg) {
 
     var photoContainer = $(".uploadedPhotos");
@@ -67,6 +77,7 @@ function successfulArticleLoad(msg) {
 
             multimediaDiv.find(".panel-title").append("<a href='ViewArticle?article_id=" + multimedia.article_id + "'style='color: white;'><div class='view_comments pull-right' style='display: inline-block; padding: 5px 10px 5px 10px; background-color: #64dd17; border-radius: 2px;'><strong>" + "<i class='fa fa-eye' aria-hidden='true'></i></strong></div></a>");
 
+            /*Screen the AJAX messages returned by the file extension*/
 
             //IMAGE//
             if (multimedia.file_type == ".jpeg" || multimedia.file_type == ".png" || multimedia.file_type == ".jpg") {
@@ -119,6 +130,8 @@ function successfulArticleLoad(msg) {
 
 }
 
+/*-------------------------------------------------------*/
+/*If the AJAX call is failed, output an error message to the console*/
 function failedArticleLoad(jqXHR, textStatus, errorThrown) {
 
     console.log(jqXHR.status);
@@ -127,6 +140,8 @@ function failedArticleLoad(jqXHR, textStatus, errorThrown) {
 
 }
 
+/*-------------------------------------------------------*/
+/*AJAX call to MultimediaContent servlet to access an increment of multimedia*/
 function loadMultimediaIncrement() {
 
     /*Show the articles loader*/
@@ -144,45 +159,30 @@ function loadMultimediaIncrement() {
         error: failedArticleLoad
     });
 
-    /*Increment the current "from" by the count so that next time the function is called, the next set of articles is loaded*/
+    /*Increment the current "from" by the count so that next time the function is called, the next set of multimedia is is loaded*/
     from += count;
 }
 
+/*-------------------------------------------------------*/
+/*On loading, populate the page with the first round of multimedia*/
 $(document).ready(function () {
 
     $('#loaded1, #loaded2, #loaded3, #loaded4').hide();
 
-    /*Add in infinite scrolling to load more articles*/
+    /*Add in infinite scrolling to load more multimedia*/
     $(window).scroll(function () {
 
-        /*Function to facilitate infinite scrolling of articles*/
+        /*Function to facilitate infinite scrolling of multimedia*/
         if ($(document).height() - window.innerHeight <= ($(window).scrollTop() + 10) && moreMultimedia) {
 
             loadMultimediaIncrement();
         }
     });
 
-    /*Load initial four articles*/
+    /*Load initial four multimedia*/
     loadMultimediaIncrement();
 });
 
-/*Clear individual article cookies function*/
-
-function getCookie(cookie_name, article_id) {
-
-    var name = cookie_name + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var cookie_array = decodedCookie.split(';');
-    for (var i = 0; i < cookie_array.length; i++) {
-        var cookie = cookie_array[i];
-        while (cookie.charAt(0) == ' ') {
-            cookie = cookie.substring(1);
-        }
-        if (cookie.indexOf(name) == 0) {
-            full_article_body = cookie.substring(name.length, cookie.length);
-
-            return full_article_body;
-        }
-    }
-    return "";
-}
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/
