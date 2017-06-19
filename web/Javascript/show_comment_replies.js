@@ -2,6 +2,11 @@
  * Created by cbla080 on 5/06/2017.
  */
 
+/*-------------------------------------------------------*/
+/*This JavaScript file is used to show a level of reply comments for a given parent comment using an AJAX call to the ShowNestedComments servlet*/
+/*-------------------------------------------------------*/
+
+/*Reply comment template*/
 var commentPara = '<div class="panel panel-info">' +
     '<div class ="comment-content">' +
     '<div class="panel-heading">INSERT COMMENT HEADING</div>'+
@@ -10,6 +15,7 @@ var commentPara = '<div class="panel panel-info">' +
     '<div class="buttons"></div>' +
     '</div>';
 
+/*Loader HTML code*/
 var loaderWrapper = '<div class="loader-wrapper" style="margin-left: 3%; text-align: center;">' +
     '<div class="loader" style="display: inline-block; text-align: center;"></div>' +
     '</div>';
@@ -26,32 +32,26 @@ $(document).on("click", ".show_replies", function () {
 
     buttonsDiv.append(loaderWrapper);
 
-
-
     /*If the replies are displayed and the button is pressed, remove the comments*/
     if (button.hasClass("comments-displayed")) {
-        console.log("comments loaded");
         buttonsDiv.find(".loader-wrapper").hide();
         buttonsDiv.find(".loader-wrapper").remove();
         button.removeClass("comments-displayed");
         button.html("Show Replies");
-        console.log(buttonsDiv.prop('nodeName'));
-        console.log(buttonsDiv.attr('class'));
         buttonsDiv.nextAll().remove();}
-
-
 
         /*If the replies are not displayed and the button is pressed, show the comments*/
         else
         {
             button.addClass("comments-displayed");
+
+            /*-------------------------------------------------------*/
+            /*AJAX call to ShowNestedComments servlet to access an increment of comments*/
             $.ajax({
                 url: "ShowNestedComments?parentCommentID=" + parentID,
                 type: "GET",
                 success: function loadNestedComments(msg) {
                     buttonsDiv.find(".loader-wrapper").show();
-
-                    console.log(msg.length);
 
                     if (msg.length == 0){
                         /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
@@ -61,8 +61,6 @@ $(document).on("click", ".show_replies", function () {
 
                     } else {
                         for (i = 0; i < msg.length; i++) {
-
-                            console.log("Test");
 
                             var commentContainerTemplate = $(commentPara);
                             var replyCommentsButtonPanel = $(commentContainerTemplate).find('.buttons');
@@ -133,6 +131,11 @@ $(document).on("click", ".show_replies", function () {
         }
 });
 
+
+/*-------------------------------------------------------*/
+
+
+/*Format date function to process the backend timestamp variable*/
 function formatDate(date) {
 
     var days = date.getDate();
@@ -162,6 +165,9 @@ function formatDate(date) {
 
 }
 
+
+/*-------------------------------------------------------*/
+/*If the AJAX call is failed, output an error message to the console*/
 function loadNestedCommentsFail(jqXHR, textStatus, errorThrown) {
     console.log(jqXHR.status);
     console.log(textStatus);
@@ -169,6 +175,8 @@ function loadNestedCommentsFail(jqXHR, textStatus, errorThrown) {
 
 }
 
+/*-------------------------------------------------------*/
+/*Function to obtain the article_id from the client-side cookie*/
 function getArticleID () {
     /*Create the cookie search text*/
     var cookieName = "article_id=";
@@ -192,3 +200,7 @@ function getArticleID () {
     /*Return blank if not found*/
     return "";
 }
+
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/
