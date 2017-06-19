@@ -71,3 +71,6 @@ function getArticleID () {
     /*Return blank if not found*/
     return "";
 }
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/
