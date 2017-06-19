@@ -12,10 +12,9 @@ import java.io.IOException;
 
 /**
  * Created by cbla080 on 7/06/2017.
- */
-
-/**
- * This servlet processes the form input for comment editing
+ *
+ *
+ * This servlet processes the form input for comment editing.
  */
 
 public class EditComment extends HttpServlet {
@@ -24,7 +23,7 @@ public class EditComment extends HttpServlet {
     /*Redirect if the servlet is directly accessed from the browser using a GET request*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined below)*/
+         /*If there is an attempt to access a servlet directly, check login status and redirect to login page or content page as is appropriate (method defined in LoginAttempt)*/
         LoginAttempt.loginStatusRedirection(request, response);
     }
 
@@ -32,6 +31,8 @@ public class EditComment extends HttpServlet {
     /*Form processing method*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        /*Open a connection to the database*/
         MySQL DB = new MySQL();
 
         /*If not logged in, redirect to login page*/

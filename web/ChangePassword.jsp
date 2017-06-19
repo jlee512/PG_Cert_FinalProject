@@ -25,7 +25,6 @@
 <html>
 <head>
     <%@include file="HeadStylingLinks.jsp" %>
-    <script src="Javascript/form_security_validation.js"></script>
     <title>Password change</title>
 </head>
 
@@ -46,7 +45,7 @@
 
 <body>
 <%--If user is not logged in, re-direct to the login page--%>
-<c:if test="${loginStatus != 'active'}">
+<c:if test="${sessionScope.loginStatus != 'active'}">
     <c:choose>
 
         <%--If the username parameter has been stored, prepopulate the username field with the login--%>

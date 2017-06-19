@@ -25,22 +25,6 @@
 <head>
     <title>${requestScope.user.username}'s profile</title>
     <%@include file="HeadStylingLinks.jsp" %>
-
-    <style>
-        .fixedDefaultPictureSize {
-            position: relative;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            width: 120px;
-            height: 120px;
-            background-position: 50% 50%;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        /*END OF STYLING*/
-    </style>
-
     <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
@@ -51,7 +35,7 @@
 
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
 <c:choose>
-    <c:when test="${loginStatus == 'active'}">
+    <c:when test="${sessionScope.loginStatus == 'active'}">
         <%@include file="Navbar.jsp" %>
 
         <%--Main  panel--%>
