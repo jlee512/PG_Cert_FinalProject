@@ -5,12 +5,14 @@
   Time: 12:47 PM
   To change this template use File | Settings | File Templates.
 --%>
+
+<%--Import JSTL Standard Tag Library--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="backend.dao.User" %>
 
+<%--Prevents cache access of content/changepassword/logout pages--%>
 <%
-    /*Prevents cache access of content/changepassword/logout pages*/
     response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
 
     response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
@@ -19,8 +21,6 @@
 
     response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
     User user = (User) session.getAttribute("userDetails");
-
-
 %>
 
 
@@ -28,6 +28,8 @@
 <head>
     <title>${sessionScope.userDetails.username}'s profile</title>
     <%@include file="HeadStylingLinks.jsp" %>
+
+    <%--Page specific styling--%>
     <style>
         <%--Disable mdbBootstrap form "readony" styling--%>
         input[type=date]:disabled, input[type=date][readonly=readonly], input[type=datetime-local]:disabled, input[type=datetime-local][readonly=readonly], input[type=email]:disabled, input[type=email][readonly=readonly], input[type=number]:disabled, input[type=number][readonly=readonly], input[type=password]:disabled, input[type=password][readonly=readonly], input[type=search-md]:disabled, input[type=search-md][readonly=readonly], input[type=search]:disabled, input[type=search][readonly=readonly], input[type=tel]:disabled, input[type=tel][readonly=readonly], input[type=text]:disabled, input[type=text][readonly=readonly], input[type=time]:disabled, input[type=time][readonly=readonly], input[type=url]:disabled, input[type=url][readonly=readonly], textarea.md-textarea:disabled, textarea.md-textarea[readonly=readonly] {
@@ -97,7 +99,7 @@
 
         }
 
-        /*END OF STYLING*/
+        /*END OF PAGE SPECIFIC STYLING*/
     </style>
 
     <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">

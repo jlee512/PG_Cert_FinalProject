@@ -12,41 +12,41 @@
 </head>
 <body>
 
-<%--Phone Number input--%>
-<label for="phone">mobile phone number</label>
-<br>
-<%--Note regex pattern tested using regexr.com --%>
-<input type="text" id="phone" name="phone" placeholder="mobile phone number" onchange="checkForSpaces(this)"
-       pattern="^(02){1}\d{1}(\s|-)?\d{3}(\s|-)?\d{4,5}$"
-       title="Enter a valid New Zealand mobile phone number seperated by spaces only (e.g 021 123 4567)"/>
+    <%--Phone Number input--%>
+    <label for="phone">mobile phone number</label>
+    <br>
+    <%--Note regex pattern tested using regexr.com --%>
+    <input type="text" id="phone" name="phone" placeholder="mobile phone number" onchange="checkForSpaces(this)"
+           pattern="^(02){1}\d{1}(\s|-)?\d{3}(\s|-)?\d{4,5}$"
+           title="Enter a valid New Zealand mobile phone number seperated by spaces only (e.g 021 123 4567)"/>
 
-<br><br>
+    <br><br>
 
-<%--Occupation input--%>
-<label for="occupation">occupation</label>
-<br>
-<%--Note regex pattern tested using regexr.com --%>
-<input type="text" id="occupation" name="occupation" placeholder="your occupation"
-       onchange="checkForSpaces(this)"/>
+    <%--Occupation input--%>
+    <label for="occupation">occupation</label>
+    <br>
+    <%--Note regex pattern tested using regexr.com --%>
+    <input type="text" id="occupation" name="occupation" placeholder="your occupation"
+           onchange="checkForSpaces(this)"/>
 
-<br><br>
+    <br><br>
 
-<%--City input--%>
-<label for="city">city</label>
-<br>
-<%--Note regex pattern tested using regexr.com --%>
-<input type="text" id="city" name="city" placeholder="city"
-       onchange="checkForSpaces(this)"/>
+    <%--City input--%>
+    <label for="city">city</label>
+    <br>
+    <%--Note regex pattern tested using regexr.com --%>
+    <input type="text" id="city" name="city" placeholder="city"
+           onchange="checkForSpaces(this)"/>
 
-<br><br>
+    <br><br>
 
-<label for="city">city</label>
-<br>
-<%--Note regex pattern tested using regexr.com --%>
-<input type="text" id="city" name="city" placeholder="city"
-       onchange="checkForSpaces(this)"/>
+    <label for="city">city</label>
+    <br>
+    <%--Note regex pattern tested using regexr.com --%>
+    <input type="text" id="city" name="city" placeholder="city"
+           onchange="checkForSpaces(this)"/>
 
-<br><br>
+    <br><br>
 
 </body>
 </html>

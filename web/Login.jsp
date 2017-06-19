@@ -5,6 +5,7 @@
   Time: 7:58 AM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%--Setup .jsp file with jstl tag library--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -14,6 +15,7 @@
     <%@ include file="HeadStylingLinks.jsp" %>
     <title>Login</title>
 
+    <%--------------------------------Google Sign In--------------------------------------------%>
     <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 
     <meta name="google-signin-client_id"
@@ -64,6 +66,9 @@
                 });
         }
     </script>
+    <%-----------------------------------------------------------------------------------------------%>
+
+    <%--Custom Google Sign In Button--%>
     <style type="text/css">
         #customBtn {
             text-align: center;
@@ -228,8 +233,6 @@
         document.write('<meta name="viewport" content="width=device-width,height='+window.innerHeight+', initial-scale=1.0">');
     }
 </script>
-
-<%--Script inclusions--%>
 
 <%--Google OAuth--%>
 <script>startApp();</script>

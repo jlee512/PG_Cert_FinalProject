@@ -5,9 +5,11 @@
   Time: 3:57 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%--Import JSTL tag library--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%--Navbar constructed using Bootstrap (note this file must be included with Head Styling Links and Body Styling Links--%>
 <nav class="navbar navbar-fixed navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">

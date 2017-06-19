@@ -46,6 +46,8 @@
 </script>
 
 
+<%--NOTE: these id's/classes appear to not exist as this is an external JSP file that is imported--%>
+<%--Internal styling to be updated prior to this being deleted--%>
 <style>
     #submit {
         padding: 2%;

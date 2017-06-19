@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
+<%--JSTL tag library and Class import statements--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="backend.dao.User" %>
@@ -62,6 +63,8 @@
 
     <%-----------------------------------------------------------------------------------%>
 
+
+    <%--Page specific styling--%>
     <style type="text/css">
 
         #logoutButton {
@@ -93,13 +96,16 @@
 
     </style>
 
+    <%--Loader animation--%>
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 
+    <%--Custom favourites icon--%>
     <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 
 </head>
 
 <body>
+
 <%--If user profile has been activated with a successful login, progress with presenting dynamic content--%>
 <c:choose>
     <c:when test="${loginStatus == 'active'}">
@@ -139,6 +145,8 @@
                 <%--Articles should be dropped into here from AJAX calls--%>
         </div>
 
+
+        <%--Loader HTML implementation--%>
         <div class="loader-wrapper" style="text-align: center;">
             <div class="loader" style="display: inline-block;"></div>
         </div>

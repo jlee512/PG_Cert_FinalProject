@@ -12,6 +12,7 @@
     <title>Escapades</title>
 </head>
 
+<%--Page Specific Styling--%>
 <style>
 
     .homepageVideo {
