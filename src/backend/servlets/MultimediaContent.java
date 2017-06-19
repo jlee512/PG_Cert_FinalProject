@@ -38,7 +38,6 @@ public class MultimediaContent extends HttpServlet {
         /*Get the number of multimedia files requested and the author_id*/
         int first_multimedia_file = Integer.parseInt(request.getParameter("from"));
         int multimedia_count = Integer.parseInt(request.getParameter("count"));
-        int author_id = ((User) (session.getAttribute("userDetails"))).getUser_id();
 
         /*Access a given selection of multimedia*/
         List<Multimedia> multimedia = MultimediaDAO.getFirstNMultimediaByArticleDate(DB, first_multimedia_file, multimedia_count);
