@@ -73,6 +73,7 @@ public class UserDAO {
                 }
             }
         } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
             return -2;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -273,6 +274,7 @@ public class UserDAO {
 
             }
         } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
             return 2;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -302,6 +304,7 @@ public class UserDAO {
                 return 1;
             }
         } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
             return 2;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -331,6 +334,7 @@ public class UserDAO {
                 return 1;
             }
         } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
             return 2;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -98,7 +98,6 @@ public class RegistrationAttempt extends HttpServlet {
 
             switch (registrationStatus) {
                 case 1:
-                    System.out.println("User added successfully");
                     User user = new User(usernameInput, hash, salt, iterations, emailInput, phoneInput, occupationInput, cityInput, profile_descriptionInput, profile_pictureStandard, firstname, lastname);
                     user.setUser_id(user_id);
 
@@ -109,22 +108,20 @@ public class RegistrationAttempt extends HttpServlet {
                     /*Attached user details and loginStatus to the HttpSession*/
                     session.setAttribute("loginStatus", "active");
                     session.setAttribute("userDetails", user);
-                    /*Redirect the response to the Content Serv*/
+                    /*Redirect the response to the Content Servlet*/
                     response.sendRedirect("Content?username=" + user.getUsername());
 
                     break;
                 case -2:
                     /*If username already exists, return the user to the registration page and display a descriptive message*/
-                    System.out.println("User already exists within the database");
                     response.sendRedirect("Registration?registrationStatus=exists&username=" + usernameInput);
                     break;
                 case -3:
                     /*If an invalid username is entered, return the user to the registration page and display a descriptive message*/
-                    System.out.println("User could not be added to the database");
                     response.sendRedirect("Registration?registrationStatus=invalid");
                     break;
                 case -4:
-                    System.out.println("No connection to the database");
+                    /*Database connection issues*/
                     response.sendRedirect("Registration?registrationStatus=dbConn");
                     break;
 
