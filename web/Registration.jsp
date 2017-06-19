@@ -5,6 +5,8 @@
   Time: 7:59 AM
   To change this template use File | Settings | File Templates.
 --%>
+
+<%--Import JSTL Standard tag library--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -29,7 +31,7 @@
     <%--Google recaptcha--%>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
-    <%--Google Sign Up--%>
+    <%-------------------------------Google Sign Up (customised sign-in)--------------------------------------%>
     <meta name="google-signin-client_id"
           content="17619298298-hlb3n0ra5pkquu73jbs8sir2m5i4b4b8.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -81,13 +83,12 @@
                     alert(JSON.stringify(error, undefined, 2));
                 });
         }
-
-
-
-
     </script>
 
+    <%------------------End of Google Sign Up----------------------------------%>
 
+
+    <%-------------------Customized Google Sign-Up Button--------------------%>
     <style type="text/css">
         #customBtn {
             text-align: center;
@@ -132,10 +133,8 @@
             text-align: center;
 
         }
-
-
     </style>
-
+<%----------------------------------------------------------------------%>
 
 
 </head>
@@ -278,10 +277,8 @@ successful sign in -->
     function checkForSpaces(textFieldInput) {
         var textFieldInputTest = textFieldInput.value;
         if (textFieldInputTest.replace(/\s/g, "").length == 0 && (textFieldInputTest.length != 0)) {
-            console.log("false");
             textFieldInput.setCustomValidity("Please enter a caption");
         } else {
-            console.log("passed");
             textFieldInput.setCustomValidity("");
         }
     }
@@ -289,6 +286,7 @@ successful sign in -->
 </script>
 
 
+<%--Google Sign-In--%>
 <script>startApp();</script>
 
 </body>

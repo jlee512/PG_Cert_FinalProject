@@ -5,13 +5,15 @@
   Time: 10:45 PM
   To change this template use File | Settings | File Templates.
 --%>
+
+<%--Import JSTL Standard Tag Library--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="backend.dao.User" %>
 
+<%--Prevents cache access of content/changepassword/logout pages--%>
 <%
-    /*Prevents cache access of content/changepassword/logout pages*/
     response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
 
     response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
@@ -23,12 +25,18 @@
 
 
 %>
+
 <html>
+
 <head>
     <%@include file="HeadStylingLinks.jsp" %>
+
+    <%--Import Loader CSS Stylesheet--%>
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
+
     <title>User Gallery</title>
 </head>
+
 <body>
 <c:choose>
     <c:when test="${loginStatus == 'active'}">

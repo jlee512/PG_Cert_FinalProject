@@ -5,12 +5,14 @@
   Time: 4:03 PM
   To change this template use File | Settings | File Templates.
 --%>
+
+<%--Import JSTL Standard Tag Library--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="backend.dao.User" %>
 
+<%--Prevents cache access of content/changepassword/logout pages--%>
 <%
-    /*Prevents cache access of content/changepassword/logout pages*/
     response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
 
     response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
@@ -25,8 +27,11 @@
 <head>
     <title>${requestScope.user.username}'s profile</title>
     <%@include file="HeadStylingLinks.jsp" %>
+
+    <%--Set the favourites icon--%>
     <link rel="shortcut icon" type="image/png" href="Multimedia/favicon.png">
 
+    <%--Loader Animation CSS file--%>
     <link rel="stylesheet" type="text/css" href="CSS/loader_animation.css">
 
 </head>
@@ -62,43 +67,45 @@
                     <%------User information------%>
                 <div class="panel-body">
 
+                    <div>
+                            <%------User details------%>
                         <div>
-                                <%------User details------%>
-                            <div>
-                                <h3><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i>
-                                    User
-                                    Details:</h3>
+                            <h3><i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 30px"></i>
+                                User
+                                Details:</h3>
 
-                                <h4>Username</h4>
-                                <div id="username"><p>${requestScope.user.username}</p></div>
+                            <h4>Username</h4>
+                            <div id="username"><p>${requestScope.user.username}</p></div>
 
-                                <h4>Name </h4>
-                                <div style="width: 20%" class="form-group"><span>${requestScope.user.firstname}</span> <span>${requestScope.user.lastname}</span></div>
+                            <h4>Name </h4>
+                            <div style="width: 20%" class="form-group"><span>${requestScope.user.firstname}</span>
+                                <span>${requestScope.user.lastname}</span></div>
 
-                                <h4 style="display: inline-block;">Occupation </h4>
-                                <div id="occupation"><p>${requestScope.user.occupation}</p></div>
+                            <h4 style="display: inline-block;">Occupation </h4>
+                            <div id="occupation"><p>${requestScope.user.occupation}</p></div>
 
-                                <h4>Location </h4>
-                                <div id="location"><p>${requestScope.user.city}</p></div>
-                            </div>
+                            <h4>Location </h4>
+                            <div id="location"><p>${requestScope.user.city}</p></div>
+                        </div>
 
-                                <%------Contact details------%>
-                            <div>
-                                <h3><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact: </h3>
+                            <%------Contact details------%>
+                        <div>
+                            <h3><i class="fa fa-book" aria-hidden="true" style="font-size: 30px"></i> Contact: </h3>
 
-                                <h4>Email </h4>
-                                <div id="email"><p>${requestScope.user.email}</p></div>
+                            <h4>Email </h4>
+                            <div id="email"><p>${requestScope.user.email}</p></div>
 
-                                <h4 style="display: inline-block">Phone </h4>
-                                <div style="display: inline" id="phone"><p>${requestScope.user.phone}</p></div>
-                            </div>
+                            <h4 style="display: inline-block">Phone </h4>
+                            <div style="display: inline" id="phone"><p>${requestScope.user.phone}</p></div>
+                        </div>
 
-                                <%------About me------%>
-                            <div>
-                                <h4>About me </h4>
-                                <div style="resize: none;" id="aboutme"><p>${requestScope.user.profile_description}</p></div>
+                            <%------About me------%>
+                        <div>
+                            <h4>About me </h4>
+                            <div style="resize: none;" id="aboutme"><p>${requestScope.user.profile_description}</p>
                             </div>
                         </div>
+                    </div>
 
                 </div>
             </div>
