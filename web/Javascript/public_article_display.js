@@ -80,7 +80,7 @@ function successfulArticleLoad(msg) {
             /*Add in the article title and comment count*/
             articleDiv.find(".panel-title").append(" <div style='width: 70%; display: inline-block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>" + article.article_title + "</div>");
             articleDiv.find(".panel-title").append("<div class='view_comments pull-right' style='color: white' style='display: inline-block;'>"+
-                "<i class='fa fa-comment-o' aria-hidden='true'></i> " +
+                "<i class='fa fa-comment-o' aria-hidden='true'><span class='sr-only'>Comments</span></i> " +
                 article.comment_count + "</div>");
 
             /*Get the article id*/
@@ -96,9 +96,9 @@ function successfulArticleLoad(msg) {
             articleDiv.find(".panel-body").html("<p>Published by: " + article.author_username + "</p>" +
                 "<p>" + formattedDate + "</p>" +
                 "<p>" + article.article_body + "</p>" +
-                "<a href=" + href + " style='color: white;'>" +
+                "<a href='" + href + "' style='color: white;'>" +
                 "<div class='btn btn-sm' style='background-color: #64dd17;'>" +
-                "<i class='fa fa-eye' aria-hidden='true'></i>" +
+                "<i class='fa fa-eye' aria-hidden='true'><span class='sr-only'>View Article</span></i>" +
                 "</div>" +
                 "</a>");
 

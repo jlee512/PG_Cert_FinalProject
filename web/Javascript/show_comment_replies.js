@@ -1,9 +1,8 @@
 /**
  * Created by cbla080 on 5/06/2017.
- */
-
+ *
 /*-------------------------------------------------------*/
-/*This JavaScript file is used to show a level of reply comments for a given parent comment using an AJAX call to the ShowNestedComments servlet*/
+/*This JavaScript file is used to show a level of reply comments for a given parent comment using an AJAX call to the ShowNestedComments servlet */
 /*-------------------------------------------------------*/
 
 /*Reply comment template*/
