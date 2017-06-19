@@ -36,14 +36,18 @@
 <%@include file="Navbar.jsp" %>
 <%----------------------------------------Article--------------------------------------------------%>
 
+<%--Article title is recieved from the ViewArticle servlet--%>
 <h1 class="display-4">${requestScope.article.article_title}</h1>
 <br>
+<%--Author username is recieved from the ViewArticle servlet and links to their public profile--%>
 <h3 id="author">Published by: <strong><a href="PublicProfile?username=${requestScope.article.author_username}" style="color: #f9a825;">${requestScope.article.author_username}</a></strong></h3>
 <br>
 
+<%--Article body recieved from ViewArticle servlet--%>
 <p style="white-space: pre-wrap;">${requestScope.article.article_body}</p>
 <br>
 
+<%--Article date received from ViewArticle servlet--%>
 <em>Published: ${requestScope.date}</em>
 <hr>
 
@@ -77,17 +81,19 @@
     <div id="loaded4" style="display: inline-block;"></div>
 </div>
 
-
+<%--Store the current user's username for use in JavaScript--%>
 <div id="userdetails" style="display: none">${sessionScope.userDetails.username}</div>
-<div id="articleid" style="display: none">${requestScope.article.article_id}</div>
+
+<%---------------------------------------External JavaScript-------------------------------------------------%>
 <script src="Javascript/show_comment_replies.js"></script>
 <script src="Javascript/show_top_level_comments.js"></script>
 <script src="Javascript/add_comment_form.js"></script>
 <script src="Javascript/reply_to_comment_form.js"></script>
 <script src="Javascript/edit_comment_form.js"></script>
 <script type="application/javascript" src="Javascript/view_article_multimedia.js"></script>
+
+<%--Body styling links--%>
 <%@include file="BodyStylingLinks.jsp"%>
 
 </body>
 </html>
-<%--Need to set up a function to retrieve replies if Show Replies button is clicked--%>
