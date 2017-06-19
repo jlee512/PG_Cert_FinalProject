@@ -144,7 +144,6 @@ public class ProfilePicture extends HttpServlet {
 
                     } else {
                     /*If a default picture is selected, update the database with the value of the form-field submitted*/
-                        System.out.println(fi.getString());
                         UserDAO.updateProfilePicture(DB, fi.getString(), user.getUsername());
                         user.setProfile_picture(fi.getString());
                     }

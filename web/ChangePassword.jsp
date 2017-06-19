@@ -5,12 +5,15 @@
   Time: 9:33 PM
   To change this template use File | Settings | File Templates.
 --%>
+
+<%--JSTL tag library and Class import statements--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="backend.dao.User" %>
 
+
+<%--Prevents cache access of content/changepassword/logout pages--%>
 <%
-    /*Prevents cache access of content/changepassword/logout pages*/
     response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
     response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
     response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
@@ -24,11 +27,13 @@
 
 <html>
 <head>
+    <%--Include the HeadStylingLinks (style frameworks)--%>
     <%@include file="HeadStylingLinks.jsp" %>
     <script src="Javascript/form_security_validation.js"></script>
     <title>Password change</title>
 </head>
 
+<%--Page specific styling--%>
 <style type="text/css">
 
     #currentPassword, #newPassword, #newPasswordVerify {
