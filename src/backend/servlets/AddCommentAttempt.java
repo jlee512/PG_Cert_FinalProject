@@ -16,7 +16,10 @@ import static backend.servlets.AddAnArticleAttempt.inputContainsHTML;
 
 /**
  * Created by catherinedechalain on 1/06/17.
+ *
+ * Servlet for adding a comment to an article or another comment and storing it in the database.
  */
+
 public class AddCommentAttempt extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -28,7 +31,8 @@ public class AddCommentAttempt extends HttpServlet {
         /*Access the database*/
         MySQL DB = new MySQL();
 
-        String status = "";
+        /*Initialize a String variable to store status of attempt to add comment to the database*/
+        String status;
 
         /*If user is not logged in, redirect to login page*/
         HttpSession session = request.getSession(true);
@@ -46,8 +50,6 @@ public class AddCommentAttempt extends HttpServlet {
                 /*Get comment details*/
                 Timestamp currentTime = new Timestamp(System.currentTimeMillis());
                 String content = request.getParameter("comment_body");
-
-
                 int articleID = Integer.parseInt(request.getParameter("article_id"));
 
                 /*Access user details from the session*/
