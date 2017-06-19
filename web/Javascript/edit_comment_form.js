@@ -1,11 +1,16 @@
 /**
  * Created by cbla080 on 12/06/2017.
  */
+
+/*-------------------------------------------------------*/
+/*This JavaScript file is used to edit comments on a given article.
+/*-------------------------------------------------------*/
+
 //When edit button is clicked, open the comment editing form.
 $(document).on("click", ".edit_comment", function () {
 
-    //Get the article id from the page.
-    var articleID = $("#articleid").text();
+    //Get the article id from the cookie.
+    var articleID = getArticleID();
 
     //Get the comment id from the button.
     var button = $(this);
@@ -26,8 +31,9 @@ $(document).on("click", ".edit_comment", function () {
         button.html("Edit");
         $(".edit_comment_body").remove();
 
-    } else {
+
         //If the editing form is closed, open it.
+    } else {
         button.addClass("edit_open");
         button.html("<p><i class='fa fa-pencil' aria-hidden='true'></i>Edit</p>");
         var edit_comment_form = "<div class='panel-body edit_comment_body'>" + "<form action='EditComment' method='POST'>" +
@@ -44,3 +50,29 @@ $(document).on("click", ".edit_comment", function () {
     }
 
 });
+function getArticleID () {
+    /*Create the cookie search text*/
+    var cookieName = "article_id=";
+
+    /*Decode the cookie string */
+    var decodedCookie = decodeURIComponent(document.cookie);
+
+    /*Split the document.cookie result based on semi colons*/
+    var cookieArray = decodedCookie.split(';');
+
+    for (var i = 0; i < cookieArray.length; i++) {
+        /*Access cookies one-by-one (crumb-by-crumb XD)*/
+        var cookie = cookieArray[i];
+        /*Trim any whitespace*/
+        cookie = cookie.replace(/ /g, '');
+        /*If the cookie is found, return the value of the cookie*/
+        if (cookie.indexOf(cookieName) == 0 ) {
+            return cookie.substring(cookieName.length, cookie.length);
+        }
+    }
+    /*Return blank if not found*/
+    return "";
+}
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/
