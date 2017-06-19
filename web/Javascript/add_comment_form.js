@@ -1,17 +1,20 @@
 /**
  * Created by cbla080 on 8/06/2017.
- */
-
-/*This JavaScript file contains the toggle-able comment addition form*/
+ *
+ *
+ * This JavaScript file contains the toggle-able comment addition form.
+ **/
 
 $(document).ready(function () {
 
     /*When add comment button is clicked, either show input form or hide input form*/
     $(".add-comment-button").click(function () {
 
-        /*Pull the username and article id*/
+        /*Get the username from the JSP*/
         var username = $("#userdetails").text();
-        var articleID = $("#articleid").text();
+
+        /*Get the article ID from the cookie*/
+        var articleID = getArticleID();
 
         /*If the add comment form is open and button is clicked, close it*/
         if ($(this).hasClass("dialog_open")) {
@@ -38,6 +41,29 @@ $(document).ready(function () {
     })
 });
 
+function getArticleID () {
+    /*Create the cookie search text*/
+    var cookieName = "article_id=";
+
+    /*Decode the cookie string */
+    var decodedCookie = decodeURIComponent(document.cookie);
+
+    /*Split the document.cookie result based on semi colons*/
+    var cookieArray = decodedCookie.split(';');
+
+    for (var i = 0; i < cookieArray.length; i++) {
+        /*Access cookies one-by-one (crumb-by-crumb XD)*/
+        var cookie = cookieArray[i];
+        /*Trim any whitespace*/
+        cookie = cookie.replace(/ /g, '');
+        /*If the cookie is found, return the value of the cookie*/
+        if (cookie.indexOf(cookieName) == 0 ) {
+            return cookie.substring(cookieName.length, cookie.length);
+        }
+    }
+    /*Return blank if not found*/
+    return "";
+}
 /*---------------------------*/
 /*End of JavaScript file*/
 /*---------------------------*/

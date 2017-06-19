@@ -25,7 +25,7 @@
             dispatcher.forward(request, response);
         }
     %>
-    <c:if test="${loginStatus != 'active'}">
+    <c:if test="${sessionScope.loginStatus != 'active'}">
         <c:redirect url="Login"/>
     </c:if>
     <title>${requestScope.article.article_title}</title>
@@ -92,7 +92,7 @@
 <script src="Javascript/edit_comment_form.js"></script>
 <script type="application/javascript" src="Javascript/view_article_multimedia.js"></script>
 
-<%--Body styling links--%>
+<%--Include Bootstrap JS, jQuery and jQuery UI--%>
 <%@include file="BodyStylingLinks.jsp"%>
 
 </body>

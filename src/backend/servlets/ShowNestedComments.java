@@ -17,9 +17,7 @@ import java.util.List;
 
 /**
  * Created by cbla080 on 5/06/2017.
- */
-
-/**
+ *
  * The ShowNestedComments servlet returns a JSON for a specific parent_comment_id representing the next level of associated reply comments
  */
 
@@ -28,7 +26,7 @@ public class ShowNestedComments extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MySQL DB = new MySQL();
 
-        //Don't let users see comments if they are not logged in.
+        /*Don't let users see comments if they are not logged in.*/
         HttpSession session = request.getSession(true);
         if (session.getAttribute("loginStatus") != "active") {
             response.sendRedirect("Login");

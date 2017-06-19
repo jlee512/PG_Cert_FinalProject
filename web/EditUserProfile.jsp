@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <script src="Javascript/form_security_validation.js"></script>
     <title>Edit User Profile</title>
 </head>
 <body>

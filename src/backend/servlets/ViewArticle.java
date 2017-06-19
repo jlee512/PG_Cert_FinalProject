@@ -61,10 +61,7 @@ public class ViewArticle extends HttpServlet {
 
                         Timestamp timestamp = article.getArtcle_timestamp();
 
-
                         String date_for_output = new SimpleDateFormat("dd/MM/yyyy hh:mm a").format(timestamp);
-
-
 
                         //Set it as an attribute to pass to the ViewArticlePage jsp
                         request.setAttribute("article", article);

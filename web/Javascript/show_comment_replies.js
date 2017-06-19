@@ -61,9 +61,8 @@ $(document).on("click", ".show_replies", function () {
                     buttonsDiv.find(".loader-wrapper").show();
 
                     if (msg.length == 0){
-                        /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
+                        /*Hide the loader picture and return that there are no further comments*/
                         $('.loader-wrapper').hide();
-                        $('#loaded1, #loaded2, #loaded3, #loaded4').show();
                         moreComments = false;
 
                     } else {
