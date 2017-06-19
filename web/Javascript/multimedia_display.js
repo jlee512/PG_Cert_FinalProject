@@ -7,11 +7,11 @@
 * Multimedia are accessed from the MultimediaContent servlet using AJAX calls*/
 /*-------------------------------------------------------*/
 
-// Created a template which will be used for inserting new article HTML.
+// Created a template which will be used for inserting new multimedia HTML.
 var multimediaTemplate =
 
     "<div class='panel panel-default' style='margin: 10px;'>" +
-    "<div class='panel-heading article-heading' style='background-color: #00acc1; color: white;'>" +
+    "<div class='panel-heading multimedia-heading' style='background-color: #00acc1; color: white;'>" +
     "<div class='panel-title'></div>" +
     "</div>" +
     "<div class='panel-body'>" +
@@ -21,7 +21,7 @@ var multimediaTemplate =
 
 /*-------------------------------------------------------*/
 
-/*jQuery function to animate each article header on hover*/
+/*jQuery function to animate each multimedia header on hover*/
 function hoverBackgroundColor() {
 
     $(this).find('.multimedia-heading').stop().animate({
@@ -46,7 +46,7 @@ $('div.news_feed').on('mouseleave', '.individualMultimediaLink', normalBackgroun
 
 /*-------------------------------------------------------*/
 
-/* Setup global variables to store the state of article loading on the page at a given point in time as well as sorting mechanisms*/
+/* Setup global variables to store the state of multimedia loading on the page at a given point in time*/
 var from = 0;
 var count = 6;
 var moreMultimedia = true;
@@ -55,13 +55,13 @@ var moreMultimedia = true;
 
 
 /*If a successful AJAX call is made, this function is called to process the results and populate the 'uploadedPhotos' container div and the 'uploadedVideos' container div*/
-function successfulArticleLoad(msg) {
+function successfulMultimediaLoad(msg) {
 
     var photoContainer = $(".uploadedPhotos");
     var videoContainer = $(".uploadedVideos");
 
     if (msg.length == 0) {
-        /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
+        /*Hide the loader picture, show the loaded underline and return that their are no further multimedias*/
         $('.loader-wrapper').hide();
         $('#loaded1, #loaded2, #loaded3, #loaded4').show();
         moreMultimedia = false;
@@ -132,7 +132,7 @@ function successfulArticleLoad(msg) {
 
 /*-------------------------------------------------------*/
 /*If the AJAX call is failed, output an error message to the console*/
-function failedArticleLoad(jqXHR, textStatus, errorThrown) {
+function failedMultimediaLoad(jqXHR, textStatus, errorThrown) {
 
     console.log(jqXHR.status);
     console.log(textStatus);
@@ -144,19 +144,19 @@ function failedArticleLoad(jqXHR, textStatus, errorThrown) {
 /*AJAX call to MultimediaContent servlet to access an increment of multimedia*/
 function loadMultimediaIncrement() {
 
-    /*Show the articles loader*/
+    /*Show the multimedias loader*/
     $('.loader-wrapper').show();
 
-    /*Start an AJAX call to load more articles*/
+    /*Start an AJAX call to load more multimedia*/
     $.ajax({
 
         url: 'MultimediaContent',
         type: 'GET',
         data: {from: from, count: count},
         success: function (msg) {
-            successfulArticleLoad(msg);
+            successfulMultimediaLoad(msg);
         },
-        error: failedArticleLoad
+        error: failedMultimediaLoad
     });
 
     /*Increment the current "from" by the count so that next time the function is called, the next set of multimedia is is loaded*/
@@ -179,7 +179,7 @@ $(document).ready(function () {
         }
     });
 
-    /*Load initial four multimedia*/
+    /*Load initial six multimedia*/
     loadMultimediaIncrement();
 });
 

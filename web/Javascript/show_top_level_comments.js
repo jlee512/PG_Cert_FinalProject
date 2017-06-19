@@ -2,6 +2,10 @@
  * Created by Julian on 06-Jun-17.
  */
 
+/*-------------------------------------------------------*/
+/*This JavaScript file is used to show the top level comments for a given article using an AJAX call to the GetComments_IndividualArticle servlet*/
+/*-------------------------------------------------------*/
+
 //Comment panel template.
 var commentPara = '<div class="panel panel-info">' +
                         '<div class ="comment-content">' +
@@ -11,11 +15,14 @@ var commentPara = '<div class="panel panel-info">' +
                         '<div class="buttons"></div>' +
                     '</div>';
 
+/*-------------------------------------------------------*/
+/* Setup global variables to store the state of comment loading on the page at a given point in time*/
 var from = 0;
 var count = 5;
 var moreComments = true;
 
-
+/*-------------------------------------------------------*/
+/*If a successful AJAX call is made, this function is called to process the results and populate the top level comments into the 'top_level_comment_feed'*/
 function successfulCommentsLoad(msg) {
 
     //Get page element to append comments to.
@@ -26,8 +33,6 @@ function successfulCommentsLoad(msg) {
 
     /*Get username of article author*/
     var authorUsername = $("#author").text();
-    console.log(authorUsername);
-    console.log(msg.length);
 
     if (msg.length == 0){
         /*Hide the loader picture, show the loaded underline and return that there are no further comments*/
@@ -45,7 +50,6 @@ function successfulCommentsLoad(msg) {
             //Get the formatted date.
             var dateUnformatted = new Date(comment.timestamp);
             var date = formatDate(dateUnformatted);
-            console.log(date);
 
             /*Add a button to view replies if comment has replies*/
             if (comment.isParent) {
@@ -97,6 +101,7 @@ function successfulCommentsLoad(msg) {
             /*Append the comment to the container in the ViewArticlePage JSP*/
             commentContainer.append(commentDiv);
 
+            /*If the message length is less than the requested count, hide the loader and set 'moreComments' to false as the end of the comments list has been reached*/
             if (msg.length < count) {
                 $('.loader-wrapper').hide();
                 $('#loaded1, #loaded2, #loaded3, #loaded4').show();
@@ -106,6 +111,8 @@ function successfulCommentsLoad(msg) {
     }
 }
 
+/*-------------------------------------------------------*/
+/*Format date function to process the backend timestamp variable*/
 function formatDate(date) {
 
     var days = date.getDate();
@@ -133,6 +140,9 @@ function formatDate(date) {
 
 }
 
+
+/*-------------------------------------------------------*/
+/*Function to obtain the article_id from the client-side cookie*/
 function getArticleID () {
     /*Create the cookie search text*/
     var cookieName = "article_id=";
@@ -157,7 +167,8 @@ function getArticleID () {
     return "";
 }
 
-
+/*-------------------------------------------------------*/
+/*AJAX call to GetComments_IndividualArticle servlet to access an increment of top-level comments*/
 function loadCommentsIncrement(article_id) {
 
     /*Show the articles loader*/
@@ -179,6 +190,8 @@ function loadCommentsIncrement(article_id) {
     from += count;
 }
 
+/*-------------------------------------------------------*/
+/*If the AJAX call is failed, output an error message to the console*/
 function failedCommentsLoad(jqXHR, textStatus, errorThrown) {
 
     console.log(jqXHR.status);
@@ -187,6 +200,8 @@ function failedCommentsLoad(jqXHR, textStatus, errorThrown) {
 
 }
 
+/*-------------------------------------------------------*/
+/*On loading, populate the page with the first round of top_level_comments*/
 $(document).ready(function () {
 
     /*Get the article id from the 'article_id' cookie*/
@@ -204,6 +219,10 @@ $(document).ready(function () {
         }
     });
 
-    /*Load initial four articles*/
+    /*Load initial five comments*/
     loadCommentsIncrement(article_id);
 });
+
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/

@@ -3,7 +3,7 @@
  */
 
 /*-------------------------------------------------------*/
-/*This JavaScript file is used to display articles on the user profile page. It incorporates and AJAX call to the ViewIndividualArticles servlet and includes implementation of the front-end sorting/searching functionality*/
+/*This JavaScript file is used to display articles on the user profile page. It incorporates and AJAX call to the ViewIndividualArticles servlet*/
 /*-------------------------------------------------------*/
 
 // Created a template which will be used for inserting new article HTML.
@@ -43,7 +43,7 @@ $('div.news_feed').on('mouseleave', '.individualArticleLink', normalBackgroundCo
 
 /*-------------------------------------------------------*/
 
-/* Setup global variables to store the state of article loading on the page at a given point in time as well as sorting mechanisms*/
+/* Setup global variables to store the state of article loading on the page at a given point in time*/
 var from = 0;
 var count = 6;
 var moreArticles = true;

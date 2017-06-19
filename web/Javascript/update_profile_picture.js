@@ -1,18 +1,27 @@
 /**
  * Created by jlee512 on 10/06/2017.
  */
+
+/*-------------------------------------------------------*/
+/*This JavaScript file is used to toggle the change profile picture dialog on the user's profile pane.
+* If the user opts to edit their photo their are given the choice between uploading a profile picture and a default profile picture*/
+/*-------------------------------------------------------*/
+
 $(document).ready(function () {
 
 
     $(".change-profile-pic-button").on('click', (function () {
 
             // Check to see whether the class (which will be added to the form) already exists
+            /*If the profile picture dialog is open, close it on the button click*/
             if ($(".profile_pic_dialog_open")[0]) {
 
                 $(".change-profile-pic-button").removeClass("profile_pic_dialog_open");
                 $(".change-picture-options").empty();
                 $(".change-profile-pic-button").html("<p><i class='fa fa-user-circle-o' aria-hidden='true'></i> Change Profile Picture</p>");
 
+
+                /*If the profile picture dialog is closed, open it on the button click*/
             } else {
                 $(".change-profile-pic-button").addClass("profile_pic_dialog_open");
                 $(".change-profile-pic-button").html("<p><i class='fa fa-user-circle' aria-hidden='true'></i> Choose a New Profile Picture</p>");
@@ -47,14 +56,17 @@ $(document).ready(function () {
                 })
             );
 
-            /*Toggle the default profile picture on and off*/
+            /*Second level toggle which presents the default profile picture options*/
             $(".default-profile-pic-button").on('click', (function () {
 
+
+                    /*If the default profile picture options are visible and the button is clicked, hide them*/
                     if ($(".default_dialog_open")[0]) {
                     /*If the dialog is on, remove the buttons*/
                         $(".default-picture-choices").removeClass("default_dialog_open");
                         $(".default-picture-choices").empty();
 
+                        /*If the default profile picture options are not visible and the button is clicked, show them*/
                     } else {
 
                         $(".default-picture-choices").addClass("default_dialog_open");
@@ -76,3 +88,7 @@ $(document).ready(function () {
     );
 
 });
+
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/

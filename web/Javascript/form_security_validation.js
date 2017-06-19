@@ -12,12 +12,10 @@ $(document).ready(function () {
 
     //Get all form fields on the page.
     var inputs = document.getElementsByTagName("input");
-    console.log(inputs.length);
 
     //For each input, when field loses focus alert the user if they have entered illegal characters.
     $("input").blur(function () {
         var x = $(this).val();
-        console.log(x);
 
         var illegalChars = /<[^>]*>/;
 
