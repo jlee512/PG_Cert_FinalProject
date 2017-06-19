@@ -53,7 +53,6 @@ public class MultimediaContent extends HttpServlet {
         multimediaDetails.toJSONString();
 
         response.getWriter().write(multimediaDetails.toString());
-        System.out.println(multimediaDetails);
 
     }
 
