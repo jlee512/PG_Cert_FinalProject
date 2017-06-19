@@ -73,7 +73,6 @@
         };
 
         function attachSignin(element) {
-            console.log(element.id);
             auth2.attachClickHandler(element, {},
                 function (googleUser) {
                     document.getElementById('name').innerText = "Signed in: " +
