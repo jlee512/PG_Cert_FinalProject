@@ -1,7 +1,11 @@
 /**
  * Created by cbla080 on 5/06/2017.
  */
+/*-------------------------------------------------------*/
+/*This JavaScript file is used to show or hide replies to  a given comment.
+ /*-------------------------------------------------------*/
 
+/*Template for comment panel*/
 var commentPara = '<div class="panel panel-info">' +
     '<div class ="comment-content">' +
     '<div class="panel-heading">INSERT COMMENT HEADING</div>'+
@@ -14,16 +18,23 @@ var loaderWrapper = '<div class="loader-wrapper" style="margin-left: 3%; text-al
     '<div class="loader" style="display: inline-block; text-align: center;"></div>' +
     '</div>';
 
+/*Show replies*/
 $(document).on("click", ".show_replies", function () {
-    //Show replies
+
+    /*Get username and author username from the JSP*/
     var username = $("#userdetails").text();
     var authorUsername = $("#author").text();
+
+    /*Get comment id of parent comment from button. Take focus off button if clicked but leave on if not for users not using mouse.*/
     var button = $(this);
     $(button).mouseup(function() { this.blur() });
     var parentID = button.val();
-    var commentContainer = $('<div style="margin-left: 5%"></div>');
-    var buttonsDiv = button.parent();
 
+    /*Indent replies relative to parent*/
+    var commentContainer = $('<div style="margin-left: 5%"></div>');
+
+    /*Append loader while replies are loading*/
+    var buttonsDiv = button.parent();
     buttonsDiv.append(loaderWrapper);
 
 
@@ -54,7 +65,7 @@ $(document).on("click", ".show_replies", function () {
                     console.log(msg.length);
 
                     if (msg.length == 0){
-                        /*Hide the loader picture, show the loaded underline and return that their are no further articles*/
+                        /*Hide the loader picture and return that there are no further comments*/
                         $('.loader-wrapper').hide();
                         $('#loaded1, #loaded2, #loaded3, #loaded4').show();
                         moreComments = false;
@@ -96,20 +107,20 @@ $(document).on("click", ".show_replies", function () {
                             /*Add a button to reply to the comment*/
                             var replyButton = '<button type="button" class="add_reply btn btn-default btn-sm" value="' + comment.comment_id + '">Reply</button>';
 
-                            //Append the reply button.
+                            /*Append the reply button.*/
                             replyCommentsButtonPanel.append(replyButton);
 
-                            //If there are replies, append the Show Replies button.
+                            /*If there are replies, append the Show Replies button.*/
                             if (comment.is_parent) {
                                 replyCommentsButtonPanel.append(viewRepliesButton);
                             }
 
-                            //If current user is authorized to delete the comment, append the delete button.
+                            /*If current user is authorized to delete the comment, append the delete button.*/
                             if (username == comment.author_username || username == authorUsername) {
                                 replyCommentsButtonPanel.append(deleteButton);
                             }
 
-                            //If current user is authorized to edit the comment, append the edit button.
+                            /*If current user is authorized to edit the comment, append the edit button.*/
                             if (username == comment.author_username) {
                                 replyCommentsButtonPanel.append(editButton);
                             }
@@ -118,9 +129,10 @@ $(document).on("click", ".show_replies", function () {
 
                         }
 
-                        //Insert replies at the bottom of the parent comment.
+                        /*Insert replies at the bottom of the parent comment.*/
                         commentContainer.insertAfter(buttonsDiv);
 
+                    /*Hide wrapper then remove (avoids jarring effect when removed immediately)*/
                     buttonsDiv.find(".loader-wrapper").hide();
                     buttonsDiv.find(".loader-wrapper").remove();
                     button.html("Hide Replies");
@@ -133,6 +145,7 @@ $(document).on("click", ".show_replies", function () {
         }
 });
 
+/*Put date into appropriate format*/
 function formatDate(date) {
 
     var days = date.getDate();
@@ -169,6 +182,7 @@ function loadNestedCommentsFail(jqXHR, textStatus, errorThrown) {
 
 }
 
+/*Get the article ID from the cookie*/
 function getArticleID () {
     /*Create the cookie search text*/
     var cookieName = "article_id=";
