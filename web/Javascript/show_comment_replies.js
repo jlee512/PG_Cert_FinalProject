@@ -42,6 +42,7 @@ $(document).on("click", ".show_replies", function () {
     /*If the replies are displayed and the button is pressed, remove the comments*/
     if (button.hasClass("comments-displayed")) {
         console.log("comments loaded");
+
         buttonsDiv.find(".loader-wrapper").hide();
         buttonsDiv.find(".loader-wrapper").remove();
         button.removeClass("comments-displayed");
@@ -84,7 +85,11 @@ $(document).on("click", ".show_replies", function () {
 
 
                 /*--------Fillout the comment HTML template-----*/
+
+                            /*Include the comment author username with link to public profile + comment date in header*/
                             commentContainerTemplate.find(".panel-heading").html('<p><strong><a href="PublicProfile?username='+ comment.author_username + '" style="color: #f9a825;">' + comment.author_username + '</a></strong>, ' + date + '</p>');
+
+                            /*Show comment content in body*/
                             commentContainerTemplate.find(".panel-body").html("<p>" + comment.content + "</p>");
 
                 /*--------Construct the buttons if required-----*/
@@ -206,3 +211,6 @@ function getArticleID () {
     /*Return blank if not found*/
     return "";
 }
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/
