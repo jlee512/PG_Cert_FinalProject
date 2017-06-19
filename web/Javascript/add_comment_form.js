@@ -1,7 +1,11 @@
 /**
  * Created by cbla080 on 8/06/2017.
  */
+
+/*This JavaScript file contains the toggle-able comment addition form*/
+
 $(document).ready(function () {
+
     /*When add comment button is clicked, either show input form or hide input form*/
     $(".add-comment-button").click(function () {
 
@@ -34,5 +38,7 @@ $(document).ready(function () {
     })
 });
 
-
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/
 

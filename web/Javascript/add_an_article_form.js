@@ -1,16 +1,21 @@
 /**
  * Created by jlee512 on 8/06/2017.
  */
+
+/*This JavaScript file contains the toggle-able article addition form as well as the 'fade-out' logic for notifications on the profile page (which appear about the profile picture)*/
+
 $(document).ready(function () {
 
 
     $(".add-article-button").click (function() {
 
+        /*Case (A) When the add an article button is clicked (and the dialog is open) close the dialog.*/
         if ($(".dialog_open")[0]){
             $(".add-article-button").removeClass("dialog_open");
             $(".add_article_panel_body").remove();
             $(".add-article-button").html("<p><i class='fa fa-plus' aria-hidden='true'></i> Add an Article</p>");
 
+            /* Case (B) When the add an article button is clicked (and the dialog is closed) open the dialog*/
         } else {
             $(".add-article-button").addClass("dialog_open");
             $(".add-article-button").html("<p><i class='fa fa-pencil' aria-hidden='true'></i> Have your say</p>");
@@ -43,6 +48,8 @@ $(document).ready(function () {
 
 });
 
+
+/*Set the timeout for any user messages to 3 seconds*/
 setTimeout(fade_out, 3000);
 
 function fade_out() {
@@ -53,3 +60,7 @@ function fade_out() {
     $('.article-edit-notification').fadeOut().empty();
 
 }
+
+/*---------------------------*/
+/*End of JavaScript file*/
+/*---------------------------*/
