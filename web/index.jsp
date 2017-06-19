@@ -59,11 +59,9 @@
 </div>
 <script>
 
-    // Size of the viewport - not used
+    // Size of the viewport
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-    console.log(w, h);
 
     if ( w > 1200 && h > 500) {
         $(".homepageVideo").prepend("<video autoplay loop muted src='Multimedia/indexVideo.mp4'></video>");
