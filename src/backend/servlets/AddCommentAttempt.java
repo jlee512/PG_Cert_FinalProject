@@ -46,7 +46,7 @@ public class AddCommentAttempt extends HttpServlet {
                 /*Get comment details*/
                 Timestamp currentTime = new Timestamp(System.currentTimeMillis());
                 String content = request.getParameter("comment_body");
-                String username = request.getParameter("username");
+
 
                 int articleID = Integer.parseInt(request.getParameter("article_id"));
 

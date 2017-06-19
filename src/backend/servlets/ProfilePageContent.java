@@ -85,26 +85,20 @@ public class ProfilePageContent extends HttpServlet {
                     user.setLastname(lastname);
 
                     session.setMaxInactiveInterval(60 * 5);
-
-
                     session.setAttribute("userDetails", user);
 
-                    System.out.println(((User) session.getAttribute("userDetails")).getUsername());
-
                     response.sendRedirect("ProfilePage?username=" + user.getUsername());
-                } else if (userUpdateStatus == 2) {
 
-                    System.out.println("Duplicate username");
+                } else if (userUpdateStatus == 2) {
+                    /*Duplicate username*/
                     response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=duplicateUsername");
 
                 } else if (userUpdateStatus == 3) {
-
-                    System.out.println("Invalid username");
+                    /*Invalid username*/
                     response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=invalidUsername");
 
                 } else {
-
-                    System.out.println("Database connectivity issues");
+                    /*Database connection issues*/
                     response.sendRedirect("ProfilePage?username=" + user.getUsername() + "&userUpdate=db");
 
                 }
